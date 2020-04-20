@@ -1,5 +1,8 @@
 package mediator;
 
+import model.Game;
+import model.GameList;
+
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

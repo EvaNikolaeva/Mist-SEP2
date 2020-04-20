@@ -1,5 +1,9 @@
 package mediator;
 
+import model.Game;
+import model.GameList;
+import model.Model;
+
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -9,7 +13,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class GameListClient implements GameListClientModel
 {
-<<<<<<< Updated upstream
     private Model model;
     private RemoteGameListModel remoteGameListModel;
 
@@ -47,7 +50,5 @@ public class GameListClient implements GameListClientModel
     public void close()
     {
     }
-=======
 
->>>>>>> Stashed changes
 }
