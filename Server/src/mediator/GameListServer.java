@@ -1,5 +1,9 @@
 package mediator;
 
+import model.Game;
+import model.GameList;
+import model.Model;
+
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -57,7 +61,7 @@ public class GameListServer implements RemoteGameListModel
     @Override
     public void addGame(Game game)
     {
-        model.AddGame(Game game);
+        model.AddGame(game);
     }
 
     @Override
