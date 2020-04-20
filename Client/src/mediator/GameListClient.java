@@ -9,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class GameListClient implements GameListClientModel
 {
+<<<<<<< Updated upstream
     private Model model;
     private RemoteGameListModel remoteGameListModel;
 
@@ -46,4 +47,7 @@ public class GameListClient implements GameListClientModel
     public void close()
     {
     }
+=======
+
+>>>>>>> Stashed changes
 }
