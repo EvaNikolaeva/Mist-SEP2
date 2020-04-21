@@ -26,8 +26,7 @@ public class GameListServer implements RemoteGameListModel
     {
         try
         {
-            RemoteGameListModel stub = (RemoteGameListModel) UnicastRemoteObject
-                    .exportObject(this, 0);
+            RemoteGameListModel stub = (RemoteGameListModel) UnicastRemoteObject.exportObject(this, 0);
             Naming.rebind("games", stub);
             System.out.println("Starting server...");
         } catch (RemoteException | MalformedURLException e)
