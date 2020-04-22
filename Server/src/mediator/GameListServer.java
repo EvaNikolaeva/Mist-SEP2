@@ -3,6 +3,7 @@ package mediator;
 import model.Game;
 import model.GameList;
 import model.Model;
+import utility.UnnamedPropertyChangeSubject;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -14,6 +15,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class GameListServer implements RemoteGameListModel
 {
   private Model model;
+//  private UnnamedPropertyChangeSubject property;
 
   public GameListServer(Model model)
   {

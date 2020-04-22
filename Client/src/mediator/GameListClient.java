@@ -11,7 +11,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class GameListClient implements GameListClientModel
+public class GameListClient implements GameListClientModel, Remote
 {
   private Model model;
   private RemoteGameListModel remoteGameListModel;
@@ -23,6 +23,7 @@ public class GameListClient implements GameListClientModel
 
   @Override public void connect()
       throws RemoteException, NotBoundException, MalformedURLException
+
   {
     remoteGameListModel = (RemoteGameListModel) Naming
         .lookup("rmi://localhost:1099/games");
@@ -30,15 +31,18 @@ public class GameListClient implements GameListClientModel
     model.getUserGamesList();
   }
 
-  @Override public GameList getGameList() throws RemoteException {
+  @Override public GameList getGameList()
+  {
     return remoteGameListModel.getGameList();
   }
 
-  @Override public void addGame(Game game) throws RemoteException {
+  @Override public void addGame(Game game)
+  {
     remoteGameListModel.addGame(game);
   }
 
-  @Override public void removeGame(int id) throws RemoteException {
+  @Override public void removeGame(int id)
+  {
     remoteGameListModel.removeGame(id);
   }
 
