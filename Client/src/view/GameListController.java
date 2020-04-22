@@ -6,7 +6,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import model.Game;
 import viewModel.GameListViewModel;
-import viewModel.GameMenuViewModel;
 
 public class GameListController
 {
