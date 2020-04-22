@@ -19,11 +19,6 @@ public class GameListViewModel
 
   public ObservableList<Game> getList()
   {
-    GameList games = model.GetGameList();
-    for (int i = 0; i < games.size(); i++)
-    {
-      list.add(games.getGame(i));
-    }
     return list;
   }
 
