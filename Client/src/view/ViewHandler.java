@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import viewModel.UserGameListViewModel;
 import viewModel.ViewModelFactory;
 
 public class ViewHandler
@@ -14,6 +15,7 @@ public class ViewHandler
   private ViewModelFactory viewModelFactory;
   private GameListController gameListController;
   private GameMenuController gameMenuController;
+  private UserGameListController userGameListController;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
@@ -37,6 +39,9 @@ public class ViewHandler
         break;
       case "menu":
         root = loadGameMenuView("GameMenu.fxml");
+        break;
+      case "user":
+        root = loadUserGameListView("UserGameList.fxml");
         break;
     }
     currentScene.setRoot(root);
@@ -64,7 +69,7 @@ public class ViewHandler
         Region root = loader.load();
         gameListController = loader.getController();
         gameListController
-            .init(this, viewModelFactory.getGameListModel(), root);
+            .init(this, viewModelFactory.gameListViewModel(), root);
       }
       catch (Exception e)
       {
@@ -89,7 +94,7 @@ public class ViewHandler
         Region root = loader.load();
         gameMenuController = loader.getController();
         gameMenuController
-            .init(this, viewModelFactory.getGameMenuViewModel(), root);
+            .init(this, viewModelFactory.gameMenuViewModel(), root);
       }
       catch (Exception e)
       {
@@ -101,5 +106,30 @@ public class ViewHandler
       gameMenuController.reset();
     }
     return gameMenuController.getRoot();
+  }
+
+  private Region loadUserGameListView(String fxmlFile)
+  {
+    if (userGameListController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        userGameListController = loader.getController();
+        userGameListController
+            .init(this, viewModelFactory.userGameListViewModel(), root);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+      userGameListController.reset();
+    }
+    return userGameListController.getRoot();
   }
 }

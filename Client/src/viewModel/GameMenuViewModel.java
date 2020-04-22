@@ -8,7 +8,7 @@ import model.Model;
 
 public class GameMenuViewModel
 {
-  private StringProperty name;
+  private StringProperty title;
   private StringProperty type;
   private StringProperty releaseYear;
   private StringProperty rentalPeriod;
@@ -19,7 +19,7 @@ public class GameMenuViewModel
   public GameMenuViewModel(Model model)
   {
     this.model = model;
-    this.name = new SimpleStringProperty();
+    this.title = new SimpleStringProperty();
     this.type = new SimpleStringProperty();
     this.releaseYear = new SimpleStringProperty();
     this.rentalPeriod = new SimpleStringProperty();
@@ -29,7 +29,7 @@ public class GameMenuViewModel
 
   public StringProperty getName()
   {
-    return name;
+    return title;
   }
 
   public StringProperty getType()
@@ -59,7 +59,7 @@ public class GameMenuViewModel
 
   public void reset()
   {
-    name.setValue("");
+    title.setValue("");
     type.setValue("");
     releaseYear.setValue("");
     rentalPeriod.setValue("");

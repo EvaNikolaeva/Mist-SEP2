@@ -7,6 +7,8 @@ import javafx.scene.layout.Region;
 import model.Game;
 import viewModel.GameListViewModel;
 
+import java.rmi.RemoteException;
+
 public class GameListController
 {
   @FXML TableView<Game> list;
@@ -22,12 +24,13 @@ public class GameListController
   private GameListViewModel gameListViewModel;
 
   public void init(ViewHandler viewHandler, GameListViewModel gameListViewModel,
-      Region root)
+      Region root) throws RemoteException
   {
     this.root = root;
     this.viewHandler = viewHandler;
     this.gameListViewModel = gameListViewModel;
-    this.list.setItems(gameListViewModel.getItems());
+    this.list.setItems(gameListViewModel.getList());
+    //cel factories here for every table column
   }
 
   public Region getRoot()
@@ -40,24 +43,8 @@ public class GameListController
 
   }
 
-  @FXML public void onAddGame()
+  @FXML public void onMyGames()
   {
-    viewHandler.openView("menu");
+    viewHandler.openView("user");
   }
-
-//  @FXML public void removeGame()
-//  {
-//    if(list.getSelectionModel().getSelectedIndex() < 0)
-//    {
-//      Alert alert = new Alert(Alert.AlertType.ERROR, "You have to select a created offer.", ButtonType.OK);
-//      alert.showAndWait();
-//      alert.close();
-//    }
-//    else
-//    {
-//      int index = table.getSelectionModel().getSelectedIndex();
-//      this.gameListViewModel.getGames().remove(index);
-//      this.model.removeExam(index);
-//    }
-//  }
 }
