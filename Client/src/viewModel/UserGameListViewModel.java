@@ -8,19 +8,20 @@ import model.Model;
 
 import java.rmi.RemoteException;
 
-public class GameListViewModel
+public class UserGameListViewModel
 {
   private Model model;
   private ObservableList<Game> list;
 
-  public GameListViewModel(Model model)
+  public UserGameListViewModel(Model model)
   {
     this.model = model;
     this.list = FXCollections.observableArrayList();
-   //? model.addListener(this);
+    //? model.addListener(this);
   }
 
-  public ObservableList<Game> getList() throws RemoteException {
+  public ObservableList<Game> getList() throws RemoteException
+  {
     GameList games = model.GetGameList();
     for (int i = 0; i < games.size(); i++)
     {

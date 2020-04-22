@@ -6,11 +6,13 @@ public class ViewModelFactory
 {
   private GameListViewModel gameListViewModel;
   private GameMenuViewModel gameMenuViewModel;
+  private UserGameListViewModel userGameListViewModel;
 
   public ViewModelFactory(Model model)
   {
     this.gameListViewModel = new GameListViewModel(model);
     this.gameMenuViewModel = new GameMenuViewModel(model);
+    this.userGameListViewModel = new UserGameListViewModel(model);
   }
 
   public GameMenuViewModel gameMenuViewModel()
@@ -22,4 +24,10 @@ public class ViewModelFactory
   {
     return gameListViewModel;
   }
+
+  public UserGameListViewModel userGameListViewModel()
+  {
+    return userGameListViewModel;
+  }
+
 }
