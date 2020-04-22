@@ -1,17 +1,22 @@
 package view;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Region;
+import model.Game;
 import viewModel.GameListViewModel;
 import viewModel.GameMenuViewModel;
 
 public class GameListController
 {
-  @FXMl TableView</*here is an object. String or "Game" object*/> list;
-  @FXMl TableColumn title;
-  @FXMl TableColumn type;
-  @FXMl TableColumn year;
-  @FXMl TableColumn rentalPeriod;
-  @FXMl TableColumn availabilityPeriod;
-  @FXMl TableColumn deposit;
+  @FXML TableView<Game> list;
+  @FXML TableColumn<String, Game> title;
+  @FXML TableColumn<String, Game> type;
+  @FXML TableColumn<String, Game> year;
+  @FXML TableColumn<String, Game> rentalPeriod;
+  @FXML TableColumn<String, Game> availabilityPeriod;
+  @FXML TableColumn<String, Game> deposit;
   private Region root;
 
   private ViewHandler viewHandler;
@@ -55,6 +60,5 @@ public class GameListController
 //      this.gameListViewModel.getGames().remove(index);
 //      this.model.removeExam(index);
 //    }
-//  } there is a need for a 3rd fxml file where you only see your games so you can delete them only there
-  // afterwards, in the window with all the games, there will be an update from the 3rd fxml file
+//  }
 }

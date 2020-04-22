@@ -1,5 +1,9 @@
 package view;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import viewModel.GameMenuViewModel;
 
 public class GameMenuController
@@ -30,11 +34,11 @@ public class GameMenuController
 
   public void reset()
   {
-    name.set("");
-    type.set("");
-    releaseYear.set("");
-    rentalPeriod.set("");
-    availabilityPeriod.set("");
+    name.setText("");
+    type.setText("");
+    releaseYear.setText("");
+    rentalPeriod.setText("");
+    availabilityPeriod.setText("");
     deposit.setSelected(false);
   }
 
