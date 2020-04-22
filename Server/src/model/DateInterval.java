@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class DateInterval
+public class DateInterval implements Serializable
 {
     private Calendar startDate;
     private Calendar endDate;
