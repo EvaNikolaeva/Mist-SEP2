@@ -1,6 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
@@ -11,13 +12,8 @@ import java.rmi.RemoteException;
 
 public class GameListController
 {
-  @FXML TableView<Game> list;
-  @FXML TableColumn<String, Game> title;
-  @FXML TableColumn<String, Game> type;
-  @FXML TableColumn<String, Game> year;
-  @FXML TableColumn<String, Game> rentalPeriod;
-  @FXML TableColumn<String, Game> availabilityPeriod;
-  @FXML TableColumn<String, Game> deposit;
+  @FXML
+  ListView<Game> list;
   private Region root;
 
   private ViewHandler viewHandler;

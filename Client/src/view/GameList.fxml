@@ -27,6 +27,6 @@
       </VBox>
    </left>
    <center>
-      <ListView BorderPane.alignment="CENTER" />
+      <ListView BorderPane.alignment="CENTER" fx:id="list"/>
    </center>
 </BorderPane>

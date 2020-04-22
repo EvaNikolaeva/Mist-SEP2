@@ -17,14 +17,14 @@ public class GameListViewModel
   {
     this.model = model;
     this.list = FXCollections.observableArrayList();
-   //? model.addListener(this);
   }
 
   public ObservableList<Game> getList() throws RemoteException {
     GameList games = model.GetGameList();
     for (int i = 0; i < games.size(); i++)
     {
-      list.add(games.getGame(i));
+      list.add((Game)games.getGame(i));
+      System.out.println("added game to list" + games.getGame(i));
     }
     return list;
   }
