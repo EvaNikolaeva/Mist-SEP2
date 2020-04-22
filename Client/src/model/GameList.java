@@ -40,5 +40,10 @@ public class GameList
         return games.get(index);
     }
 
+    public int size()
+    {
+        return games.size();
+    }
+
 
 }
