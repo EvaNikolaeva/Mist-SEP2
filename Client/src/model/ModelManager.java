@@ -15,6 +15,7 @@ public class ModelManager implements Model
   public ModelManager() throws RemoteException, MalformedURLException, NotBoundException {
     this.client = new GameListClient(this);
     this.user = new User("Testy", 123456);
+    updateUserGames();
   }
 
   @Override public void AddGame(Game game) throws RemoteException

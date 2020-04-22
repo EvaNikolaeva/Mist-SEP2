@@ -27,7 +27,6 @@ public class GameListClient implements GameListClientModel, Remote
   {
     remoteGameListModel = (RemoteGameListModel) Naming.lookup("rmi://localhost:1099/games");
     UnicastRemoteObject.exportObject(this, 0);
-    model.updateUserGames();
   }
 
   @Override public GameList getGameList() throws RemoteException {
