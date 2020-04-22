@@ -34,11 +34,11 @@ public class GameMenuController
 
   public void reset()
   {
-    name.setText("");
-    type.setText("");
-    releaseYear.setText("");
-    rentalPeriod.setText("");
-    availabilityPeriod.setText("");
+    name.clear();
+    type.clear();
+    releaseYear.clear();
+    rentalPeriod.clear();
+    availabilityPeriod.clear();
     deposit.setSelected(false);
   }
 
@@ -49,7 +49,7 @@ public class GameMenuController
 
   @FXML public void onSubmit()
   {
-    //needs viewModel done
+    viewHandler.openView("user");
   }
 
 }

@@ -33,7 +33,6 @@ public class GameListServer implements RemoteGameListModel
       Naming.rebind("games", stub);
       System.out.println("Starting server...");
       Registry registry = LocateRegistry.getRegistry();
-      System.out.println(Arrays.toString(registry.list()));
     }
     catch (RemoteException | MalformedURLException e)
     {
@@ -46,6 +45,7 @@ public class GameListServer implements RemoteGameListModel
     try
     {
       Registry reg = LocateRegistry.createRegistry(1099);
+
       System.out.println("Registry started...");
     }
     catch (java.rmi.server.ExportException ex)

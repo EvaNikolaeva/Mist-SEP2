@@ -15,7 +15,7 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="119.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Add Game">
+            <Button mnemonicParsing="false" onAction="#onAddGame" style="-fx-background-color: #75B5C6;" text="Add Game">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -23,7 +23,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Remove Game">
+            <Button mnemonicParsing="false" onAction="#onRemoveGame" style="-fx-background-color: #75B5C6;" text="Remove Game">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -31,7 +31,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Back to full list">
+            <Button mnemonicParsing="false" onAction="#onBackList" style="-fx-background-color: #75B5C6;" text="Back to full list">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -43,6 +43,6 @@
       </VBox>
    </left>
    <center>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

@@ -1,6 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,8 +13,17 @@ import java.rmi.RemoteException;
 
 public class GameListController
 {
-  @FXML
-  ListView<Game> list;
+
+
+
+  @FXML ListView<Game> list;
+//  @FXML TableColumn<String, Game> title;
+//  @FXML TableColumn<String, Game> type;
+//  @FXML TableColumn<String, Game> year;
+//  @FXML TableColumn<String, Game> rentalPeriod;
+//  @FXML TableColumn<String, Game> availabilityPeriod;
+//  @FXML TableColumn<String, Game> deposit;
+
   private Region root;
 
   private ViewHandler viewHandler;
@@ -26,7 +36,6 @@ public class GameListController
     this.viewHandler = viewHandler;
     this.gameListViewModel = gameListViewModel;
     this.list.setItems(gameListViewModel.getList());
-    //cel factories here for every table column
   }
 
   public Region getRoot()

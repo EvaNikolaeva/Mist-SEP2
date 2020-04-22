@@ -32,7 +32,6 @@ public class ModelManager implements Model
 
   @Override public GameList GetGameList() throws RemoteException
   {
-    System.out.println(client.getGameList());
     return client.getGameList();
   }
 

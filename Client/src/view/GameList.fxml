@@ -15,7 +15,7 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="119.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="My Games">
+            <Button mnemonicParsing="false" onAction="#onMyGames" style="-fx-background-color: #75B5C6;" text="My Games">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -27,6 +27,6 @@
       </VBox>
    </left>
    <center>
-      <ListView BorderPane.alignment="CENTER" fx:id="list"/>
+      <ListView fx:id="list" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

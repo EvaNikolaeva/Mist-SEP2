@@ -1,10 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import model.Game;
 import viewModel.GameListViewModel;
@@ -14,13 +11,13 @@ import java.rmi.RemoteException;
 
 public class UserGameListController
 {
-  @FXML TableView<Game> list;
-  @FXML TableColumn<String, Game> title;
-  @FXML TableColumn<String, Game> type;
-  @FXML TableColumn<String, Game> year;
-  @FXML TableColumn<String, Game> rentalPeriod;
-  @FXML TableColumn<String, Game> availabilityPeriod;
-  @FXML TableColumn<String, Game> deposit;
+  @FXML ListView<Game> list;
+//  @FXML TableColumn<String, Game> title;
+//  @FXML TableColumn<String, Game> type;
+//  @FXML TableColumn<String, Game> year;
+//  @FXML TableColumn<String, Game> rentalPeriod;
+//  @FXML TableColumn<String, Game> availabilityPeriod;
+//  @FXML TableColumn<String, Game> deposit;
   private Region root;
 
   private ViewHandler viewHandler;
@@ -59,6 +56,11 @@ public class UserGameListController
     viewHandler.openView("user");
   }
 
+  @FXML public void onAddGame()
+  {
+    viewHandler.openView("menu");
+  }
+
   @FXML public void onBackList()
   {
     viewHandler.openView("list");
@@ -66,17 +68,17 @@ public class UserGameListController
 
     @FXML public void onRemoveGame() throws RemoteException
     {
-      if(list.getSelectionModel().getSelectedIndex() < 0)
-      {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "You have to select a game.", ButtonType.OK);
-        alert.showAndWait();
-        alert.close();
-      }
-      else
-      {
-        int index = list.getSelectionModel().getSelectedIndex();
-        this.userGameListViewModel.getList().remove(index);
-        this.userGameListViewModel.removeGame(userGameListViewModel.getList().get(index));
-      }
+//      if(list.getSelectionModel().getSelectedIndex() < 0)
+//      {
+//        Alert alert = new Alert(Alert.AlertType.ERROR, "You have to select a game.", ButtonType.OK);
+//        alert.showAndWait();
+//        alert.close();
+//      }
+//      else
+//      {
+//        int index = list.getSelectionModel().getSelectedIndex();
+//        this.userGameListViewModel.getList().remove(index);
+//        this.userGameListViewModel.removeGame(userGameListViewModel.getList().get(index));
+//      }
     }
 }
