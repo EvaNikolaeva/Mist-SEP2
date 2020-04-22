@@ -29,18 +29,15 @@ public class GameListClient implements GameListClientModel
     UnicastRemoteObject.exportObject((Remote) this, 0);
   }
 
-  @Override public GameList getGameList()
-  {
+  @Override public GameList getGameList() throws RemoteException {
     return remoteGameListModel.getGameList();
   }
 
-  @Override public void addGame(Game game)
-  {
+  @Override public void addGame(Game game) throws RemoteException {
     remoteGameListModel.addGame(game);
   }
 
-  @Override public void removeGame(int id)
-  {
+  @Override public void removeGame(int id) throws RemoteException {
     remoteGameListModel.removeGame(id);
   }
 
