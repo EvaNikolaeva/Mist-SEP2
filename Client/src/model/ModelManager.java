@@ -3,6 +3,8 @@ package model;
 import mediator.GameListClient;
 
 import java.beans.PropertyChangeSupport;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ModelManager implements Model
@@ -10,8 +12,7 @@ public class ModelManager implements Model
   private GameListClient client;
   private User user;
 
-  public ModelManager() throws RemoteException
-  {
+  public ModelManager() throws RemoteException, MalformedURLException, NotBoundException {
     this.client = new GameListClient(this);
     this.user = new User("Testy", 123456);
   }
@@ -30,6 +31,7 @@ public class ModelManager implements Model
 
   @Override public GameList GetGameList() throws RemoteException
   {
+    System.out.println(client.getGameList());
     return client.getGameList();
   }
 
@@ -38,6 +40,7 @@ public class ModelManager implements Model
     return user.getGames();
   }
 
+  @Override
   public void updateUserGames() throws RemoteException
   {
     GameList gameList = GetGameList();

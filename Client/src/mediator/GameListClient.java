@@ -16,33 +16,29 @@ public class GameListClient implements GameListClientModel, Remote
   private Model model;
   private RemoteGameListModel remoteGameListModel;
 
-  public GameListClient(Model model)
-  {
+  public GameListClient(Model model) throws RemoteException, NotBoundException, MalformedURLException {
     this.model = model;
+    connect();
   }
 
   @Override public void connect()
       throws RemoteException, NotBoundException, MalformedURLException
 
   {
-    remoteGameListModel = (RemoteGameListModel) Naming
-        .lookup("rmi://localhost:1099/games");
+    remoteGameListModel = (RemoteGameListModel) Naming.lookup("rmi://localhost:1099/games");
     UnicastRemoteObject.exportObject(this, 0);
-    model.getUserGamesList();
+    model.updateUserGames();
   }
 
-  @Override public GameList getGameList()
-  {
+  @Override public GameList getGameList() throws RemoteException {
     return remoteGameListModel.getGameList();
   }
 
-  @Override public void addGame(Game game)
-  {
+  @Override public void addGame(Game game) throws RemoteException {
     remoteGameListModel.addGame(game);
   }
 
-  @Override public void removeGame(int id)
-  {
+  @Override public void removeGame(int id) throws RemoteException {
     remoteGameListModel.removeGame(id);
   }
 

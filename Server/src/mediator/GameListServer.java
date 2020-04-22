@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
 
 public class GameListServer implements RemoteGameListModel
 {
@@ -20,7 +21,6 @@ public class GameListServer implements RemoteGameListModel
   public GameListServer(Model model)
   {
     this.model = model;
-    startRegistry();
     startServer();
   }
 
@@ -28,10 +28,12 @@ public class GameListServer implements RemoteGameListModel
   {
     try
     {
-      RemoteGameListModel stub = (RemoteGameListModel) UnicastRemoteObject
-          .exportObject(this, 0);
+      startRegistry();
+      RemoteGameListModel stub = (RemoteGameListModel) UnicastRemoteObject.exportObject(this, 1099);
       Naming.rebind("games", stub);
       System.out.println("Starting server...");
+      Registry registry = LocateRegistry.getRegistry();
+      System.out.println(Arrays.toString(registry.list()));
     }
     catch (RemoteException | MalformedURLException e)
     {

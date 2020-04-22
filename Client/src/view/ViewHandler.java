@@ -68,10 +68,8 @@ public class ViewHandler
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
         gameListController = loader.getController();
-
         gameListController
             .init(this, viewModelFactory.gameListViewModel(), root);
-
       }
       catch (Exception e)
       {
