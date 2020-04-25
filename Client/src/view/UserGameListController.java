@@ -68,17 +68,18 @@ public class UserGameListController
 
     @FXML public void onRemoveGame() throws RemoteException
     {
-//      if(list.getSelectionModel().getSelectedIndex() < 0)
-//      {
-//        Alert alert = new Alert(Alert.AlertType.ERROR, "You have to select a game.", ButtonType.OK);
-//        alert.showAndWait();
-//        alert.close();
-//      }
-//      else
-//      {
-//        int index = list.getSelectionModel().getSelectedIndex();
-//        this.userGameListViewModel.getList().remove(index);
-//        this.userGameListViewModel.removeGame(userGameListViewModel.getList().get(index));
-//      }
+      if(list.getSelectionModel().getSelectedIndex() < 0)
+      {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "You have to select a game.", ButtonType.OK);
+        alert.showAndWait();
+        alert.close();
+      }
+      else
+      {
+        int index = list.getSelectionModel().getSelectedIndex();
+        this.userGameListViewModel.getList().remove(index);
+        this.userGameListViewModel.getList().clear();
+        this.list.setItems(userGameListViewModel.getList());
+      }
     }
 }

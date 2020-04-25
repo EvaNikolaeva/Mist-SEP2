@@ -2,6 +2,7 @@ package model;
 
 import mediator.GameListClient;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -11,10 +12,12 @@ public class ModelManager implements Model
 {
   private GameListClient client;
   private User user;
+  private PropertyChangeSupport property;
 
   public ModelManager() throws RemoteException, MalformedURLException, NotBoundException {
     this.client = new GameListClient(this);
     this.user = new User("Testy", 123456);
+    this.property = new PropertyChangeSupport(this);
     updateUserGames();
   }
 
@@ -51,5 +54,15 @@ public class ModelManager implements Model
         user.getGames().addGame(gameList.getGame(i));
       }
     }
+  }
+
+  @Override public void addListener(PropertyChangeListener listener)
+  {
+    property.addPropertyChangeListener(listener);
+  }
+
+  @Override public void removeListener(PropertyChangeListener listener)
+  {
+    property.removePropertyChangeListener(listener);
   }
 }

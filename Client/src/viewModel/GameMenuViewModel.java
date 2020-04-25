@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.Game;
 import model.Model;
 
 public class GameMenuViewModel
@@ -56,6 +57,8 @@ public class GameMenuViewModel
   {
     return checkBox;
   }
+
+
 
   public void reset()
   {

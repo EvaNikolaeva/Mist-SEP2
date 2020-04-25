@@ -36,6 +36,11 @@ public class Game implements Serializable
     return userID;
   }
 
+//  public DateInterval getRentalPeriod()
+//  {
+//    return rentalPeriod; this shit here if uncommented, breaks the system, why
+//  }
+
   public String toString()
   {
     return "Title: " + title + ", id: " + id + ", type: " + type
