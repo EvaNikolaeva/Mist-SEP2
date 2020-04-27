@@ -8,7 +8,10 @@ public class DateInterval implements Serializable
 {
     private Calendar startDate;
     private Calendar endDate;
-
+public DateInterval(Calendar fromDate, Calendar toDate){
+    this.startDate = fromDate;
+    this.endDate = toDate;
+}
     public DateInterval(int startDay, int startMonth, int endDay, int endMonth)
     {
         this.startDate = new GregorianCalendar(0, startMonth - 1, startDay);

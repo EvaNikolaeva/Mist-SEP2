@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameMenuController">
    <top>
       <HBox prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER_LEFT" />
    </top>
@@ -29,6 +30,11 @@
                </font>
             </Button>
             <Button mnemonicParsing="false" onAction="#onReset" style="-fx-background-color: #75B5C6;" text="Reset">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onBack" style="-fx-background-color: #75B5C6;" text="Back">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -86,13 +92,32 @@
                   </Text>
                   <TextField fx:id="type" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="releaseYear" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="rentalPeriod" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="availabilityPeriod" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <CheckBox fx:id="deposit" mnemonicParsing="false" text="Yes" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </CheckBox>
+                  <DatePicker fx:id="availableTo" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets left="180.0" />
+                     </GridPane.margin></DatePicker>
+                  <DatePicker fx:id="availableFrom" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="to" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets left="140.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <DatePicker fx:id="rentalFrom" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="rentalTo" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="180.0" />
+                     </GridPane.margin>
+                  </DatePicker>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="to" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="140.0" />
+                     </GridPane.margin>
+                  </Text>
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

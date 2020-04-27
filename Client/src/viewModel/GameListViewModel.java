@@ -21,6 +21,7 @@ public class GameListViewModel
 
   public ObservableList<Game> getList() throws RemoteException {
     GameList games = model.GetGameList();
+    list.clear();
     for (int i = 0; i < games.size(); i++)
     {
       list.add((Game)games.getGame(i));

@@ -37,19 +37,16 @@ public class GameListController
     this.gameListViewModel = gameListViewModel;
     this.list.setItems(gameListViewModel.getList());
   }
-
   public Region getRoot()
   {
     return root;
   }
 
-  public void reset()
-  {
-
+  public void reset() throws RemoteException {
+    this.list.setItems(gameListViewModel.getList());
   }
 
-  @FXML public void onMyGames()
-  {
+  @FXML public void onMyGames() throws RemoteException {
     viewHandler.openView("user");
   }
 }

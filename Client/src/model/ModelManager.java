@@ -56,6 +56,11 @@ public class ModelManager implements Model
     }
   }
 
+  @Override
+  public int getUserId() {
+    return user.getUserID();
+  }
+
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);

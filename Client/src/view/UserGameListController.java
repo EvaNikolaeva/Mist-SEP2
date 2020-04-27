@@ -46,23 +46,21 @@ public class UserGameListController
     return root;
   }
 
-  public void reset()
-  {
 
+
+  public void reset() throws RemoteException {
+    this.list.setItems(userGameListViewModel.getList());
   }
 
-  @FXML public void onMyGames()
-  {
+  @FXML public void onMyGames() throws RemoteException {
     viewHandler.openView("user");
   }
 
-  @FXML public void onAddGame()
-  {
+  @FXML public void onAddGame() throws RemoteException {
     viewHandler.openView("menu");
   }
 
-  @FXML public void onBackList()
-  {
+  @FXML public void onBackList() throws RemoteException {
     viewHandler.openView("list");
   }
 
@@ -76,6 +74,8 @@ public class UserGameListController
       }
       else
       {
+        Game selectedGame = list.getSelectionModel().getSelectedItem();
+        userGameListViewModel.removeGame(selectedGame);
         int index = list.getSelectionModel().getSelectedIndex();
         this.userGameListViewModel.getList().remove(index);
         this.userGameListViewModel.getList().clear();

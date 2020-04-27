@@ -11,4 +11,5 @@ public interface Model extends UnnamedPropertyChangeSubject
     GameList GetGameList() throws RemoteException;
     public GameList getUserGamesList() throws RemoteException;
     public void updateUserGames() throws RemoteException;
+    public int getUserId();
 }

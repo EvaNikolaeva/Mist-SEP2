@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import viewModel.UserGameListViewModel;
 import viewModel.ViewModelFactory;
 
+import java.rmi.RemoteException;
+
 public class ViewHandler
 {
   private Stage primaryStage;
@@ -22,15 +24,13 @@ public class ViewHandler
     this.viewModelFactory = viewModelFactory;
   }
 
-  public void start(Stage primaryStage)
-  {
+  public void start(Stage primaryStage) throws RemoteException {
     this.primaryStage = primaryStage;
     this.currentScene = new Scene(new Region());
     openView("list");
   }
 
-  public void openView(String id)
-  {
+  public void openView(String id) throws RemoteException {
     Region root = null;
     switch (id)
     {
@@ -58,8 +58,7 @@ public class ViewHandler
     primaryStage.show();
   }
 
-  private Region loadGameListView(String fxmlFile)
-  {
+  private Region loadGameListView(String fxmlFile) throws RemoteException {
     if (gameListController == null)
     {
       try
@@ -108,8 +107,7 @@ public class ViewHandler
     return gameMenuController.getRoot();
   }
 
-  private Region loadUserGameListView(String fxmlFile)
-  {
+  private Region loadUserGameListView(String fxmlFile) throws RemoteException {
     if (userGameListController == null)
     {
       try

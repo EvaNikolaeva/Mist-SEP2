@@ -26,6 +26,7 @@ public class UserGameListViewModel implements PropertyChangeListener
   public ObservableList<Game> getList() throws RemoteException
   {
     GameList games = model.GetGameList();
+    list.clear();
     for (int i = 0; i < games.size(); i++)
     {
       list.add(games.getGame(i));
@@ -35,12 +36,7 @@ public class UserGameListViewModel implements PropertyChangeListener
 
   public void removeGame(Game game) throws RemoteException
   {
-    GameList games = model.GetGameList();
-    for (int i = 0; i < games.size(); i++)
-    {
-      if (games.getGameById(games.getGame(i).getId()).getId() == game.getId())
-        games.removeGame(games.getGame(i).getId());
-    }
+model.RemoveGame(game.getId());
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)
