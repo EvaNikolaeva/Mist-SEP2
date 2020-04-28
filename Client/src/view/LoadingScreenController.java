@@ -32,5 +32,10 @@ public class LoadingScreenController {
 
     public void onConnectButton(ActionEvent actionEvent) throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
         loadingScreenViewModel.startConnection();
+                viewHandler.openView("list");
+    }
+
+    public void onExitButton(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -23,6 +24,14 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER">
          <children>
+            <Button mnemonicParsing="false" onAction="#onExitButton" style="-fx-background-color: #75B5C6;" text="Exit" textFill="#67666d">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="60.0" />
+               </HBox.margin>
+            </Button>
             <Button mnemonicParsing="false" onAction="#onConnectButton" style="-fx-background-color: #75B5C6;" text="Connect" textFill="#67666d">
                <font>
                   <Font name="Arial Bold" size="18.0" />

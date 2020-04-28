@@ -1,11 +1,15 @@
 package view;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 import model.Game;
 import viewModel.GameListViewModel;
 
@@ -30,6 +34,7 @@ public class GameListController
 
   private ViewHandler viewHandler;
   private GameListViewModel gameListViewModel;
+  private double x, y;
 
   public void init(ViewHandler viewHandler, GameListViewModel gameListViewModel,
       Region root) throws RemoteException
@@ -38,6 +43,8 @@ public class GameListController
     this.viewHandler = viewHandler;
     this.gameListViewModel = gameListViewModel;
     this.list.setItems(gameListViewModel.getList());
+    this.x = 0;
+    this.y = 0;
   }
   public Region getRoot()
   {

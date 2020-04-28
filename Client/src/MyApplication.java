@@ -22,7 +22,6 @@ public class MyApplication extends Application
     ViewModelFactory viewModelFactory = new ViewModelFactory(model);
 
     ViewHandler viewHandler = new ViewHandler(viewModelFactory);
-
     viewHandler.start(stage);
 //    stage.setOnCloseRequest((WindowEvent event1) -> {
 //      model.removeUser();

@@ -28,14 +28,13 @@ public class GameListClient implements GameListClientModel, Remote
       remoteGameListModel = (RemoteGameListModel) Naming.lookup("rmi://localhost:1099/games");
       UnicastRemoteObject.exportObject(this, 0);
       model.updateUserGames();
-      model.onConnected();
+
     }
     catch (Exception e){
       failedConnectionCount++;
       if(failedConnectionCount <=5 ){
         System.out.println("Client failed to connect, attempting to connect in 5 seconds.");
         Thread.sleep(5000);
-        connect();
       }
       else{
         System.out.println("Connection timed out, exiting.");
@@ -43,7 +42,6 @@ public class GameListClient implements GameListClientModel, Remote
       }
     }
   }
-
   @Override public GameList getGameList() throws RemoteException {
     return remoteGameListModel.getGameList();
   }

@@ -30,10 +30,6 @@ public class ModelManager implements Model
 client.connect();
   }
 
-  @Override
-  public void onConnected() {
-
-  }
 
   @Override public void RemoveGame(int id) throws RemoteException
   {

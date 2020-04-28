@@ -15,5 +15,4 @@ public interface Model extends UnnamedPropertyChangeSubject
     public void updateUserGames() throws RemoteException;
     public int getUserId();
     public void connect() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException;
-    public void onConnected();
 }

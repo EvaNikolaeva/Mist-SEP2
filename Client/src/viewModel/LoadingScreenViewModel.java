@@ -14,7 +14,4 @@ public class LoadingScreenViewModel {
     public void startConnection() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
         model.connect();
     }
-public void onConnected(){
-        model.onConnected();
-}
 }
