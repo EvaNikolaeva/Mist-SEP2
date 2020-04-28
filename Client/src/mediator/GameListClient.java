@@ -20,8 +20,7 @@ public class GameListClient implements GameListClientModel, Remote
   public GameListClient(Model model)
           throws RemoteException, NotBoundException, MalformedURLException, InterruptedException {
     try{
-      remoteGameListModel = (RemoteGameListModel) Naming.lookup("rmi://localhost:1099/games");
-      UnicastRemoteObject.exportObject(this, 0);
+      connect();
     }
     catch (Exception e){
       failedConnectionCount++;
@@ -41,8 +40,7 @@ public class GameListClient implements GameListClientModel, Remote
       throws RemoteException, NotBoundException, MalformedURLException
 
   {
-    remoteGameListModel = (RemoteGameListModel) Naming
-        .lookup("rmi://localhost:1099/games");
+    remoteGameListModel = (RemoteGameListModel) Naming.lookup("rmi://localhost:1099/games");
     UnicastRemoteObject.exportObject(this, 0);
   }
 

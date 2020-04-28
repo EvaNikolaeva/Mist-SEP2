@@ -32,15 +32,6 @@ public class UserGameListController
     this.viewHandler = viewHandler;
     this.userGameListViewModel = userGameListViewModel;
     this.list.setItems(userGameListViewModel.getList());
-    //need a way to add individual data to each column
-    //    title.setCellValueFactory(cellData -> cellData.getValue().getCourseProperty());
-    //    type.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
-    //    examiner.setCellValueFactory(cellData -> cellData.getValue().getExaminerProperty());
-    //    externalExaminer.setCellValueFactory(cellData -> cellData.getValue().getExternalExaminerProperty());
-    //    room.setCellValueFactory(cellData -> cellData.getValue().getRoomProperty());
-    //    date.setCellValueFactory(cellData -> cellData.getValue().getDateProperty().asString());
-    //    nr_students.setCellValueFactory(cellData -> cellData.getValue().getNr_studentsProperty());
-
   }
 
   public Region getRoot()
@@ -83,9 +74,9 @@ public class UserGameListController
       Game selectedGame = list.getSelectionModel().getSelectedItem();
       userGameListViewModel.removeGame(selectedGame);
       int index = list.getSelectionModel().getSelectedIndex();
-      if (list.getSelectionModel().getSelectedItem() == null)
-        this.userGameListViewModel.getList().remove(index);   //doesnt make much sense but it works
-                                                              //its a feature, u can delete null
+      if (list.getSelectionModel().getSelectedItem() == null) {
+        this.userGameListViewModel.getList().remove(index);
+      }
       this.userGameListViewModel.getList().clear();
       this.list.setItems(userGameListViewModel.getList());
 
