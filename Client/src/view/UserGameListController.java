@@ -77,7 +77,10 @@ public class UserGameListController
         Game selectedGame = list.getSelectionModel().getSelectedItem();
         userGameListViewModel.removeGame(selectedGame);
         int index = list.getSelectionModel().getSelectedIndex();
-        this.userGameListViewModel.getList().remove(index);
+
+        if (list.getSelectionModel().getSelectedItem() == null)
+          this.userGameListViewModel.getList().remove(index);
+
         this.userGameListViewModel.getList().clear();
         this.list.setItems(userGameListViewModel.getList());
       }
