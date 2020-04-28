@@ -7,6 +7,8 @@ import model.Game;
 import viewModel.GameListViewModel;
 import viewModel.UserGameListViewModel;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class UserGameListController
@@ -52,15 +54,15 @@ public class UserGameListController
     this.list.setItems(userGameListViewModel.getList());
   }
 
-  @FXML public void onMyGames() throws RemoteException {
+  @FXML public void onMyGames() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     viewHandler.openView("user");
   }
 
-  @FXML public void onAddGame() throws RemoteException {
+  @FXML public void onAddGame() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     viewHandler.openView("menu");
   }
 
-  @FXML public void onBackList() throws RemoteException {
+  @FXML public void onBackList() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     viewHandler.openView("list");
   }
 

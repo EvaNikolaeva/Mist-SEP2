@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import model.Model;
 import model.ModelManager;
@@ -21,6 +22,7 @@ public class MyApplication extends Application
     ViewModelFactory viewModelFactory = new ViewModelFactory(model);
 
     ViewHandler viewHandler = new ViewHandler(viewModelFactory);
+
     viewHandler.start(stage);
 //    stage.setOnCloseRequest((WindowEvent event1) -> {
 //      model.removeUser();

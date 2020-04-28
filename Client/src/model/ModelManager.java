@@ -18,13 +18,21 @@ public class ModelManager implements Model
     this.client = new GameListClient(this);
     this.user = new User("Testy", 123456);
     this.property = new PropertyChangeSupport(this);
-    updateUserGames();
   }
 
   @Override public void AddGame(Game game) throws RemoteException
   {
     client.addGame(game);
     user.getGames().addGame(game);
+  }
+  @Override
+  public void connect() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
+client.connect();
+  }
+
+  @Override
+  public void onConnected() {
+
   }
 
   @Override public void RemoveGame(int id) throws RemoteException
@@ -60,6 +68,8 @@ public class ModelManager implements Model
   public int getUserId() {
     return user.getUserID();
   }
+
+
 
   @Override public void addListener(PropertyChangeListener listener)
   {

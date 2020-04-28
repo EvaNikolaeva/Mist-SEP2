@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import viewModel.GameMenuViewModel;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -61,13 +63,13 @@ public class GameMenuController
     reset();
   }
 
-  @FXML public void onSubmit() throws RemoteException {
+  @FXML public void onSubmit() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     //public void addGame(String name, String type, String releaseYear, Calendar rentalFrom, Calendar rentalTo, Calendar availableFrom, Calendar availableTo, boolean needsDeposit)
   gameMenuViewModel.addGame(name.getText(), type.getText(), releaseYear.getText(), rentalFrom.getValue(), rentalTo.getValue(), availableFrom.getValue(), availableTo.getValue(), deposit.isSelected());
     viewHandler.openView("user");
   }
 
-  public void onBack(ActionEvent actionEvent) throws RemoteException {
+  public void onBack(ActionEvent actionEvent) throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     viewHandler.openView("user");
   }
 }

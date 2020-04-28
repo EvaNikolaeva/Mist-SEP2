@@ -4,9 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import viewModel.UserGameListViewModel;
 import viewModel.ViewModelFactory;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ViewHandler
@@ -18,19 +21,20 @@ public class ViewHandler
   private GameListController gameListController;
   private GameMenuController gameMenuController;
   private UserGameListController userGameListController;
+  private LoadingScreenController loadingScreenController;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
   }
 
-  public void start(Stage primaryStage) throws RemoteException {
+  public void start(Stage primaryStage) throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     this.primaryStage = primaryStage;
     this.currentScene = new Scene(new Region());
-    openView("list");
+    openView("loading");
   }
 
-  public void openView(String id) throws RemoteException {
+  public void openView(String id) throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     Region root = null;
     switch (id)
     {
@@ -43,6 +47,9 @@ public class ViewHandler
       case "user":
         root = loadUserGameListView("UserGameList.fxml");
         break;
+      case "loading":
+        root = loadLoadingScreen("LoadingScreen.fxml");
+        break;
     }
     currentScene.setRoot(root);
 
@@ -52,10 +59,34 @@ public class ViewHandler
       title += root.getUserData();
     }
     primaryStage.setTitle(title);
+    primaryStage.initStyle(StageStyle.UNDECORATED);
     primaryStage.setScene(currentScene);
     primaryStage.setWidth(root.getPrefWidth());
     primaryStage.setHeight(root.getPrefHeight());
     primaryStage.show();
+  }
+
+  private Region loadLoadingScreen(String fxmlFile){
+    if (loadingScreenController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        loadingScreenController = loader.getController();
+        loadingScreenController
+                .init(this, viewModelFactory.loadingScreenViewModel(), root);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+    }
+    return loadingScreenController.getRoot();
   }
 
   private Region loadGameListView(String fxmlFile) throws RemoteException {

@@ -2,6 +2,8 @@ package model;
 
 import Utility.UnnamedPropertyChangeSubject;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public interface Model extends UnnamedPropertyChangeSubject
@@ -12,4 +14,6 @@ public interface Model extends UnnamedPropertyChangeSubject
     public GameList getUserGamesList() throws RemoteException;
     public void updateUserGames() throws RemoteException;
     public int getUserId();
+    public void connect() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException;
+    public void onConnected();
 }
