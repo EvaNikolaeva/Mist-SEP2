@@ -83,11 +83,9 @@ public class UserGameListController
       Game selectedGame = list.getSelectionModel().getSelectedItem();
       userGameListViewModel.removeGame(selectedGame);
       int index = list.getSelectionModel().getSelectedIndex();
-
       if (list.getSelectionModel().getSelectedItem() == null)
         this.userGameListViewModel.getList().remove(index);   //doesnt make much sense but it works
                                                               //its a feature, u can delete null
-
       this.userGameListViewModel.getList().clear();
       this.list.setItems(userGameListViewModel.getList());
 
