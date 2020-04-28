@@ -15,13 +15,9 @@ public class ModelManager implements Model
   private User user;
   private PropertyChangeSupport property;
 
-<<<<<<< HEAD
   public ModelManager()
       throws RemoteException, MalformedURLException, NotBoundException
   {
-=======
-  public ModelManager() throws RemoteException, MalformedURLException, NotBoundException, InterruptedException {
->>>>>>> master
     this.client = new GameListClient(this);
     this.user = new User("Testy", 123456);
     this.property = new PropertyChangeSupport(this);

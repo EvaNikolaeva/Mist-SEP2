@@ -65,21 +65,6 @@ public class GameMenuViewModel
   {
     return checkBox;
   }
-<<<<<<< HEAD
-=======
-
-public void addGame(String name, String type, String releaseYear, LocalDate rentalFrom, LocalDate rentalTo, LocalDate availableFrom, LocalDate availableTo, boolean needsDeposit) throws RemoteException {
-  GregorianCalendar rentalFromDateCalendar = GregorianCalendar.from(rentalFrom.atStartOfDay(ZoneId.systemDefault()));
-  GregorianCalendar rentalToDateCalendar = GregorianCalendar.from(rentalTo.atStartOfDay(ZoneId.systemDefault()));
-  GregorianCalendar availableFromDateCalendar = GregorianCalendar.from(availableFrom.atStartOfDay(ZoneId.systemDefault()));
-  GregorianCalendar availableToDateCalendar = GregorianCalendar.from(availableTo.atStartOfDay(ZoneId.systemDefault()));
-  DateInterval availableDate = new DateInterval(availableFromDateCalendar, availableToDateCalendar);
-  DateInterval rentalDate = new DateInterval(rentalFromDateCalendar, rentalToDateCalendar);
-  int releaseYearInt = Integer.parseInt(releaseYear);
-  Game game = new Game(name, type, releaseYearInt, needsDeposit, rentalDate, availableDate, model.getUserId());
-  model.AddGame(game);
-}
->>>>>>> master
 
   public void addGame(String name, String type, String releaseYear,
       LocalDate rentalFrom, LocalDate rentalTo, LocalDate availableFrom,

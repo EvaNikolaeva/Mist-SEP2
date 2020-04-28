@@ -10,19 +10,10 @@ import java.rmi.RemoteException;
 
 public interface GameListClientModel
 {
-<<<<<<< HEAD
   void connect()
       throws RemoteException, NotBoundException, MalformedURLException;
   GameList getGameList() throws RemoteException;
   void addGame(Game game) throws RemoteException;
   void removeGame(int id) throws RemoteException;
   void close();
-=======
-    void connect()
-            throws RemoteException, NotBoundException, MalformedURLException, InterruptedException;
-    GameList getGameList() throws RemoteException;
-    void addGame(Game game) throws RemoteException;
-    void removeGame(int id) throws RemoteException;
-    void close();
->>>>>>> master
 }
