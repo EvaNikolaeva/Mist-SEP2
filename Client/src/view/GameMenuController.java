@@ -35,8 +35,8 @@ public class GameMenuController
     this.viewHandler = viewHandler;
     this.root = root;
     this.gameMenuViewModel = gameMenuViewModel;
-    this.name.setText(gameMenuViewModel.getName().get());
-    this.type.setText(gameMenuViewModel.getType().get());
+    //    this.name.setText(gameMenuViewModel.getName().get());
+    //    this.type.setText(gameMenuViewModel.getType().get()); ???? what are these for
   }
 
   public Region getRoot()
@@ -61,13 +61,19 @@ public class GameMenuController
     reset();
   }
 
-  @FXML public void onSubmit() throws RemoteException {
+  @FXML public void onSubmit() throws RemoteException
+  {
     //public void addGame(String name, String type, String releaseYear, Calendar rentalFrom, Calendar rentalTo, Calendar availableFrom, Calendar availableTo, boolean needsDeposit)
-  gameMenuViewModel.addGame(name.getText(), type.getText(), releaseYear.getText(), rentalFrom.getValue(), rentalTo.getValue(), availableFrom.getValue(), availableTo.getValue(), deposit.isSelected());
+    gameMenuViewModel
+        .addGame(name.getText(), type.getText(), releaseYear.getText(),
+            rentalFrom.getValue(), rentalTo.getValue(),
+            availableFrom.getValue(), availableTo.getValue(),
+            deposit.isSelected());
     viewHandler.openView("user");
   }
 
-  public void onBack(ActionEvent actionEvent) throws RemoteException {
+  public void onBack(ActionEvent actionEvent) throws RemoteException
+  {
     viewHandler.openView("user");
   }
 }

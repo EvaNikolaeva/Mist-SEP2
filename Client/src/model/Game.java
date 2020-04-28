@@ -26,6 +26,36 @@ public class Game implements Serializable
     this.userID = userID;
   }
 
+  public String getTitle()
+  {
+    return title;
+  }
+
+  public String getType()
+  {
+    return type;
+  }
+
+  public int getReleaseYear()
+  {
+    return releaseYear;
+  }
+
+  public boolean needsDeposit()
+  {
+    return needsDeposit;
+  }
+
+  public DateInterval getRentalPeriod()
+  {
+    return rentalPeriod;
+  }
+
+  public DateInterval getAvailabilityPeriod()
+  {
+    return availabilityPeriod;
+  }
+
   public int getId()
   {
     return id;
@@ -35,11 +65,6 @@ public class Game implements Serializable
   {
     return userID;
   }
-
-//  public DateInterval getRentalPeriod()
-//  {
-//    return rentalPeriod; this shit here if uncommented, breaks the system, why
-//  }
 
   public String toString()
   {

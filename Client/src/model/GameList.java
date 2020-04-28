@@ -5,47 +5,45 @@ import java.util.ArrayList;
 
 public class GameList implements Serializable
 {
-    private ArrayList<Game> games;
+  private ArrayList<Game> games;
 
-    public GameList()
+  public GameList()
+  {
+    this.games = new ArrayList<>();
+  }
+
+  public void addGame(Game game)
+  {
+    games.add(game);
+  }
+
+  public void removeGame(int id)
+  {
+    for (int i = 0; i < games.size(); i++)
     {
-        this.games = new ArrayList<>();
+      if (games.get(i).getId() == id)
+        games.remove(games.get(i));
     }
+  }
 
-    public void addGame(Game game)
+  public Game getGameById(int id)
+  {
+    for (int i = 0; i < games.size(); i++)
     {
-        games.add(game);
+      if (games.get(i).getId() == id)
+        return games.get(i);
     }
+    return null;
+  }
 
-    public void removeGame(int id)
-    {
-        for (int i = 0; i < games.size(); i++)
-        {
-            if (games.get(i).getId() == id)
-                games.remove(games.get(i));
-        }
-    }
+  public Game getGame(int index)
+  {
+    return games.get(index);
+  }
 
-    public Game getGameById(int id)
-    {
-        for (int i = 0; i < games.size(); i++)
-        {
-            if (games.get(i).getId() == id)
-                return games.get(i);
-        }
-        return null;
-    }
-
-    public Game getGame(int index)
-    {
-        return games.get(index);
-    }
-
-    public int size()
-    {
-        return games.size();
-    }
-
-
+  public int size()
+  {
+    return games.size();
+  }
 
 }

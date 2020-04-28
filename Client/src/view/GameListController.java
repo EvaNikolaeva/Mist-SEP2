@@ -14,15 +14,13 @@ import java.rmi.RemoteException;
 public class GameListController
 {
 
-
-
   @FXML ListView<Game> list;
-//  @FXML TableColumn<String, Game> title;
-//  @FXML TableColumn<String, Game> type;
-//  @FXML TableColumn<String, Game> year;
-//  @FXML TableColumn<String, Game> rentalPeriod;
-//  @FXML TableColumn<String, Game> availabilityPeriod;
-//  @FXML TableColumn<String, Game> deposit;
+  //  @FXML TableColumn<String, Game> title;
+  //  @FXML TableColumn<String, Game> type;
+  //  @FXML TableColumn<String, Game> year;
+  //  @FXML TableColumn<String, Game> rentalPeriod;
+  //  @FXML TableColumn<String, Game> availabilityPeriod;
+  //  @FXML TableColumn<String, Game> deposit;
 
   private Region root;
 
@@ -37,16 +35,19 @@ public class GameListController
     this.gameListViewModel = gameListViewModel;
     this.list.setItems(gameListViewModel.getList());
   }
+
   public Region getRoot()
   {
     return root;
   }
 
-  public void reset() throws RemoteException {
+  public void reset() throws RemoteException
+  {
     this.list.setItems(gameListViewModel.getList());
   }
 
-  @FXML public void onMyGames() throws RemoteException {
+  @FXML public void onMyGames() throws RemoteException
+  {
     viewHandler.openView("user");
   }
 }

@@ -36,13 +36,11 @@ public class UserGameListViewModel implements PropertyChangeListener
 
   public void removeGame(Game game) throws RemoteException
   {
-model.RemoveGame(game.getId());
+    model.RemoveGame(game.getId());
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    Platform.runLater(() ->
-        list.add((Game) evt.getNewValue())
-    );
+    Platform.runLater(() -> list.add((Game) evt.getNewValue()));
   }
 }
