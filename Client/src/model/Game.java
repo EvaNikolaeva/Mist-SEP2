@@ -9,12 +9,12 @@ public class Game implements Serializable
   private int releaseYear;
   private boolean needsDeposit;
   private DateInterval rentalPeriod;
-  private DateInterval availabilityPeriod;
+  private int availabilityPeriod;
   private int id;
   private int userID;
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-      DateInterval rentalPeriod, DateInterval availabilityPeriod, int userID)
+      DateInterval rentalPeriod, int availabilityPeriod, int userID)
   {
     this.title = title;
     this.type = type;
@@ -24,6 +24,11 @@ public class Game implements Serializable
     this.availabilityPeriod = availabilityPeriod;
     this.id = (int) (Math.random() * 9999) + 1;
     this.userID = userID;
+  }
+
+  public void reRollID()
+  {
+    this.id = (int) (Math.random() * 9999) + 1;
   }
 
   public int getId()
@@ -36,10 +41,35 @@ public class Game implements Serializable
     return userID;
   }
 
-//  public DateInterval getRentalPeriod()
-//  {
-//    return rentalPeriod; this shit here if uncommented, breaks the system, why
-//  }
+  public String getTitle()
+  {
+    return title;
+  }
+
+  public String getType()
+  {
+    return type;
+  }
+
+  public int getReleaseYear()
+  {
+    return releaseYear;
+  }
+
+  public boolean deposit()
+  {
+    return needsDeposit;
+  }
+
+  public DateInterval getRentalPeriod()
+  {
+    return rentalPeriod;
+  }
+
+  public int getAvailabilityPeriod()
+  {
+    return availabilityPeriod;
+  }
 
   public String toString()
   {

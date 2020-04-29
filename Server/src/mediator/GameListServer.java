@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class GameListServer implements RemoteGameListModel
 {
   private Model model;
-//  private UnnamedPropertyChangeSubject property;
+  //  private UnnamedPropertyChangeSubject property;
 
   public GameListServer(Model model)
   {
@@ -29,7 +29,8 @@ public class GameListServer implements RemoteGameListModel
     try
     {
       startRegistry();
-      RemoteGameListModel stub = (RemoteGameListModel) UnicastRemoteObject.exportObject(this, 1099);
+      RemoteGameListModel stub = (RemoteGameListModel) UnicastRemoteObject
+          .exportObject(this, 1099);
       Naming.rebind("games", stub);
       System.out.println("Starting server...");
       Registry registry = LocateRegistry.getRegistry();

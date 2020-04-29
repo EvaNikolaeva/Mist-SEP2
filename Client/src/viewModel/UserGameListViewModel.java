@@ -11,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 
-public class UserGameListViewModel implements PropertyChangeListener
+public class UserGameListViewModel
 {
   private Model model;
   private ObservableList<Game> list;
@@ -20,7 +20,6 @@ public class UserGameListViewModel implements PropertyChangeListener
   {
     this.model = model;
     this.list = FXCollections.observableArrayList();
-    model.addListener(this);
   }
 
   public ObservableList<Game> getList() throws RemoteException
@@ -36,13 +35,7 @@ public class UserGameListViewModel implements PropertyChangeListener
 
   public void removeGame(Game game) throws RemoteException
   {
-model.RemoveGame(game.getId());
+    model.RemoveGame(game.getId());
   }
 
-  @Override public void propertyChange(PropertyChangeEvent evt)
-  {
-    Platform.runLater(() ->
-        list.add((Game) evt.getNewValue())
-    );
-  }
 }

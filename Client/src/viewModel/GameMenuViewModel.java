@@ -4,6 +4,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.DateInterval;
 import model.Game;
 import model.Model;
@@ -23,6 +25,7 @@ public class GameMenuViewModel
   private StringProperty rentalPeriod;
   private StringProperty availabilityPeriod;
   private BooleanProperty checkBox;
+
   private Model model;
 
   public GameMenuViewModel(Model model)
@@ -66,18 +69,58 @@ public class GameMenuViewModel
     return checkBox;
   }
 
-public void addGame(String name, String type, String releaseYear, LocalDate rentalFrom, LocalDate rentalTo, LocalDate availableFrom, LocalDate availableTo, boolean needsDeposit) throws RemoteException {
-  GregorianCalendar rentalFromDateCalendar = GregorianCalendar.from(rentalFrom.atStartOfDay(ZoneId.systemDefault()));
-  GregorianCalendar rentalToDateCalendar = GregorianCalendar.from(rentalTo.atStartOfDay(ZoneId.systemDefault()));
-  GregorianCalendar availableFromDateCalendar = GregorianCalendar.from(availableFrom.atStartOfDay(ZoneId.systemDefault()));
-  GregorianCalendar availableToDateCalendar = GregorianCalendar.from(availableTo.atStartOfDay(ZoneId.systemDefault()));
-  DateInterval availableDate = new DateInterval(availableFromDateCalendar, availableToDateCalendar);
-  DateInterval rentalDate = new DateInterval(rentalFromDateCalendar, rentalToDateCalendar);
-  int releaseYearInt = Integer.parseInt(releaseYear);
-  Game game = new Game(name, type, releaseYearInt, needsDeposit, rentalDate, availableDate, model.getUserId());
-  model.AddGame(game);
-}
+  public void addGame(String name, String type, String releaseYear,
+      LocalDate rentalFrom, LocalDate rentalTo, int availablePeriod,
+       boolean needsDeposit) throws RemoteException
+  {
+    GregorianCalendar rentalFromDateCalendar = GregorianCalendar
+        .from(rentalFrom.atStartOfDay(ZoneId.systemDefault()));
 
+    GregorianCalendar rentalToDateCalendar = GregorianCalendar
+        .from(rentalTo.atStartOfDay(ZoneId.systemDefault()));
+
+    DateInterval rentalDate = new DateInterval(rentalFromDateCalendar,
+        rentalToDateCalendar);
+    try
+    {
+      int releaseYearInt = Integer.parseInt(releaseYear);
+      Game game = new Game(name, type, releaseYearInt, needsDeposit, rentalDate,
+          availablePeriod, model.getUserId());
+
+      if (validateGame(game).equals("Success"))
+      {
+        model.AddGame(game);
+      }
+      else
+      {
+        Alert alert = new Alert(Alert.AlertType.ERROR, validateGame(game),
+            ButtonType.OK);
+        alert.showAndWait();
+        alert.close();
+      }
+    }
+    catch (Exception e)
+    {
+      Alert alert = new Alert(Alert.AlertType.ERROR,
+          "Enter a valid release year", ButtonType.OK);
+      alert.showAndWait();
+      alert.close();
+    }
+  }
+
+  public String validateGame(Game game)
+  {
+    String result = "";
+
+    if (game.getTitle().equals(""))
+      result += "Title should not be empty." + "\n";
+    else if (game.getType().equals(""))
+      result += "Type should not be empty" + "\n";
+    else
+      result = "Success";
+
+    return result;
+  }
 
   public void reset()
   {

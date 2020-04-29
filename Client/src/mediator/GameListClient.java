@@ -17,41 +17,55 @@ public class GameListClient implements GameListClientModel, Remote
   private RemoteGameListModel remoteGameListModel;
   private int failedConnectionCount;
 
-  public GameListClient(Model model) throws RemoteException, NotBoundException, MalformedURLException, InterruptedException {
+  public GameListClient(Model model)
+      throws RemoteException, NotBoundException, MalformedURLException,
+      InterruptedException
+  {
     this.model = model;
     this.failedConnectionCount = 0;
     connect();
   }
 
   @Override public void connect()
-          throws RemoteException, NotBoundException, MalformedURLException, InterruptedException {
-    try{
-      remoteGameListModel = (RemoteGameListModel) Naming.lookup("rmi://localhost:1099/games");
+      throws RemoteException, NotBoundException, MalformedURLException,
+      InterruptedException
+  {
+    try
+    {
+      remoteGameListModel = (RemoteGameListModel) Naming
+          .lookup("rmi://localhost:1099/games");
       UnicastRemoteObject.exportObject(this, 0);
     }
-    catch (Exception e){
+    catch (Exception e)
+    {
       failedConnectionCount++;
-      if(failedConnectionCount <=5 ){
-        System.out.println("Client failed to connect, attempting to connect in 5 seconds.");
+      if (failedConnectionCount <= 5)
+      {
+        System.out.println(
+            "Client failed to connect, attempting to connect in 5 seconds.");
         Thread.sleep(5000);
         connect();
       }
-      else{
+      else
+      {
         System.out.println("Connection timed out, exiting.");
         System.exit(0);
       }
     }
   }
 
-  @Override public GameList getGameList() throws RemoteException {
+  @Override public GameList getGameList() throws RemoteException
+  {
     return remoteGameListModel.getGameList();
   }
 
-  @Override public void addGame(Game game) throws RemoteException {
+  @Override public void addGame(Game game) throws RemoteException
+  {
     remoteGameListModel.addGame(game);
   }
 
-  @Override public void removeGame(int id) throws RemoteException {
+  @Override public void removeGame(int id) throws RemoteException
+  {
     remoteGameListModel.removeGame(id);
   }
 
