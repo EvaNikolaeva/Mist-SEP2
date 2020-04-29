@@ -61,7 +61,7 @@ public class GameMenuController
 
   @FXML public void onSubmit() throws RemoteException
   {
-   if(!(rentalFrom.getValue() == null || rentalTo.getValue() == null))
+   if(!(rentalFrom.getValue() == null || rentalTo.getValue() == null))  //this here is fine
    {
      gameMenuViewModel
          .addGame(name.getText(), type.getText(), releaseYear.getText(),
@@ -70,8 +70,8 @@ public class GameMenuController
    }
    else
    {
-     rentalFrom.setPromptText("Please enter date");
-     rentalTo.setPromptText("Please enter date");
+//     rentalFrom.setPromptText("Please enter date");   rentalForm.setPromptText(viewmodel.get);
+//     rentalTo.setPromptText("Please enter date");       these should not raw change the value themselves
    }
   }
 

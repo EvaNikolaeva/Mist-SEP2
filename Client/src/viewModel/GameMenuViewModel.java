@@ -73,33 +73,37 @@ public class GameMenuViewModel
       LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
       boolean needsDeposit) throws RemoteException
   {
-    GregorianCalendar rentalFromDateCalendar = GregorianCalendar
-        .from(rentalFrom.atStartOfDay(ZoneId.systemDefault()));
-    GregorianCalendar rentalToDateCalendar = GregorianCalendar
-        .from(rentalTo.atStartOfDay(ZoneId.systemDefault()));
-    DateInterval rentalDate = new DateInterval(rentalFromDateCalendar,
-        rentalToDateCalendar);
-
     try
     {
+      GregorianCalendar rentalFromDateCalendar = GregorianCalendar      //make the check for this in
+                                                                        // validate method
+          .from(rentalFrom.atStartOfDay(ZoneId.systemDefault()));
+      GregorianCalendar rentalToDateCalendar = GregorianCalendar
+          .from(rentalTo.atStartOfDay(ZoneId.systemDefault()));
+      DateInterval rentalDate = new DateInterval(rentalFromDateCalendar,    //these here are fine, not spaghetti
+          rentalToDateCalendar);
+
       int releaseYearInt = Integer.parseInt(releaseYear);
       int availabilityPeriodInt = Integer.parseInt(availablePeriod);
+
       Game game = new Game(name, type, releaseYearInt, needsDeposit, rentalDate,
           availabilityPeriodInt, model.getUserId());
 
-      if (validateGame(game).equals("Success"))
+      if (validateGame(game).equals(
+          "Success"))  //we can move everything from controller on submit, here
       {
         model.AddGame(game);
       }
       else
       {
         Alert alert = new Alert(Alert.AlertType.ERROR, validateGame(game),
+            //move to view
             ButtonType.OK);
         alert.showAndWait();
         alert.close();
       }
     }
-    catch (Exception e)
+    catch (Exception e)       //all alerts have to be in view. always
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
           "Enter a valid release year/availability period.", ButtonType.OK);
@@ -114,12 +118,20 @@ public class GameMenuViewModel
 
     if (game.getTitle().equals(""))
       result += "Title should not be empty." + "\n";
-    else if (game.getType().equals(""))
+    else if (game.getType().equals(""))                 //this is good here. add all of the validations here
       result += "Type should not be empty" + "\n";
-    else if (game.getRentalPeriod().getStartDateObject().getTimeInMillis()
-        > game.getRentalPeriod().getEndDateObject().getTimeInMillis())
+    else if (String.valueOf(game.getReleaseYear()).equals(""))
+      result += "Release year should not be empty";
+    else if (String.valueOf(game.getAvailabilityPeriod()).equals(""))
+      result += "Availability period should not be empty";
+    else if (
+        game.getRentalPeriod().getStartDateObject().getTimeInMillis() > game
+            .getRentalPeriod().getEndDateObject().getTimeInMillis() && (
+            game.getRentalPeriod().getStartDate() == null
+                || game.getRentalPeriod().getEndDate() == null))
       result += "Invalid dates" + "\n";
-    else result = "Success";
+    else
+      result = "Success";
 
     return result;
   }
