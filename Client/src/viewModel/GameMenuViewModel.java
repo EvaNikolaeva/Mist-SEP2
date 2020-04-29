@@ -70,22 +70,22 @@ public class GameMenuViewModel
   }
 
   public void addGame(String name, String type, String releaseYear,
-      LocalDate rentalFrom, LocalDate rentalTo, int availablePeriod,
-       boolean needsDeposit) throws RemoteException
+      LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
+      boolean needsDeposit) throws RemoteException
   {
     GregorianCalendar rentalFromDateCalendar = GregorianCalendar
         .from(rentalFrom.atStartOfDay(ZoneId.systemDefault()));
-
     GregorianCalendar rentalToDateCalendar = GregorianCalendar
         .from(rentalTo.atStartOfDay(ZoneId.systemDefault()));
-
     DateInterval rentalDate = new DateInterval(rentalFromDateCalendar,
         rentalToDateCalendar);
+
     try
     {
       int releaseYearInt = Integer.parseInt(releaseYear);
+      int availabilityPeriodInt = Integer.parseInt(availablePeriod);
       Game game = new Game(name, type, releaseYearInt, needsDeposit, rentalDate,
-          availablePeriod, model.getUserId());
+          availabilityPeriodInt, model.getUserId());
 
       if (validateGame(game).equals("Success"))
       {
@@ -102,7 +102,7 @@ public class GameMenuViewModel
     catch (Exception e)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
-          "Enter a valid release year", ButtonType.OK);
+          "Enter a valid release year/availability period.", ButtonType.OK);
       alert.showAndWait();
       alert.close();
     }
@@ -116,8 +116,10 @@ public class GameMenuViewModel
       result += "Title should not be empty." + "\n";
     else if (game.getType().equals(""))
       result += "Type should not be empty" + "\n";
-    else
-      result = "Success";
+    else if (game.getRentalPeriod().getStartDateObject().getTimeInMillis()
+        > game.getRentalPeriod().getEndDateObject().getTimeInMillis())
+      result += "Invalid dates" + "\n";
+    else result = "Success";
 
     return result;
   }

@@ -33,6 +33,16 @@ public DateInterval(Calendar fromDate, Calendar toDate){
         return getCalendarDate(endDate);
     }
 
+    public Calendar getStartDateObject()
+    {
+        return startDate;
+    }
+
+    public Calendar getEndDateObject()
+    {
+        return endDate;
+    }
+
     public String toString()
     {
         return getCalendarDate(startDate) + " -" + getCalendarDate(endDate);

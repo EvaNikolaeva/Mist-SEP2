@@ -61,13 +61,18 @@ public class GameMenuController
 
   @FXML public void onSubmit() throws RemoteException
   {
-    //public void addGame(String name, String type, String releaseYear, Calendar rentalFrom, Calendar rentalTo, Calendar availableFrom, Calendar availableTo, boolean needsDeposit)
-    gameMenuViewModel
-        .addGame(name.getText(), type.getText(), releaseYear.getText(),
-            rentalFrom.getValue(), rentalTo.getValue(),
-            Integer.parseInt(availabilityPeriod.getText()),
-            deposit.isSelected());
-    viewHandler.openView("user");
+   if(!(rentalFrom.getValue() == null || rentalTo.getValue() == null))
+   {
+     gameMenuViewModel
+         .addGame(name.getText(), type.getText(), releaseYear.getText(),
+             rentalFrom.getValue(), rentalTo.getValue(), availabilityPeriod.getText(), deposit.isSelected());
+     viewHandler.openView("user");
+   }
+   else
+   {
+     rentalFrom.setPromptText("Please enter date");
+     rentalTo.setPromptText("Please enter date");
+   }
   }
 
   public void onBack(ActionEvent actionEvent) throws RemoteException
