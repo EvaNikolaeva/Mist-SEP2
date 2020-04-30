@@ -34,8 +34,13 @@ public class GameMenuController
     this.viewHandler = viewHandler;
     this.root = root;
     this.gameMenuViewModel = gameMenuViewModel;
-    this.name.setText(gameMenuViewModel.getName().get());
-    this.type.setText(gameMenuViewModel.getType().get());
+    this.name.textProperty().bindBidirectional(gameMenuViewModel.getName());
+    this.type.textProperty().bindBidirectional(gameMenuViewModel.getType());
+    this.rentalTo.valueProperty().bindBidirectional(gameMenuViewModel.getToDate());
+    this.rentalFrom.valueProperty().bindBidirectional(gameMenuViewModel.getFromDate());
+    this.releaseYear.textProperty().bindBidirectional(gameMenuViewModel.getReleaseYear());
+    this.availabilityPeriod.textProperty().bindBidirectional(gameMenuViewModel.getAvailabilityPeriod());
+    this.deposit.allowIndeterminateProperty().bindBidirectional(gameMenuViewModel.getCheckBox());
   }
 
   public Region getRoot()
