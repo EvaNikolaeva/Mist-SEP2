@@ -75,13 +75,4 @@ public class ModelManager implements Model
     return user.getUserID();
   }
 
-  @Override public void addListener(PropertyChangeListener listener)
-  {
-    property.addPropertyChangeListener(listener);
-  }
-
-  @Override public void removeListener(PropertyChangeListener listener)
-  {
-    property.removePropertyChangeListener(listener);
-  }
 }

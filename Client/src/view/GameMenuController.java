@@ -2,10 +2,10 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
+import model.DateInterval;
+import model.Game;
 import viewModel.GameMenuViewModel;
 
 import java.rmi.RemoteException;
@@ -61,18 +61,22 @@ public class GameMenuController
 
   @FXML public void onSubmit() throws RemoteException
   {
-   if(!(rentalFrom.getValue() == null || rentalTo.getValue() == null))  //this here is fine
-   {
-     gameMenuViewModel
-         .addGame(name.getText(), type.getText(), releaseYear.getText(),
-             rentalFrom.getValue(), rentalTo.getValue(), availabilityPeriod.getText(), deposit.isSelected());
-     viewHandler.openView("user");
-   }
-   else
-   {
-//     rentalFrom.setPromptText("Please enter date");   rentalForm.setPromptText(viewmodel.get);
-//     rentalTo.setPromptText("Please enter date");       these should not raw change the value themselves
-   }
+
+    if (gameMenuViewModel.validateGame(gameMenuViewModel.getActualGame()).equals("Success"))
+    {
+      gameMenuViewModel
+          .addGame(name.getText(), type.getText(), releaseYear.getText(),
+              rentalFrom.getValue(), rentalTo.getValue(),
+              availabilityPeriod.getText(), deposit.isSelected());
+      viewHandler.openView("user");
+    }
+    else
+    {
+      Alert alert = new Alert(Alert.AlertType.ERROR,
+          gameMenuViewModel.validateGame(gameMenuViewModel.getActualGame()), ButtonType.OK);
+      alert.showAndWait();
+      alert.close();
+    }
   }
 
   public void onBack(ActionEvent actionEvent) throws RemoteException

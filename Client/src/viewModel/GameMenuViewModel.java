@@ -1,9 +1,6 @@
 package viewModel;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.DateInterval;
@@ -22,7 +19,9 @@ public class GameMenuViewModel
   private StringProperty title;
   private StringProperty type;
   private StringProperty releaseYear;
-  private StringProperty rentalPeriod;
+//  private StringProperty rentalPeriod;
+  private ObjectProperty<LocalDate> fromDate;
+  private ObjectProperty<LocalDate> toDate;
   private StringProperty availabilityPeriod;
   private BooleanProperty checkBox;
 
@@ -34,7 +33,9 @@ public class GameMenuViewModel
     this.title = new SimpleStringProperty();
     this.type = new SimpleStringProperty();
     this.releaseYear = new SimpleStringProperty();
-    this.rentalPeriod = new SimpleStringProperty();
+//    this.rentalPeriod = new SimpleStringProperty();
+    this.fromDate = new SimpleObjectProperty<>();
+    this.toDate = new SimpleObjectProperty<>();
     this.availabilityPeriod = new SimpleStringProperty();
     this.checkBox = new SimpleBooleanProperty();
   }
@@ -54,9 +55,18 @@ public class GameMenuViewModel
     return releaseYear;
   }
 
-  public StringProperty getRentalPeriod()
+//  public StringProperty getRentalPeriod()
+//  {
+//    return rentalPeriod;
+//  }
+  public ObjectProperty<LocalDate> getFromDate()
   {
-    return rentalPeriod;
+    return fromDate;
+  }
+
+  public ObjectProperty<LocalDate> getToDate()
+  {
+    return toDate;
   }
 
   public StringProperty getAvailabilityPeriod()
@@ -71,17 +81,11 @@ public class GameMenuViewModel
 
   public void addGame(String name, String type, String releaseYear,
       LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
-      boolean needsDeposit) throws RemoteException
+      boolean needsDeposit)
   {
     try
     {
-      GregorianCalendar rentalFromDateCalendar = GregorianCalendar      //make the check for this in
-                                                                        // validate method
-          .from(rentalFrom.atStartOfDay(ZoneId.systemDefault()));
-      GregorianCalendar rentalToDateCalendar = GregorianCalendar
-          .from(rentalTo.atStartOfDay(ZoneId.systemDefault()));
-      DateInterval rentalDate = new DateInterval(rentalFromDateCalendar,    //these here are fine, not spaghetti
-          rentalToDateCalendar);
+      DateInterval rentalDate = new DateInterval(rentalFrom, rentalTo);
 
       int releaseYearInt = Integer.parseInt(releaseYear);
       int availabilityPeriodInt = Integer.parseInt(availablePeriod);
@@ -89,27 +93,16 @@ public class GameMenuViewModel
       Game game = new Game(name, type, releaseYearInt, needsDeposit, rentalDate,
           availabilityPeriodInt, model.getUserId());
 
-      if (validateGame(game).equals(
-          "Success"))  //we can move everything from controller on submit, here
+      if (validateGame(game).equals("Success"))
       {
         model.AddGame(game);
       }
-      else
-      {
-        Alert alert = new Alert(Alert.AlertType.ERROR, validateGame(game),
-            //move to view
-            ButtonType.OK);
-        alert.showAndWait();
-        alert.close();
-      }
     }
-    catch (Exception e)       //all alerts have to be in view. always
+    catch (Exception e)
     {
-      Alert alert = new Alert(Alert.AlertType.ERROR,
-          "Enter a valid release year/availability period.", ButtonType.OK);
-      alert.showAndWait();
-      alert.close();
+      System.out.println("Invalid operation.");
     }
+
   }
 
   public String validateGame(Game game)
@@ -118,7 +111,7 @@ public class GameMenuViewModel
 
     if (game.getTitle().equals(""))
       result += "Title should not be empty." + "\n";
-    else if (game.getType().equals(""))                 //this is good here. add all of the validations here
+    else if (game.getType().equals(""))
       result += "Type should not be empty" + "\n";
     else if (String.valueOf(game.getReleaseYear()).equals(""))
       result += "Release year should not be empty";
@@ -127,8 +120,8 @@ public class GameMenuViewModel
     else if (
         game.getRentalPeriod().getStartDateObject().getTimeInMillis() > game
             .getRentalPeriod().getEndDateObject().getTimeInMillis() && (
-            game.getRentalPeriod().getStartDate() == null
-                || game.getRentalPeriod().getEndDate() == null))
+            game.getRentalPeriod().getStartDate().equals("") || game
+                .getRentalPeriod().getEndDate().equals("")))
       result += "Invalid dates" + "\n";
     else
       result = "Success";
@@ -136,12 +129,26 @@ public class GameMenuViewModel
     return result;
   }
 
+  public Game getActualGame()
+  {
+
+    DateInterval dateInterval = new DateInterval(fromDate.get(), toDate.get());
+
+    Game game = new Game(title.get(), type.get(),
+        Integer.parseInt(releaseYear.get()), checkBox.get(), dateInterval,
+        Integer.parseInt(availabilityPeriod.get()), model.getUserId());
+
+    return game;
+  }
+
   public void reset()
   {
     title.setValue("");
     type.setValue("");
     releaseYear.setValue("");
-    rentalPeriod.setValue("");
+//    rentalPeriod.setValue("");
+    toDate.setValue(null);
+    fromDate.setValue(null);
     availabilityPeriod.setValue("");
     checkBox.setValue(false);
   }

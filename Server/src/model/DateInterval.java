@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -8,10 +10,18 @@ public class DateInterval implements Serializable
 {
     private Calendar startDate;
     private Calendar endDate;
-    public DateInterval(Calendar fromDate, Calendar toDate){
-        this.startDate = fromDate;
-        this.endDate = toDate;
+
+    public DateInterval(LocalDate fromDate, LocalDate toDate)
+    {
+        GregorianCalendar rentalFromDateCalendar = GregorianCalendar
+            .from(fromDate.atStartOfDay(ZoneId.systemDefault()));
+        GregorianCalendar rentalToDateCalendar = GregorianCalendar
+            .from(toDate.atStartOfDay(ZoneId.systemDefault()));
+
+        this.startDate = rentalFromDateCalendar;
+        this.endDate = rentalToDateCalendar;
     }
+
     public DateInterval(int startDay, int startMonth, int endDay, int endMonth)
     {
         this.startDate = new GregorianCalendar(0, startMonth - 1, startDay);
@@ -20,7 +30,8 @@ public class DateInterval implements Serializable
 
     private static String getCalendarDate(Calendar calendarDate)
     {
-        return (calendarDate.get(Calendar.DAY_OF_MONTH)) + "/" + (calendarDate.get(Calendar.MONTH) + 1);
+        return (calendarDate.get(Calendar.DAY_OF_MONTH)) + "/" + (
+            calendarDate.get(Calendar.MONTH) + 1);
     }
 
     public String getStartDate()

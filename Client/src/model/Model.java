@@ -4,7 +4,7 @@ import Utility.UnnamedPropertyChangeSubject;
 
 import java.rmi.RemoteException;
 
-public interface Model extends UnnamedPropertyChangeSubject
+public interface Model
 {
     void AddGame(Game game) throws RemoteException;
     void RemoveGame(int id) throws RemoteException;
@@ -12,4 +12,5 @@ public interface Model extends UnnamedPropertyChangeSubject
     public GameList getUserGamesList() throws RemoteException;
     public void updateUserGames() throws RemoteException;
     public int getUserId();
+
 }
