@@ -1,5 +1,6 @@
 package viewModel;
 
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -7,6 +8,10 @@ import model.DateInterval;
 import model.Game;
 import model.Model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
+import java.net.http.WebSocket;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -14,142 +19,87 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class GameMenuViewModel
-{
-  private StringProperty title;
-  private StringProperty type;
-  private StringProperty releaseYear;
-//  private StringProperty rentalPeriod;
-  private ObjectProperty<LocalDate> fromDate;
-  private ObjectProperty<LocalDate> toDate;
-  private StringProperty availabilityPeriod;
-  private BooleanProperty checkBox;
+public class GameMenuViewModel implements PropertyChangeListener {
+    private StringProperty title;
+    private StringProperty type;
+    private StringProperty releaseYear;
+    //  private StringProperty rentalPeriod;
+    private ObjectProperty<LocalDate> rentalFrom;
+    private ObjectProperty<LocalDate> rentalTo;
+    private StringProperty availabilityPeriod;
+    private BooleanProperty checkBox;
+    private StringProperty responseMessage;
 
-  private Model model;
+    private Model model;
 
-  public GameMenuViewModel(Model model)
-  {
-    this.model = model;
-    this.title = new SimpleStringProperty();
-    this.type = new SimpleStringProperty();
-    this.releaseYear = new SimpleStringProperty();
+    public GameMenuViewModel(Model model) {
+        this.model = model;
+        this.title = new SimpleStringProperty();
+        this.type = new SimpleStringProperty();
+        this.releaseYear = new SimpleStringProperty();
 //    this.rentalPeriod = new SimpleStringProperty();
-    this.fromDate = new SimpleObjectProperty<>();
-    this.toDate = new SimpleObjectProperty<>();
-    this.availabilityPeriod = new SimpleStringProperty();
-    this.checkBox = new SimpleBooleanProperty();
-  }
+        this.rentalFrom = new SimpleObjectProperty<>();
+        this.rentalTo = new SimpleObjectProperty<>();
+        this.availabilityPeriod = new SimpleStringProperty();
+        this.checkBox = new SimpleBooleanProperty();
+        this.responseMessage = new SimpleStringProperty();
+        model.addListener(this);
+    }
 
-  public StringProperty getName()
-  {
-    return title;
-  }
+    public StringProperty getName() {
+        return title;
+    }
 
-  public StringProperty getType()
-  {
-    return type;
-  }
+    public StringProperty getType() {
+        return type;
+    }
 
-  public StringProperty getReleaseYear()
-  {
-    return releaseYear;
-  }
+    public StringProperty getReleaseYear() {
+        return releaseYear;
+    }
 
-//  public StringProperty getRentalPeriod()
+    //  public StringProperty getRentalPeriod()
 //  {
 //    return rentalPeriod;
 //  }
-  public ObjectProperty<LocalDate> getFromDate()
-  {
-    return fromDate;
-  }
-
-  public ObjectProperty<LocalDate> getToDate()
-  {
-    return toDate;
-  }
-
-  public StringProperty getAvailabilityPeriod()
-  {
-    return availabilityPeriod;
-  }
-
-  public BooleanProperty getCheckBox()
-  {
-    return checkBox;
-  }
-
-  public void addGame(String name, String type, String releaseYear,
-      LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
-      boolean needsDeposit)
-  {
-    try
-    {
-      DateInterval rentalDate = new DateInterval(rentalFrom, rentalTo);
-
-      int releaseYearInt = Integer.parseInt(releaseYear);
-      int availabilityPeriodInt = Integer.parseInt(availablePeriod);
-
-      Game game = new Game(name, type, releaseYearInt, needsDeposit, rentalDate,
-          availabilityPeriodInt, model.getUserId());
-
-      if (validateGame(game).equals("Success"))
-      {
-        model.AddGame(game);
-      }
-    }
-    catch (Exception e)
-    {
-      System.out.println("Invalid operation.");
+    public ObjectProperty<LocalDate> getFromDate() {
+        return rentalFrom;
     }
 
-  }
+    public ObjectProperty<LocalDate> getToDate() {
+        return rentalTo;
+    }
 
-  public String validateGame(Game game)
-  {
-    String result = "";
+    public StringProperty getAvailabilityPeriod() {
+        return availabilityPeriod;
+    }
 
-    if (game.getTitle().equals(""))
-      result += "Title should not be empty." + "\n";
-    else if (game.getType().equals(""))
-      result += "Type should not be empty" + "\n";
-    else if (String.valueOf(game.getReleaseYear()).equals(""))
-      result += "Release year should not be empty";
-    else if (String.valueOf(game.getAvailabilityPeriod()).equals(""))
-      result += "Availability period should not be empty";
-    else if (
-        game.getRentalPeriod().getStartDateObject().getTimeInMillis() > game
-            .getRentalPeriod().getEndDateObject().getTimeInMillis() && (
-            game.getRentalPeriod().getStartDate().equals("") || game
-                .getRentalPeriod().getEndDate().equals("")))
-      result += "Invalid dates" + "\n";
-    else
-      result = "Success";
+    public BooleanProperty getCheckBox() {
+        return checkBox;
+    }
+public StringProperty getResponseMessage(){
+        return responseMessage;
+}
 
-    return result;
-  }
 
-  public Game getActualGame()
-  {
+    public void addCurrentGame() throws RemoteException {
+        model.validateGame(title.getValue(), type.getValue(), releaseYear.getValue(), rentalFrom.getValue(), rentalTo.getValue(), availabilityPeriod.getValue(), checkBox.getValue());
+    }
 
-    DateInterval dateInterval = new DateInterval(fromDate.get(), toDate.get());
+    public void reset() {
+        title.setValue("");
+        type.setValue("");
+        releaseYear.setValue("");
+        rentalTo.setValue(null);
+        rentalFrom.setValue(null);
+        availabilityPeriod.setValue("");
+        checkBox.setValue(false);
+    }
 
-    Game game = new Game(title.get(), type.get(),
-        Integer.parseInt(releaseYear.get()), checkBox.get(), dateInterval,
-        Integer.parseInt(availabilityPeriod.get()), model.getUserId());
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
 
-    return game;
-  }
-
-  public void reset()
-  {
-    title.setValue("");
-    type.setValue("");
-    releaseYear.setValue("");
-//    rentalPeriod.setValue("");
-    toDate.setValue(null);
-    fromDate.setValue(null);
-    availabilityPeriod.setValue("");
-    checkBox.setValue(false);
-  }
+            responseMessage.setValue((String) evt.getNewValue());
+            System.out.println((String) evt.getNewValue());
+    }
 }
