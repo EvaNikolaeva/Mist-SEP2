@@ -15,8 +15,12 @@ public class DateInterval implements Serializable
     {
         GregorianCalendar rentalFromDateCalendar = GregorianCalendar
             .from(fromDate.atStartOfDay(ZoneId.systemDefault()));
+        rentalFromDateCalendar.set(Calendar.HOUR, 23);
+        rentalFromDateCalendar.set(Calendar.MINUTE, 59);
         GregorianCalendar rentalToDateCalendar = GregorianCalendar
             .from(toDate.atStartOfDay(ZoneId.systemDefault()));
+        rentalToDateCalendar.set(Calendar.HOUR, 23);
+        rentalToDateCalendar.set(Calendar.MINUTE, 59);
 
         this.startDate = rentalFromDateCalendar;
         this.endDate = rentalToDateCalendar;

@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ModelManager implements Model
 {
@@ -80,64 +81,61 @@ public class ModelManager implements Model
   public void validateGame(String name, String type, String releaseYear,
                              LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
                              boolean needsDeposit) throws RemoteException {
-    int workingReleaseYear;
-    int workingAvailabilityPeriodInt;
-    DateInterval workingRentalDate;
-
-
-  try {
-    workingRentalDate = new DateInterval(rentalFrom, rentalTo);
-
-      workingReleaseYear = Integer.parseInt(releaseYear);
-    workingAvailabilityPeriodInt = Integer.parseInt(availablePeriod);
-
-
-
-
-    } catch (Exception e) {
-    workingReleaseYear = 0;
-    workingAvailabilityPeriodInt = 0;
-    LocalDate date1 = LocalDate.of(1, 1, 1);
-    LocalDate date2 = LocalDate.of(1, 1, 1);
-    workingRentalDate = new DateInterval(date1, date2);
-    }
-
-
-    Game game = new Game(name, type, workingReleaseYear, needsDeposit, workingRentalDate,
-            workingAvailabilityPeriodInt, getUserId());
-
-
     String result = "";
-
-    if (name.equals("")) {
-      result += "Title should not be empty." + "\n";
-      property.firePropertyChange("validateGame", null, result);
-    }
-    else if (type.equals("") || game.getType() == null) {
-      result += "Type should not be empty" + "\n";
-      property.firePropertyChange("validateGame", null, result);
-    }
-    else if (String.valueOf(game.getReleaseYear()).equals("0")) {
-      result += "Release year should not be empty";
-      property.firePropertyChange("validateGame", null, result);
-    }
-    else if (String.valueOf(game.getAvailabilityPeriod()).equals("0")) {
-      result += "Availability period should not be empty";
-      property.firePropertyChange("validateGame", null, result);
-    }
-    else if (
-            game.getRentalPeriod().getStartDateObject().getTimeInMillis() > game
-                    .getRentalPeriod().getEndDateObject().getTimeInMillis() && (
-                    game.getRentalPeriod().getStartDate().equals("") || game
-                            .getRentalPeriod().getEndDate().equals(""))) {
-      result += "Invalid dates" + "\n";
-      property.firePropertyChange("validateGame", null, result);
-    }
-    else {
-      AddGame(game);
-      result = "Success";
-      property.firePropertyChange("validateGame", null, result);
-    }
+   if(name == null || type == null || releaseYear == null || rentalFrom == null || rentalTo == null || availablePeriod == null){
+     result += "All fields ought to be filled out!" + "\n";
+     property.firePropertyChange("validateGame", null, result);
+   }
+   else{
+     int releaseYearInt = 0;
+     try {
+       releaseYearInt = Integer.parseInt(releaseYear);
+     }
+     catch (Exception e){
+       result += "Release year has to a number" + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     int availablePeriodInt = 0;
+     try {
+       availablePeriodInt = Integer.parseInt(availablePeriod);
+     }
+     catch (Exception e){
+       result += "Availability period has to be a number" + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     DateInterval dateInterval = new DateInterval(rentalFrom, rentalTo);
+     Calendar rightNow = Calendar.getInstance();
+     Game game = new Game(name, type, releaseYearInt, needsDeposit, dateInterval, availablePeriodInt, user.getUserID());
+     if(game.getRentalPeriod().getStartDateObject().getTimeInMillis() < Calendar.getInstance().getTimeInMillis()){
+       result += "Start date can't be in the past." + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     else if(game.getRentalPeriod().getStartDateObject().getTimeInMillis() > game.getRentalPeriod().getEndDateObject().getTimeInMillis()){
+       result += "Start date has to be before the end date." + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     else if(game.getTitle().equals("")){
+       result += "Title can't be empty." + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     else if(game.getType().equals("")){
+       result += "Type can't be empty." + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     else if(!(game.getReleaseYear() > 0)){
+       result += "Release year should be after the birth of Christ." + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     else if(!(game.getAvailabilityPeriod() > 0)){
+       result += "Availability period must be larger than a single day." + "\n";
+       property.firePropertyChange("validateGame", null, result);
+     }
+     else{
+       result = "Success";
+       AddGame(game);
+       property.firePropertyChange("validateGame", null, result);
+     }
+   }
   }
 
   @Override

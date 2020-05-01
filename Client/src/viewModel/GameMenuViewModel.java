@@ -23,7 +23,6 @@ public class GameMenuViewModel implements PropertyChangeListener {
     private StringProperty title;
     private StringProperty type;
     private StringProperty releaseYear;
-    //  private StringProperty rentalPeriod;
     private ObjectProperty<LocalDate> rentalFrom;
     private ObjectProperty<LocalDate> rentalTo;
     private StringProperty availabilityPeriod;
@@ -37,7 +36,6 @@ public class GameMenuViewModel implements PropertyChangeListener {
         this.title = new SimpleStringProperty();
         this.type = new SimpleStringProperty();
         this.releaseYear = new SimpleStringProperty();
-//    this.rentalPeriod = new SimpleStringProperty();
         this.rentalFrom = new SimpleObjectProperty<>();
         this.rentalTo = new SimpleObjectProperty<>();
         this.availabilityPeriod = new SimpleStringProperty();
@@ -58,10 +56,6 @@ public class GameMenuViewModel implements PropertyChangeListener {
         return releaseYear;
     }
 
-    //  public StringProperty getRentalPeriod()
-//  {
-//    return rentalPeriod;
-//  }
     public ObjectProperty<LocalDate> getFromDate() {
         return rentalFrom;
     }

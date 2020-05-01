@@ -12,12 +12,6 @@ import java.rmi.RemoteException;
 public class UserGameListController
 {
   @FXML ListView<Game> list;
-  //  @FXML TableColumn<String, Game> title;
-  //  @FXML TableColumn<String, Game> type;
-  //  @FXML TableColumn<String, Game> year;
-  //  @FXML TableColumn<String, Game> rentalPeriod;
-  //  @FXML TableColumn<String, Game> availabilityPeriod;
-  //  @FXML TableColumn<String, Game> deposit;
   private Region root;
 
   private ViewHandler viewHandler;
@@ -31,14 +25,6 @@ public class UserGameListController
     this.viewHandler = viewHandler;
     this.userGameListViewModel = userGameListViewModel;
     this.list.setItems(userGameListViewModel.getList());
-    //need a way to add individual data to each column
-    //    title.setCellValueFactory(cellData -> cellData.getValue().getCourseProperty());
-    //    type.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
-    //    examiner.setCellValueFactory(cellData -> cellData.getValue().getExaminerProperty());
-    //    externalExaminer.setCellValueFactory(cellData -> cellData.getValue().getExternalExaminerProperty());
-    //    room.setCellValueFactory(cellData -> cellData.getValue().getRoomProperty());
-    //    date.setCellValueFactory(cellData -> cellData.getValue().getDateProperty().asString());
-    //    nr_students.setCellValueFactory(cellData -> cellData.getValue().getNr_studentsProperty());
 
   }
 
