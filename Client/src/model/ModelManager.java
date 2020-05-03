@@ -29,17 +29,16 @@ public class ModelManager implements Model
     updateUserGames();
   }
 
-
   @Override public void AddGame(Game game) throws RemoteException
   {
 
-      for(int i = 0;i<client.getGameList().size();i++)
+    for (int i = 0; i < client.getGameList().size(); i++)
+    {
+      if (game.getId() == client.getGameList().getGame(i).getId())
       {
-        if(game.getId() == client.getGameList().getGame(i).getId())
-        {
-          game.reRollID();
-        }
+        game.reRollID();
       }
+    }
     client.addGame(game);
     user.getGames().addGame(game);
   }
@@ -77,74 +76,94 @@ public class ModelManager implements Model
     return user.getUserID();
   }
 
-  @Override
-  public void validateGame(String name, String type, String releaseYear,
-                             LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
-                             boolean needsDeposit) throws RemoteException {
+  //maybe add comments
+
+  @Override public void validateGame(String name, String type,
+      String releaseYear, LocalDate rentalFrom, LocalDate rentalTo,
+      String availablePeriod, boolean needsDeposit) throws RemoteException
+  {
     String result = "";
-   if(name == null || type == null || releaseYear == null || rentalFrom == null || rentalTo == null || availablePeriod == null){
-     result += "All fields ought to be filled out!" + "\n";
-     property.firePropertyChange("validateGame", null, result);
-   }
-   else{
-     int releaseYearInt = 0;
-     try {
-       releaseYearInt = Integer.parseInt(releaseYear);
-     }
-     catch (Exception e){
-       result += "Release year has to a number" + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     int availablePeriodInt = 0;
-     try {
-       availablePeriodInt = Integer.parseInt(availablePeriod);
-     }
-     catch (Exception e){
-       result += "Availability period has to be a number" + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     DateInterval dateInterval = new DateInterval(rentalFrom, rentalTo);
-     Calendar rightNow = Calendar.getInstance();
-     Game game = new Game(name, type, releaseYearInt, needsDeposit, dateInterval, availablePeriodInt, user.getUserID());
-     if(game.getRentalPeriod().getStartDateObject().getTimeInMillis() < Calendar.getInstance().getTimeInMillis()){
-       result += "Start date can't be in the past." + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     else if(game.getRentalPeriod().getStartDateObject().getTimeInMillis() > game.getRentalPeriod().getEndDateObject().getTimeInMillis()){
-       result += "Start date has to be before the end date." + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     else if(game.getTitle().equals("")){
-       result += "Title can't be empty." + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     else if(game.getType().equals("")){
-       result += "Type can't be empty." + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     else if(!(game.getReleaseYear() > 0)){
-       result += "Release year should be after the birth of Christ." + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     else if(!(game.getAvailabilityPeriod() > 0)){
-       result += "Availability period must be larger than a single day." + "\n";
-       property.firePropertyChange("validateGame", null, result);
-     }
-     else{
-       result = "Success";
-       AddGame(game);
-       property.firePropertyChange("validateGame", null, result);
-     }
-   }
+    if (name == null || type == null || releaseYear == null
+        || rentalFrom == null || rentalTo == null || availablePeriod == null)
+    {
+      result += "All fields ought to be filled out!" + "\n";
+      property.firePropertyChange("validateGame", null, result);
+    }
+    else
+    {
+      int releaseYearInt = 0;
+      try
+      {
+        releaseYearInt = Integer.parseInt(releaseYear);
+      }
+      catch (Exception e)
+      {
+        result += "Release year has to a number" + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      int availablePeriodInt = 0;
+      try
+      {
+        availablePeriodInt = Integer.parseInt(availablePeriod);
+      }
+      catch (Exception e)
+      {
+        result += "Availability period has to be a number" + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      DateInterval dateInterval = new DateInterval(rentalFrom, rentalTo);
+      Calendar rightNow = Calendar.getInstance();
+      Game game = new Game(name, type, releaseYearInt, needsDeposit,
+          dateInterval, availablePeriodInt, user.getUserID());
+      if (game.getRentalPeriod().getStartDateObject().getTimeInMillis()
+          < Calendar.getInstance().getTimeInMillis())
+      {
+        result += "Start date can't be in the past." + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      else if (game.getRentalPeriod().getStartDateObject().getTimeInMillis()
+          > game.getRentalPeriod().getEndDateObject().getTimeInMillis())
+      {
+        result += "Start date has to be before the end date." + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      else if (game.getTitle().equals(""))
+      {
+        result += "Title can't be empty." + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      else if (game.getType().equals(""))
+      {
+        result += "Type can't be empty." + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      else if (!(game.getReleaseYear() > 0))
+      {
+        result += "Release year should be after the birth of Christ." + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      else if (!(game.getAvailabilityPeriod() > 0))
+      {
+        result +=
+            "Availability period must be larger than a single day." + "\n";
+        property.firePropertyChange("validateGame", null, result);
+      }
+      else
+      {
+        result = "Success";
+        AddGame(game);
+        property.firePropertyChange("validateGame", null, result);
+      }
+    }
   }
 
-  @Override
-  public void addListener(PropertyChangeListener listener) {
+  @Override public void addListener(PropertyChangeListener listener)
+  {
     property.addPropertyChangeListener(listener);
   }
 
-  @Override
-  public void removeListener(PropertyChangeListener listener) {
+  @Override public void removeListener(PropertyChangeListener listener)
+  {
     property.addPropertyChangeListener(listener);
   }
 }

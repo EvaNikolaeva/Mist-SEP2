@@ -5,43 +5,67 @@ import java.util.ArrayList;
 
 public class GameList implements Serializable
 {
-    private ArrayList<Game> games;
+  private ArrayList<Game> games;
 
-    public GameList()
-    {
-        this.games = new ArrayList<>();
-    }
+  public GameList()
+  {
+    this.games = new ArrayList<>();
+  }
 
-    public void addGame(Game game)
+  public void addGame(Game game)
+  {
+    if (game == null)
     {
-        games.add(game);
+      return;
     }
+    for (int i = 0; i < games.size(); i++)
+    {
+      if (games.get(i).equals(game))
+      {
+        return;
+      }
+    }
+    games.add(game);
+  }
 
-    public void removeGame(int id)
+  public void removeGame(int id)
+  {
+    for (int i = 0; i < games.size(); i++)
     {
-        for (int i = 0; i < games.size(); i++)
-        {
-            if (games.get(i).getId() == id)
-                games.remove(games.get(i));
-        }
+      if (games.get(i).getId() == id)
+        games.remove(games.get(i));
     }
+  }
 
-    public Game getGameById(int id)
+  public Game getGameById(int id)
+  {
+    if(!(id > 0))
+      return null;
+    for (int i = 0; i < games.size(); i++)
     {
-        for (int i = 0; i < games.size(); i++)
-        {
-            if (games.get(i).getId() == id)
-                return games.get(i);
-        }
-        return null;
+      if (games.get(i).getId() == id)
+        return games.get(i);
     }
+    return null;
+  }
 
-    public Game getGame(int index)
-    {
-        return games.get(index);
-    }
-    public int size()
-    {
-        return games.size();
-    }
+  public Game getGame(int index)
+  {
+    if(index < 0 || index > games.size())
+      return null;
+    return games.get(index);
+  }
+
+  public int size()
+  {
+    return games.size();
+  }
+
+  public boolean equals(Object obj)
+  {
+    if(!(obj instanceof GameList)) return false;
+    GameList other = (GameList) obj;
+    return games.equals(other.games);
+  }
+
 }

@@ -95,7 +95,7 @@ public class GameMenuController{
         }
     }
 
-    public void onBack(ActionEvent actionEvent) throws RemoteException {
+    public void onBack() throws RemoteException {
         viewHandler.openView("user");
     }
 }

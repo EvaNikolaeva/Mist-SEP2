@@ -14,11 +14,11 @@ public class DateInterval implements Serializable
   public DateInterval(LocalDate fromDate, LocalDate toDate)
   {
     GregorianCalendar rentalFromDateCalendar = GregorianCalendar
-            .from(fromDate.atStartOfDay(ZoneId.systemDefault()));
+        .from(fromDate.atStartOfDay(ZoneId.systemDefault()));
     rentalFromDateCalendar.set(Calendar.HOUR, 23);
     rentalFromDateCalendar.set(Calendar.MINUTE, 59);
     GregorianCalendar rentalToDateCalendar = GregorianCalendar
-            .from(toDate.atStartOfDay(ZoneId.systemDefault()));
+        .from(toDate.atStartOfDay(ZoneId.systemDefault()));
     rentalToDateCalendar.set(Calendar.HOUR, 23);
     rentalToDateCalendar.set(Calendar.MINUTE, 59);
 
@@ -60,6 +60,6 @@ public class DateInterval implements Serializable
 
   public String toString()
   {
-    return getCalendarDate(startDate) + " -" + getCalendarDate(endDate);
+    return getCalendarDate(startDate) + " - " + getCalendarDate(endDate);
   }
 }

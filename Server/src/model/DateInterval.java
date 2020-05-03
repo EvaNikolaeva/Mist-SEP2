@@ -8,58 +8,58 @@ import java.util.GregorianCalendar;
 
 public class DateInterval implements Serializable
 {
-    private Calendar startDate;
-    private Calendar endDate;
+  private Calendar startDate;
+  private Calendar endDate;
 
-    public DateInterval(LocalDate fromDate, LocalDate toDate)
-    {
-        GregorianCalendar rentalFromDateCalendar = GregorianCalendar
-            .from(fromDate.atStartOfDay(ZoneId.systemDefault()));
-        rentalFromDateCalendar.set(Calendar.HOUR, 23);
-        rentalFromDateCalendar.set(Calendar.MINUTE, 59);
-        GregorianCalendar rentalToDateCalendar = GregorianCalendar
-            .from(toDate.atStartOfDay(ZoneId.systemDefault()));
-        rentalToDateCalendar.set(Calendar.HOUR, 23);
-        rentalToDateCalendar.set(Calendar.MINUTE, 59);
+  public DateInterval(LocalDate fromDate, LocalDate toDate)
+  {
+    GregorianCalendar rentalFromDateCalendar = GregorianCalendar
+        .from(fromDate.atStartOfDay(ZoneId.systemDefault()));
+    rentalFromDateCalendar.set(Calendar.HOUR, 23);
+    rentalFromDateCalendar.set(Calendar.MINUTE, 59);
+    GregorianCalendar rentalToDateCalendar = GregorianCalendar
+        .from(toDate.atStartOfDay(ZoneId.systemDefault()));
+    rentalToDateCalendar.set(Calendar.HOUR, 23);
+    rentalToDateCalendar.set(Calendar.MINUTE, 59);
 
-        this.startDate = rentalFromDateCalendar;
-        this.endDate = rentalToDateCalendar;
-    }
+    this.startDate = rentalFromDateCalendar;
+    this.endDate = rentalToDateCalendar;
+  }
 
-    public DateInterval(int startDay, int startMonth, int endDay, int endMonth)
-    {
-        this.startDate = new GregorianCalendar(0, startMonth - 1, startDay);
-        this.endDate = new GregorianCalendar(0, endMonth - 1, endDay);
-    }
+  public DateInterval(int startDay, int startMonth, int endDay, int endMonth)
+  {
+    this.startDate = new GregorianCalendar(0, startMonth - 1, startDay);
+    this.endDate = new GregorianCalendar(0, endMonth - 1, endDay);
+  }
 
-    private static String getCalendarDate(Calendar calendarDate)
-    {
-        return (calendarDate.get(Calendar.DAY_OF_MONTH)) + "/" + (
-            calendarDate.get(Calendar.MONTH) + 1);
-    }
+  private static String getCalendarDate(Calendar calendarDate)
+  {
+    return (calendarDate.get(Calendar.DAY_OF_MONTH)) + "/" + (
+        calendarDate.get(Calendar.MONTH) + 1);
+  }
 
-    public String getStartDate()
-    {
-        return getCalendarDate(startDate);
-    }
+  public String getStartDate()
+  {
+    return getCalendarDate(startDate);
+  }
 
-    public String getEndDate()
-    {
-        return getCalendarDate(endDate);
-    }
+  public String getEndDate()
+  {
+    return getCalendarDate(endDate);
+  }
 
-    public Calendar getStartDateObject()
-    {
-        return startDate;
-    }
+  public Calendar getStartDateObject()
+  {
+    return startDate;
+  }
 
-    public Calendar getEndDateObject()
-    {
-        return endDate;
-    }
+  public Calendar getEndDateObject()
+  {
+    return endDate;
+  }
 
-    public String toString()
-    {
-        return getCalendarDate(startDate) + " -" + getCalendarDate(endDate);
-    }
+  public String toString()
+  {
+    return getCalendarDate(startDate) + " - " + getCalendarDate(endDate);
+  }
 }

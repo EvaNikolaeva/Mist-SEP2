@@ -78,4 +78,13 @@ public class Game implements Serializable
         + ", rental period: " + rentalPeriod + ", availability period: "
         + availabilityPeriod;
   }
+
+  public boolean equals(Object obj)
+  {
+    if(!(obj instanceof Game)) return false;
+    Game other = (Game) obj;
+    return title.equals(other.title) && type.equals(other.type) && id == other.id &&
+        releaseYear == other.releaseYear && needsDeposit == other.needsDeposit &&
+        rentalPeriod.equals(other.rentalPeriod) && availabilityPeriod == other.availabilityPeriod;
+  }
 }

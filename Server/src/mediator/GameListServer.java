@@ -16,7 +16,6 @@ import java.util.Arrays;
 public class GameListServer implements RemoteGameListModel
 {
   private Model model;
-  //  private UnnamedPropertyChangeSubject property;
 
   public GameListServer(Model model)
   {
