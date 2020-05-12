@@ -76,12 +76,22 @@ public class ModelManager implements Model
     return user.getUserID();
   }
 
-  //maybe add comments
+
+  //validate game is used to validate each field inserted in the view.
+  //It checks that everything is not null and each field has content
+  // and the logic of the dates makes sense in the real world
+  //after all checks, a result is sent to through the view model to the view to continue the process
+  //If the result is "Success" the game is added. Anything else will result in a pop up error
+  //Also, the order each check is made makes sense programming wise.
 
   @Override public void validateGame(String name, String type,
       String releaseYear, LocalDate rentalFrom, LocalDate rentalTo,
       String availablePeriod, boolean needsDeposit) throws RemoteException
   {
+
+    //this is the check for everything not null. If the if is valid, which is not good,
+    //the error message is sent
+
     String result = "";
     if (name == null || type == null || releaseYear == null
         || rentalFrom == null || rentalTo == null || availablePeriod == null)
@@ -89,6 +99,11 @@ public class ModelManager implements Model
       result += "All fields ought to be filled out!" + "\n";
       property.firePropertyChange("validateGame", null, result);
     }
+
+    //In this else, the system checks for the empty fields and logic of the dates
+    //If something fails, the error message is sent, if not, "success" is sent and the game is valid
+
+
     else
     {
       int releaseYearInt = 0;
@@ -111,6 +126,10 @@ public class ModelManager implements Model
         result += "Availability period has to be a number" + "\n";
         property.firePropertyChange("validateGame", null, result);
       }
+
+      //here, we created specific date object to help with the check and to also look good in the list
+
+
       DateInterval dateInterval = new DateInterval(rentalFrom, rentalTo);
       Calendar rightNow = Calendar.getInstance();
       Game game = new Game(name, type, releaseYearInt, needsDeposit,
