@@ -64,7 +64,6 @@ public class GameListServer implements RemoteGameListModel
   {
     return model.GetGameList();
   }
-
   @Override public void addGame(Game game)
   {
     model.AddGame(game);

@@ -11,4 +11,5 @@ public interface Model extends UnnamedPropertyChangeSubject
   void acceptTrade(Game game,int  userID);
   void declineTrade(Game game, int userID);
   void addToPending(Game game, int userID);
+  void addUser(User user);
 }

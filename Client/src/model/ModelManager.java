@@ -18,19 +18,23 @@ public class ModelManager implements Model {
     private User user;
     private PropertyChangeSupport property;
 
-    public ModelManager(){
+    public ModelManager() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
         this.property = new PropertyChangeSupport(this);
-
+      this.client = new GameListClient(this);
     }
 @Override
     public void connectToServer() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
-        this.client = new GameListClient(this);
         updateUserGames();
     }
 
   @Override
-  public void getUser(String username) {
-    this.user = new User(username, 123456);
+  public void setUserCurrent(String username) throws RemoteException {
+    this.user = client.getUserData(username);
+  }
+
+  @Override
+  public User getUser(String username) throws RemoteException {
+    return client.getUserData(username);
   }
 
   @Override

@@ -3,6 +3,7 @@ package mediator;
 import model.Game;
 import model.GameList;
 import model.Model;
+import model.User;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -67,6 +68,11 @@ public class GameListClient implements GameListClientModel, Remote
   @Override public void removeGame(int id) throws RemoteException
   {
     remoteGameListModel.removeGame(id);
+  }
+
+  @Override
+  public User getUserData(String username) throws RemoteException {
+    return remoteGameListModel.getUserData(username);
   }
 
   @Override public void close()

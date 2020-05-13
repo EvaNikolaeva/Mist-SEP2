@@ -26,6 +26,10 @@ public class UserList
   public User getUserByID(int id)
   {
     for (int i = 0; i < users.size(); i++)
+    public void addUser(User user){
+        users.add(user);
+    }
+    public User getUser(String username)
     {
       if (users.get(i).getUserID() == id)
       {

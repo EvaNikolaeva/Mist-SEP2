@@ -56,6 +56,11 @@ public class ModelManager implements Model
     userList.getUserByID(userID).addToPending(game);
   }
 
+  @Override
+  public void addUser(User user) {
+    userList.addUser(user);
+  }
+
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);

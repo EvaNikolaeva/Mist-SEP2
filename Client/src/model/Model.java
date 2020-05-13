@@ -26,6 +26,7 @@ public interface Model extends UnnamedPropertyChangeSubject {
 
     void connectToServer() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException;
 
-    void getUser(String username);
+    User getUser(String username) throws RemoteException;
 
+    void setUserCurrent(String username) throws RemoteException;
 }
