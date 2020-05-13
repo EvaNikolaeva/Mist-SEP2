@@ -40,4 +40,14 @@ public class OtherProfileController
     this.list
         .setItems(otherProfileViewModel.getList()); //finish the method getList
   }
+
+  @FXML public void onBrowseGames() throws RemoteException
+  {
+    viewHandler.openView("list");
+  }
+
+  @FXML public void onAddGame() throws RemoteException
+  {
+    viewHandler.openView("menu");
+  }
 }

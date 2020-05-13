@@ -16,17 +16,17 @@
     <top>
         <HBox prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER_LEFT">
             <children>
-                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Browse Games">
+                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onBrowseGames" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Browse Games">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
+                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onAddGame" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button disable="true" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onMyProfile" prefWidth="76.0" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="My Profile">
+                <Button disable="true" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" prefWidth="76.0" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="My Profile">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -57,9 +57,9 @@
                         <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </Button>
-                <TextFlow fx:id="bio" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #67666D;">
+                <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #67666D;">
                     <children>
-                        <Label text="Info box label" textFill="#e4e4e4" />
+                        <Label fx:id="bio" text="Info box label" textFill="#e4e4e4" />
                     </children>
                 </TextFlow>
             </children>

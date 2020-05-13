@@ -34,6 +34,7 @@ public class MyProfileController
     this.forTrade.setItems(myProfileViewModel.getList());
     this.bio.textProperty().bind(myProfileViewModel.getBio());
     this.myProfileViewModel = myProfileViewModel;
+    System.out.println(myProfileViewModel.getUser().getUserID()); //this is the main problem. It cannot find the user id. It is always null
   }
 
   public Region getRoot()
@@ -68,7 +69,6 @@ public class MyProfileController
     }
     else
     {
-
       Game selectedGame = incomingTradeList.getSelectionModel().getSelectedItem();
       myProfileViewModel.removeGame(selectedGame);
       int index = incomingTradeList.getSelectionModel().getSelectedIndex();

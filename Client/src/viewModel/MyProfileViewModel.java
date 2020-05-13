@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import model.Game;
 import model.GameList;
 import model.Model;
+import model.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -31,6 +32,11 @@ public class MyProfileViewModel implements PropertyChangeListener
         this.rented = FXCollections.observableArrayList();
         this.bio = new SimpleStringProperty();
         model.addListener(this);
+    }
+
+    public User getUser() throws RemoteException
+    {
+        return model.getUser();
     }
 
     public StringProperty getBio()

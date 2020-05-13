@@ -1,10 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import model.Game;
 import viewModel.GameListViewModel;
@@ -60,5 +57,20 @@ public class GameListController
   {
     gameListViewModel.requestTrade(list.getSelectionModel().getSelectedItem(),
         list.getSelectionModel().getSelectedItem().getUserID());
+  }
+
+  @FXML public void onOtherProfile() throws RemoteException
+  {
+    if(list.getSelectionModel().getSelectedIndex() < 0)
+    {
+      Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "You have to select a game.", ButtonType.OK);
+                alert.showAndWait();
+                alert.close();
+    }
+    else
+    {
+      viewHandler.openView("other");
+    }
   }
 }

@@ -3,6 +3,8 @@ package viewModel;
 import model.Model;
 import view.MyProfileController;
 
+import java.rmi.RemoteException;
+
 public class ViewModelFactory
 {
   private GameListViewModel gameListViewModel;
@@ -12,7 +14,7 @@ public class ViewModelFactory
   private LoadingScreenViewModel loadingScreenViewModel;
   private OtherProfileViewModel otherProfileViewModel;
 
-  public ViewModelFactory(Model model)
+  public ViewModelFactory(Model model) throws RemoteException
   {
     this.gameListViewModel = new GameListViewModel(model);
     this.gameMenuViewModel = new GameMenuViewModel(model);

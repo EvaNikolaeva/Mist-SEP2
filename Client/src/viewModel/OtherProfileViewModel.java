@@ -23,7 +23,7 @@ public class OtherProfileViewModel
 
   private Model model;
 
-  public OtherProfileViewModel(Model model)
+  public OtherProfileViewModel(Model model) throws RemoteException
   {
     this.model = model;
     this.list = FXCollections.observableArrayList();

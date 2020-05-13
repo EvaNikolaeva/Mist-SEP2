@@ -55,7 +55,7 @@ public class ViewHandler
         root = loadLoadingController("LoadingScreen.fxml");
         break;
       case "other":
-        root = loadLoadingController("OtherProfile.fxml");
+        root = loadOtherProfileController("OtherProfile.fxml");
         break;
     }
     currentScene.setRoot(root);
