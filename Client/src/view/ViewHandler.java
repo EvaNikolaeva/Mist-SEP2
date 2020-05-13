@@ -20,6 +20,8 @@ public class ViewHandler
   private GameMenuController gameMenuController;
   private UserGameListController userGameListController;
   private MyProfileController myProfileController;
+  private EditProfileController editProfileController;
+  private LoadingScreenController loadingScreenController;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
@@ -29,7 +31,7 @@ public class ViewHandler
   public void start(Stage primaryStage) throws RemoteException {
     this.primaryStage = primaryStage;
     this.currentScene = new Scene(new Region());
-    openView("list");
+    openView("loading");
   }
 
   public void openView(String id) throws RemoteException {
@@ -47,6 +49,13 @@ public class ViewHandler
         break;
       case "profile":
         root = loadMyProfileMenuView("MyProfile.fxml");
+        break;
+      case "editBio":
+        root = loadEditProfileController("EditProfile.fxml");
+        break;
+      case "loading":
+        root = loadLoadingController("LoadingScreen.fxml");
+        break;
     }
     currentScene.setRoot(root);
 
@@ -156,5 +165,53 @@ public class ViewHandler
       userGameListController.reset();
     }
     return userGameListController.getRoot();
+  }
+
+  private Region loadEditProfileController(String fxmlFile) throws RemoteException {
+    if (editProfileController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        editProfileController = loader.getController();
+        editProfileController
+            .init(this, viewModelFactory.editProfileViewModel(), root);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+      editProfileController.reset();
+    }
+    return editProfileController.getRoot();
+  }
+
+  private Region loadLoadingController(String fxmlFile) throws RemoteException {
+    if (loadingScreenController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        loadingScreenController = loader.getController();
+        loadingScreenController
+            .init(this, viewModelFactory.loadingScreenViewModel(), root);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+      loadingScreenController.reset();
+    }
+    return loadingScreenController.getRoot();
   }
 }
