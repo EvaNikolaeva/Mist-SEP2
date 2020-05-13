@@ -11,7 +11,7 @@ public class UserList
     users = new ArrayList<>();
   }
 
-  public User getUser(String username)
+  public User getUserData(String username)
   {
     for (int i = 0; i < users.size(); i++)
     {
@@ -25,20 +25,26 @@ public class UserList
 
   public User getUserByID(int id)
   {
-    for (int i = 0; i < users.size(); i++)
-    public void addUser(User user){
-        users.add(user);
-    }
-    public User getUser(String username)
-    {
-      if (users.get(i).getUserID() == id)
-      {
-        return users.get(i);
-      }
+    for (int i = 0; i < users.size(); i++) {
+        if(users.get(i).getUserID() == id){
+            return users.get(i);
+        }
     }
     return null;
   }
-
+    public User getUser(String username)
+    {
+        for (int i = 0; i < users.size(); i++){
+            if (users.get(i).getUsername().equals(username))
+            {
+                return users.get(i);
+            }
+        }
+        return null;
+    }
+    public void addUser(User user){
+        users.add(user);
+    }
   public int size()
   {
     return users.size();
