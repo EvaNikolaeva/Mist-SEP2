@@ -12,6 +12,7 @@ public class Game implements Serializable
   private int availabilityPeriod;
   private int id;
   private int userID;
+  private boolean available;
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
       DateInterval rentalPeriod, int availabilityPeriod, int userID)
@@ -24,6 +25,7 @@ public class Game implements Serializable
     this.availabilityPeriod = availabilityPeriod;
     this.id = (int) (Math.random() * 9999) + 1;
     this.userID = userID;
+    this.available = true;
   }
 
   public void reRollID()
@@ -71,6 +73,16 @@ public class Game implements Serializable
     return availabilityPeriod;
   }
 
+  public void setUnavailable()
+  {
+    this.available = false;
+  }
+
+  public void setAvailable()
+  {
+    this.available = true;
+  }
+
   public String toString()
   {
     return "Title: " + title + ", id: " + id + ", type: " + type
@@ -81,10 +93,13 @@ public class Game implements Serializable
 
   public boolean equals(Object obj)
   {
-    if(!(obj instanceof Game)) return false;
+    if (!(obj instanceof Game))
+      return false;
     Game other = (Game) obj;
-    return title.equals(other.title) && type.equals(other.type) && id == other.id &&
-        releaseYear == other.releaseYear && needsDeposit == other.needsDeposit &&
-        rentalPeriod.equals(other.rentalPeriod) && availabilityPeriod == other.availabilityPeriod;
+    return title.equals(other.title) && type.equals(other.type)
+        && id == other.id && releaseYear == other.releaseYear
+        && needsDeposit == other.needsDeposit && rentalPeriod
+        .equals(other.rentalPeriod)
+        && availabilityPeriod == other.availabilityPeriod;
   }
 }
