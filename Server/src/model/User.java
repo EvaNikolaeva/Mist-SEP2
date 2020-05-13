@@ -7,6 +7,7 @@ public class User
   private GameList gameList;
   private GameList pendingGames;
   private GameList currentlyRentedGames;
+  private String bio;
 
 
   public User(String username, int userID)
@@ -16,6 +17,7 @@ public class User
     this.gameList = new GameList();
     this.pendingGames = new GameList();
     this.currentlyRentedGames= new GameList();
+    this.bio = "";
   }
 
   public int getUserID()
@@ -34,9 +36,9 @@ public class User
   }
 
   public GameList getPendingGames()
-  {
-    return pendingGames;
-  }
+{
+  return pendingGames;
+}
 
   public void addToPending(Game game)
   {
@@ -61,5 +63,8 @@ public class User
   {
     currentlyRentedGames.removeGame(gameId);
   }
-
+  public String getBio()
+  {
+    return bio;
+  }
 }
