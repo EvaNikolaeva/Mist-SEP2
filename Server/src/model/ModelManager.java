@@ -9,10 +9,12 @@ public class ModelManager implements Model
 {
   private PropertyChangeSupport property;
   private GameList list;
+  private UserList userList;
 
   public ModelManager()
   {
     this.list = new GameList();
+    this.userList= new UserList();
     this.property = new PropertyChangeSupport(this);
   }
 
@@ -29,6 +31,11 @@ public class ModelManager implements Model
   @Override public GameList GetGameList()
   {
     return list;
+  }
+
+  @Override public User getUserData(String username)//later should be updated to userId
+  {
+    return userList.getUser(username);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

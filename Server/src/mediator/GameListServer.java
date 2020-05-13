@@ -3,6 +3,7 @@ package mediator;
 import model.Game;
 import model.GameList;
 import model.Model;
+import model.User;
 import utility.UnnamedPropertyChangeSubject;
 
 import java.net.MalformedURLException;
@@ -72,5 +73,10 @@ public class GameListServer implements RemoteGameListModel
   @Override public void removeGame(int id)
   {
     model.RemoveGame(id);
+  }
+
+  @Override public User getUserData(String username) throws RemoteException
+  {
+    return model.getUserData(username);
   }
 }
