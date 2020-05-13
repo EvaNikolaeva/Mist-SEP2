@@ -1,5 +1,6 @@
 package view;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -12,18 +13,23 @@ import java.rmi.RemoteException;
 
 public class MyProfileController
 {
-  @FXML
-  ListView<Game> list;
+  @FXML ListView<Game> incomingTradeList;    //this was "list". Changed it to this value everywhere for the sake of testing
+  @FXML ListView<Game> owned;
+  @FXML ListView<Game> forTrade;
+  @FXML ListView<Game> rented;
   private MyProfileViewModel myProfileViewModel;
   private Region root;
   private ViewHandler viewHandler;
 
   public void init(ViewHandler viewHandler,
-                   MyProfileViewModel myProfileViewModel, Region root) throws RemoteException
+      MyProfileViewModel myProfileViewModel, Region root) throws RemoteException
   {
     this.viewHandler = viewHandler;
     this.root = root;
-    this.list.setItems(myProfileViewModel.getList());
+    this.incomingTradeList.setItems(myProfileViewModel.getList());
+    this.owned.setItems(myProfileViewModel.getList());
+    this.rented.setItems(myProfileViewModel.getList());
+    this.forTrade.setItems(myProfileViewModel.getList());
     this.myProfileViewModel = myProfileViewModel;
   }
 
@@ -34,85 +40,76 @@ public class MyProfileController
 
   public void reset() throws RemoteException
   {
-    this.list
-            .setItems(myProfileViewModel.getList()); //finish the method getList
+    this.incomingTradeList
+        .setItems(myProfileViewModel.getList()); //finish the method getList
   }
 
-  @FXML
-  public void onMyProfile() throws RemoteException
-  {
-    viewHandler.openView("profile");
-  }
-
-  @FXML
-  public void onAddGame() throws RemoteException
+  @FXML public void onAddGame() throws RemoteException
   {
     viewHandler.openView("menu");
   }
 
-  @FXML
-  public void onBrowseGames() throws RemoteException
+  @FXML public void onBrowseGames() throws RemoteException
   {
     viewHandler.openView("list");
   }
 
-  @FXML
-  public void onDeleteGame() throws RemoteException
+  @FXML public void onDeleteGame() throws RemoteException
   {
-    if (list.getSelectionModel().getSelectedIndex() < 0)
+    if (incomingTradeList.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
-              "You have to select a game.", ButtonType.OK);
+          "You have to select a game.", ButtonType.OK);
       alert.showAndWait();
       alert.close();
-    } else
+    }
+    else
     {
 
-      Game selectedGame = list.getSelectionModel().getSelectedItem();
+      Game selectedGame = incomingTradeList.getSelectionModel().getSelectedItem();
       myProfileViewModel.removeGame(selectedGame);
-      int index = list.getSelectionModel().getSelectedIndex();
-      if (list.getSelectionModel().getSelectedItem() == null)
+      int index = incomingTradeList.getSelectionModel().getSelectedIndex();
+      if (incomingTradeList.getSelectionModel().getSelectedItem() == null)
       {
         this.myProfileViewModel.getList().remove(index);
       }
       this.myProfileViewModel.getList().clear();
-      this.list.setItems(myProfileViewModel.getList());
+      this.incomingTradeList.setItems(myProfileViewModel.getList());
     }
   }
 
-  @FXML
-  public void onAcceptTrade() throws RemoteException
+  @FXML public void onAcceptTrade() throws RemoteException
   {
-    Game selectedGame = list.getSelectionModel().getSelectedItem();
+    Game selectedGame = incomingTradeList.getSelectionModel().getSelectedItem();
     myProfileViewModel.acceptGame(selectedGame, selectedGame.getUserID());
   }
 
-
-  @FXML
-  public void onDecline() throws RemoteException
+  @FXML public void onDecline() throws RemoteException
   {
-    if (list.getSelectionModel().getSelectedIndex() < 0)
+    if (incomingTradeList.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
-              "You have to select a game.", ButtonType.OK);
+          "You have to select a game.", ButtonType.OK);
       alert.showAndWait();
       alert.close();
-    } else
+    }
+    else
     {
 
-      Game selectedGame = list.getSelectionModel().getSelectedItem();
+      Game selectedGame = incomingTradeList.getSelectionModel().getSelectedItem();
       myProfileViewModel.removeGame(selectedGame);
-      int index = list.getSelectionModel().getSelectedIndex();
-      if (list.getSelectionModel().getSelectedItem() == null)
+      int index = incomingTradeList.getSelectionModel().getSelectedIndex();
+      if (incomingTradeList.getSelectionModel().getSelectedItem() == null)
       {
         this.myProfileViewModel.getList().remove(index);
       }
       this.myProfileViewModel.getList().clear();
-      this.list.setItems(myProfileViewModel.getList());
+      this.incomingTradeList.setItems(myProfileViewModel.getList());
     }
   }
-    @FXML public void onEditProfile () throws RemoteException
-    {
-      viewHandler.openView("editBio");
-    }
+
+  @FXML public void onEditProfile() throws RemoteException
+  {
+    viewHandler.openView("editBio");
   }
+}

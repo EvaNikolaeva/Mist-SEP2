@@ -36,12 +36,12 @@ public class ModelManager implements Model
   @Override public User getUserData(
       String username)//later should be updated to userId
   {
-    return userList.getUser(username);
+    return userList.getUser(username);      //Cata: why do we have 2 methods if it will change to id?
   }
 
-  @Override
-  public User getUserDataById(int id) {
-   return userList.getUserByID(id);
+  @Override public User getUserDataById(int id)
+  {
+    return userList.getUserByID(id);
   }
 
   @Override public void acceptTrade(Game game, int userID)
@@ -63,8 +63,8 @@ public class ModelManager implements Model
     list.getGame(game.getId()).setUnavailable();
   }
 
-  @Override
-  public void addUser(User user) {
+  @Override public void addUser(User user)
+  {
     userList.addUser(user);
   }
 

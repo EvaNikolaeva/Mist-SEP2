@@ -1,17 +1,16 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import viewModel.EditProfileViewModel;
 import viewModel.GameListViewModel;
 
-import java.awt.*;
 import java.rmi.RemoteException;
 
 public class EditProfileController
 {
-  @FXML Button cancel;
-  @FXML Button save;
   @FXML TextArea textArea;
 
   private Region root;
@@ -21,7 +20,6 @@ public class EditProfileController
 
   public void init(ViewHandler viewHandler,
       EditProfileViewModel editProfileViewModel, Region root)
-      throws RemoteException
   {
     this.root = root;
     this.viewHandler = viewHandler;
@@ -34,7 +32,7 @@ public class EditProfileController
     return root;
   }
 
-  public void reset() throws RemoteException
+  public void reset()
   {
     this.textArea.setText("");
   }

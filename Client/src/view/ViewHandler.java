@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import viewModel.UserGameListViewModel;
 import viewModel.ViewModelFactory;
 
 import java.io.IOException;
@@ -18,7 +17,6 @@ public class ViewHandler
   private ViewModelFactory viewModelFactory;
   private GameListController gameListController;
   private GameMenuController gameMenuController;
-  private UserGameListController userGameListController;
   private MyProfileController myProfileController;
   private EditProfileController editProfileController;
   private LoadingScreenController loadingScreenController;
@@ -28,13 +26,15 @@ public class ViewHandler
     this.viewModelFactory = viewModelFactory;
   }
 
-  public void start(Stage primaryStage) throws RemoteException {
+  public void start(Stage primaryStage) throws RemoteException
+  {
     this.primaryStage = primaryStage;
     this.currentScene = new Scene(new Region());
     openView("loading");
   }
 
-  public void openView(String id) throws RemoteException {
+  public void openView(String id) throws RemoteException
+  {
     Region root = null;
     switch (id)
     {
@@ -44,9 +44,6 @@ public class ViewHandler
       case "menu":
         root = loadGameMenuView("GameMenu.fxml");
         break;
-//      case "user":
-//        root = loadUserGameListView("UserGameList.fxml");
-//        break;
       case "profile":
         root = loadMyProfileMenuView("MyProfile.fxml");
         break;
@@ -71,7 +68,8 @@ public class ViewHandler
     primaryStage.show();
   }
 
-  private Region loadGameListView(String fxmlFile) throws RemoteException {
+  private Region loadGameListView(String fxmlFile) throws RemoteException
+  {
     if (gameListController == null)
     {
       try
@@ -122,7 +120,7 @@ public class ViewHandler
 
   private Region loadMyProfileMenuView(String fxmlFile) throws RemoteException
   {
-    if(myProfileController == null)
+    if (myProfileController == null)
     {
       try
       {
@@ -130,8 +128,10 @@ public class ViewHandler
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
         myProfileController = loader.getController();
-        myProfileController.init(this, viewModelFactory.myProfileViewModel(), root);
-      } catch (IOException e)
+        myProfileController
+            .init(this, viewModelFactory.myProfileViewModel(), root);
+      }
+      catch (IOException e)
       {
         e.printStackTrace();
       }
@@ -143,31 +143,9 @@ public class ViewHandler
     return myProfileController.getRoot();
   }
 
-//  private Region loadUserGameListView(String fxmlFile) throws RemoteException {
-//    if (userGameListController == null)
-//    {
-//      try
-//      {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource(fxmlFile));
-//        Region root = loader.load();
-//        userGameListController = loader.getController();
-//        userGameListController
-//            .init(this, viewModelFactory.userGameListViewModel(), root);
-//      }
-//      catch (Exception e)
-//      {
-//        e.printStackTrace();
-//      }
-//    }
-//    else
-//    {
-//      userGameListController.reset();
-//    }
-//    return userGameListController.getRoot();
-//  }
-
-  private Region loadEditProfileController(String fxmlFile) throws RemoteException {
+  private Region loadEditProfileController(String fxmlFile)
+      throws RemoteException
+  {
     if (editProfileController == null)
     {
       try
@@ -191,7 +169,8 @@ public class ViewHandler
     return editProfileController.getRoot();
   }
 
-  private Region loadLoadingController(String fxmlFile) throws RemoteException {
+  private Region loadLoadingController(String fxmlFile) throws RemoteException
+  {
     if (loadingScreenController == null)
     {
       try

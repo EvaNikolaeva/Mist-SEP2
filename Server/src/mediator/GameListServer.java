@@ -77,12 +77,13 @@ public class GameListServer implements RemoteGameListModel
 
   @Override public User getUserData(String username) throws RemoteException
   {
-    return model.getUserData(username);
+    return model.getUserData(
+        username);     //this is never used, was changed with getUser(String username)
   }
 
-  @Override
-  public User getUserDataById(int id) throws RemoteException {
-   return model.getUserDataById(id);
+  @Override public User getUserDataById(int id) throws RemoteException
+  {
+    return model.getUserDataById(id);
   }
 
   @Override public void acceptTrade(Game game, int userID)

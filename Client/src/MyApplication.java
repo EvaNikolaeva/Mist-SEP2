@@ -5,10 +5,7 @@ import javafx.stage.WindowEvent;
 import model.Model;
 import model.ModelManager;
 import view.ViewHandler;
-import viewModel.GameListViewModel;
-import viewModel.GameMenuViewModel;
-import viewModel.UserGameListViewModel;
-import viewModel.ViewModelFactory;
+import viewModel.*;
 
 public class MyApplication extends Application
 {
@@ -17,7 +14,9 @@ public class MyApplication extends Application
     Model model = new ModelManager();
     GameMenuViewModel gameMenuViewModel = new GameMenuViewModel(model);
     GameListViewModel gameListViewModel = new GameListViewModel(model);
-    UserGameListViewModel userGameListViewModel = new UserGameListViewModel(model);
+    LoadingScreenViewModel loadingScreenViewModel = new LoadingScreenViewModel(model);
+    EditProfileViewModel editProfileViewModel = new EditProfileViewModel(model);
+    MyProfileViewModel myProfileViewModel = new MyProfileViewModel(model);
     ViewModelFactory viewModelFactory = new ViewModelFactory(model);
 
     ViewHandler viewHandler = new ViewHandler(viewModelFactory);

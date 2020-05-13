@@ -24,7 +24,7 @@ public class GameListViewModel
     list.clear();
     for (int i = 0; i < games.size(); i++)
     {
-      list.add((Game)games.getGame(i));
+      list.add(games.getGame(i));
       System.out.println("added game to list" + games.getGame(i));
     }
     return list;
