@@ -19,7 +19,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
+                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onAddGame" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -63,6 +63,6 @@
         </VBox>
     </left>
     <center>
-        <ListView BorderPane.alignment="CENTER" />
+        <ListView fx:id="list" BorderPane.alignment="CENTER" />
     </center>
 </BorderPane>

@@ -44,9 +44,9 @@ public class ViewHandler
       case "menu":
         root = loadGameMenuView("GameMenu.fxml");
         break;
-      case "user":
-        root = loadUserGameListView("UserGameList.fxml");
-        break;
+//      case "user":
+//        root = loadUserGameListView("UserGameList.fxml");
+//        break;
       case "profile":
         root = loadMyProfileMenuView("MyProfile.fxml");
         break;
@@ -143,29 +143,29 @@ public class ViewHandler
     return myProfileController.getRoot();
   }
 
-  private Region loadUserGameListView(String fxmlFile) throws RemoteException {
-    if (userGameListController == null)
-    {
-      try
-      {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(fxmlFile));
-        Region root = loader.load();
-        userGameListController = loader.getController();
-        userGameListController
-            .init(this, viewModelFactory.userGameListViewModel(), root);
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
-    }
-    else
-    {
-      userGameListController.reset();
-    }
-    return userGameListController.getRoot();
-  }
+//  private Region loadUserGameListView(String fxmlFile) throws RemoteException {
+//    if (userGameListController == null)
+//    {
+//      try
+//      {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource(fxmlFile));
+//        Region root = loader.load();
+//        userGameListController = loader.getController();
+//        userGameListController
+//            .init(this, viewModelFactory.userGameListViewModel(), root);
+//      }
+//      catch (Exception e)
+//      {
+//        e.printStackTrace();
+//      }
+//    }
+//    else
+//    {
+//      userGameListController.reset();
+//    }
+//    return userGameListController.getRoot();
+//  }
 
   private Region loadEditProfileController(String fxmlFile) throws RemoteException {
     if (editProfileController == null)

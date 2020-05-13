@@ -25,13 +25,13 @@
     <bottom>
         <VBox alignment="CENTER" prefHeight="95.0" prefWidth="600.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Error label" textFill="RED">
+                <Label fx:id="errorLabel" text="Error label" textFill="RED">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
-                <TextField maxWidth="250.0" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter Username" />
-                <TextField maxWidth="250.0">
+                <TextField fx:id="username" maxWidth="250.0" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter Username" />
+                <TextField fx:id="password" maxWidth="250.0">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>

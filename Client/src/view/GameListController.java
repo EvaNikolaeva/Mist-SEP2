@@ -46,7 +46,12 @@ public class GameListController
     this.list.setItems(gameListViewModel.getList());
   }
 
-  @FXML public void onMyGames() throws RemoteException {
-    viewHandler.openView("user");
+  @FXML public void onMyProfile() throws RemoteException {
+    viewHandler.openView("profile");
+  }
+
+  @FXML public void onAddGame() throws RemoteException
+  {
+    viewHandler.openView("menu");
   }
 }

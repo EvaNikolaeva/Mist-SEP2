@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,7 +18,6 @@ public class LoadingScreenController
   @FXML TextField username;
   @FXML TextField password;
   @FXML Label errorLabel;
-  @FXML Button button;
 
   private Region root;
   private ViewHandler viewHandler;
@@ -28,8 +28,9 @@ public class LoadingScreenController
     this.viewHandler = viewHandler;
     this.root = root;
     this.loadingScreenViewModel = loadingScreenViewModel;
-    this.username.textProperty().bind(loadingScreenViewModel.getUsername());
-    this.password.textProperty().bind(loadingScreenViewModel.getPassword());
+    this.errorLabel.setText("");
+    this.username.textProperty().bindBidirectional(loadingScreenViewModel.getUsername());
+    this.password.textProperty().bindBidirectional(loadingScreenViewModel.getPassword());
   }
 
   public Region getRoot() {
@@ -39,13 +40,25 @@ public class LoadingScreenController
   public void reset() {
     username.setText("");
     password.setText("");
+    errorLabel.setText("");
   }
 
-  @FXML public void onLogin() throws RemoteException
+  @FXML public void onLogin()
   {
-    System.out.println(username.getText());
-    if(loadingScreenViewModel.exist(username.getText())) viewHandler.openView("list");
-    else errorLabel.setText("User does not exist");
+    Platform.runLater(() -> {
+      try
+      {
+        if (loadingScreenViewModel.exist(username.getText()))
+          viewHandler.openView("list");
+        else
+          errorLabel.setText("User does not exist");
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    );
   }
 
 }
