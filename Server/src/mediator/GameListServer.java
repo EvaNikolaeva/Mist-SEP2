@@ -64,6 +64,7 @@ public class GameListServer implements RemoteGameListModel
   {
     return model.GetGameList();
   }
+
   @Override public void addGame(Game game)
   {
     model.AddGame(game);
@@ -83,19 +84,17 @@ public class GameListServer implements RemoteGameListModel
       throws RemoteException
   {
     model.acceptTrade(game, userID);
-    game.setUnavailable();
   }
 
   @Override public void declineTrade(Game game, int userID)
       throws RemoteException
   {
     model.declineTrade(game, userID);
-    game.setAvailable();
   }
 
   @Override public void requestTrade(Game game, int userID)
       throws RemoteException
   {
-    model.addToPending(game,userID);
+    model.addToPending(game, userID);
   }
 }

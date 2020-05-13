@@ -41,19 +41,21 @@ public class ModelManager implements Model
 
   @Override public void acceptTrade(Game game, int userID)
   {
-
     userList.getUserByID(userID).addToRentedGames(game);
-
+    list.getGame(game.getId()).setUnavailable();
+    Thread countDown = new Thread(game);
   }
 
   @Override public void declineTrade(Game game, int userID)
   {
     userList.getUserByID(userID).removeFromPending(game.getId());
+    list.getGame(game.getId()).setAvailable();
   }
 
   @Override public void addToPending(Game game, int userID)
   {
     userList.getUserByID(userID).addToPending(game);
+    list.getGame(game.getId()).setUnavailable();
   }
 
   @Override
