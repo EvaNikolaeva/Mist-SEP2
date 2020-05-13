@@ -10,6 +10,13 @@ public class UserList {
     }
     public User getUser(String username)
     {
-
+        for (int i = 0; i < users.size(); i++)
+        {
+            if (users.get(i).getUsername().equals(username))
+            {
+                return users.get(i);
+            }
+        }
+        return null;
     }
 }
