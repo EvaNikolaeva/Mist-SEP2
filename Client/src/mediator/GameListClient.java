@@ -79,4 +79,24 @@ public class GameListClient implements GameListClientModel, Remote
   {
   }
 
+  @Override
+  public User getUserDataById(int id) throws RemoteException {
+    return remoteGameListModel.getUserDataById(id);
+  }
+
+  @Override
+  public void acceptTrade(Game game, int userID) throws RemoteException {
+    remoteGameListModel.acceptTrade(game, userID);
+  }
+
+  @Override
+  public void declineTrade(Game game, int userID) throws RemoteException {
+    remoteGameListModel.declineTrade(game, userID);
+  }
+
+  @Override
+  public void requestTrade(Game game, int userID) throws RemoteException {
+    remoteGameListModel.requestTrade(game, userID);
+  }
+
 }

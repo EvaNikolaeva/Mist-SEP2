@@ -19,4 +19,8 @@ public interface GameListClientModel
   void removeGame(int id) throws RemoteException;
   User getUserData(String username) throws RemoteException;
   void close();
+  User getUserDataById(int id) throws RemoteException;
+  void acceptTrade(Game game,int userID) throws RemoteException;
+  void declineTrade(Game game,int userID) throws RemoteException;
+  void requestTrade(Game game, int userID) throws RemoteException;
 }

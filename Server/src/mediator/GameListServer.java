@@ -80,6 +80,11 @@ public class GameListServer implements RemoteGameListModel
     return model.getUserData(username);
   }
 
+  @Override
+  public User getUserDataById(int id) throws RemoteException {
+   return model.getUserDataById(id);
+  }
+
   @Override public void acceptTrade(Game game, int userID)
       throws RemoteException
   {

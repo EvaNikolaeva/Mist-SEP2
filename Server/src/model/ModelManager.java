@@ -39,6 +39,11 @@ public class ModelManager implements Model
     return userList.getUser(username);
   }
 
+  @Override
+  public User getUserDataById(int id) {
+   return userList.getUserByID(id);
+  }
+
   @Override public void acceptTrade(Game game, int userID)
   {
     userList.getUserByID(userID).addToRentedGames(game);
