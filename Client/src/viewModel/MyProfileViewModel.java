@@ -39,11 +39,15 @@ public class MyProfileViewModel implements PropertyChangeListener
         model.RemoveGame(game.getId());
     }
 
+    public void acceptGame(Game game, int userID) throws RemoteException
+    {
+        model.acceptTrade(game, userID);
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
         Platform.runLater(() -> list.add((Game) evt.getNewValue()));
     }
 
-    //needs to be finished
 }

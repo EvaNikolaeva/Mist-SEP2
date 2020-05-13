@@ -16,11 +16,15 @@ import java.util.GregorianCalendar;
 public class ModelManager implements Model {
     private GameListClient client;
     private User user;
+    private GameList list;
     private PropertyChangeSupport property;
+
 
     public ModelManager() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
         this.property = new PropertyChangeSupport(this);
       this.client = new GameListClient(this);
+        this.list = new GameList();
+
     }
 @Override
     public void connectToServer() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
@@ -36,6 +40,11 @@ public class ModelManager implements Model {
   public User getUser(String username) throws RemoteException {
     return client.getUserData(username);
   }
+
+    @Override public void acceptTrade(Game game, int userID) throws RemoteException
+    {
+        client.acceptTrade(game, userID);
+    }
 
   @Override
     public void AddGame(Game game) throws RemoteException {

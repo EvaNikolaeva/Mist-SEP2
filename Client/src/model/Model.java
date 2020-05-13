@@ -29,4 +29,6 @@ public interface Model extends UnnamedPropertyChangeSubject {
     User getUser(String username) throws RemoteException;
 
     void setUserCurrent(String username) throws RemoteException;
+
+    void acceptTrade(Game game, int userID) throws RemoteException;
 }
