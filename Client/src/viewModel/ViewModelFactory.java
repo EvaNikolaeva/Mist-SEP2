@@ -1,12 +1,14 @@
 package viewModel;
 
 import model.Model;
+import view.MyProfileController;
 
 public class ViewModelFactory
 {
   private GameListViewModel gameListViewModel;
   private GameMenuViewModel gameMenuViewModel;
   private UserGameListViewModel userGameListViewModel;
+  private MyProfileViewModel myProfileViewModel;
 
   public ViewModelFactory(Model model)
   {
@@ -28,6 +30,11 @@ public class ViewModelFactory
   public UserGameListViewModel userGameListViewModel()
   {
     return userGameListViewModel;
+  }
+
+  public MyProfileViewModel myProfileViewModel()
+  {
+    return myProfileViewModel;
   }
 
 }

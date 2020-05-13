@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import viewModel.UserGameListViewModel;
 import viewModel.ViewModelFactory;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class ViewHandler
@@ -18,6 +19,7 @@ public class ViewHandler
   private GameListController gameListController;
   private GameMenuController gameMenuController;
   private UserGameListController userGameListController;
+  private MyProfileController myProfileController;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
@@ -43,6 +45,8 @@ public class ViewHandler
       case "user":
         root = loadUserGameListView("UserGameList.fxml");
         break;
+      case "profile":
+        root = loadMyProfileMenuView("MyProfile.fxml");
     }
     currentScene.setRoot(root);
 
@@ -105,6 +109,29 @@ public class ViewHandler
       gameMenuController.reset();
     }
     return gameMenuController.getRoot();
+  }
+
+  private Region loadMyProfileMenuView(String fxmlFile) throws RemoteException
+  {
+    if(myProfileController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        myProfileController = loader.getController();
+        myProfileController.init(this, viewModelFactory.myProfileViewModel(), root);
+      } catch (IOException e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+      myProfileController.reset();
+    }
+    return myProfileController.getRoot();
   }
 
   private Region loadUserGameListView(String fxmlFile) throws RemoteException {
