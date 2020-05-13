@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import model.Game;
@@ -17,6 +18,7 @@ public class MyProfileController
   @FXML ListView<Game> owned;
   @FXML ListView<Game> forTrade;
   @FXML ListView<Game> rented;
+  @FXML Label bio;
   private MyProfileViewModel myProfileViewModel;
   private Region root;
   private ViewHandler viewHandler;
@@ -30,6 +32,7 @@ public class MyProfileController
     this.owned.setItems(myProfileViewModel.getList());
     this.rented.setItems(myProfileViewModel.getList());
     this.forTrade.setItems(myProfileViewModel.getList());
+    this.bio.textProperty().bind(myProfileViewModel.getBio());
     this.myProfileViewModel = myProfileViewModel;
   }
 

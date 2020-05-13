@@ -20,6 +20,7 @@ public class ViewHandler
   private MyProfileController myProfileController;
   private EditProfileController editProfileController;
   private LoadingScreenController loadingScreenController;
+  private OtherProfileController otherProfileController;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
@@ -52,6 +53,9 @@ public class ViewHandler
         break;
       case "loading":
         root = loadLoadingController("LoadingScreen.fxml");
+        break;
+      case "other":
+        root = loadLoadingController("OtherProfile.fxml");
         break;
     }
     currentScene.setRoot(root);
@@ -193,4 +197,30 @@ public class ViewHandler
     }
     return loadingScreenController.getRoot();
   }
+
+  private Region loadOtherProfileController(String fxmlFile) throws RemoteException
+  {
+    if (otherProfileController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        otherProfileController = loader.getController();
+        otherProfileController
+            .init(this, viewModelFactory.otherProfileViewModel(), root);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+      otherProfileController.reset();
+    }
+    return otherProfileController.getRoot();
+  }
+
 }

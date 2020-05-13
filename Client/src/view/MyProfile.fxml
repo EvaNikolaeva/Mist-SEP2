@@ -79,7 +79,7 @@
             </HBox>
             <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #67666D;">
                <children>
-                  <Label text="Info box label" textFill="#e4e4e4" />
+                  <Label fx:id="bio" text="Type information about you" textFill="#e4e4e4" />
                </children>
             </TextFlow>
          </children>

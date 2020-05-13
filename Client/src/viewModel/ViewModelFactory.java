@@ -10,6 +10,7 @@ public class ViewModelFactory
   private MyProfileViewModel myProfileViewModel;
   private EditProfileViewModel editProfileViewModel;
   private LoadingScreenViewModel loadingScreenViewModel;
+  private OtherProfileViewModel otherProfileViewModel;
 
   public ViewModelFactory(Model model)
   {
@@ -18,6 +19,7 @@ public class ViewModelFactory
     this.myProfileViewModel = new MyProfileViewModel(model);
     this.editProfileViewModel = new EditProfileViewModel(model);
     this.loadingScreenViewModel = new LoadingScreenViewModel(model);
+    this.otherProfileViewModel = new OtherProfileViewModel(model);
   }
 
   public GameMenuViewModel gameMenuViewModel()
@@ -43,6 +45,11 @@ public class ViewModelFactory
   public LoadingScreenViewModel loadingScreenViewModel()
   {
     return loadingScreenViewModel;
+  }
+
+  public OtherProfileViewModel otherProfileViewModel()
+  {
+    return otherProfileViewModel;
   }
 
 }

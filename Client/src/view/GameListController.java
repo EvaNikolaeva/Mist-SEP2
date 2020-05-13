@@ -55,4 +55,10 @@ public class GameListController
   {
     viewHandler.openView("menu");
   }
+
+  @FXML public void requestTrade() throws RemoteException
+  {
+    gameListViewModel.requestTrade(list.getSelectionModel().getSelectedItem(),
+        list.getSelectionModel().getSelectedItem().getUserID());
+  }
 }

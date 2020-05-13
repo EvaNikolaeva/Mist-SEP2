@@ -30,4 +30,9 @@ public class GameListViewModel
     return list;
   }
 
+  public void requestTrade(Game game, int userID) throws RemoteException
+  {
+    model.requestTrade(game, userID);
+  }
+
 }

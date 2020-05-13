@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
 
+import java.rmi.RemoteException;
+
 public class EditProfileViewModel
 {
   private StringProperty text;
@@ -20,9 +22,11 @@ public class EditProfileViewModel
     return text;
   }
 
-  public void editMessage(String message)
+  public void editMessage(String message) throws RemoteException
   {
+    System.out.println(model.getUser()); //user is null
     this.text.setValue(message);
+//    model.getUser().setBio(message);
   }
 
   public void reset()

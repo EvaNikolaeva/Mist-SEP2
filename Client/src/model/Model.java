@@ -7,28 +7,37 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 
-public interface Model extends UnnamedPropertyChangeSubject {
-    void AddGame(Game game) throws RemoteException;
+public interface Model extends UnnamedPropertyChangeSubject
+{
+  void AddGame(Game game) throws RemoteException;
 
-    void RemoveGame(int id) throws RemoteException;
+  void RemoveGame(int id) throws RemoteException;
 
-    GameList GetGameList() throws RemoteException;
+  GameList GetGameList() throws RemoteException;
 
-    GameList getUserGamesList() throws RemoteException;
+  GameList getUserGamesList() throws RemoteException;
 
-    void updateUserGames() throws RemoteException;
+  void updateUserGames() throws RemoteException;
 
-    int getUserId();
+  int getUserId();
 
-    void validateGame(String name, String type, String releaseYear,
-                      LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
-                      boolean needsDeposit) throws RemoteException;
+  void validateGame(String name, String type, String releaseYear,
+      LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
+      boolean needsDeposit) throws RemoteException;
 
-    void connectToServer() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException;
+  void connectToServer()
+      throws RemoteException, MalformedURLException, InterruptedException,
+      NotBoundException;
 
-    User getUser(String username) throws RemoteException;
+  User getUser(String username) throws RemoteException;
 
-    void setUserCurrent(String username) throws RemoteException;
+  User getUser() throws RemoteException;
 
-    void acceptTrade(Game game, int userID) throws RemoteException;
+  void setUserCurrent(String username) throws RemoteException;
+
+  void acceptTrade(Game game, int userID) throws RemoteException;
+
+  void declineTrade(Game game, int userID) throws RemoteException;
+
+  void requestTrade(Game game, int UserID) throws RemoteException;
 }

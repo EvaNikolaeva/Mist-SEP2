@@ -47,10 +47,27 @@ public class ModelManager implements Model
     return client.getUserData(username);
   }
 
+  public User getUser()
+  {
+    return user;
+  }
+
   @Override public void acceptTrade(Game game, int userID)
       throws RemoteException
   {
     client.acceptTrade(game, userID);
+  }
+
+  @Override public void declineTrade(Game game, int userID)
+      throws RemoteException
+  {
+    client.declineTrade(game, userID);
+  }
+
+  @Override public void requestTrade(Game game, int UserID)
+      throws RemoteException
+  {
+    client.requestTrade(game, UserID);
   }
 
   @Override public void AddGame(Game game) throws RemoteException

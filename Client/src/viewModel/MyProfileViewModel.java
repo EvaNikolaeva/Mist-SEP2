@@ -1,6 +1,8 @@
 package viewModel;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Game;
@@ -18,6 +20,7 @@ public class MyProfileViewModel implements PropertyChangeListener
     private ObservableList<Game> owned;
     private ObservableList<Game> forTrade;
     private ObservableList<Game> rented;
+    private StringProperty bio;
 
     public MyProfileViewModel(Model model)
     {
@@ -26,7 +29,13 @@ public class MyProfileViewModel implements PropertyChangeListener
         this.owned = FXCollections.observableArrayList();
         this.forTrade = FXCollections.observableArrayList();            //these need implementation
         this.rented = FXCollections.observableArrayList();
+        this.bio = new SimpleStringProperty();
         model.addListener(this);
+    }
+
+    public StringProperty getBio()
+    {
+        return bio;
     }
 
     public ObservableList<Game> getList() throws RemoteException
