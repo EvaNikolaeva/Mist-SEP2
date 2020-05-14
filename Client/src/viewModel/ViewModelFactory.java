@@ -3,6 +3,8 @@ package viewModel;
 import model.Model;
 import view.MyProfileController;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ViewModelFactory
@@ -14,7 +16,9 @@ public class ViewModelFactory
   private LoadingScreenViewModel loadingScreenViewModel;
   private OtherProfileViewModel otherProfileViewModel;
 
-  public ViewModelFactory(Model model) throws RemoteException
+  public ViewModelFactory(Model model)
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     this.gameListViewModel = new GameListViewModel(model);
     this.gameMenuViewModel = new GameMenuViewModel(model);

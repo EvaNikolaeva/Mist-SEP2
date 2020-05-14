@@ -10,6 +10,8 @@ import model.DateInterval;
 import model.Game;
 import viewModel.GameMenuViewModel;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -81,7 +83,7 @@ public class GameMenuController
       {
         checkGame();
       }
-      catch (RemoteException e)
+      catch (RemoteException | InterruptedException | NotBoundException | MalformedURLException e)
       {
         e.printStackTrace();
       }
@@ -89,7 +91,9 @@ public class GameMenuController
 
   }
 
-  public void checkGame() throws RemoteException
+  public void checkGame()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     System.out.println(responseMessage);
     if (responseMessage.getValue().equals("Success"))
@@ -105,7 +109,9 @@ public class GameMenuController
     }
   }
 
-  public void onBack() throws RemoteException
+  public void onBack()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("list");
   }

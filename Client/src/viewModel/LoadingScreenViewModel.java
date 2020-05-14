@@ -39,6 +39,6 @@ public class LoadingScreenViewModel
     model.setLocalUser(username.getValue());
   }
   public void connect() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
-    model.updateUserGamesOnConnect();
+    model.updateUser();
   }
 }

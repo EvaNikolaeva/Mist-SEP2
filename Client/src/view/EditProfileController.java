@@ -7,6 +7,8 @@ import javafx.scene.layout.Region;
 import viewModel.EditProfileViewModel;
 import viewModel.GameListViewModel;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class EditProfileController
@@ -31,12 +33,16 @@ public class EditProfileController
     return root;
   }
 
-  @FXML public void onCancel() throws RemoteException
+  @FXML public void onCancel()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("profile");
   }
 
-  @FXML public void onSave() throws RemoteException
+  @FXML public void onSave()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     editProfileViewModel.editMessage(textArea.getText());
     viewHandler.openView("profile");

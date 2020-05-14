@@ -13,6 +13,8 @@ import model.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class MyProfileViewModel
@@ -24,7 +26,9 @@ public class MyProfileViewModel
   private ObservableList<Game> pending;
   private StringProperty bio;
 
-  public MyProfileViewModel(Model model) throws RemoteException
+  public MyProfileViewModel(Model model)
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     this.model = model;
     this.incomingTradeList = FXCollections.observableArrayList();
@@ -81,6 +85,13 @@ public class MyProfileViewModel
       rented.add(games.getGame(i));
     }
     return rented;
+  }
+
+  public void updateUser()
+      throws RemoteException, MalformedURLException, InterruptedException,
+      NotBoundException
+  {
+    model.updateUser();
   }
 
   public ObservableList<Game> getPendingTradesList() throws RemoteException

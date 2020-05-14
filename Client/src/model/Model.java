@@ -25,7 +25,7 @@ public interface Model extends UnnamedPropertyChangeSubject
       LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
       boolean needsDeposit) throws RemoteException;
 
-  void updateUserGamesOnConnect()
+  void updateUser()
       throws RemoteException, MalformedURLException, InterruptedException,
       NotBoundException;
 

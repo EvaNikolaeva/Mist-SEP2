@@ -46,10 +46,11 @@ public class ModelManager implements Model
     selectedOtherUserIdBuffer = id;
   }
 
-  @Override public void updateUserGamesOnConnect()
+  @Override public void updateUser()
       throws RemoteException, MalformedURLException, InterruptedException,
       NotBoundException
   {
+    user = client.getUserDataById(user.getUserID());
     updateUserGames();
   }
 

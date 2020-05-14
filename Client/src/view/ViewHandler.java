@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import viewModel.ViewModelFactory;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ViewHandler
@@ -27,14 +29,18 @@ public class ViewHandler
     this.viewModelFactory = viewModelFactory;
   }
 
-  public void start(Stage primaryStage) throws RemoteException
+  public void start(Stage primaryStage)
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     this.primaryStage = primaryStage;
     this.currentScene = new Scene(new Region());
     openView("loading");
   }
 
-  public void openView(String id) throws RemoteException
+  public void openView(String id)
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     Region root = null;
     switch (id)
@@ -122,7 +128,9 @@ public class ViewHandler
     return gameMenuController.getRoot();
   }
 
-  private Region loadMyProfileMenuView(String fxmlFile) throws RemoteException
+  private Region loadMyProfileMenuView(String fxmlFile)
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     if (myProfileController == null)
     {

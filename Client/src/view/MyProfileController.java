@@ -10,6 +10,8 @@ import javafx.scene.layout.Region;
 import model.Game;
 import viewModel.MyProfileViewModel;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class MyProfileController
@@ -24,8 +26,11 @@ public class MyProfileController
   private ViewHandler viewHandler;
 
   public void init(ViewHandler viewHandler,
-      MyProfileViewModel myProfileViewModel, Region root) throws RemoteException
+      MyProfileViewModel myProfileViewModel, Region root)
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
+    myProfileViewModel.updateUser();
     this.viewHandler = viewHandler;
     this.root = root;
     this.pendingTradesList.setItems(myProfileViewModel.getPendingTradesList());
@@ -43,8 +48,12 @@ public class MyProfileController
     return root;
   }
 
-  public void reset() throws RemoteException
+  public void reset()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
+
+    myProfileViewModel.updateUser();
     this.incomingTradeList.setItems(
         myProfileViewModel.getIncomingTradeList()); //finish the method getList
     this.owned.setItems(
@@ -56,12 +65,16 @@ public class MyProfileController
     System.out.println("bruh");
   }
 
-  @FXML public void onAddGame() throws RemoteException
+  @FXML public void onAddGame()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("menu");
   }
 
-  @FXML public void onBrowseGames() throws RemoteException
+  @FXML public void onBrowseGames()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("list");
   }
@@ -122,7 +135,9 @@ public class MyProfileController
     }
   }
 
-  @FXML public void onEditProfile() throws RemoteException
+  @FXML public void onEditProfile()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("editBio");
   }

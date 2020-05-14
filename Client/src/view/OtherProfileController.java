@@ -8,6 +8,8 @@ import model.Game;
 import viewModel.MyProfileViewModel;
 import viewModel.OtherProfileViewModel;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class OtherProfileController
@@ -43,12 +45,16 @@ public class OtherProfileController
         .setItems(otherProfileViewModel.getOtherUserGameList()); //finish the method getList
   }
 
-  @FXML public void onBrowseGames() throws RemoteException
+  @FXML public void onBrowseGames()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("list");
   }
 
-  @FXML public void onAddGame() throws RemoteException
+  @FXML public void onAddGame()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("menu");
   }

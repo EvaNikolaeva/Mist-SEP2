@@ -6,6 +6,8 @@ import javafx.scene.layout.Region;
 import model.Game;
 import viewModel.GameListViewModel;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class GameListController
@@ -43,12 +45,16 @@ public class GameListController
     this.list.setItems(gameListViewModel.getList());
   }
 
-  @FXML public void onMyProfile() throws RemoteException
+  @FXML public void onMyProfile()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("profile");
   }
 
-  @FXML public void onAddGame() throws RemoteException
+  @FXML public void onAddGame()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     viewHandler.openView("menu");
   }
@@ -69,7 +75,9 @@ public class GameListController
     }
   }
 
-  @FXML public void onOtherProfile() throws RemoteException
+  @FXML public void onOtherProfile()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
   {
     if(list.getSelectionModel().getSelectedIndex() < 0)
     {
