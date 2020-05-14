@@ -106,23 +106,4 @@ public class GameListClient implements GameListClientModel, Remote
   public void setUserBio(User user, String bioText) throws RemoteException {
     remoteGameListModel.setUserBio(user, bioText);
   }
-
-  @Override public void addToIncoming(Game game, int userID)
-      throws RemoteException
-  {
-    remoteGameListModel.addToIncoming(game, userID);
-  }
-
-  @Override public void removeFromIncoming(Game game, int userID)
-      throws RemoteException
-  {
-    remoteGameListModel.removeFromIncoming(game, userID);
-  }
-
-  @Override public void addToPending(Game game, int userID)
-      throws RemoteException
-  {
-    remoteGameListModel.addToPending(game, userID);
-  }
-
 }

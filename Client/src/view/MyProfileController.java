@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -103,10 +104,22 @@ public class MyProfileController
     }
   }
 
-  @FXML public void onAcceptTrade() throws RemoteException
-  {
+  @FXML public void onAcceptTrade() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
     Game selectedGame = incomingTradeList.getSelectionModel().getSelectedItem();
     myProfileViewModel.acceptGame(selectedGame);
+    Platform.runLater(() -> {
+      try {
+        reset();
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } catch (NotBoundException e) {
+        e.printStackTrace();
+      } catch (MalformedURLException e) {
+        e.printStackTrace();
+      }
+    });
   }
 
   @FXML public void onDecline() throws RemoteException

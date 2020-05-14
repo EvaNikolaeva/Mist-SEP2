@@ -18,6 +18,7 @@ public class ModelManager implements Model
   private GameListClient client;
   private User user;
   private GameList list;
+  private int userId;
   private PropertyChangeSupport property;
   private int selectedOtherUserIdBuffer;
 
@@ -28,7 +29,7 @@ public class ModelManager implements Model
     this.property = new PropertyChangeSupport(this);
     this.client = new GameListClient(this);
     this.list = new GameList();
-
+    userId = 0;
   }
 
   public int getSelectedOtherUserIdBuffer()
@@ -57,6 +58,7 @@ public class ModelManager implements Model
   @Override public void setLocalUser(String username) throws RemoteException
   {
     this.user = client.getUserData(username);
+    userId = user.getUserID();
   }
 
   @Override public User getOtherUser(String username) throws RemoteException
@@ -78,8 +80,7 @@ public class ModelManager implements Model
   @Override public void acceptTrade(Game game)
       throws RemoteException
   {
-    client.acceptTrade(game, user.getUserID());
-    //
+    client.acceptTrade(game, userId);
   }
 
   @Override public void declineTrade(Game game, int userID)

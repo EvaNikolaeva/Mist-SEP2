@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Game implements Serializable, Runnable
+public class Game implements Serializable
 {
   private String title;
   private String type;
@@ -15,7 +15,7 @@ public class Game implements Serializable, Runnable
   private boolean available;
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-      DateInterval rentalPeriod, int availabilityPeriod, int userID)
+              DateInterval rentalPeriod, int availabilityPeriod, int userID)
   {
     this.title = title;
     this.type = type;
@@ -29,7 +29,7 @@ public class Game implements Serializable, Runnable
   }
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-      DateInterval rentalPeriod, int availabilityPeriod, int userID, int gameID)
+              DateInterval rentalPeriod, int availabilityPeriod, int userID, int gameID)
   {
     this.title = title;
     this.type = type;
@@ -100,9 +100,9 @@ public class Game implements Serializable, Runnable
   public String toString()
   {
     return "Title: " + title + ", id: " + id + ", type: " + type
-        + ", release year: " + releaseYear + ", deposit: " + needsDeposit
-        + ", rental period: " + rentalPeriod + ", availability period: "
-        + availabilityPeriod;
+            + ", release year: " + releaseYear + ", deposit: " + needsDeposit
+            + ", rental period: " + rentalPeriod + ", availability period: "
+            + availabilityPeriod;
   }
 
   public boolean equals(Object obj)
@@ -111,22 +111,22 @@ public class Game implements Serializable, Runnable
       return false;
     Game other = (Game) obj;
     return title.equals(other.title) && type.equals(other.type)
-        && id == other.id && releaseYear == other.releaseYear
-        && needsDeposit == other.needsDeposit && rentalPeriod
-        .equals(other.rentalPeriod)
-        && availabilityPeriod == other.availabilityPeriod;
+            && id == other.id && releaseYear == other.releaseYear
+            && needsDeposit == other.needsDeposit && rentalPeriod
+            .equals(other.rentalPeriod)
+            && availabilityPeriod == other.availabilityPeriod;
   }
 
-  @Override public void run()
-  {
-    try
-    {
-      Thread.sleep(availabilityPeriod*86400000);
-    }
-    catch (InterruptedException e)
-    {
-      e.printStackTrace();
-    }
-    setAvailable();
-  }
+//  @Override public void run()
+//  {
+//    try
+//    {
+//      Thread.sleep(availabilityPeriod*86400000);
+//    }
+//    catch (InterruptedException e)
+//    {
+//      e.printStackTrace();
+//    }
+//    setAvailable();
+//  }
 }

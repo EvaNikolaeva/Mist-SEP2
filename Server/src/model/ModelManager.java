@@ -47,8 +47,8 @@ public class ModelManager implements Model
 
   @Override public void acceptTrade(Game game, int userID)
   {
-    userList.getUserByID(userList.getUserByID(userID).getIncomingGameRequests()
-        .getGameById(game.getId()).getUserID()).addToPending(game);
+    userList.getUserByID(game.getUserID()).addToRentedGames(game);
+    userList.getUserByID(game.getUserID()).removeFromPending(game.getId());
     userList.getUserByID(userID).removeFromIncomingGameRequests(game.getId());
     list.getGame(game.getId()).setUnavailable();
   }

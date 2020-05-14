@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Game implements Serializable, Runnable
+public class Game implements Serializable
 {
   private String title;
   private String type;
@@ -117,16 +117,16 @@ public class Game implements Serializable, Runnable
         && availabilityPeriod == other.availabilityPeriod;
   }
 
-  @Override public void run()
-  {
-    try
-    {
-      Thread.sleep(availabilityPeriod*86400000);
-    }
-    catch (InterruptedException e)
-    {
-      e.printStackTrace();
-    }
-    setAvailable();
-  }
+//  @Override public void run()
+//  {
+//    try
+//    {
+//      Thread.sleep(availabilityPeriod*86400000);
+//    }
+//    catch (InterruptedException e)
+//    {
+//      e.printStackTrace();
+//    }
+//    setAvailable();
+//  }
 }
