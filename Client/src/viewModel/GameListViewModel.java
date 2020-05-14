@@ -12,7 +12,6 @@ public class GameListViewModel
 {
   private Model model;
   private ObservableList<Game> list;
-
   public GameListViewModel(Model model)
   {
     this.model = model;
@@ -34,5 +33,10 @@ public class GameListViewModel
   {
     model.requestTrade(game, userID);
   }
-
+  public void setSelectedUserId(int id){
+    model.setSelectedOtherUserIdBuffer(id);
+  }
+  public void addPendingGame(Game game) throws RemoteException {
+    model.getLocalUser().addToPending(game);
+  }
 }

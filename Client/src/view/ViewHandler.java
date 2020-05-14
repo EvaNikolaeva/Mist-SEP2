@@ -168,7 +168,6 @@ public class ViewHandler
     }
     else
     {
-      editProfileController.reset();
     }
     return editProfileController.getRoot();
   }

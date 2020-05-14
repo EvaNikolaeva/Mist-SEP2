@@ -16,21 +16,14 @@ public class EditProfileViewModel
     this.model = model;
     this.text = new SimpleStringProperty();
   }
-
-  public StringProperty getText()
-  {
+  public StringProperty getText() throws RemoteException {
+    text.setValue(model.getLocalUser().getBio());
     return text;
   }
-
   public void editMessage(String message) throws RemoteException
   {
-    System.out.println(model.getUser()); //user is null
-    this.text.setValue(message);
-//    model.getUser().setBio(message);
-  }
-
-  public void reset()
-  {
-    this.text.setValue("");
+    System.out.println(model.getLocalUser());
+    model.getLocalUser().setBio(message);
+    model.setUserBio(model.getLocalUser(), message);
   }
 }

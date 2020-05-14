@@ -23,4 +23,5 @@ public interface GameListClientModel
   void acceptTrade(Game game,int userID) throws RemoteException;
   void declineTrade(Game game,int userID) throws RemoteException;
   void requestTrade(Game game, int userID) throws RemoteException;
+  void setUserBio(User user, String bioText) throws RemoteException;
 }

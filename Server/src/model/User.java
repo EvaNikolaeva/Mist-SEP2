@@ -10,6 +10,7 @@ public class User implements Serializable
   private GameList gameList;
   private GameList pendingGames;
   private GameList currentlyRentedGames;
+  private GameList incomingGameRequests;
 
   public User(String username, int userID)
   {
@@ -17,6 +18,7 @@ public class User implements Serializable
     this.username = username;
     this.gameList = new GameList();
     this.pendingGames = new GameList();
+    this.incomingGameRequests = new GameList();
     this.currentlyRentedGames = new GameList();
     this.bio = "";
   }
@@ -54,6 +56,13 @@ public class User implements Serializable
   public void addToPending(Game game)
   {
     pendingGames.addGame(game);
+  }
+
+  public GameList getIncomingGameRequests(){
+    return incomingGameRequests;
+  }
+  public void removeFromIncomingGameRequests(int gameId){
+    incomingGameRequests.removeGame(gameId);
   }
 
   public void removeFromPending(int gameId)

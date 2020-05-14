@@ -22,9 +22,10 @@ public class OtherProfileController
   public void init(ViewHandler viewHandler,
       OtherProfileViewModel otherProfileViewModel, Region root) throws RemoteException
   {
+    otherProfileViewModel.updateSelectedUser();
     this.viewHandler = viewHandler;
     this.root = root;
-    this.list.setItems(otherProfileViewModel.getList());
+    this.list.setItems(otherProfileViewModel.getOtherUserGameList());
     this.username.textProperty().bind(otherProfileViewModel.getUsername());
     this.bio.textProperty().bind(otherProfileViewModel.getBio());
     this.otherProfileViewModel = otherProfileViewModel;
@@ -37,8 +38,9 @@ public class OtherProfileController
 
   public void reset() throws RemoteException
   {
+    otherProfileViewModel.updateSelectedUser();
     this.list
-        .setItems(otherProfileViewModel.getList()); //finish the method getList
+        .setItems(otherProfileViewModel.getOtherUserGameList()); //finish the method getList
   }
 
   @FXML public void onBrowseGames() throws RemoteException

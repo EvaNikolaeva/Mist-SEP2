@@ -13,52 +13,54 @@ import viewModel.LoadingScreenViewModel;
 
 import java.rmi.RemoteException;
 
-public class LoadingScreenController
-{
-  @FXML TextField username;
-  @FXML TextField password;
-  @FXML Label errorLabel;
+public class LoadingScreenController {
+    @FXML
+    TextField username;
+    @FXML
+    TextField password;
+    @FXML
+    Label errorLabel;
 
-  private Region root;
-  private ViewHandler viewHandler;
-  private LoadingScreenViewModel loadingScreenViewModel;
+    private Region root;
+    private ViewHandler viewHandler;
+    private LoadingScreenViewModel loadingScreenViewModel;
 
-  public void init(ViewHandler viewHandler, LoadingScreenViewModel loadingScreenViewModel,
-      Region root) {
-    this.viewHandler = viewHandler;
-    this.root = root;
-    this.loadingScreenViewModel = loadingScreenViewModel;
-    this.errorLabel.setText("");
-    this.username.textProperty().bindBidirectional(loadingScreenViewModel.getUsername());
-    this.password.textProperty().bindBidirectional(loadingScreenViewModel.getPassword());
-  }
-
-  public Region getRoot() {
-    return root;
-  }
-
-  public void reset() {
-    username.setText("");
-    password.setText("");
-    errorLabel.setText("");
-  }
-
-  @FXML public void onLogin()
-  {
-    Platform.runLater(() -> {
-      try
-      {
-        if (loadingScreenViewModel.exist(username.getText()))
-          viewHandler.openView("list");
-        else
-          errorLabel.setText("User does not exist");
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
+    public void init(ViewHandler viewHandler, LoadingScreenViewModel loadingScreenViewModel,
+                     Region root) {
+        this.viewHandler = viewHandler;
+        this.root = root;
+        this.loadingScreenViewModel = loadingScreenViewModel;
+        this.errorLabel.setText("");
+        this.username.textProperty().bindBidirectional(loadingScreenViewModel.getUsername());
+        this.password.textProperty().bindBidirectional(loadingScreenViewModel.getPassword());
     }
-    );
-  }
+
+    public Region getRoot() {
+        return root;
+    }
+
+    public void reset() {
+        username.setText("");
+        password.setText("");
+        errorLabel.setText("");
+    }
+
+    @FXML
+    public void onLogin() {
+        Platform.runLater(() -> {
+                    try {
+                        if (loadingScreenViewModel.exist(username.getText())) {
+                            viewHandler.openView("list");
+                            loadingScreenViewModel.setLocalUser();
+                            loadingScreenViewModel.connect();
+                        } else {
+                            errorLabel.setText("User does not exist");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+    }
 
 }

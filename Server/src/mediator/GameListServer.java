@@ -103,4 +103,9 @@ public class GameListServer implements RemoteGameListModel
   {
     model.addToPending(game, userID);
   }
+
+  @Override
+  public void setUserBio(User user, String bioText) throws RemoteException {
+    model.setUserBio(user, bioText);
+  }
 }

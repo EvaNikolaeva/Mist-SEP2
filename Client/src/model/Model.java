@@ -25,19 +25,27 @@ public interface Model extends UnnamedPropertyChangeSubject
       LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
       boolean needsDeposit) throws RemoteException;
 
-  void connectToServer()
+  void updateUserGamesOnConnect()
       throws RemoteException, MalformedURLException, InterruptedException,
       NotBoundException;
 
-  User getUser(String username) throws RemoteException;
+  User getOtherUser(String username) throws RemoteException;
 
-  User getUser() throws RemoteException;
+  User getLocalUser() throws RemoteException;
 
-  void setUserCurrent(String username) throws RemoteException;
+void setUserBio(User user, String bioText) throws RemoteException;
+
+  void setLocalUser(String username) throws RemoteException;
 
   void acceptTrade(Game game, int userID) throws RemoteException;
 
   void declineTrade(Game game, int userID) throws RemoteException;
 
   void requestTrade(Game game, int UserID) throws RemoteException;
+
+  public void setSelectedOtherUserIdBuffer(int id);
+
+  int getSelectedOtherUserIdBuffer();
+
+  User getUserDataById(int id) throws RemoteException;
 }

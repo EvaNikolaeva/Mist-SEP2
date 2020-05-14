@@ -19,6 +19,7 @@ public class ModelManager implements Model
   private User user;
   private GameList list;
   private PropertyChangeSupport property;
+  private int selectedOtherUserIdBuffer;
 
   public ModelManager()
       throws RemoteException, MalformedURLException, InterruptedException,
@@ -29,27 +30,43 @@ public class ModelManager implements Model
     this.list = new GameList();
 
   }
+public int getSelectedOtherUserIdBuffer(){
+    return selectedOtherUserIdBuffer;
+}
 
-  @Override public void connectToServer()
+  @Override
+  public User getUserDataById(int id) throws RemoteException {
+    return client.getUserDataById(id);
+  }
+
+  public void setSelectedOtherUserIdBuffer(int id){
+    selectedOtherUserIdBuffer = id;
+  }
+  @Override public void updateUserGamesOnConnect()
       throws RemoteException, MalformedURLException, InterruptedException,
       NotBoundException
   {
     updateUserGames();
   }
 
-  @Override public void setUserCurrent(String username) throws RemoteException
+  @Override public void setLocalUser(String username) throws RemoteException
   {
     this.user = client.getUserData(username);
   }
 
-  @Override public User getUser(String username) throws RemoteException
+  @Override public User getOtherUser(String username) throws RemoteException
   {
     return client.getUserData(username);
   }
 
-  public User getUser()
+  public User getLocalUser()
   {
     return user;
+  }
+
+  @Override
+  public void setUserBio(User user, String bioText) throws RemoteException {
+    client.setUserBio(user, bioText);
   }
 
   @Override public void acceptTrade(Game game, int userID)

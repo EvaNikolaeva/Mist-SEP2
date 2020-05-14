@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class LoadingScreenViewModel
@@ -31,6 +33,12 @@ public class LoadingScreenViewModel
 
   public boolean exist(String username) throws RemoteException
   {
-    return model.getUser(username) != null;
+    return model.getOtherUser(username) != null;
+  }
+  public void setLocalUser() throws RemoteException {
+    model.setLocalUser(username.getValue());
+  }
+  public void connect() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException {
+    model.updateUserGamesOnConnect();
   }
 }

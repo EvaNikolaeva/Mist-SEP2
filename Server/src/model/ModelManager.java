@@ -36,8 +36,8 @@ public class ModelManager implements Model
   @Override public User getUserData(
       String username)//later should be updated to userId
   {
-    return userList.getUser(username);      //Cata: why do we have 2 methods if it will change to id?
-  }
+  return userList.getUser(username);      //Cata: why do we have 2 methods if it will change to id?
+}
 
   @Override public User getUserDataById(int id)
   {
@@ -68,6 +68,11 @@ public class ModelManager implements Model
     userList.addUser(user);
   }
 
+  @Override
+  public void setUserBio(User user, String bioText) {
+    userList.getUserByID(user.getUserID()).setBio(bioText);
+  }
+
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);
@@ -78,3 +83,4 @@ public class ModelManager implements Model
     property.removePropertyChangeListener(listener);
   }
 }
+

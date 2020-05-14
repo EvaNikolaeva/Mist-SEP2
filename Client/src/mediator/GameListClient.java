@@ -102,4 +102,9 @@ public class GameListClient implements GameListClientModel, Remote
     remoteGameListModel.requestTrade(game, userID);
   }
 
+  @Override
+  public void setUserBio(User user, String bioText) throws RemoteException {
+    remoteGameListModel.setUserBio(user, bioText);
+  }
+
 }

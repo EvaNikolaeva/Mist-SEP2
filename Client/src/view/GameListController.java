@@ -55,8 +55,19 @@ public class GameListController
 
   @FXML public void requestTrade() throws RemoteException
   {
-    gameListViewModel.requestTrade(list.getSelectionModel().getSelectedItem(),
-        list.getSelectionModel().getSelectedItem().getUserID());
+    if(list.getSelectionModel().getSelectedIndex() < 0)
+    {
+      Alert alert = new Alert(Alert.AlertType.ERROR,
+              "You have to select a game.", ButtonType.OK);
+      alert.showAndWait();
+      alert.close();
+    }
+    else
+    {
+      gameListViewModel.requestTrade(list.getSelectionModel().getSelectedItem(),
+              list.getSelectionModel().getSelectedItem().getUserID());
+      gameListViewModel.addPendingGame(list.getSelectionModel().getSelectedItem());
+    }
   }
 
   @FXML public void onOtherProfile() throws RemoteException
@@ -70,6 +81,7 @@ public class GameListController
     }
     else
     {
+      gameListViewModel.setSelectedUserId(list.getSelectionModel().getSelectedItem().getUserID());
       viewHandler.openView("other");
     }
   }

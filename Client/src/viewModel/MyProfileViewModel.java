@@ -3,6 +3,7 @@ package viewModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Game;
@@ -14,39 +15,38 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 
-public class MyProfileViewModel implements PropertyChangeListener
+public class MyProfileViewModel
 {
     private Model model;
     private ObservableList<Game> incomingTradeList;
     private ObservableList<Game> owned;
-    private ObservableList<Game> forTrade;
     private ObservableList<Game> rented;
+    private ObservableList<Game> pending;
     private StringProperty bio;
 
-    public MyProfileViewModel(Model model)
-    {
+    public MyProfileViewModel(Model model) throws RemoteException {
         this.model = model;
         this.incomingTradeList = FXCollections.observableArrayList();
         this.owned = FXCollections.observableArrayList();
-        this.forTrade = FXCollections.observableArrayList();            //these need implementation
         this.rented = FXCollections.observableArrayList();
+        this.pending = FXCollections.observableArrayList();
         this.bio = new SimpleStringProperty();
-        model.addListener(this);
     }
 
     public User getUser() throws RemoteException
     {
-        return model.getUser();
+        return model.getLocalUser();
     }
-
-    public StringProperty getBio()
-    {
+public void updateBio() throws RemoteException {
+    bio.setValue(model.getLocalUser().getBio());
+}
+    public StringProperty getBio() throws RemoteException {
+        bio.setValue(model.getLocalUser().getBio());
         return bio;
     }
-
-    public ObservableList<Game> getList() throws RemoteException
+    public ObservableList<Game> getIncomingTradeList() throws RemoteException
     {
-        GameList games = model.GetGameList();
+        GameList games = getUser().getPendingGames();
         incomingTradeList.clear();
         for (int i = 0; i < games.size(); i++)
         {
@@ -54,7 +54,35 @@ public class MyProfileViewModel implements PropertyChangeListener
         }
         return incomingTradeList;
     }
-
+    public ObservableList<Game> getOwnedGameList() throws RemoteException
+    {
+        GameList games = getUser().getGames();
+        owned.clear();
+        for (int i = 0; i < games.size(); i++)
+        {
+            owned.add(games.getGame(i));
+        }
+        return owned;
+    }
+    public ObservableList<Game> getRentedGameList() throws RemoteException
+    {
+        GameList games = getUser().getRentedGames();
+        rented.clear();
+        for (int i = 0; i < games.size(); i++)
+        {
+            rented.add(games.getGame(i));
+        }
+        return rented;
+    }
+    public ObservableList<Game> getPendingTradesList() throws RemoteException {
+        GameList games = getUser().getPendingGames();
+        pending.clear();
+        for (int i = 0; i < games.size(); i++)
+        {
+            pending.add(games.getGame(i));
+        }
+        return pending;
+    }
     public void removeGame(Game game) throws RemoteException
     {
         model.RemoveGame(game.getId());
@@ -65,10 +93,11 @@ public class MyProfileViewModel implements PropertyChangeListener
         model.acceptTrade(game, userID);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt)
-    {
-        Platform.runLater(() -> incomingTradeList.add((Game) evt.getNewValue()));
-    }
+//    @Override
+//    public void propertyChange(PropertyChangeEvent evt)
+//    {
+//        System.out.println("EVT VALUE PRINT OUT -----------------" + evt.getNewValue());
+//        Platform.runLater(() -> incomingTradeList.add((Game) evt.getNewValue()));
+//    }
 
 }

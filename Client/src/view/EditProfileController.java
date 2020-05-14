@@ -19,22 +19,16 @@ public class EditProfileController
   private EditProfileViewModel editProfileViewModel;
 
   public void init(ViewHandler viewHandler,
-      EditProfileViewModel editProfileViewModel, Region root)
-  {
+      EditProfileViewModel editProfileViewModel, Region root) throws RemoteException {
     this.root = root;
     this.viewHandler = viewHandler;
     this.editProfileViewModel = editProfileViewModel;
-    this.textArea.setText("");
+    this.textArea.setText(editProfileViewModel.getText().getValue());
   }
 
   public Region getRoot()
   {
     return root;
-  }
-
-  public void reset()
-  {
-    this.textArea.setText("");
   }
 
   @FXML public void onCancel() throws RemoteException

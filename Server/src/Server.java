@@ -9,11 +9,13 @@ public class Server
     GameListServer chatServer = new GameListServer(model);
     DateInterval dateInterval = new DateInterval(12, 12, 12, 12);
     Game game1 = new Game("Doom Eternal", "PC", 2020, false, dateInterval, 10,
-        123456);
+            421421);
+    Game game2 = new Game("Doom  GOT", "PC", 2020, false, dateInterval, 10,
+            4214231);
     User user1 = new User("admin", 312421);
     User user2 = new User("test1", 12443123);
     User user3 = new User("test2", 421421);
-    User user4 = new User("test3", 421421);
+    User user4 = new User("test3", 4214231);
 
     model.addUser(user1);
     model.addUser(user2);
@@ -21,5 +23,6 @@ public class Server
     model.addUser(user4);
 
     model.AddGame(game1);
+    model.AddGame(game2);
   }
 }
