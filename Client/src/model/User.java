@@ -58,10 +58,18 @@ public class User implements Serializable
     pendingGames.addGame(game);
   }
 
-  public GameList getIncomingGameRequests(){
+  public GameList getIncomingGameRequests()
+  {
     return incomingGameRequests;
   }
-  public void removeFromIncomingGameRequests(int gameId){
+
+  public void addToIncoming(Game game)
+  {
+    incomingGameRequests.addGame(game);
+  }
+
+  public void removeFromIncomingGameRequests(int gameId)
+  {
     incomingGameRequests.removeGame(gameId);
   }
 

@@ -33,7 +33,7 @@ public interface Model extends UnnamedPropertyChangeSubject
 
   User getLocalUser() throws RemoteException;
 
-void setUserBio(User user, String bioText) throws RemoteException;
+  void setUserBio(User user, String bioText) throws RemoteException;
 
   void setLocalUser(String username) throws RemoteException;
 
@@ -41,11 +41,12 @@ void setUserBio(User user, String bioText) throws RemoteException;
 
   void declineTrade(Game game, int userID) throws RemoteException;
 
-  void requestTrade(Game game, int UserID) throws RemoteException;
+  void requestTrade(Game game, int targetID) throws RemoteException;
 
   public void setSelectedOtherUserIdBuffer(int id);
 
   int getSelectedOtherUserIdBuffer();
 
   User getUserDataById(int id) throws RemoteException;
+
 }

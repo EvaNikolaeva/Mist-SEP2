@@ -96,15 +96,33 @@ public class GameListClient implements GameListClientModel, Remote
     remoteGameListModel.declineTrade(game, userID);
   }
 
-  @Override public void requestTrade(Game game, int userID)
+  @Override public void requestTrade(Game game, int targetID, int requesterID)
       throws RemoteException
   {
-    remoteGameListModel.requestTrade(game, userID);
+    remoteGameListModel.requestTrade(game, targetID, requesterID);
   }
 
   @Override
   public void setUserBio(User user, String bioText) throws RemoteException {
     remoteGameListModel.setUserBio(user, bioText);
+  }
+
+  @Override public void addToIncoming(Game game, int userID)
+      throws RemoteException
+  {
+    remoteGameListModel.addToIncoming(game, userID);
+  }
+
+  @Override public void removeFromIncoming(Game game, int userID)
+      throws RemoteException
+  {
+    remoteGameListModel.removeFromIncoming(game, userID);
+  }
+
+  @Override public void addToPending(Game game, int userID)
+      throws RemoteException
+  {
+    remoteGameListModel.addToPending(game, userID);
   }
 
 }

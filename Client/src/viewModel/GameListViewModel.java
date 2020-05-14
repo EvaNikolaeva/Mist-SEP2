@@ -36,7 +36,5 @@ public class GameListViewModel
   public void setSelectedUserId(int id){
     model.setSelectedOtherUserIdBuffer(id);
   }
-  public void addPendingGame(Game game) throws RemoteException {
-    model.getLocalUser().addToPending(game);
-  }
+
 }

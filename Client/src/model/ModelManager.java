@@ -30,18 +30,22 @@ public class ModelManager implements Model
     this.list = new GameList();
 
   }
-public int getSelectedOtherUserIdBuffer(){
-    return selectedOtherUserIdBuffer;
-}
 
-  @Override
-  public User getUserDataById(int id) throws RemoteException {
+  public int getSelectedOtherUserIdBuffer()
+  {
+    return selectedOtherUserIdBuffer;
+  }
+
+  @Override public User getUserDataById(int id) throws RemoteException
+  {
     return client.getUserDataById(id);
   }
 
-  public void setSelectedOtherUserIdBuffer(int id){
+  public void setSelectedOtherUserIdBuffer(int id)
+  {
     selectedOtherUserIdBuffer = id;
   }
+
   @Override public void updateUserGamesOnConnect()
       throws RemoteException, MalformedURLException, InterruptedException,
       NotBoundException
@@ -64,8 +68,9 @@ public int getSelectedOtherUserIdBuffer(){
     return user;
   }
 
-  @Override
-  public void setUserBio(User user, String bioText) throws RemoteException {
+  @Override public void setUserBio(User user, String bioText)
+      throws RemoteException
+  {
     client.setUserBio(user, bioText);
   }
 
@@ -73,6 +78,7 @@ public int getSelectedOtherUserIdBuffer(){
       throws RemoteException
   {
     client.acceptTrade(game, userID);
+    user.removeFromIncomingGameRequests(game.getId());
   }
 
   @Override public void declineTrade(Game game, int userID)
@@ -81,10 +87,11 @@ public int getSelectedOtherUserIdBuffer(){
     client.declineTrade(game, userID);
   }
 
-  @Override public void requestTrade(Game game, int UserID)
+  @Override public void requestTrade(Game game, int targetID)
       throws RemoteException
   {
-    client.requestTrade(game, UserID);
+    client.requestTrade(game, targetID, user.getUserID());
+    user.addToPending(game);
   }
 
   @Override public void AddGame(Game game) throws RemoteException
@@ -188,8 +195,7 @@ public int getSelectedOtherUserIdBuffer(){
       DateInterval dateInterval = new DateInterval(rentalFrom, rentalTo);
       Calendar rightNow = Calendar.getInstance();
       Game game = new Game(name, type, releaseYearInt, needsDeposit,
-          dateInterval, availablePeriodInt,
-          user.getUserID());
+          dateInterval, availablePeriodInt, user.getUserID());
       if (game.getRentalPeriod().getStartDateObject().getTimeInMillis()
           < Calendar.getInstance().getTimeInMillis())
       {

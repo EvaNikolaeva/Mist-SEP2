@@ -98,14 +98,15 @@ public class GameListServer implements RemoteGameListModel
     model.declineTrade(game, userID);
   }
 
-  @Override public void requestTrade(Game game, int userID)
+  @Override public void requestTrade(Game game, int targetID, int requesterID)
       throws RemoteException
   {
-    model.addToPending(game, userID);
+    model.requestTrade(game, targetID, requesterID);
   }
 
   @Override
   public void setUserBio(User user, String bioText) throws RemoteException {
     model.setUserBio(user, bioText);
   }
+
 }

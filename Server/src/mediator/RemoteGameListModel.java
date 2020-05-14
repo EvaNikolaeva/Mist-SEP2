@@ -16,6 +16,8 @@ public interface RemoteGameListModel extends Remote
  User getUserDataById(int id) throws RemoteException;
  void acceptTrade(Game game,int userID) throws RemoteException;
  void declineTrade(Game game,int userID) throws RemoteException;
- void requestTrade(Game game, int userID) throws RemoteException;
+ void requestTrade(Game game, int targetID, int requesterID) throws RemoteException;
  void setUserBio(User user, String bioText) throws RemoteException;
+
+
 }

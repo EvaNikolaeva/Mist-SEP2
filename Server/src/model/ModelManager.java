@@ -73,6 +73,22 @@ public class ModelManager implements Model
     userList.getUserByID(user.getUserID()).setBio(bioText);
   }
 
+  @Override public void requestTrade(Game game, int targetID, int requesterID)
+  {
+    userList.getUserByID(targetID).addToIncoming(game);
+    userList.getUserByID(requesterID).addToPending(game);
+  }
+
+  @Override public void addToIncoming(Game game, int userID)
+  {
+    userList.getUserByID(userID).addToIncoming(game);
+  }
+
+  @Override public void removeFromIncoming(Game game, int userID)
+  {
+    userList.getUserByID(userID).removeFromIncomingGameRequests(game.getId());
+  }
+
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);

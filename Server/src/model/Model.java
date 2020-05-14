@@ -14,4 +14,8 @@ public interface Model extends UnnamedPropertyChangeSubject
   void addToPending(Game game, int userID);
   void addUser(User user);
   void setUserBio(User user, String bioText);
+  void requestTrade(Game game, int targetID, int requesterID);
+
+  void addToIncoming(Game game, int userID);
+  void removeFromIncoming(Game game, int userID);
 }

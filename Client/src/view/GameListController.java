@@ -66,7 +66,6 @@ public class GameListController
     {
       gameListViewModel.requestTrade(list.getSelectionModel().getSelectedItem(),
               list.getSelectionModel().getSelectedItem().getUserID());
-      gameListViewModel.addPendingGame(list.getSelectionModel().getSelectedItem());
     }
   }
 
