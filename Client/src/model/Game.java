@@ -15,7 +15,7 @@ public class Game implements Serializable, Runnable
   private boolean available;
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-              DateInterval rentalPeriod, int availabilityPeriod, int userID)
+      DateInterval rentalPeriod, int availabilityPeriod, int userID)
   {
     this.title = title;
     this.type = type;
@@ -24,6 +24,20 @@ public class Game implements Serializable, Runnable
     this.rentalPeriod = rentalPeriod;
     this.availabilityPeriod = availabilityPeriod;
     this.id = (int) (Math.random() * 9999) + 1;
+    this.userID = userID;
+    this.available = true;
+  }
+
+  public Game(String title, String type, int releaseYear, boolean needsDeposit,
+      DateInterval rentalPeriod, int availabilityPeriod, int userID, int gameID)
+  {
+    this.title = title;
+    this.type = type;
+    this.releaseYear = releaseYear;
+    this.needsDeposit = needsDeposit;
+    this.rentalPeriod = rentalPeriod;
+    this.availabilityPeriod = availabilityPeriod;
+    this.id = gameID;
     this.userID = userID;
     this.available = true;
   }
@@ -86,9 +100,9 @@ public class Game implements Serializable, Runnable
   public String toString()
   {
     return "Title: " + title + ", id: " + id + ", type: " + type
-            + ", release year: " + releaseYear + ", deposit: " + needsDeposit
-            + ", rental period: " + rentalPeriod + ", availability period: "
-            + availabilityPeriod;
+        + ", release year: " + releaseYear + ", deposit: " + needsDeposit
+        + ", rental period: " + rentalPeriod + ", availability period: "
+        + availabilityPeriod;
   }
 
   public boolean equals(Object obj)
@@ -97,10 +111,10 @@ public class Game implements Serializable, Runnable
       return false;
     Game other = (Game) obj;
     return title.equals(other.title) && type.equals(other.type)
-            && id == other.id && releaseYear == other.releaseYear
-            && needsDeposit == other.needsDeposit && rentalPeriod
-            .equals(other.rentalPeriod)
-            && availabilityPeriod == other.availabilityPeriod;
+        && id == other.id && releaseYear == other.releaseYear
+        && needsDeposit == other.needsDeposit && rentalPeriod
+        .equals(other.rentalPeriod)
+        && availabilityPeriod == other.availabilityPeriod;
   }
 
   @Override public void run()

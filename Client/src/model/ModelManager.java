@@ -75,11 +75,11 @@ public class ModelManager implements Model
     client.setUserBio(user, bioText);
   }
 
-  @Override public void acceptTrade(Game game, int userID)
+  @Override public void acceptTrade(Game game)
       throws RemoteException
   {
-    client.acceptTrade(game, userID);
-    user.removeFromIncomingGameRequests(game.getId());
+    client.acceptTrade(game, user.getUserID());
+    //
   }
 
   @Override public void declineTrade(Game game, int userID)

@@ -106,7 +106,7 @@ public class MyProfileController
   @FXML public void onAcceptTrade() throws RemoteException
   {
     Game selectedGame = incomingTradeList.getSelectionModel().getSelectedItem();
-    myProfileViewModel.acceptGame(selectedGame, selectedGame.getUserID());
+    myProfileViewModel.acceptGame(selectedGame);
   }
 
   @FXML public void onDecline() throws RemoteException

@@ -28,6 +28,20 @@ public class Game implements Serializable, Runnable
     this.available = true;
   }
 
+  public Game(String title, String type, int releaseYear, boolean needsDeposit,
+      DateInterval rentalPeriod, int availabilityPeriod, int userID, int gameID)
+  {
+    this.title = title;
+    this.type = type;
+    this.releaseYear = releaseYear;
+    this.needsDeposit = needsDeposit;
+    this.rentalPeriod = rentalPeriod;
+    this.availabilityPeriod = availabilityPeriod;
+    this.id = gameID;
+    this.userID = userID;
+    this.available = true;
+  }
+
   public void reRollID()
   {
     this.id = (int) (Math.random() * 9999) + 1;

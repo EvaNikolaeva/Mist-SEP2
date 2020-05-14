@@ -36,8 +36,9 @@ public class ModelManager implements Model
   @Override public User getUserData(
       String username)//later should be updated to userId
   {
-  return userList.getUser(username);      //Cata: why do we have 2 methods if it will change to id?
-}
+    return userList.getUser(
+        username);      //Cata: why do we have 2 methods if it will change to id?
+  }
 
   @Override public User getUserDataById(int id)
   {
@@ -46,9 +47,10 @@ public class ModelManager implements Model
 
   @Override public void acceptTrade(Game game, int userID)
   {
-    userList.getUserByID(userID).addToRentedGames(game);
+    userList.getUserByID(userList.getUserByID(userID).getIncomingGameRequests()
+        .getGameById(game.getId()).getUserID()).addToPending(game);
+    userList.getUserByID(userID).removeFromIncomingGameRequests(game.getId());
     list.getGame(game.getId()).setUnavailable();
-    Thread countDown = new Thread(game);
   }
 
   @Override public void declineTrade(Game game, int userID)
@@ -68,14 +70,18 @@ public class ModelManager implements Model
     userList.addUser(user);
   }
 
-  @Override
-  public void setUserBio(User user, String bioText) {
+  @Override public void setUserBio(User user, String bioText)
+  {
     userList.getUserByID(user.getUserID()).setBio(bioText);
   }
 
   @Override public void requestTrade(Game game, int targetID, int requesterID)
   {
-    userList.getUserByID(targetID).addToIncoming(game);
+    Game dummy = new Game(game.getTitle(), game.getType(),
+        game.getReleaseYear(), game.deposit(), game.getRentalPeriod(),
+        game.getAvailabilityPeriod(), requesterID, game.getId());
+
+    userList.getUserByID(targetID).addToIncoming(dummy);
     userList.getUserByID(requesterID).addToPending(game);
   }
 

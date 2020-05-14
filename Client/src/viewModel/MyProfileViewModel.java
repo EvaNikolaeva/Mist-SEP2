@@ -110,9 +110,9 @@ public class MyProfileViewModel
     model.RemoveGame(game.getId());
   }
 
-  public void acceptGame(Game game, int userID) throws RemoteException
+  public void acceptGame(Game game) throws RemoteException
   {
-    model.acceptTrade(game, userID);
+    model.acceptTrade(game);
   }
 
   //    @Override

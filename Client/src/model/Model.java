@@ -37,7 +37,7 @@ public interface Model extends UnnamedPropertyChangeSubject
 
   void setLocalUser(String username) throws RemoteException;
 
-  void acceptTrade(Game game, int userID) throws RemoteException;
+  void acceptTrade(Game game) throws RemoteException;
 
   void declineTrade(Game game, int userID) throws RemoteException;
 
