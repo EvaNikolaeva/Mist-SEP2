@@ -1,21 +1,28 @@
 package mediator;
 
 import model.Game;
-import model.GameList;
 import model.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public interface RemoteGameListModel extends Remote
 {
-  GameList getGameList() throws RemoteException;
-  void addGame(Game game) throws RemoteException;
-  void removeGame(int id) throws RemoteException;
-  User getUserData(String username) throws RemoteException;
-  User getUserDataById(int id) throws RemoteException;
-  void acceptTrade(Game game,int userID) throws RemoteException;
-  void declineTrade(Game game,int userID) throws RemoteException;
-  void requestTrade(Game game, int targetID, int requesterID) throws RemoteException;
-  void setUserBio(User user, String bioText) throws RemoteException;
+  User getUserByID(int id) throws RemoteException;
+  User getUserByCredentials(String username, String password) throws RemoteException;
+  void setBio(int userID, String bio) throws RemoteException;
+
+  void requestGame(int userID, int gameID) throws RemoteException;
+  void acceptGame(int userID, int gameID) throws RemoteException;
+  void declineGame(int userID, int gameID) throws RemoteException;
+
+  void addGame(int userID, int gameID) throws RemoteException;
+  void removeGame(int userID, int gameID) throws RemoteException;
+
+  Game getGameByIndex(int index) throws RemoteException;
+  Game getGameByID(int gameID) throws RemoteException;
+  int getSizeOfGameList() throws RemoteException;
+  void registerUser(String username, String password) throws RemoteException;
 }

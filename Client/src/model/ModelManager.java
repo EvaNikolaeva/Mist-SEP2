@@ -9,139 +9,24 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class ModelManager implements Model
 {
-  private GameListClient client;
   private User user;
-  private GameList list;
-  private int userId;
+  private Game game;
   private PropertyChangeSupport property;
-  private int selectedOtherUserIdBuffer;
 
   public ModelManager()
       throws RemoteException, MalformedURLException, InterruptedException,
       NotBoundException
   {
-    this.property = new PropertyChangeSupport(this);
-    this.client = new GameListClient(this);
-    this.list = new GameList();
-    userId = 0;
+   this.property = new PropertyChangeSupport(this);
   }
 
-  public int getSelectedOtherUserIdBuffer()
-  {
-    return selectedOtherUserIdBuffer;
-  }
-
-  @Override public User getUserDataById(int id) throws RemoteException
-  {
-    return client.getUserDataById(id);
-  }
-
-  public void setSelectedOtherUserIdBuffer(int id)
-  {
-    selectedOtherUserIdBuffer = id;
-  }
-
-  @Override public void updateUser()
-      throws RemoteException, MalformedURLException, InterruptedException,
-      NotBoundException
-  {
-    user = client.getUserDataById(user.getUserID());
-    updateUserGames();
-  }
-
-  @Override public void setLocalUser(String username) throws RemoteException
-  {
-    this.user = client.getUserData(username);
-    userId = user.getUserID();
-  }
-
-  @Override public User getOtherUser(String username) throws RemoteException
-  {
-    return client.getUserData(username);
-  }
-
-  public User getLocalUser()
-  {
-    return user;
-  }
-
-  @Override public void setUserBio(User user, String bioText)
-      throws RemoteException
-  {
-    client.setUserBio(user, bioText);
-  }
-
-  @Override public void acceptTrade(Game game)
-      throws RemoteException
-  {
-    client.acceptTrade(game, userId);
-  }
-
-  @Override public void declineTrade(Game game, int userID)
-      throws RemoteException
-  {
-    client.declineTrade(game, userID);
-  }
-
-  @Override public void requestTrade(Game game, int targetID)
-      throws RemoteException
-  {
-    client.requestTrade(game, targetID, user.getUserID());
-    user.addToPending(game);
-  }
-
-  @Override public void AddGame(Game game) throws RemoteException
-  {
-
-    for (int i = 0; i < client.getGameList().size(); i++)
-    {
-      if (game.getId() == client.getGameList().getGame(i).getId())
-      {
-        game.reRollID();
-      }
-    }
-    client.addGame(game);
-    user.getGames().addGame(game);
-  }
-
-  @Override public void RemoveGame(int id) throws RemoteException
-  {
-    client.removeGame(id);
-    user.getGames().removeGame(id);
-  }
-
-  @Override public GameList GetGameList() throws RemoteException
-  {
-    return client.getGameList();
-  }
-
-  @Override public GameList getUserGamesList()
-  {
-    return user.getGames();
-  }
-
-  @Override public void updateUserGames() throws RemoteException
-  {
-    GameList gameList = GetGameList();
-    for (int i = 0; i < gameList.size(); i++)
-    {
-      if (gameList.getGame(i).getUserID() == user.getUserID())
-      {
-        user.getGames().addGame(gameList.getGame(i));
-      }
-    }
-  }
-
-  @Override public int getUserId()
-  {
-    return user.getUserID();
-  }
 
   //validate game is used to validate each field inserted in the view.
   //It checks that everything is not null and each field has content
@@ -150,9 +35,89 @@ public class ModelManager implements Model
   //If the result is "Success" the game is added. Anything else will result in a pop up error
   //Also, the order each check is made makes sense programming wise.
 
+  @Override public void registerNewUser(String username, String password)
+  {
+
+  }
+
+  @Override public User login(String username, String password)
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllAvailableGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllPendingGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserOwnedGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserPendingGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserRentedGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserIncomingGames()
+  {
+    return null;
+  }
+
+  @Override public void requestGame(int userID, int gameID)
+  {
+
+  }
+
+  @Override public String getUsername(int userID)
+  {
+    return null;
+  }
+
+  @Override public String getBio(int userID)
+  {
+    return null;
+  }
+
+  @Override public void removeGame(int userID, int gameID)
+  {
+
+  }
+
+  @Override public void setBio(int userBio, String bio)
+  {
+
+  }
+
+  @Override public void acceptIncomingGame(int userID, int gameID)
+  {
+
+  }
+
+  @Override public void declineIncomingGame(int userID, int gameID)
+  {
+
+  }
+
+  @Override public void addGame(Game game)
+  {
+
+  }
+
   @Override public void validateGame(String name, String type,
       String releaseYear, LocalDate rentalFrom, LocalDate rentalTo,
-      String availablePeriod, boolean needsDeposit) throws RemoteException
+      String availablePeriod, boolean needsDeposit)
   {
 
     //this is the check for everything not null. If the if is valid, which is not good,
@@ -234,10 +199,30 @@ public class ModelManager implements Model
       else
       {
         result = "Success";
-        AddGame(game);
+        addGame(game);
         property.firePropertyChange("validateGame", null, result);
       }
     }
+  }
+
+  @Override public User getOtherUserByID(int userID)
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getOtherAllUserPendingGames(int userID)
+  {
+    return null;
+  }
+
+  @Override public void setLocalUserID(int userID)
+  {
+
   }
 
   @Override public void addListener(PropertyChangeListener listener)

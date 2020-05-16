@@ -6,47 +6,38 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public interface Model extends UnnamedPropertyChangeSubject
 {
-  void AddGame(Game game) throws RemoteException;
+  void registerNewUser(String username, String password);
+  User login(String username, String password);
+  ArrayList<Integer> getAllAvailableGames();
+  ArrayList<Integer> getAllPendingGames();
 
-  void RemoveGame(int id) throws RemoteException;
+  ArrayList<Integer> getAllUserOwnedGames();
+  ArrayList<Integer> getAllUserPendingGames();
+  ArrayList<Integer> getAllUserRentedGames();
+  ArrayList<Integer> getAllUserIncomingGames();
 
-  GameList GetGameList() throws RemoteException;
+  void requestGame(int userID, int gameID);
+  String getUsername(int userID);
+  String getBio(int userID);
+  void removeGame(int userID, int gameID);
+  void setBio(int userBio, String bio);
 
-  GameList getUserGamesList() throws RemoteException;
+  void acceptIncomingGame(int userID, int gameID);
+  void declineIncomingGame(int userID, int gameID);
 
-  void updateUserGames() throws RemoteException;
-
-  int getUserId();
-
+  void addGame(Game game);
   void validateGame(String name, String type, String releaseYear,
       LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
-      boolean needsDeposit) throws RemoteException;
+      boolean needsDeposit);
 
-  void updateUser()
-      throws RemoteException, MalformedURLException, InterruptedException,
-      NotBoundException;
+  User getOtherUserByID(int userID);
+  ArrayList<Integer> getOtherAllUserOwnedGames(int userID);
+  ArrayList<Integer> getOtherAllUserPendingGames(int userID);
 
-  User getOtherUser(String username) throws RemoteException;
-
-  User getLocalUser() throws RemoteException;
-
-  void setUserBio(User user, String bioText) throws RemoteException;
-
-  void setLocalUser(String username) throws RemoteException;
-
-  void acceptTrade(Game game) throws RemoteException;
-
-  void declineTrade(Game game, int userID) throws RemoteException;
-
-  void requestTrade(Game game, int targetID) throws RemoteException;
-
-  public void setSelectedOtherUserIdBuffer(int id);
-
-  int getSelectedOtherUserIdBuffer();
-
-  User getUserDataById(int id) throws RemoteException;
+  void setLocalUserID(int userID);
 
 }

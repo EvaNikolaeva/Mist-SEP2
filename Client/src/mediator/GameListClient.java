@@ -1,7 +1,6 @@
 package mediator;
 
 import model.Game;
-import model.GameList;
 import model.Model;
 import model.User;
 
@@ -11,6 +10,7 @@ import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 public class GameListClient implements GameListClientModel, Remote
 {
@@ -60,9 +60,104 @@ public class GameListClient implements GameListClientModel, Remote
     return remoteGameListModel.getGameList();
   }
 
+  @Override public void registerNewUser(String username, String password)
+  {
+
+  }
+
+  @Override public User login(String username, String password)
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllAvailableGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllPendingGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserOwnedGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserPendingGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserRentedGames()
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getAllUserIncomingGames()
+  {
+    return null;
+  }
+
+  @Override public void requestGame(int userID, int gameID)
+  {
+
+  }
+
+  @Override public String getUsername(int userID)
+  {
+    return null;
+  }
+
+  @Override public String getBio(int userID)
+  {
+    return null;
+  }
+
+  @Override public void removeGame(int userID, int gameID)
+  {
+
+  }
+
+  @Override public void setBio(int userBio, String bio)
+  {
+
+  }
+
+  @Override public void acceptIncomingGame(int userID, int gameID)
+  {
+
+  }
+
+  @Override public void declineIncomingGame(int userID, int gameID)
+  {
+
+  }
+
   @Override public void addGame(Game game) throws RemoteException
   {
     remoteGameListModel.addGame(game);
+  }
+
+  @Override public User getOtherUserByID(int userID)
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
+  {
+    return null;
+  }
+
+  @Override public ArrayList<Integer> getOtherAllUserPendingGames(int userID)
+  {
+    return null;
+  }
+
+  @Override public void setLocalUserID(int userID)
+  {
+
   }
 
   @Override public void removeGame(int id) throws RemoteException

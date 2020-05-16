@@ -3,7 +3,6 @@ package viewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Game;
-import model.GameList;
 import model.Model;
 
 import java.rmi.RemoteException;

@@ -4,15 +4,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 import model.Game;
-import model.GameList;
 import model.Model;
 import model.User;
-import view.ViewHandler;
 
 import java.rmi.RemoteException;
 

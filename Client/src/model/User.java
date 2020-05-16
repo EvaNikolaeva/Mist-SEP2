@@ -1,26 +1,29 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable
 {
   private String username;
+  private String password;
   private int userID;
   private String bio;
-  private GameList gameList;
-  private GameList pendingGames;
-  private GameList currentlyRentedGames;
-  private GameList incomingGameRequests;
+  private ArrayList<Integer> ownedGames;
+  private ArrayList<Integer> rentedGames;
+  private ArrayList<Integer> pendingGames;
+  private ArrayList<Integer> incomingGames;
 
-  public User(String username, int userID)
+  public User(String username, String password, int userID)
   {
     this.userID = userID;
     this.username = username;
-    this.gameList = new GameList();
-    this.pendingGames = new GameList();
-    this.incomingGameRequests = new GameList();
-    this.currentlyRentedGames = new GameList();
+    this.password = password;
     this.bio = "";
+    this.ownedGames = new ArrayList<>();
+    this.rentedGames = new ArrayList<>();
+    this.pendingGames = new ArrayList<>();
+    this.incomingGames = new ArrayList<>();
   }
 
   public int getUserID()
@@ -33,9 +36,9 @@ public class User implements Serializable
     return username;
   }
 
-  public GameList getGames()
+  public String getPassword()
   {
-    return gameList;
+    return password;
   }
 
   public String getBio()
@@ -48,48 +51,23 @@ public class User implements Serializable
     this.bio = bio;
   }
 
-  public GameList getPendingGames()
+  public ArrayList<Integer> getOwnedGames()
+  {
+    return ownedGames;
+  }
+
+  public ArrayList<Integer> getRentedGames()
+  {
+    return rentedGames;
+  }
+
+  public ArrayList<Integer> getPendingGames()
   {
     return pendingGames;
   }
 
-  public void addToPending(Game game)
+  public ArrayList<Integer> getIncomingGames()
   {
-    pendingGames.addGame(game);
-  }
-
-  public GameList getIncomingGameRequests()
-  {
-    return incomingGameRequests;
-  }
-
-  public void addToIncoming(Game game)
-  {
-    incomingGameRequests.addGame(game);
-  }
-
-  public void removeFromIncomingGameRequests(int gameId)
-  {
-    incomingGameRequests.removeGame(gameId);
-  }
-
-  public void removeFromPending(int gameId)
-  {
-    pendingGames.removeGame(gameId);
-  }
-
-  public GameList getRentedGames()
-  {
-    return currentlyRentedGames;
-  }
-
-  public void addToRentedGames(Game game)
-  {
-    currentlyRentedGames.addGame(game);
-  }
-
-  public void removeFromRentedGames(int gameId)
-  {
-    currentlyRentedGames.removeGame(gameId);
+    return incomingGames;
   }
 }
