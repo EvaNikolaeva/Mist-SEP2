@@ -4,18 +4,19 @@ import utility.UnnamedPropertyChangeSubject;
 
 public interface Model extends UnnamedPropertyChangeSubject
 {
-  void AddGame(Game game);
-  void RemoveGame(int id);
-  GameList GetGameList();
-  User getUserData(String username);
-  User getUserDataById(int id);
-  void acceptTrade(Game game,int  userID);
-  void declineTrade(Game game, int userID);
-  void addToPending(Game game, int userID);
-  void addUser(User user);
-  void setUserBio(User user, String bioText);
-  void requestTrade(Game game, int targetID, int requesterID);
+  User getUserByID(int id);
+  User getUserByCredentials(String username, String password);
+  void setBio(int userID, String bio);
 
-  void addToIncoming(Game game, int userID);
-  void removeFromIncoming(Game game, int userID);
+  void requestGame(int userID, int gameID);
+  void acceptGame(int userID, int gameID);
+  void declineGame(int userID, int gameID);
+
+  void addGame(int userID, int gameID);
+  void removeGame(int userID, int gameID);
+  Game getGameByIndex(int index);
+  Game getGameByID(int gameID);
+  int getSizeOfGameList();
+
+  void registerUser(String username, String password);
 }

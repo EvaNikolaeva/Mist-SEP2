@@ -39,19 +39,12 @@ public class GameList implements Serializable
 
   public Game getGameById(int id)
   {
-    if(!(id > 0))
-      return null;
-    for (int i = 0; i < games.size(); i++)
-    {
-      if (games.get(i).getId() == id)
-        return games.get(i);
-    }
-    return null;
+    return (Game) games.stream().filter(game -> id == game.getId());
   }
 
   public Game getGame(int index)
   {
-    if(index < 0 || index > games.size())
+    if (index < 0 || index > games.size())
       return null;
     return games.get(index);
   }
@@ -63,7 +56,8 @@ public class GameList implements Serializable
 
   public boolean equals(Object obj)
   {
-    if(!(obj instanceof GameList)) return false;
+    if (!(obj instanceof GameList))
+      return false;
     GameList other = (GameList) obj;
     return games.equals(other.games);
   }

@@ -12,7 +12,8 @@ public class Game implements Serializable
   private int availabilityPeriod;
   private int id;
   private int userID;
-  private boolean available;
+  private GameState gameState;
+
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
               DateInterval rentalPeriod, int availabilityPeriod, int userID)
@@ -25,7 +26,7 @@ public class Game implements Serializable
     this.availabilityPeriod = availabilityPeriod;
     this.id = (int) (Math.random() * 9999) + 1;
     this.userID = userID;
-    this.available = true;
+    this.gameState = new GameAvailable();
   }
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
@@ -39,7 +40,7 @@ public class Game implements Serializable
     this.availabilityPeriod = availabilityPeriod;
     this.id = gameID;
     this.userID = userID;
-    this.available = true;
+    this.gameState = new GameAvailable();
   }
 
   public void reRollID()
@@ -87,16 +88,6 @@ public class Game implements Serializable
     return availabilityPeriod;
   }
 
-  public void setUnavailable()
-  {
-    this.available = false;
-  }
-
-  public void setAvailable()
-  {
-    this.available = true;
-  }
-
   public String toString()
   {
     return "Title: " + title + ", id: " + id + ", type: " + type
@@ -117,16 +108,18 @@ public class Game implements Serializable
             && availabilityPeriod == other.availabilityPeriod;
   }
 
-//  @Override public void run()
-//  {
-//    try
-//    {
-//      Thread.sleep(availabilityPeriod*86400000);
-//    }
-//    catch (InterruptedException e)
-//    {
-//      e.printStackTrace();
-//    }
-//    setAvailable();
-//  }
+  public void setState(GameState gameState)
+  {
+    this.gameState = gameState;
+  }
+
+  public String status()
+  {
+    return gameState.status();
+  }
+
+  public void changeState()
+  {
+    gameState.changeState(this);
+  }
 }

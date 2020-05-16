@@ -62,4 +62,5 @@ public class DateInterval implements Serializable
   {
     return getCalendarDate(startDate) + " - " + getCalendarDate(endDate);
   }
+
 }

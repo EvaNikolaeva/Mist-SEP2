@@ -11,49 +11,105 @@ public class UserList
     users = new ArrayList<>();
   }
 
-  public User getUserData(String username)
+  public User getUserByUserID(int id)
   {
+    return (User) users.stream()
+        .filter(user -> id == user.getUserID()); //the "better way"
+  }
+
+  public User getUserByCredentials(String username, String password)
+  {
+    return (User) users.stream().filter(
+        user -> username.equals(user.getUsername()) && password
+            .equals(user.getPassword()));
+  }
+
+  public void registerUser(String username, String password)
+  {
+    //maybe streams as well, but dunno how
+
+    int userID = (int) ((Math.random() * 9999) + 1);
+    User user = new User(username, password, userID);
+
     for (int i = 0; i < users.size(); i++)
     {
-      if (users.get(i).getUsername().equals(username))
+      if (!(userID == users.get(i).getUserID()))
       {
-        return users.get(i);
+        users.add(user);
+      }
+      else
+      {
+        registerUser(username, password);
       }
     }
-    return null;
   }
 
-  public User getUserByID(int id)
+  public void updateBio(int id, String bio)
   {
-    for (int i = 0; i < users.size(); i++)
-    {
-      if (users.get(i).getUserID() == id)
-      {
-        return users.get(i);
-      }
-    }
-    return null;
+    User dummy = (User) users.stream().filter(user -> id == user.getUserID());
+    dummy.setBio(bio);
   }
 
-  public User getUser(String username)
+  public void addToOwned(int userID, int gameID)
   {
-    for (int i = 0; i < users.size(); i++)
-    {
-      if (users.get(i).getUsername().equals(username))
-      {
-        return users.get(i);
-      }
-    }
-    return null;
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getOwnedGames().add(gameID);
   }
 
-  public void addUser(User user)
+  public void removeFromOwned(int userID, int gameID)
   {
-    users.add(user);
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getOwnedGames().remove(gameID);
   }
 
-  public int size()
+  public void addToPending(int userID, int gameID)
   {
-    return users.size();
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getPendingGames().add(gameID);
+  }
+
+  public void removeFromPending(int userID, int gameID)
+  {
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getPendingGames().remove(gameID);
+  }
+
+  public void addToRented(int userID, int gameID)
+  {
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getRentedGames().add(gameID);
+  }
+
+  public void removeFromRented(int userID, int gameID)
+  {
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getRentedGames().remove(gameID);
+  }
+
+  public void addToIncoming(int userID, int gameID)
+  {
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getIncomingGames().add(gameID);
+  }
+
+  public void removeFromIncoming(int userID, int gameID)
+  {
+    User dummy = (User) users.stream()
+        .filter(user -> userID == user.getUserID());
+    dummy.getIncomingGames().remove(gameID);
+  }
+
+  public int getUserWhoHasGamePending(int gameID)
+  {
+    User dummy = (User) users.stream()
+        .filter(user -> user.getPendingGames().contains(gameID));
+    return dummy.getUserID();
   }
 }

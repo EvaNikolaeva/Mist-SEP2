@@ -7,102 +7,85 @@ import java.beans.PropertyChangeSupport;
 
 public class ModelManager implements Model
 {
-  private PropertyChangeSupport property;
-  private GameList list;
+  private PropertyChangeSupport propertyChangeSupport;
+  private GameList gameList;
   private UserList userList;
 
   public ModelManager()
   {
-    this.list = new GameList();
+    this.gameList = new GameList();
     this.userList = new UserList();
-    this.property = new PropertyChangeSupport(this);
+    this.propertyChangeSupport = new PropertyChangeSupport(this);
   }
 
-  @Override public void AddGame(Game game)
+  @Override public User getUserByID(int id)
   {
-    list.addGame(game);
+    return userList.getUserByUserID(id);
   }
 
-  @Override public void RemoveGame(int id)
+  @Override public User getUserByCredentials(String username, String password)
   {
-    list.removeGame(id);
+    return userList.getUserByCredentials(username, password);
   }
 
-  @Override public GameList GetGameList()
+  @Override public void setBio(int userID, String bio)
   {
-    return list;
+    userList.getUserByUserID(userID).setBio(bio);
   }
 
-  @Override public User getUserData(
-      String username)//later should be updated to userId
+  @Override public void requestGame(int userID, int gameID)
   {
-    return userList.getUser(
-        username);      //Cata: why do we have 2 methods if it will change to id?
+
   }
 
-  @Override public User getUserDataById(int id)
+  @Override public void acceptGame(int userID, int gameID)
   {
-    return userList.getUserByID(id);
+
   }
 
-  @Override public void acceptTrade(Game game, int userID)
+  @Override public void declineGame(int userID, int gameID)
   {
-    userList.getUserByID(game.getUserID()).addToRentedGames(game);
-    userList.getUserByID(game.getUserID()).removeFromPending(game.getId());
-    userList.getUserByID(userID).removeFromIncomingGameRequests(game.getId());
-    list.getGame(game.getId()).setUnavailable();
+
   }
 
-  @Override public void declineTrade(Game game, int userID)
+  @Override public void addGame(int userID, int gameID)
   {
-    userList.getUserByID(userID).removeFromPending(game.getId());
-    list.getGame(game.getId()).setAvailable();
+    userList.getUserByUserID(userID).getOwnedGames().add(gameID);
   }
 
-  @Override public void addToPending(Game game, int userID)
+  @Override public void removeGame(int userID, int gameID)
   {
-    userList.getUserByID(userID).addToPending(game);
-    list.getGame(game.getId()).setUnavailable();
+    userList.getUserByUserID(userID).getOwnedGames().remove(gameID);
   }
 
-  @Override public void addUser(User user)
+  @Override public Game getGameByIndex(int index)
   {
-    userList.addUser(user);
+    return gameList.getGame(index);
   }
 
-  @Override public void setUserBio(User user, String bioText)
+  @Override public Game getGameByID(int gameID)
   {
-    userList.getUserByID(user.getUserID()).setBio(bioText);
+    return gameList.getGameById(gameID);
   }
 
-  @Override public void requestTrade(Game game, int targetID, int requesterID)
+  @Override public int getSizeOfGameList()
   {
-    Game dummy = new Game(game.getTitle(), game.getType(),
-        game.getReleaseYear(), game.deposit(), game.getRentalPeriod(),
-        game.getAvailabilityPeriod(), requesterID, game.getId());
-
-    userList.getUserByID(targetID).addToIncoming(dummy);
-    userList.getUserByID(requesterID).addToPending(game);
+    return gameList.size();
   }
 
-  @Override public void addToIncoming(Game game, int userID)
+  @Override public void registerUser(String username, String password)
   {
-    userList.getUserByID(userID).addToIncoming(game);
-  }
-
-  @Override public void removeFromIncoming(Game game, int userID)
-  {
-    userList.getUserByID(userID).removeFromIncomingGameRequests(game.getId());
+    userList.registerUser(username, password);
   }
 
   @Override public void addListener(PropertyChangeListener listener)
   {
-    property.addPropertyChangeListener(listener);
+    propertyChangeSupport.addPropertyChangeListener(listener);
   }
 
   @Override public void removeListener(PropertyChangeListener listener)
   {
-    property.removePropertyChangeListener(listener);
+    propertyChangeSupport.removePropertyChangeListener(listener);
   }
 }
 

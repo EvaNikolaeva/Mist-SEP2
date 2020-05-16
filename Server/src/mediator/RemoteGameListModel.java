@@ -9,13 +9,19 @@ import java.rmi.RemoteException;
 
 public interface RemoteGameListModel extends Remote
 {
- GameList getGameList() throws RemoteException;
- void addGame(Game game) throws RemoteException;
- void removeGame(int id) throws RemoteException;
- User getUserData(String username) throws RemoteException;
- User getUserDataById(int id) throws RemoteException;
- void acceptTrade(Game game,int userID) throws RemoteException;
- void declineTrade(Game game,int userID) throws RemoteException;
- void requestTrade(Game game, int targetID, int requesterID) throws RemoteException;
- void setUserBio(User user, String bioText) throws RemoteException;
+ User getUserByID(int id);
+ User getUserByCredentials(String username, String password);
+ void setBio(int userID, String bio);
+
+ void requestGame(int userID, int gameID);
+ void acceptGame(int userID, int gameID);
+ void declineGame(int userID, int gameID);
+
+ void addGame(int userID, int gameID);
+ void removeGame(int userID, int gameID);
+ Game getGameByIndex(int index);
+ Game getGameByID(int gameID);
+ int getSizeOfGameList();
+
+ void registerUser(String username, String password);
 }

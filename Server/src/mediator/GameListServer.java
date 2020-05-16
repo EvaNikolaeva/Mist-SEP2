@@ -60,53 +60,63 @@ public class GameListServer implements RemoteGameListModel
     }
   }
 
-  @Override public GameList getGameList()
+  @Override public User getUserByID(int id)
   {
-    return model.GetGameList();
+    return model.getUserByID(id);
   }
 
-  @Override public void addGame(Game game)
+  @Override public User getUserByCredentials(String username, String password)
   {
-    model.AddGame(game);
+    return model.getUserByCredentials(username, password);
   }
 
-  @Override public void removeGame(int id)
+  @Override public void setBio(int userID, String bio)
   {
-    model.RemoveGame(id);
+    model.setBio(userID, bio);
   }
 
-  @Override public User getUserData(String username) throws RemoteException
+  @Override public void requestGame(int userID, int gameID)
   {
-    return model.getUserData(
-        username);     //this is never used, was changed with getUser(String username)
+
   }
 
-  @Override public User getUserDataById(int id) throws RemoteException
+  @Override public void acceptGame(int userID, int gameID)
   {
-    return model.getUserDataById(id);
+
   }
 
-  @Override public void acceptTrade(Game game, int userID)
-      throws RemoteException
+  @Override public void declineGame(int userID, int gameID)
   {
-    model.acceptTrade(game, userID);
+
   }
 
-  @Override public void declineTrade(Game game, int userID)
-      throws RemoteException
+  @Override public void addGame(int userID, int gameID)
   {
-    model.declineTrade(game, userID);
+    model.addGame(userID, gameID);
   }
 
-  @Override public void requestTrade(Game game, int targetID, int requesterID)
-      throws RemoteException
+  @Override public void removeGame(int userID, int gameID)
   {
-    model.requestTrade(game, targetID, requesterID);
+    model.removeGame(userID, gameID);
   }
 
-  @Override
-  public void setUserBio(User user, String bioText) throws RemoteException {
-    model.setUserBio(user, bioText);
+  @Override public Game getGameByIndex(int index)
+  {
+    return model.getGameByIndex(index);
   }
 
+  @Override public Game getGameByID(int gameID)
+  {
+    return model.getGameByID(gameID);
+  }
+
+  @Override public int getSizeOfGameList()
+  {
+    return model.getSizeOfGameList();
+  }
+
+  @Override public void registerUser(String username, String password)
+  {
+    model.registerUser(username, password);
+  }
 }
