@@ -18,18 +18,15 @@ public class GameListClient implements GameListClientModel, Remote
   private RemoteGameListModel remoteGameListModel;
   private int failedConnectionCount;
 
-  public GameListClient(Model model)
-      throws RemoteException, NotBoundException, MalformedURLException,
-      InterruptedException
+  public GameListClient(Model model) throws InterruptedException
   {
     this.model = model;
+    this.model.setClient(this);
     this.failedConnectionCount = 0;
     connect();
   }
 
-  @Override public void connect()
-      throws RemoteException, NotBoundException, MalformedURLException,
-      InterruptedException
+  @Override public void connect() throws InterruptedException
   {
     try
     {
@@ -55,150 +52,107 @@ public class GameListClient implements GameListClientModel, Remote
     }
   }
 
-  @Override public GameList getGameList() throws RemoteException
-  {
-    return remoteGameListModel.getGameList();
-  }
-
   @Override public void registerNewUser(String username, String password)
   {
-
+    model.registerNewUser(username, password);
   }
 
   @Override public User login(String username, String password)
   {
-    return null;
+    return model.login(username, password);
   }
 
   @Override public ArrayList<Integer> getAllAvailableGames()
   {
-    return null;
+    return model.getAllAvailableGames();
   }
 
   @Override public ArrayList<Integer> getAllPendingGames()
   {
-    return null;
+    return model.getAllPendingGames();
   }
 
   @Override public ArrayList<Integer> getAllUserOwnedGames()
   {
-    return null;
+    return model.getAllUserOwnedGames();
   }
 
   @Override public ArrayList<Integer> getAllUserPendingGames()
   {
-    return null;
+    return model.getAllUserPendingGames();
   }
 
   @Override public ArrayList<Integer> getAllUserRentedGames()
   {
-    return null;
+    return model.getAllUserRentedGames();
   }
 
   @Override public ArrayList<Integer> getAllUserIncomingGames()
   {
-    return null;
+    return model.getAllUserIncomingGames();
   }
 
   @Override public void requestGame(int userID, int gameID)
+      throws RemoteException
   {
-
+    remoteGameListModel.requestGame(userID, gameID);
   }
 
-  @Override public String getUsername(int userID)
+  @Override public String getUsername(int userID) throws RemoteException
   {
-    return null;
+    return remoteGameListModel.getUserByID(userID).getUsername();
   }
 
-  @Override public String getBio(int userID)
+  @Override public String getBio(int userID) throws RemoteException
   {
-    return null;
+    return remoteGameListModel.getUserByID(userID).getBio();
   }
 
   @Override public void removeGame(int userID, int gameID)
+      throws RemoteException
   {
-
+    remoteGameListModel.removeGame(userID, gameID);
   }
 
-  @Override public void setBio(int userBio, String bio)
+  @Override public void setBio(int userBio, String bio) throws RemoteException
   {
-
+    remoteGameListModel.setBio(userBio, bio);
   }
 
   @Override public void acceptIncomingGame(int userID, int gameID)
+      throws RemoteException
   {
-
+    remoteGameListModel.acceptGame(userID, gameID);
   }
 
   @Override public void declineIncomingGame(int userID, int gameID)
+      throws RemoteException
   {
-
+    remoteGameListModel.declineGame(userID, gameID);
   }
 
   @Override public void addGame(Game game) throws RemoteException
   {
-    remoteGameListModel.addGame(game);
+    remoteGameListModel.addGame(game.getUserID(), game.getId());
   }
 
   @Override public User getOtherUserByID(int userID)
   {
-    return null;
+    return model.getOtherUserByID(userID);
   }
 
   @Override public ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
   {
-    return null;
+    return model.getOtherAllUserOwnedGames(userID);
   }
 
   @Override public ArrayList<Integer> getOtherAllUserPendingGames(int userID)
   {
-    return null;
+    return model.getOtherAllUserPendingGames(userID);
   }
 
   @Override public void setLocalUserID(int userID)
   {
-
-  }
-
-  @Override public void removeGame(int id) throws RemoteException
-  {
-    remoteGameListModel.removeGame(id);
-  }
-
-  @Override public User getUserData(String username) throws RemoteException
-  {
-    return remoteGameListModel.getUserData(username);
-  }
-
-  @Override public void close()
-  {
-  }
-
-  @Override public User getUserDataById(int id) throws RemoteException
-  {
-    return remoteGameListModel.getUserDataById(id);
-  }
-
-  @Override public void acceptTrade(Game game, int userID)
-      throws RemoteException
-  {
-    remoteGameListModel.acceptTrade(game, userID);
-  }
-
-  @Override public void declineTrade(Game game, int userID)
-      throws RemoteException
-  {
-    remoteGameListModel.declineTrade(game, userID);
-  }
-
-  @Override public void requestTrade(Game game, int targetID, int requesterID)
-      throws RemoteException
-  {
-    remoteGameListModel.requestTrade(game, targetID, requesterID);
-  }
-
-  @Override
-  public void setUserBio(User user, String bioText) throws RemoteException {
-    remoteGameListModel.setUserBio(user, bioText);
+    model.setLocalUserID(userID);
   }
 }

@@ -2,6 +2,7 @@ package model;
 
 import Utility.UnnamedPropertyChangeSubject;
 import mediator.GameListClient;
+import mediator.GameListClientModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -19,14 +20,101 @@ public class ModelManager implements Model
   private User user;
   private Game game;
   private PropertyChangeSupport property;
+  private GameListClientModel gameListClientModel;
 
   public ModelManager()
-      throws RemoteException, MalformedURLException, InterruptedException,
-      NotBoundException
   {
    this.property = new PropertyChangeSupport(this);
   }
 
+  public void setClient(GameListClientModel gameListClientModel)
+  {
+    this.gameListClientModel = gameListClientModel;
+  }
+
+  @Override public void registerNewUser(String username, String password)
+  {
+    gameListClientModel.registerNewUser(username, password);
+  }
+
+  @Override public User login(String username, String password)
+  {
+    return gameListClientModel.login(username, password);
+  }
+
+  @Override public ArrayList<Integer> getAllAvailableGames()
+  {
+    return gameListClientModel.getAllAvailableGames();
+  }
+
+  @Override public ArrayList<Integer> getAllPendingGames()
+  {
+    return gameListClientModel.getAllPendingGames();
+  }
+
+  @Override public ArrayList<Integer> getAllUserOwnedGames()
+  {
+    return gameListClientModel.getAllUserOwnedGames();
+  }
+
+  @Override public ArrayList<Integer> getAllUserPendingGames()
+  {
+    return gameListClientModel.getAllUserPendingGames();
+  }
+
+  @Override public ArrayList<Integer> getAllUserRentedGames()
+  {
+    return gameListClientModel.getAllUserRentedGames();
+  }
+
+  @Override public ArrayList<Integer> getAllUserIncomingGames()
+  {
+    return gameListClientModel.getAllUserIncomingGames();
+  }
+
+  @Override public void requestGame(int userID, int gameID)
+      throws RemoteException
+  {
+    gameListClientModel.requestGame(userID, gameID);
+  }
+
+  @Override public String getUsername(int userID) throws RemoteException
+  {
+    return gameListClientModel.getUsername(userID);
+  }
+
+  @Override public String getBio(int userID) throws RemoteException
+  {
+    return gameListClientModel.getBio(userID);
+  }
+
+  @Override public void removeGame(int userID, int gameID)
+      throws RemoteException
+  {
+    gameListClientModel.removeGame(userID, gameID);
+  }
+
+  @Override public void setBio(int userBio, String bio) throws RemoteException
+  {
+    gameListClientModel.setBio(userBio, bio);
+  }
+
+  @Override public void acceptIncomingGame(int userID, int gameID)
+      throws RemoteException
+  {
+    gameListClientModel.acceptIncomingGame(userID, gameID);
+  }
+
+  @Override public void declineIncomingGame(int userID, int gameID)
+      throws RemoteException
+  {
+    gameListClientModel.declineIncomingGame(userID, gameID);
+  }
+
+  @Override public void addGame(Game game) throws RemoteException
+  {
+    gameListClientModel.addGame(game);
+  }
 
   //validate game is used to validate each field inserted in the view.
   //It checks that everything is not null and each field has content
@@ -35,89 +123,9 @@ public class ModelManager implements Model
   //If the result is "Success" the game is added. Anything else will result in a pop up error
   //Also, the order each check is made makes sense programming wise.
 
-  @Override public void registerNewUser(String username, String password)
-  {
-
-  }
-
-  @Override public User login(String username, String password)
-  {
-    return null;
-  }
-
-  @Override public ArrayList<Integer> getAllAvailableGames()
-  {
-    return null;
-  }
-
-  @Override public ArrayList<Integer> getAllPendingGames()
-  {
-    return null;
-  }
-
-  @Override public ArrayList<Integer> getAllUserOwnedGames()
-  {
-    return null;
-  }
-
-  @Override public ArrayList<Integer> getAllUserPendingGames()
-  {
-    return null;
-  }
-
-  @Override public ArrayList<Integer> getAllUserRentedGames()
-  {
-    return null;
-  }
-
-  @Override public ArrayList<Integer> getAllUserIncomingGames()
-  {
-    return null;
-  }
-
-  @Override public void requestGame(int userID, int gameID)
-  {
-
-  }
-
-  @Override public String getUsername(int userID)
-  {
-    return null;
-  }
-
-  @Override public String getBio(int userID)
-  {
-    return null;
-  }
-
-  @Override public void removeGame(int userID, int gameID)
-  {
-
-  }
-
-  @Override public void setBio(int userBio, String bio)
-  {
-
-  }
-
-  @Override public void acceptIncomingGame(int userID, int gameID)
-  {
-
-  }
-
-  @Override public void declineIncomingGame(int userID, int gameID)
-  {
-
-  }
-
-  @Override public void addGame(Game game)
-  {
-
-  }
-
   @Override public void validateGame(String name, String type,
       String releaseYear, LocalDate rentalFrom, LocalDate rentalTo,
-      String availablePeriod, boolean needsDeposit)
+      String availablePeriod, boolean needsDeposit) throws RemoteException
   {
 
     //this is the check for everything not null. If the if is valid, which is not good,
@@ -207,22 +215,22 @@ public class ModelManager implements Model
 
   @Override public User getOtherUserByID(int userID)
   {
-    return null;
+    return gameListClientModel.getOtherUserByID(userID);
   }
 
   @Override public ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
   {
-    return null;
+    return gameListClientModel.getOtherAllUserOwnedGames(userID);
   }
 
   @Override public ArrayList<Integer> getOtherAllUserPendingGames(int userID)
   {
-    return null;
+    return gameListClientModel.getOtherAllUserPendingGames(userID);
   }
 
   @Override public void setLocalUserID(int userID)
   {
-
+    gameListClientModel.setLocalUserID(userID);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

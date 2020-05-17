@@ -70,32 +70,36 @@ public class GameListServer implements RemoteGameListModel
     return model.getUserByCredentials(username, password);
   }
 
-  @Override public void setBio(int userID, String bio)
+  @Override public void setBio(int userID, String bio) throws RemoteException
   {
     model.setBio(userID, bio);
   }
 
   @Override public void requestGame(int userID, int gameID)
+      throws RemoteException
   {
-
+    model.requestGame(userID, gameID);
   }
 
   @Override public void acceptGame(int userID, int gameID)
+      throws RemoteException
   {
-
+    model.acceptGame(userID, gameID);
   }
 
   @Override public void declineGame(int userID, int gameID)
+      throws RemoteException
   {
-
+    model.declineGame(userID, gameID);
   }
 
-  @Override public void addGame(int userID, int gameID)
+  @Override public void addGame(int userID, int gameID) throws RemoteException
   {
     model.addGame(userID, gameID);
   }
 
   @Override public void removeGame(int userID, int gameID)
+      throws RemoteException
   {
     model.removeGame(userID, gameID);
   }
@@ -116,6 +120,7 @@ public class GameListServer implements RemoteGameListModel
   }
 
   @Override public void registerUser(String username, String password)
+      throws RemoteException
   {
     model.registerUser(username, password);
   }
