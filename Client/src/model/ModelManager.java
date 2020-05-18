@@ -96,9 +96,9 @@ public class ModelManager implements Model
     gameListClientModel.removeGame(userID, gameID);
   }
 
-  @Override public void setBio(int userBio, String bio) throws RemoteException
+  @Override public void setBio(int userID, String bio) throws RemoteException
   {
-    gameListClientModel.setBio(userBio, bio);
+    gameListClientModel.setBio(userID, bio);
   }
 
   @Override

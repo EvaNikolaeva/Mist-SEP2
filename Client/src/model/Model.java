@@ -27,7 +27,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   String getUsername(int userID) throws RemoteException;
   String getBio(int userID) throws RemoteException;
   void removeGame(int userID, int gameID) throws RemoteException;
-  void setBio(int userBio, String bio) throws RemoteException;
+  void setBio(int userID, String bio) throws RemoteException;
 public int getLocalUserId();
   void acceptIncomingGame(int userID, int gameID) throws RemoteException;
   void declineIncomingGame(int userID, int gameID) throws RemoteException;
