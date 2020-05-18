@@ -1,7 +1,5 @@
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import model.Model;
 import model.ModelManager;
 import view.ViewHandler;
@@ -14,7 +12,7 @@ public class MyApplication extends Application
     Model model = new ModelManager();
     GameMenuViewModel gameMenuViewModel = new GameMenuViewModel(model);
     GameListViewModel gameListViewModel = new GameListViewModel(model);
-    LoadingScreenViewModel loadingScreenViewModel = new LoadingScreenViewModel(model);
+    LoginViewModel loginViewModel = new LoginViewModel(model);
     EditProfileViewModel editProfileViewModel = new EditProfileViewModel(model);
     MyProfileViewModel myProfileViewModel = new MyProfileViewModel(model);
     ViewModelFactory viewModelFactory = new ViewModelFactory(model);

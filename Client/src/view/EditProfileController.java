@@ -25,7 +25,7 @@ public class EditProfileController
     this.root = root;
     this.viewHandler = viewHandler;
     this.editProfileViewModel = editProfileViewModel;
-    this.textArea.setText(editProfileViewModel.getText().getValue());
+    this.textArea.setText(editProfileViewModel.getBio().getValue());
   }
 
   public Region getRoot()
@@ -44,7 +44,7 @@ public class EditProfileController
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {
-    editProfileViewModel.editMessage(textArea.getText());
+    editProfileViewModel.editBio(textArea.getText());
     viewHandler.openView("profile");
   }
 }

@@ -1,7 +1,6 @@
 package viewModel;
 
 import model.Model;
-import view.MyProfileController;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -13,7 +12,7 @@ public class ViewModelFactory
   private GameMenuViewModel gameMenuViewModel;
   private MyProfileViewModel myProfileViewModel;
   private EditProfileViewModel editProfileViewModel;
-  private LoadingScreenViewModel loadingScreenViewModel;
+  private LoginViewModel loginViewModel;
   private OtherProfileViewModel otherProfileViewModel;
 
   public ViewModelFactory(Model model)
@@ -24,7 +23,7 @@ public class ViewModelFactory
     this.gameMenuViewModel = new GameMenuViewModel(model);
     this.myProfileViewModel = new MyProfileViewModel(model);
     this.editProfileViewModel = new EditProfileViewModel(model);
-    this.loadingScreenViewModel = new LoadingScreenViewModel(model);
+    this.loginViewModel = new LoginViewModel(model);
     this.otherProfileViewModel = new OtherProfileViewModel(model);
   }
 
@@ -48,9 +47,9 @@ public class ViewModelFactory
     return editProfileViewModel;
   }
 
-  public LoadingScreenViewModel loadingScreenViewModel()
+  public LoginViewModel loadingScreenViewModel()
   {
-    return loadingScreenViewModel;
+    return loginViewModel;
   }
 
   public OtherProfileViewModel otherProfileViewModel()

@@ -2,28 +2,27 @@ package viewModel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.EditProfileModel;
 import model.Model;
 
 import java.rmi.RemoteException;
 
 public class EditProfileViewModel
 {
-  private StringProperty text;
-  private Model model;
+  private StringProperty bio;
+  private EditProfileModel model;
 
-  public EditProfileViewModel(Model model)
+  public EditProfileViewModel(EditProfileModel model)
   {
     this.model = model;
-    this.text = new SimpleStringProperty();
+    this.bio = new SimpleStringProperty();
   }
-  public StringProperty getText() throws RemoteException {
-    text.setValue(model.getLocalUser().getBio());
-    return text;
+  public StringProperty getBio() throws RemoteException {
+    bio.setValue(model.getBio(model.getLocalUserId()));
+    return bio;
   }
-  public void editMessage(String message) throws RemoteException
+  public void editBio(String bio) throws RemoteException
   {
-    System.out.println(model.getLocalUser());
-    model.getLocalUser().setBio(message);
-    model.setUserBio(model.getLocalUser(), message);
+    model.setBio(model.getLocalUserId(), bio);
   }
 }
