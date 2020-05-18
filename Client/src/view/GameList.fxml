@@ -11,58 +11,57 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameListController">
-    <top>
-        <HBox prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER_LEFT">
-            <children>
-                <Button disable="true" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Browse Games">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onAddGame" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onMyProfile" prefWidth="76.0" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="My Profile">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="56.0" fitWidth="200.0">
-                    <image>
-                        <Image url="@../../../../../titlewithicon.png" />
-                    </image>
-                    <HBox.margin>
-                        <Insets left="50.0" />
-                    </HBox.margin>
-                </ImageView>
-            </children>
-        </HBox>
-    </top>
-    <left>
-        <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="120.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
-            <children>
-                <Button mnemonicParsing="false" onAction="#requestTrade" style="-fx-background-color: #75B5C6;" text="Request Trade">
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#onOtherProfile" style="-fx-background-color: #75B5C6;" text="View Profile">
-                    <VBox.margin>
-                        <Insets top="15.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
-            </children>
-        </VBox>
-    </left>
-    <center>
-        <ListView fx:id="list" BorderPane.alignment="CENTER" />
-    </center>
+   <top>
+      <HBox prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <Button disable="true" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Browse Games">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onMyProfile" prefWidth="76.0" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="My Profile">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="56.0" fitWidth="200.0">
+               <image>
+                  <Image url="@titlewithicon.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </ImageView>
+         </children></HBox>
+   </top>
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="120.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
+         <children>
+            <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Request Trade">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="View Profile">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <ListView BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>

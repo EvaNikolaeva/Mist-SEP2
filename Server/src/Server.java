@@ -1,9 +1,11 @@
 import mediator.GameListServer;
 import model.*;
 
+import java.rmi.RemoteException;
+
 public class Server
 {
-  public static void main(String[] args)
+  public static void main(String[] args) throws RemoteException
   {
     Model model = new ModelManager();
     GameListServer chatServer = new GameListServer(model);
@@ -12,17 +14,13 @@ public class Server
             421421);
     Game game2 = new Game("Doom  GOT", "PC", 2020, false, dateInterval, 10,
             4214231);
-    User user1 = new User("admin", 312421);
-    User user2 = new User("test1", 12443123);
-    User user3 = new User("test2", 421421);
-    User user4 = new User("test3", 4214231);
 
-    model.addUser(user1);
-    model.addUser(user2);
-    model.addUser(user3);
-    model.addUser(user4);
+    model.registerUser("admin", "1111");
+    model.registerUser("user1", "1222");
+    model.registerUser("user2", "1333");
+    model.registerUser("user3", "1444");
 
-    model.AddGame(game1);
-    model.AddGame(game2);
+    model.addGame(game1.getUserID(),game1.getId());
+    model.addGame(game2.getUserID(), game2.getId());
   }
 }
