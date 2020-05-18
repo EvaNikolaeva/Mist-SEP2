@@ -31,7 +31,7 @@ public class GameListViewModel
   {
     model.requestGame(userID, game.getId());
   }
-  public void setSelectedUserId(int id){
+  public void setSelectedUserId(int id) throws RemoteException {
     model.getOtherUserByID(id);
   }
 

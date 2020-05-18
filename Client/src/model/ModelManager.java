@@ -44,11 +44,9 @@ public class ModelManager implements Model
     return gameListClientModel.login(username, password);
   }
 
-  @Override public Game getGameByID(int userID)
-  {
-    gameListClientModel.
+  @Override public Game getGameByID(int gameID) throws RemoteException {
+   return gameListClientModel.getGameById(gameID);
   }
-
   @Override public ArrayList<Integer> getAllAvailableGames() throws RemoteException
   {
     return gameListClientModel.getAllAvailableGames();
@@ -59,24 +57,24 @@ public class ModelManager implements Model
     return gameListClientModel.getAllPendingGames();
   }
 
-  @Override public ArrayList<Integer> getAllUserOwnedGames() throws RemoteException
+  @Override public ArrayList<Integer> getAllUserOwnedGames(int UserID) throws RemoteException
   {
-    return gameListClientModel.getAllUserOwnedGames();
+    return gameListClientModel.getAllUserOwnedGames(UserID);
   }
 
-  @Override public ArrayList<Integer> getAllUserPendingGames() throws RemoteException
+  @Override public ArrayList<Integer> getAllUserPendingGames(int UserID) throws RemoteException
   {
-    return gameListClientModel.getAllUserPendingGames();
+    return gameListClientModel.getAllUserPendingGames(UserID);
   }
 
-  @Override public ArrayList<Integer> getAllUserRentedGames() throws RemoteException
+  @Override public ArrayList<Integer> getAllUserRentedGames(int UserID) throws RemoteException
   {
-    return gameListClientModel.getAllUserRentedGames();
+    return gameListClientModel.getAllUserRentedGames(UserID);
   }
 
-  @Override public ArrayList<Integer> getAllUserIncomingGames() throws RemoteException
+  @Override public ArrayList<Integer> getAllUserIncomingGames(int UserID) throws RemoteException
   {
-    return gameListClientModel.getAllUserIncomingGames();
+    return gameListClientModel.getAllUserIncomingGames(UserID);
   }
 
   @Override public void requestGame(int userID, int gameID)
@@ -132,6 +130,7 @@ public class ModelManager implements Model
   //It checks that everything is not null and each field has content
   // and the logic of the dates makes sense in the real world
   //after all checks, a result is sent to through the view model to the view to continue the process
+  //If the result is "Success" the game is added. Anything else will result in a pop up error
   //If the result is "Success" the game is added. Anything else will result in a pop up error
   //Also, the order each check is made makes sense programming wise.
 
@@ -219,7 +218,7 @@ public class ModelManager implements Model
       else
       {
         result = "Success";
-        addGame(game);
+         addGame(game);
         property.firePropertyChange("validateGame", null, result);
       }
     }
@@ -232,17 +231,17 @@ public class ModelManager implements Model
 
   @Override public ArrayList<Integer> getOtherAllUserOwnedGames(int userID) throws RemoteException
   {
-    return gameListClientModel.getOtherAllUserOwnedGames(userID);
+    return gameListClientModel.getOtherAllUserOwnedGames();
   }
 
   @Override public ArrayList<Integer> getOtherAllUserPendingGames(int userID) throws RemoteException
   {
-    return gameListClientModel.getOtherAllUserPendingGames(userID);
+    return gameListClientModel.getOtherAllUserPendingGames();
   }
 
   @Override public void setLocalUserID(int userID)
   {
-    gameListClientModel.setLocalUserID(userID);
+    user = userID;
   }
 
   @Override public void addListener(PropertyChangeListener listener)

@@ -1,6 +1,7 @@
 package mediator;
 
 import model.Game;
+import model.GameAvailable;
 import model.Model;
 import model.User;
 
@@ -82,7 +83,12 @@ public class GameListClient implements GameListClientModel, Remote
     try
     {
       ServerRead serverRead = serverAccess.acquireRead();
-      return serverRead.getAllAvailableGames();
+      ArrayList<Integer> list = new ArrayList<>();
+      for(int i = 0; i < serverRead.getSizeOfGameList(); i++){
+        if(serverRead.getGameByIndex(i).status().equals("GameAvailable"));
+        list.add(serverRead.getGameByIndex(i).getId());
+      }
+      return list;
     }
     finally
     {
@@ -93,31 +99,77 @@ public class GameListClient implements GameListClientModel, Remote
   @Override public ArrayList<Integer> getAllPendingGames()
       throws RemoteException
   {
-    return model.getAllPendingGames();
+    try
+    {
+      ServerRead serverRead = serverAccess.acquireRead();
+      ArrayList<Integer> list = new ArrayList<>();
+      for(int i = 0; i < serverRead.getSizeOfGameList(); i++){
+        if((serverRead.getGameByIndex(i).status().equals("GamePending"))){
+          list.add(serverRead.getGameByIndex(i).getId());
+        }
+      }
+      return list;
+    }
+    finally
+    {
+      serverAccess.releaseRead();
+    }
   }
 
-  @Override public ArrayList<Integer> getAllUserOwnedGames()
+  @Override public ArrayList<Integer> getAllUserOwnedGames(int userID)
       throws RemoteException
   {
-    return model.getAllUserOwnedGames();
+    try
+    {
+      ServerRead serverRead = serverAccess.acquireRead();
+      return serverRead.getUserByID(userID).getOwnedGames();
+    }
+    finally
+    {
+      serverAccess.releaseRead();
+    }
   }
 
-  @Override public ArrayList<Integer> getAllUserPendingGames()
+  @Override public ArrayList<Integer> getAllUserPendingGames(int userID)
       throws RemoteException
   {
-    return model.getAllUserPendingGames();
+    try
+    {
+      ServerRead serverRead = serverAccess.acquireRead();
+      return serverRead.getUserByID(userID).getPendingGames();
+    }
+    finally
+    {
+      serverAccess.releaseRead();
+    }
   }
 
-  @Override public ArrayList<Integer> getAllUserRentedGames()
+  @Override public ArrayList<Integer> getAllUserRentedGames(int userID)
       throws RemoteException
   {
-    return model.getAllUserRentedGames();
+    try
+    {
+      ServerRead serverRead = serverAccess.acquireRead();
+      return serverRead.getUserByID(userID).getRentedGames();
+    }
+    finally
+    {
+      serverAccess.releaseRead();
+    }
   }
 
-  @Override public ArrayList<Integer> getAllUserIncomingGames()
+  @Override public ArrayList<Integer> getAllUserIncomingGames(int userID)
       throws RemoteException
   {
-    return model.getAllUserIncomingGames();
+    try
+    {
+      ServerRead serverRead = serverAccess.acquireRead();
+      return serverRead.getUserByID(userID).getIncomingGames();
+    }
+    finally
+    {
+      serverAccess.releaseRead();
+    }
   }
 
   @Override public void requestGame(int userID, int gameID)
@@ -185,6 +237,17 @@ public class GameListClient implements GameListClientModel, Remote
     serverAccess.releaseWrite();
   }
 
+  @Override
+  public Game getGameById(int gameID) throws RemoteException {
+   ServerRead serverRead = serverAccess.acquireRead();
+   try{
+return serverRead.getGameByID(gameID);
+   }
+   finally{
+     serverAccess.releaseWrite();
+   }
+  }
+
   @Override public void addGame(Game game) throws RemoteException
   {
     ServerWrite serverWrite = serverAccess.acquireWrite();
@@ -205,13 +268,19 @@ public class GameListClient implements GameListClientModel, Remote
     }
   }
 
-  @Override public ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
+  @Override public ArrayList<Integer> getOtherAllUserOwnedGames()
       throws RemoteException
   {
     try
     {
       ServerRead serverRead = serverAccess.acquireRead();
-      return serverRead.getOtherAllUserOwnedGames(userID);
+      ArrayList<Integer> list = new ArrayList<>();
+      for(int i = 0; i < serverRead.getSizeOfGameList(); i++){
+        if(!(serverRead.getGameByIndex(i).status().equals("GameUnavailable"))){
+          list.add(serverRead.getGameByIndex(i).getId());
+        }
+      }
+      return list;
     }
     finally
     {
@@ -219,22 +288,23 @@ public class GameListClient implements GameListClientModel, Remote
     }
   }
 
-  @Override public ArrayList<Integer> getOtherAllUserPendingGames(int userID)
+  @Override public ArrayList<Integer> getOtherAllUserPendingGames()
       throws RemoteException
   {
     try
     {
       ServerRead serverRead = serverAccess.acquireRead();
-      return serverRead.getOtherAllUserPendingGames(userID);
+      ArrayList<Integer> list = new ArrayList<>();
+      for(int i = 0; i < serverRead.getSizeOfGameList(); i++){
+        if(!(serverRead.getGameByIndex(i).status().equals("GamePending"))){
+          list.add(serverRead.getGameByIndex(i).getId());
+        }
+      }
+      return list;
     }
     finally
     {
       serverAccess.releaseRead();
     }
-  }
-
-  @Override public void setLocalUserID(int userID)
-  {
-    model.setLocalUserID(userID);
   }
 }

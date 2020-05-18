@@ -17,10 +17,10 @@ public interface GameListClientModel
   ArrayList<Integer> getAllAvailableGames() throws RemoteException;
   ArrayList<Integer> getAllPendingGames() throws RemoteException;
 
-  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
-  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
-  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;
-  ArrayList<Integer> getAllUserIncomingGames() throws RemoteException;
+  ArrayList<Integer> getAllUserOwnedGames(int userID) throws RemoteException;
+  ArrayList<Integer> getAllUserPendingGames(int userID) throws RemoteException;
+  ArrayList<Integer> getAllUserRentedGames(int userID) throws RemoteException;
+  ArrayList<Integer> getAllUserIncomingGames(int userID) throws RemoteException;
 
   void requestGame(int userID, int gameID) throws RemoteException;
   String getUsername(int userID) throws RemoteException;
@@ -30,14 +30,12 @@ public interface GameListClientModel
 
   void acceptIncomingGame(int userID, int gameID) throws RemoteException;
   void declineIncomingGame(int userID, int gameID) throws RemoteException;
-
+  Game getGameById(int gameID) throws RemoteException;
   void addGame(Game game) throws RemoteException;
 
   User getOtherUserByID(int userID) throws RemoteException;
-  ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
+  ArrayList<Integer> getOtherAllUserOwnedGames()
       throws RemoteException;
-  ArrayList<Integer> getOtherAllUserPendingGames(int userID)
+  ArrayList<Integer> getOtherAllUserPendingGames()
       throws RemoteException;
-
-  void setLocalUserID(int userID);
 }

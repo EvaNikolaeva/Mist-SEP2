@@ -18,10 +18,10 @@ public interface Model extends UnnamedPropertyChangeSubject
   ArrayList<Integer> getAllAvailableGames() throws RemoteException;
   ArrayList<Integer> getAllPendingGames() throws RemoteException;
 
-  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
-  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
-  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;
-  ArrayList<Integer> getAllUserIncomingGames() throws RemoteException;
+  ArrayList<Integer> getAllUserOwnedGames(int UserID) throws RemoteException;
+  ArrayList<Integer> getAllUserPendingGames(int UserID) throws RemoteException;
+  ArrayList<Integer> getAllUserRentedGames(int UserID) throws RemoteException;
+  ArrayList<Integer> getAllUserIncomingGames(int UserID) throws RemoteException;
 
   void requestGame(int userID, int gameID) throws RemoteException;
   String getUsername(int userID) throws RemoteException;
@@ -43,5 +43,5 @@ public int getLocalUserId();
 
   void setLocalUserID(int userID);
 
-  Game getGameByID(int userID);
+  Game getGameByID(int userID) throws RemoteException;
 }

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import model.AddGameModel;
 import model.DateInterval;
 import model.Game;
 import model.Model;
@@ -30,9 +31,9 @@ public class GameMenuViewModel implements PropertyChangeListener
   private BooleanProperty checkBox;
   private StringProperty responseMessage;
 
-  private Model model;
+  private AddGameModel model;
 
-  public GameMenuViewModel(Model model)
+  public GameMenuViewModel(AddGameModel model)
   {
     this.model = model;
     this.title = new SimpleStringProperty();

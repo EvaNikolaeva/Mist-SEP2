@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
+import model.AddGameModel;
 import model.DateInterval;
 import model.Game;
 import viewModel.GameMenuViewModel;
@@ -32,6 +33,7 @@ public class GameMenuController
   private ViewHandler viewHandler;
   private GameMenuViewModel gameMenuViewModel;
   private StringProperty responseMessage;
+
 
   public void init(ViewHandler viewHandler, GameMenuViewModel gameMenuViewModel,
       Region root)
