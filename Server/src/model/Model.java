@@ -14,7 +14,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   void acceptGame(int userID, int gameID) throws RemoteException;
   void declineGame(int userID, int gameID) throws RemoteException;
 
-  void addGame(int userID, int gameID) throws RemoteException;
+  void addGame(int userID, Game game) throws RemoteException;
   void removeGame(int userID, int gameID) throws RemoteException;
   Game getGameByIndex(int index);
   Game getGameByID(int gameID);

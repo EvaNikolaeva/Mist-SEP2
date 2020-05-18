@@ -93,9 +93,9 @@ public class GameListServer implements RemoteGameListModel
     model.declineGame(userID, gameID);
   }
 
-  @Override public void addGame(int userID, int gameID) throws RemoteException
+  @Override public void addGame(int userID, Game game) throws RemoteException
   {
-    model.addGame(userID, gameID);
+    model.addGame(userID, game);
   }
 
   @Override public void removeGame(int userID, int gameID)

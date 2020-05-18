@@ -36,7 +36,6 @@ public class ModelManager implements Model
   @Override public void setBio(int userID, String bio) throws RemoteException
   {
     userList.getUserByUserID(userID).setBio(bio);
-    remoteGameListModel.setBio(userID, bio);
   }
 
   @Override public void requestGame(int userID, int gameID)
@@ -67,17 +66,18 @@ public class ModelManager implements Model
     remoteGameListModel.declineGame(userID, gameID);
   }
 
-  @Override public void addGame(int userID, int gameID) throws RemoteException
+  @Override public void addGame(int userID, Game game) throws RemoteException
   {
-    userList.getUserByUserID(userID).getOwnedGames().add(gameID);
-    remoteGameListModel.addGame(userID, gameID);
+    userList.getUserByUserID(userID).getOwnedGames().add(game.getId());
+    gameList.addGame(game);
+
   }
 
   @Override public void removeGame(int userID, int gameID)
       throws RemoteException
   {
     userList.getUserByUserID(userID).getOwnedGames().remove(gameID);
-    remoteGameListModel.removeGame(userID, gameID);
+
   }
 
   @Override public Game getGameByIndex(int index)
@@ -99,7 +99,6 @@ public class ModelManager implements Model
       throws RemoteException
   {
     userList.registerUser(username, password);
-    remoteGameListModel.registerUser(username, password);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

@@ -17,7 +17,7 @@ public interface RemoteGameListModel extends Remote
  void acceptGame(int userID, int gameID) throws RemoteException;
  void declineGame(int userID, int gameID) throws RemoteException;
 
- void addGame(int userID, int gameID) throws RemoteException;
+ void addGame(int userID, Game game) throws RemoteException;
  void removeGame(int userID, int gameID) throws RemoteException;
  Game getGameByIndex(int index) throws RemoteException;
  Game getGameByID(int gameID) throws RemoteException;

@@ -20,7 +20,7 @@ public class Server
     model.registerUser("user2", "1333");
     model.registerUser("user3", "1444");
 
-    model.addGame(game1.getUserID(),game1.getId());
-    model.addGame(game2.getUserID(), game2.getId());
+    model.addGame(game1.getUserID(), game1);
+    model.addGame(game2.getUserID(), game2);
   }
 }
