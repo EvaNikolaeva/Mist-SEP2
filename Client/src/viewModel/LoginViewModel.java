@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.LoginModel;
 import model.Model;
+import model.User;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -52,6 +53,7 @@ public class LoginViewModel
   }
   public void setLocalUser() throws RemoteException {
     //model.setLocalUser(username.getValue());
-    model.setLocalUserID(model.getLocalUserId());
+    User user1 = model.login(loginUsername.getValue(), loginPassword.getValue());
+    model.setLocalUserID(user1.getUserID());
   }
 }

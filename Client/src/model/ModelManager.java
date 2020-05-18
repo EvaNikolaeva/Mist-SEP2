@@ -57,24 +57,24 @@ public class ModelManager implements Model
     return gameListClientModel.getAllPendingGames();
   }
 
-  @Override public ArrayList<Integer> getAllUserOwnedGames(int UserID) throws RemoteException
+  @Override public ArrayList<Integer> getAllUserOwnedGames() throws RemoteException
   {
-    return gameListClientModel.getAllUserOwnedGames(UserID);
+    return gameListClientModel.getAllUserOwnedGames(user);
   }
 
-  @Override public ArrayList<Integer> getAllUserPendingGames(int UserID) throws RemoteException
+  @Override public ArrayList<Integer> getAllUserPendingGames() throws RemoteException
   {
-    return gameListClientModel.getAllUserPendingGames(UserID);
+    return gameListClientModel.getAllUserPendingGames(user);
   }
 
-  @Override public ArrayList<Integer> getAllUserRentedGames(int UserID) throws RemoteException
+  @Override public ArrayList<Integer> getAllUserRentedGames() throws RemoteException
   {
-    return gameListClientModel.getAllUserRentedGames(UserID);
+    return gameListClientModel.getAllUserRentedGames(user);
   }
 
-  @Override public ArrayList<Integer> getAllUserIncomingGames(int UserID) throws RemoteException
+  @Override public ArrayList<Integer> getAllUserIncomingGames() throws RemoteException
   {
-    return gameListClientModel.getAllUserIncomingGames(UserID);
+    return gameListClientModel.getAllUserIncomingGames(user);
   }
 
   @Override public void requestGame(int userID, int gameID)
@@ -239,8 +239,8 @@ public class ModelManager implements Model
     return gameListClientModel.getOtherAllUserPendingGames();
   }
 
-  @Override public void setLocalUserID(int userID)
-  {
+  @Override
+  public void setLocalUserID(int userID) {
     user = userID;
   }
 

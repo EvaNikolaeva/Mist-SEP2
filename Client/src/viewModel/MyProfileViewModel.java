@@ -73,7 +73,7 @@ public class MyProfileViewModel
 
   public void setBio() throws RemoteException
   {
-    model.setBio(getLocalUser().getUserID(),bio.getValue());
+    model.getBio(model.getLocalUserId());
   }
 
   public void removeGame(int gameID) throws RemoteException

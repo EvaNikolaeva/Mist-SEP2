@@ -1,11 +1,16 @@
 package model;
 
+import Utility.UnnamedPropertyChangeSubject;
+import viewModel.GameMenuViewModel;
+
+import java.beans.PropertyChangeListener;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 
-public interface AddGameModel
+public interface AddGameModel extends UnnamedPropertyChangeSubject
 {
-  void addGame(Game game);
+  void addGame(Game game) throws RemoteException;
   void validateGame(String name, String type, String releaseYear,
       LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
-      boolean needsDeposit);
+      boolean needsDeposit) throws RemoteException;
 }

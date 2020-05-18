@@ -1,24 +1,13 @@
 package viewModel;
 
-import javafx.application.Platform;
-import javafx.beans.property.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import model.AddGameModel;
-import model.DateInterval;
-import model.Game;
-import model.Model;
 
+import javafx.beans.property.*;
+import model.AddGameModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.InvocationTargetException;
-import java.net.http.WebSocket;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 public class GameMenuViewModel implements PropertyChangeListener
 {
