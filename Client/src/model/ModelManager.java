@@ -177,7 +177,7 @@ public class ModelManager implements Model
       DateInterval dateInterval = new DateInterval(rentalFrom, rentalTo);
       Calendar rightNow = Calendar.getInstance();
       Game game = new Game(name, type, releaseYearInt, needsDeposit,
-          dateInterval, availablePeriodInt, user.getUserID());
+          dateInterval, availablePeriodInt, user);
       if (game.getRentalPeriod().getStartDateObject().getTimeInMillis()
           < Calendar.getInstance().getTimeInMillis())
       {
