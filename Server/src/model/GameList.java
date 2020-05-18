@@ -39,7 +39,7 @@ public class GameList implements Serializable
 
   public Game getGameById(int id)
   {
-    return (Game) games.stream().filter(game -> id == game.getId());
+    return (Game) games.stream().filter(game -> id == game.getId()).findFirst().orElse(null);
   }
 
   public Game getGame(int index)

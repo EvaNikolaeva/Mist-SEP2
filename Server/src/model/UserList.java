@@ -55,13 +55,13 @@ public class UserList
 
   public void addToOwned(int userID, int gameID)
   {
-  for(int i = 0; i++ )
+User userTemp = users.stream().filter(user -> user.getUserID() == userID).findFirst().orElse(null);
   }
 
   public void removeFromOwned(int userID, int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
+        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
     dummy.getOwnedGames().remove(gameID);
   }
 
