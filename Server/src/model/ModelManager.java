@@ -42,19 +42,29 @@ public class ModelManager implements Model
   @Override public void requestGame(int userID, int gameID)
       throws RemoteException
   {
+    userList.addToPending(userID, gameID);
+    userList.addToIncoming(userList.getUserWhoHasGamePending(gameID), gameID);
+    remoteGameListModel.requestGame(userID, gameID);
 
   }
 
   @Override public void acceptGame(int userID, int gameID)
       throws RemoteException
   {
-
+    userList.addToRented(userList.getUserWhoHasGamePending(gameID), gameID);
+    userList.removeFromIncoming(userID, gameID);
+    userList
+        .removeFromPending(userList.getUserWhoHasGamePending(gameID), gameID);
+    remoteGameListModel.acceptGame(userID, gameID);
   }
 
   @Override public void declineGame(int userID, int gameID)
       throws RemoteException
   {
-    
+    userList.removeFromIncoming(userID, gameID);
+    userList
+        .removeFromPending(userList.getUserWhoHasGamePending(gameID), gameID);
+    remoteGameListModel.declineGame(userID, gameID);
   }
 
   @Override public void addGame(int userID, int gameID) throws RemoteException
