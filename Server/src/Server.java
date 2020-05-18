@@ -22,5 +22,8 @@ public class Server
 
     model.addGame(game1.getUserID(), game1);
     model.addGame(game2.getUserID(), game2);
+
+
+
   }
 }

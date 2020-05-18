@@ -24,7 +24,7 @@ public class UserList
   {
     return (User) users.stream().filter(
         user -> username.equals(user.getUsername()) && password
-            .equals(user.getPassword()));
+            .equals(user.getPassword())).findFirst().orElse(null);
   }
 
   public void registerUser(String username, String password)
@@ -49,7 +49,7 @@ public class UserList
 
   public void updateBio(int id, String bio)
   {
-    User dummy = (User) users.stream().filter(user -> id == user.getUserID());
+    User dummy = (User) users.stream().filter(user -> id == user.getUserID()).findFirst().orElse(null);
     dummy.setBio(bio);
   }
 
@@ -68,49 +68,49 @@ User userTemp = users.stream().filter(user -> user.getUserID() == userID).findFi
   public void addToPending(int userID, int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
+        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
     dummy.getPendingGames().add(gameID);
   }
 
   public void removeFromPending(int userID, int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
+        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
     dummy.getPendingGames().remove(gameID);
   }
 
   public void addToRented(int userID, int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
+        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
     dummy.getRentedGames().add(gameID);
   }
 
   public void removeFromRented(int userID, int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
+        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
     dummy.getRentedGames().remove(gameID);
   }
 
   public void addToIncoming(int userID, int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
+        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
     dummy.getIncomingGames().add(gameID);
   }
 
   public void removeFromIncoming(int userID, int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
+        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
     dummy.getIncomingGames().remove(gameID);
   }
 
   public int getUserWhoHasGamePending(int gameID)
   {
     User dummy = (User) users.stream()
-        .filter(user -> user.getPendingGames().contains(gameID));
+        .filter(user -> user.getPendingGames().contains(gameID)).findFirst().orElse(null);
     return dummy.getUserID();
   }
 }
