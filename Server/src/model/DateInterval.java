@@ -32,7 +32,7 @@ public class DateInterval implements Serializable
     this.endDate = new GregorianCalendar(0, endMonth - 1, endDay);
   }
 
-  private static String getCalendarDate(Calendar calendarDate)
+  public String getCalendarDate(Calendar calendarDate)
   {
     return (calendarDate.get(Calendar.DAY_OF_MONTH)) + "/" + (
         calendarDate.get(Calendar.MONTH) + 1);
