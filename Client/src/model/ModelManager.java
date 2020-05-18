@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 
 public class ModelManager implements Model
 {
-  private User user;
+  private int user;
   private Game game;
   private PropertyChangeSupport property;
   private GameListClientModel gameListClientModel;
@@ -39,6 +39,8 @@ public class ModelManager implements Model
 
   @Override public User login(String username, String password)
   {
+    User user1 = gameListClientModel.login(username, password);
+    user = user1.getUserID();
     return gameListClientModel.login(username, password);
   }
 
@@ -97,6 +99,11 @@ public class ModelManager implements Model
   @Override public void setBio(int userBio, String bio) throws RemoteException
   {
     gameListClientModel.setBio(userBio, bio);
+  }
+
+  @Override
+  public int getLocalUserId() {
+    return user;
   }
 
   @Override public void acceptIncomingGame(int userID, int gameID)

@@ -14,7 +14,10 @@ public class UserList
   public User getUserByUserID(int id)
   {
     return (User) users.stream()
-        .filter(user -> id == user.getUserID()); //the "better way"
+        .filter(user -> user.getUserID() == id)
+            .findAny()
+            .orElse(null);
+     //the "better way"
   }
 
   public User getUserByCredentials(String username, String password)
@@ -52,9 +55,7 @@ public class UserList
 
   public void addToOwned(int userID, int gameID)
   {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID());
-    dummy.getOwnedGames().add(gameID);
+  for(int i = 0; i++ )
   }
 
   public void removeFromOwned(int userID, int gameID)
