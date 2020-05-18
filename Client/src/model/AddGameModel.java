@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public interface AddGameModel extends Model
+public interface AddGameModel
 {
   void addGame(Game game);
   void validateGame(String name, String type, String releaseYear,

@@ -1,6 +1,6 @@
 package model;
 
-public interface LoginModel extends Model
+public interface LoginModel
 {
   void registerNewUser(String username, String password);
   User login(String username, String password);

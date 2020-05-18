@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public interface OtherProfileModel extends Model
+public interface OtherProfileModel
 {
   void requestGame(int userID, int gameID);
   String getUsername(int userID);

@@ -9,7 +9,9 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public interface Model extends UnnamedPropertyChangeSubject
+public interface Model
+    extends UnnamedPropertyChangeSubject, OtherProfileModel, MyProfileModel,
+    LoginModel, GameListModel, EditProfileModel, AddGameModel
 {
   void setClient(GameListClientModel gameListClientModel);
 
@@ -28,7 +30,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   String getBio(int userID) throws RemoteException;
   void removeGame(int userID, int gameID) throws RemoteException;
   void setBio(int userID, String bio) throws RemoteException;
-public int getLocalUserId();
+  public int getLocalUserId();
   void acceptIncomingGame(int userID, int gameID) throws RemoteException;
   void declineIncomingGame(int userID, int gameID) throws RemoteException;
 
@@ -38,8 +40,10 @@ public int getLocalUserId();
       boolean needsDeposit) throws RemoteException;
 
   User getOtherUserByID(int userID) throws RemoteException;
-  ArrayList<Integer> getOtherAllUserOwnedGames(int userID) throws RemoteException;
-  ArrayList<Integer> getOtherAllUserPendingGames(int userID) throws RemoteException;
+  ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
+      throws RemoteException;
+  ArrayList<Integer> getOtherAllUserPendingGames(int userID)
+      throws RemoteException;
 
   void setLocalUserID(int userID);
 

@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public interface MyProfileModel extends Model
+public interface MyProfileModel
 {
   ArrayList<Integer> getAllUserOwnedGames();
   ArrayList<Integer> getAllUserPendingGames();
