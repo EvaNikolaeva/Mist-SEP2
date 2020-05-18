@@ -13,16 +13,10 @@ import java.rmi.RemoteException;
 public class GameListController
 {
 
-  @FXML ListView<Game> list;
-  //  @FXML TableColumn<String, Game> title;
-  //  @FXML TableColumn<String, Game> type;
-  //  @FXML TableColumn<String, Game> year;
-  //  @FXML TableColumn<String, Game> rentalPeriod;
-  //  @FXML TableColumn<String, Game> availabilityPeriod;
-  //  @FXML TableColumn<String, Game> deposit;
+  @FXML ListView<Game> availableGames;
+  @FXML ListView<Game> pendingGames;
 
   private Region root;
-
   private ViewHandler viewHandler;
   private GameListViewModel gameListViewModel;
 
@@ -32,7 +26,8 @@ public class GameListController
     this.root = root;
     this.viewHandler = viewHandler;
     this.gameListViewModel = gameListViewModel;
-    this.list.setItems(gameListViewModel.getList());
+    this.availableGames.setItems(gameListViewModel.getAvailableGames());
+    this.pendingGames.setItems(gameListViewModel.getPendingGames());
   }
 
   public Region getRoot()
@@ -42,7 +37,8 @@ public class GameListController
 
   public void reset() throws RemoteException
   {
-    this.list.setItems(gameListViewModel.getList());
+    this.availableGames.setItems(gameListViewModel.getAvailableGames());
+    this.pendingGames.setItems(gameListViewModel.getPendingGames());
   }
 
   @FXML public void onMyProfile()
@@ -59,19 +55,33 @@ public class GameListController
     viewHandler.openView("menu");
   }
 
-  @FXML public void requestTrade() throws RemoteException
+  @FXML public void requestGame() throws RemoteException
   {
-    if(list.getSelectionModel().getSelectedIndex() < 0)
+    if (availableGames.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
-              "You have to select a game.", ButtonType.OK);
+          "You have to select a game.", ButtonType.OK);
       alert.showAndWait();
       alert.close();
     }
     else
     {
-      gameListViewModel.requestTrade(list.getSelectionModel().getSelectedItem(),
-              list.getSelectionModel().getSelectedItem().getUserID());
+      gameListViewModel
+          .requestTrade(availableGames.getSelectionModel().getSelectedItem(),
+              availableGames.getSelectionModel().getSelectedItem().getUserID());
+    }
+    if (pendingGames.getSelectionModel().getSelectedIndex() < 0)
+    {
+      Alert alert = new Alert(Alert.AlertType.ERROR,
+          "You have to select a game.", ButtonType.OK);
+      alert.showAndWait();
+      alert.close();
+    }
+    else
+    {
+      gameListViewModel
+          .requestTrade(pendingGames.getSelectionModel().getSelectedItem(),
+              pendingGames.getSelectionModel().getSelectedItem().getUserID());
     }
   }
 
@@ -79,16 +89,30 @@ public class GameListController
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {
-    if(list.getSelectionModel().getSelectedIndex() < 0)
+    if (availableGames.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
-                    "You have to select a game.", ButtonType.OK);
-                alert.showAndWait();
-                alert.close();
+          "You have to select a game.", ButtonType.OK);
+      alert.showAndWait();
+      alert.close();
     }
     else
     {
-      gameListViewModel.setSelectedUserId(list.getSelectionModel().getSelectedItem().getUserID());
+      gameListViewModel.setSelectedUserId(
+          availableGames.getSelectionModel().getSelectedItem().getUserID());
+      viewHandler.openView("other");
+    }
+    if (pendingGames.getSelectionModel().getSelectedIndex() < 0)
+    {
+      Alert alert = new Alert(Alert.AlertType.ERROR,
+          "You have to select a game.", ButtonType.OK);
+      alert.showAndWait();
+      alert.close();
+    }
+    else
+    {
+      gameListViewModel.setSelectedUserId(
+          pendingGames.getSelectionModel().getSelectedItem().getUserID());
       viewHandler.openView("other");
     }
   }

@@ -3,37 +3,36 @@ package viewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Game;
+import model.GameListModel;
 import model.Model;
 
 import java.rmi.RemoteException;
 
 public class GameListViewModel
 {
-  private Model model;
-  private ObservableList<Game> list;
-  public GameListViewModel(Model model)
+  private GameListModel model;
+  private ObservableList<Game> availableGames;
+  private ObservableList<Game> pendingGames;
+  public GameListViewModel(GameListModel model)
   {
     this.model = model;
-    this.list = FXCollections.observableArrayList();
+    this.availableGames = FXCollections.observableArrayList();
+    this.pendingGames = FXCollections.observableArrayList();
   }
 
-  public ObservableList<Game> getList() throws RemoteException {
-    GameList games = model.GetGameList();
-    list.clear();
-    for (int i = 0; i < games.size(); i++)
-    {
-      list.add(games.getGame(i));
-      System.out.println("added game to list" + games.getGame(i));
-    }
-    return list;
+  public ObservableList<Game> getAvailableGames() throws RemoteException {
+   return availableGames;
+  }
+  public ObservableList<Game> getPendingGames() throws RemoteException {
+    return pendingGames;
   }
 
   public void requestTrade(Game game, int userID) throws RemoteException
   {
-    model.requestTrade(game, userID);
+    model.requestGame(userID, game.getId());
   }
   public void setSelectedUserId(int id){
-    model.setSelectedOtherUserIdBuffer(id);
+    model.getOtherUserByID(id);
   }
 
 }

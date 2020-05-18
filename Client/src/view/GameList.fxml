@@ -19,7 +19,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
+            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onAddGame" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -42,7 +42,7 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="120.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
          <children>
-            <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Request Trade">
+            <Button mnemonicParsing="false" onAction="#requestGame" style="-fx-background-color: #75B5C6;" text="Request Trade">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -50,7 +50,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="View Profile">
+            <Button mnemonicParsing="false" onAction="#onOtherProfile" style="-fx-background-color: #75B5C6;" text="View Profile">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -64,4 +64,7 @@
    <center>
       <ListView BorderPane.alignment="CENTER" />
    </center>
+   <right>
+      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>
