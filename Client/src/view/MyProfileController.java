@@ -17,11 +17,12 @@ import java.rmi.RemoteException;
 
 public class MyProfileController
 {
-  @FXML ListView<Game> incomingTradeList;    //this was "list". Changed it to this value everywhere for the sake of testing
-  @FXML ListView<Game> owned;
-  @FXML ListView<Game> pendingTradesList;
-  @FXML ListView<Game> rented;
+  @FXML ListView<Game> incomingGames;
+  @FXML ListView<Game> ownedGames;
+  @FXML ListView<Game> pendingGames;
+  @FXML ListView<Game> rentedGames;
   @FXML Label bio;
+  @FXML Label username;
   private MyProfileViewModel myProfileViewModel;
   private Region root;
   private ViewHandler viewHandler;
@@ -31,17 +32,15 @@ public class MyProfileController
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {
-    myProfileViewModel.updateUser();
     this.viewHandler = viewHandler;
     this.root = root;
-    this.pendingTradesList.setItems(myProfileViewModel.getPendingTradesList());
-    this.incomingTradeList.setItems(myProfileViewModel.getIncomingTradeList());
-    this.owned.setItems(myProfileViewModel.getOwnedGameList());
-    this.rented.setItems(myProfileViewModel.getRentedGameList());
+    this.pendingGames.setItems(myProfileViewModel.getPendingGames());
+    this.incomingGames.setItems(myProfileViewModel.getIncomingGames());
+    this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
+    this.rentedGames.setItems(myProfileViewModel.getRentedGames());
     this.bio.textProperty().bind(myProfileViewModel.getBio());
     this.myProfileViewModel = myProfileViewModel;
-    System.out.println(myProfileViewModel.getUser()
-        .getUserID()); //this is the main problem. It cannot find the user id. It is always null
+    this.username.textProperty().bind(myProfileViewModel.getUsername());
   }
 
   public Region getRoot()
@@ -53,17 +52,11 @@ public class MyProfileController
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {
-
-    myProfileViewModel.updateUser();
-    this.incomingTradeList.setItems(
-        myProfileViewModel.getIncomingTradeList()); //finish the method getList
-    this.owned.setItems(
-        myProfileViewModel.getOwnedGameList()); //finish the method getList
-    this.rented.setItems(
-        myProfileViewModel.getRentedGameList()); //finish the method getList
-    this.pendingTradesList.setItems(myProfileViewModel.getPendingTradesList());
-    myProfileViewModel.updateBio();
-    System.out.println("bruh");
+    this.incomingGames.setItems(myProfileViewModel.getIncomingGames());
+    this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
+    this.rentedGames.setItems(myProfileViewModel.getRentedGames());
+    this.pendingGames.setItems(myProfileViewModel.getPendingGames());
+    myProfileViewModel.setBio();
   }
 
   @FXML public void onAddGame()
@@ -80,9 +73,9 @@ public class MyProfileController
     viewHandler.openView("list");
   }
 
-  @FXML public void onDeleteGame() throws RemoteException
+  @FXML public void onDelete() throws RemoteException
   {
-    if (owned.getSelectionModel().getSelectedIndex() < 0)
+    if (ownedGames.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
           "You have to select a game.", ButtonType.OK);
@@ -91,32 +84,44 @@ public class MyProfileController
     }
     else
     {
-      Game selectedGame = owned.getSelectionModel().getSelectedItem();
-      myProfileViewModel.removeGame(selectedGame);
-      int index = owned.getSelectionModel().getSelectedIndex();
-      if (owned.getSelectionModel().getSelectedItem() == null)
+      Game selectedGame = ownedGames.getSelectionModel().getSelectedItem();
+      myProfileViewModel.removeGame(selectedGame.getId());
+      int index = ownedGames.getSelectionModel().getSelectedIndex();
+      if (ownedGames.getSelectionModel().getSelectedItem() == null)
       {
-        this.myProfileViewModel.getOwnedGameList()
+        this.myProfileViewModel.getOwnedGames()
             .remove(index); //ok java you kinky
       }
-      this.myProfileViewModel.getOwnedGameList().clear();
-      this.owned.setItems(myProfileViewModel.getOwnedGameList());
+      this.myProfileViewModel.getOwnedGames().clear();
+      this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
     }
   }
 
-  @FXML public void onAcceptTrade() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
-    Game selectedGame = incomingTradeList.getSelectionModel().getSelectedItem();
-    myProfileViewModel.acceptGame(selectedGame);
+  @FXML public void onAccept()
+      throws RemoteException, InterruptedException, NotBoundException,
+      MalformedURLException
+  {
+    Game selectedGame = incomingGames.getSelectionModel().getSelectedItem();
+    myProfileViewModel.acceptGame(selectedGame.getId());
     Platform.runLater(() -> {
-      try {
+      try
+      {
         reset();
-      } catch (RemoteException e) {
+      }
+      catch (RemoteException e)
+      {
         e.printStackTrace();
-      } catch (InterruptedException e) {
+      }
+      catch (InterruptedException e)
+      {
         e.printStackTrace();
-      } catch (NotBoundException e) {
+      }
+      catch (NotBoundException e)
+      {
         e.printStackTrace();
-      } catch (MalformedURLException e) {
+      }
+      catch (MalformedURLException e)
+      {
         e.printStackTrace();
       }
     });
@@ -124,7 +129,7 @@ public class MyProfileController
 
   @FXML public void onDecline() throws RemoteException
   {
-    if (incomingTradeList.getSelectionModel().getSelectedIndex() < 0)
+    if (incomingGames.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
           "You have to select a game.", ButtonType.OK);
@@ -134,21 +139,19 @@ public class MyProfileController
     else
     {
 
-      Game selectedGame = incomingTradeList.getSelectionModel()
-          .getSelectedItem();
-      myProfileViewModel.removeGame(selectedGame);
-      int index = incomingTradeList.getSelectionModel().getSelectedIndex();
-      if (incomingTradeList.getSelectionModel().getSelectedItem() == null)
+      Game selectedGame = incomingGames.getSelectionModel().getSelectedItem();
+      myProfileViewModel.removeGame(selectedGame.getId());
+      int index = incomingGames.getSelectionModel().getSelectedItem().getId();
+      if(index== 0)
       {
-        this.myProfileViewModel.getIncomingTradeList().remove(index);
+        this.myProfileViewModel.getIncomingGames().remove(index);
       }
-      this.myProfileViewModel.getIncomingTradeList().clear();
-      this.incomingTradeList
-          .setItems(myProfileViewModel.getIncomingTradeList());
+      this.myProfileViewModel.getIncomingGames().clear();
+      this.incomingGames.setItems(myProfileViewModel.getIncomingGames());
     }
   }
 
-  @FXML public void onEditProfile()
+  @FXML public void onEdit()
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {

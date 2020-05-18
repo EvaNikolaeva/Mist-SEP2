@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Game;
 import model.Model;
+import model.MyProfileModel;
 import model.User;
 
 import java.net.MalformedURLException;
@@ -14,107 +15,74 @@ import java.rmi.RemoteException;
 
 public class MyProfileViewModel
 {
-  private Model model;
-  private ObservableList<Game> incomingTradeList;
-  private ObservableList<Game> owned;
-  private ObservableList<Game> rented;
-  private ObservableList<Game> pending;
+  private MyProfileModel model;
+  private ObservableList<Game> incomingGames;
+  private ObservableList<Game> ownedGames;
+  private ObservableList<Game> rentedGames;
+  private ObservableList<Game> pendingGames;
   private StringProperty bio;
+  private StringProperty username;
 
-  public MyProfileViewModel(Model model)
+  public MyProfileViewModel(MyProfileModel model)
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {
     this.model = model;
-    this.incomingTradeList = FXCollections.observableArrayList();
-    this.owned = FXCollections.observableArrayList();
-    this.rented = FXCollections.observableArrayList();
-    this.pending = FXCollections.observableArrayList();
+    this.incomingGames = FXCollections.observableArrayList();
+    this.ownedGames = FXCollections.observableArrayList();
+    this.rentedGames = FXCollections.observableArrayList();
+    this.pendingGames = FXCollections.observableArrayList();
     this.bio = new SimpleStringProperty();
+    this.username = new SimpleStringProperty();
   }
 
-  public User getUser() throws RemoteException
+  public ObservableList<Game> getOwnedGames() throws RemoteException
   {
-    return model.getLocalUser();
+    return ownedGames;
   }
 
-  public void updateBio() throws RemoteException
+  public ObservableList<Game> getPendingGames() throws RemoteException
   {
-    bio.setValue(model.getLocalUser().getBio());
+    return pendingGames;
+  }
+
+  public ObservableList<Game> getRentedGames() throws RemoteException
+  {
+    return rentedGames;
+  }
+
+  public ObservableList<Game> getIncomingGames() throws RemoteException
+  {
+    return incomingGames;
   }
 
   public StringProperty getBio() throws RemoteException
   {
-    bio.setValue(model.getLocalUser().getBio());
     return bio;
   }
 
-  public ObservableList<Game> getIncomingTradeList() throws RemoteException
+  public StringProperty getUsername() throws RemoteException
   {
-    GameList games = getUser().getIncomingGameRequests();
-    incomingTradeList.clear();
-    for (int i = 0; i < games.size(); i++)
-    {
-      incomingTradeList.add(games.getGame(i));
-    }
-    return incomingTradeList;
+    return username;
   }
 
-  public ObservableList<Game> getOwnedGameList() throws RemoteException
+  public User getLocalUser() throws RemoteException
   {
-    GameList games = getUser().getGames();
-    owned.clear();
-    for (int i = 0; i < games.size(); i++)
-    {
-      owned.add(games.getGame(i));
-    }
-    return owned;
+    return model.getOtherUserByID(model.getLocalUserId());
   }
 
-  public ObservableList<Game> getRentedGameList() throws RemoteException
+  public void setBio() throws RemoteException
   {
-    GameList games = getUser().getRentedGames();
-    rented.clear();
-    for (int i = 0; i < games.size(); i++)
-    {
-      rented.add(games.getGame(i));
-    }
-    return rented;
+    model.setBio(getLocalUser().getUserID(),bio.getValue());
   }
 
-  public void updateUser()
-      throws RemoteException, MalformedURLException, InterruptedException,
-      NotBoundException
+  public void removeGame(int gameID) throws RemoteException
   {
-    model.updateUser();
+    model.removeGame(getLocalUser().getUserID(), gameID);
   }
 
-  public ObservableList<Game> getPendingTradesList() throws RemoteException
+  public void acceptGame(int gameID) throws RemoteException
   {
-    GameList games = getUser().getPendingGames();
-    pending.clear();
-    for (int i = 0; i < games.size(); i++)
-    {
-      pending.add(games.getGame(i));
-    }
-    return pending;
+    model.acceptIncomingGame(getLocalUser().getUserID(), gameID);
   }
-
-  public void removeGame(Game game) throws RemoteException
-  {
-    model.RemoveGame(game.getId());
-  }
-
-  public void acceptGame(Game game) throws RemoteException
-  {
-    model.acceptTrade(game);
-  }
-
-  //    @Override
-  //    public void propertyChange(PropertyChangeEvent evt)
-  //    {
-  //        System.out.println("EVT VALUE PRINT OUT -----------------" + evt.getNewValue());
-  //        Platform.runLater(() -> incomingTradeList.add((Game) evt.getNewValue()));
-  //    }
-
 }
