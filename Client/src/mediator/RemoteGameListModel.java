@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public interface RemoteGameListModel extends Remote
 {
   User getUserByID(int id) throws RemoteException;
-  User getUserByCredentials(String username, String password) throws RemoteException;
+  User getUserByCredentials(String username, String password)
+      throws RemoteException;
   void setBio(int userID, String bio) throws RemoteException;
 
   void requestGame(int userID, int gameID) throws RemoteException;

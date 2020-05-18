@@ -14,9 +14,10 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
 
-public class GameListServer implements RemoteGameListModel
+public class GameListServer implements RemoteGameListModel, ServerWrite
 {
   private Model model;
+  //arrays users
 
   public GameListServer(Model model)
   {
@@ -62,6 +63,7 @@ public class GameListServer implements RemoteGameListModel
 
   @Override public User getUserByID(int id)
   {
+
     return model.getUserByID(id);
   }
 
@@ -119,7 +121,7 @@ public class GameListServer implements RemoteGameListModel
     return model.getSizeOfGameList();
   }
 
-  @Override public void registerUser(String username, String password)
+  @Override public void registerNewUser(String username, String password)
       throws RemoteException
   {
     model.registerUser(username, password);

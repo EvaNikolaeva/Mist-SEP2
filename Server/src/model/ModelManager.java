@@ -68,7 +68,7 @@ public class ModelManager implements Model
 
   @Override public void addGame(int userID, Game game) throws RemoteException
   {
-  userList.addToOwned(userID, game.getId());
+    userList.addToOwned(userID, game.getId());
     gameList.addGame(game);
 
   }

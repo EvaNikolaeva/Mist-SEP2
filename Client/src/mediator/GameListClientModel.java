@@ -12,15 +12,15 @@ import java.util.ArrayList;
 public interface GameListClientModel
 {
   void connect() throws InterruptedException;
-  void registerNewUser(String username, String password);
-  User login(String username, String password);
-  ArrayList<Integer> getAllAvailableGames();
-  ArrayList<Integer> getAllPendingGames();
+  void registerNewUser(String username, String password) throws RemoteException;
+  User login(String username, String password) throws RemoteException;
+  ArrayList<Integer> getAllAvailableGames() throws RemoteException;
+  ArrayList<Integer> getAllPendingGames() throws RemoteException;
 
-  ArrayList<Integer> getAllUserOwnedGames();
-  ArrayList<Integer> getAllUserPendingGames();
-  ArrayList<Integer> getAllUserRentedGames();
-  ArrayList<Integer> getAllUserIncomingGames();
+  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
+  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
+  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;
+  ArrayList<Integer> getAllUserIncomingGames() throws RemoteException;
 
   void requestGame(int userID, int gameID) throws RemoteException;
   String getUsername(int userID) throws RemoteException;
@@ -33,9 +33,11 @@ public interface GameListClientModel
 
   void addGame(Game game) throws RemoteException;
 
-  User getOtherUserByID(int userID);
-  ArrayList<Integer> getOtherAllUserOwnedGames(int userID);
-  ArrayList<Integer> getOtherAllUserPendingGames(int userID);
+  User getOtherUserByID(int userID) throws RemoteException;
+  ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
+      throws RemoteException;
+  ArrayList<Integer> getOtherAllUserPendingGames(int userID)
+      throws RemoteException;
 
   void setLocalUserID(int userID);
 }

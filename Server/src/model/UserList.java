@@ -29,8 +29,6 @@ public class UserList
 
   public void registerUser(String username, String password)
   {
-    //maybe streams as well, but dunno how
-
     int userID = (int) ((Math.random() * 9999) + 1);
     User user = new User(username, password, userID);
 
