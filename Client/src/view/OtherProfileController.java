@@ -1,5 +1,6 @@
 package view;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -14,7 +15,8 @@ import java.rmi.RemoteException;
 
 public class OtherProfileController
 {
-  @FXML ListView<Game> list;
+  @FXML ListView<Game> ownedGames;
+  @FXML ListView<Game> pendingGames;
   @FXML Label bio;
   @FXML Label username;
   private OtherProfileViewModel otherProfileViewModel;
@@ -24,13 +26,13 @@ public class OtherProfileController
   public void init(ViewHandler viewHandler,
       OtherProfileViewModel otherProfileViewModel, Region root) throws RemoteException
   {
-    otherProfileViewModel.updateSelectedUser();
     this.viewHandler = viewHandler;
     this.root = root;
-    this.list.setItems(otherProfileViewModel.getOtherUserGameList());
     this.username.textProperty().bind(otherProfileViewModel.getUsername());
     this.bio.textProperty().bind(otherProfileViewModel.getBio());
     this.otherProfileViewModel = otherProfileViewModel;
+    this.ownedGames.setItems(otherProfileViewModel.getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
+    this.pendingGames.setItems(otherProfileViewModel.getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
   }
 
   public Region getRoot()
@@ -40,9 +42,13 @@ public class OtherProfileController
 
   public void reset() throws RemoteException
   {
-    otherProfileViewModel.updateSelectedUser();
-    this.list
-        .setItems(otherProfileViewModel.getOtherUserGameList()); //finish the method getList
+    this.ownedGames.setItems(otherProfileViewModel.getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
+    this.pendingGames.setItems(otherProfileViewModel.getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
+  }
+
+  @FXML public void onChat()
+  {
+    //add Chat Window to ViewHandler and connect
   }
 
   @FXML public void onBrowseGames()
@@ -57,5 +63,10 @@ public class OtherProfileController
       MalformedURLException
   {
     viewHandler.openView("menu");
+  }
+
+  @FXML public void onMyProfile() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException
+  {
+    viewHandler.openView("profile");
   }
 }

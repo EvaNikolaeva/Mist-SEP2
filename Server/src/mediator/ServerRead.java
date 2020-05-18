@@ -13,4 +13,5 @@ public interface ServerRead extends Remote
   Game getGameByIndex(int index) throws RemoteException;
   Game getGameByID(int gameID) throws RemoteException;
   int getSizeOfGameList() throws RemoteException;
+
 }

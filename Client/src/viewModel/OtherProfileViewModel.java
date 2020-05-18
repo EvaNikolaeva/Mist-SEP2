@@ -9,41 +9,29 @@ import model.Model;
 import model.User;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class OtherProfileViewModel
 {
   private StringProperty bio;
   private StringProperty username;
-  private ObservableList<Game> list;
+  private ObservableList<Game> ownedGames;
+  private ObservableList<Game> pendingGames;
   private Model model;
 
   public OtherProfileViewModel(Model model) throws RemoteException
   {
     this.model = model;
-    this.list = FXCollections.observableArrayList();
     this.bio = new SimpleStringProperty("");
     this.username = new SimpleStringProperty("");
+    this.ownedGames = FXCollections.observableArrayList();
+    this.pendingGames = FXCollections.observableArrayList();
   }
-public void updateSelectedUser() throws RemoteException {
-  this.bio.set(model.getUserDataById(model.getSelectedOtherUserIdBuffer()).getBio());
-  this.username.set(model.getUserDataById(model.getSelectedOtherUserIdBuffer()).getUsername());
-};
-  public ObservableList<Game> getOtherUserGameList() throws RemoteException
+
+  public int getUserID()
   {
-    User otherUser = model.getUserDataById(model.getSelectedOtherUserIdBuffer());
-    for (int i = 0; i < model.GetGameList().size(); i++)
-    {
-      if (model.GetGameList().getGame(i).getUserID() == otherUser.getUserID())
-      {
-        otherUser.getGames().addGame(model.GetGameList().getGame(i));
-      }
-    }
-    list.clear();
-    for (int i = 0; i < otherUser.getGames().size(); i++)
-    {
-      list.add(otherUser.getGames().getGame(i));
-    }
-    return list;
+    int userID = model.getLocalUserId();
+    return userID;
   }
 
   public StringProperty getBio()
@@ -54,5 +42,37 @@ public void updateSelectedUser() throws RemoteException {
   public StringProperty getUsername()
   {
     return username;
+  }
+
+  public String getUsername(int userID) throws RemoteException
+  {
+    String username = model.getUsername(userID);
+    return username;
+  }
+
+  public String getBio(int userID) throws RemoteException
+  {
+    String bio = model.getBio(userID);
+    return bio;
+  }
+
+  public ObservableList<Game> getAllOtherUserOwnedGames(int userID)
+  {
+    ArrayList<Integer> games = model.getOtherAllUserOwnedGames(userID);
+    for(int i = 0; i < games.size(); i++)
+    {
+      ObservableList<Game> ownedGames = model.getGamesByID(games.get(i));
+    }
+    return ownedGames;
+  }
+
+  public ObservableList<Game> getAllOtherUserPendingGames(int userID)
+  {
+    ArrayList<Integer> games = model.getOtherAllUserPendingGames(userID);
+    for(int i = 0; i < games.size(); i++)
+    {
+      ObservableList<Game> pendingGames = model.getGamesByID(games.get(i));
+    }
+    return pendingGames;
   }
 }
