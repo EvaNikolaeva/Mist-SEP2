@@ -31,8 +31,8 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField maxWidth="250.0" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter Username" />
-            <TextField maxWidth="250.0">
+            <TextField fx:id="loginUsername" maxWidth="250.0" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter Username" />
+            <TextField fx:id="loginPassword" maxWidth="250.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>

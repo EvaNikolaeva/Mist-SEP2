@@ -108,22 +108,11 @@ public class MyProfileController
       {
         reset();
       }
-      catch (RemoteException e)
+      catch (Exception e)
       {
         e.printStackTrace();
       }
-      catch (InterruptedException e)
-      {
-        e.printStackTrace();
-      }
-      catch (NotBoundException e)
-      {
-        e.printStackTrace();
-      }
-      catch (MalformedURLException e)
-      {
-        e.printStackTrace();
-      }
+
     });
   }
 

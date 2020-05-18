@@ -14,10 +14,6 @@ public class LoginScreenController {
     @FXML
     TextField loginPassword;
     @FXML
-    TextField registerUsername;
-    @FXML
-    TextField registerPassword;
-    @FXML
     Label errorLabel;
 
     private Region root;
@@ -32,8 +28,6 @@ public class LoginScreenController {
         this.errorLabel.setText("");
         this.loginUsername.textProperty().bindBidirectional(loginViewModel.getLoginUsername());
         this.loginPassword.textProperty().bindBidirectional(loginViewModel.getLoginPassword());
-        this.registerUsername.textProperty().bindBidirectional(loginViewModel.getRegisterUsername());
-        this.registerPassword.textProperty().bindBidirectional(loginViewModel.getRegisterPassword());
     }
 
     public Region getRoot() {
@@ -43,8 +37,6 @@ public class LoginScreenController {
     public void reset() {
         loginUsername.setText("");
         loginPassword.setText("");
-        registerUsername.setText("");
-        registerPassword.setText("");
         errorLabel.setText("");
     }
 
@@ -52,14 +44,14 @@ public class LoginScreenController {
     public void onLogin() {
         Platform.runLater(() -> {
             try {
-                if (!loginViewModel.exist(loginUsername.getText(), loginPassword.getText())) {
-                    errorLabel.setText("User does not exist");
-                } else if (loginUsername.getText().equals("") || loginPassword.getText().equals("")) {
-                    errorLabel.setText("Fields should not be empty");
-                } else {
+//                if (!loginViewModel.exist(loginUsername.getText(), loginPassword.getText())) {
+//                    errorLabel.setText("User does not exist");
+//                } else if (loginUsername.getText().equals("") || loginPassword.getText().equals("")) {
+//                    errorLabel.setText("Fields should not be empty");
+//                } else {
                     viewHandler.openView("list");
                     loginViewModel.setLocalUser();
-                }
+//                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -71,7 +63,7 @@ public class LoginScreenController {
     public void onRegister() {
         Platform.runLater(() -> {
             try {
-                if (loginViewModel.exist(registerUsername.getText(), registerPassword.getText()))
+                if (loginViewModel.exist(loginUsername.getText(), loginPassword.getText()))
                 {
                     errorLabel.setText("Username already used");
                 }

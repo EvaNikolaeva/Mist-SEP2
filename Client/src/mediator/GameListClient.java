@@ -66,9 +66,11 @@ public class GameListClient implements GameListClientModel, Remote
   @Override public User login(String username, String password)
       throws RemoteException
   {
+    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    ServerRead serverRead = serverAccess.acquireRead();
     try
     {
-      ServerRead serverRead = serverAccess.acquireRead();
+      System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZ");
       return serverRead.getUserByCredentials(username, password);
     }
     finally

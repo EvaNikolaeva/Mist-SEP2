@@ -49,7 +49,7 @@ public class LoginViewModel
 
   public boolean exist(String username, String password) throws RemoteException
   {
-   return model.login(username, password) != null;
+    return model.login(username, password) != null;
   }
   public void setLocalUser() throws RemoteException {
     //model.setLocalUser(username.getValue());

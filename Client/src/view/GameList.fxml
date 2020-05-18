@@ -62,9 +62,9 @@
       </VBox>
    </left>
    <center>
-      <ListView BorderPane.alignment="CENTER" />
+      <ListView fx:id="availableGames" BorderPane.alignment="CENTER" />
    </center>
    <right>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="pendingGames" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>

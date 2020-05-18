@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -19,12 +17,12 @@
    <top>
       <HBox prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onBrowseGames" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Browse Games">
+            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Browse Games">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#onAddGame" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
+            <Button minHeight="60.0" minWidth="120.0" mnemonicParsing="false" style="-fx-background-color: #75B5C6; -fx-background-radius: 0;" text="Add Game">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -54,12 +52,12 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onAccept" style="-fx-background-color: #75B5C6;" text="Accept Trade">
+                  <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Accept Trade">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onDecline" style="-fx-background-color: #75B5C6;" text="Decline">
+                  <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Decline">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -68,15 +66,15 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onEdit" style="-fx-background-color: #75B5C6;" text="Edit Profile">
+                  <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Edit Profile">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onDelete" style="-fx-background-color: #75B5C6;" text="Delete Game" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: #75B5C6;" text="Delete Game" />
                </children>
             </HBox>
-            <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #67666D;">
+            <TextFlow fx:id="bio" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #67666D;">
                <children>
                   <Label text="Info box label" textFill="#e4e4e4" />
                </children>
@@ -96,13 +94,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <ListView prefHeight="200.0" prefWidth="224.0" VBox.vgrow="ALWAYS" />
-                        <Accordion>
-                          <panes>
-                            <TitledPane animated="false" prefHeight="622.0" prefWidth="224.0" text="Owned" />
-                            <TitledPane animated="false" text="Rented" />
-                          </panes>
-                        </Accordion>
+                        <ListView fx:id="ownedGames" prefHeight="200.0" prefWidth="224.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
@@ -112,7 +104,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="incomingGames" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </items>
