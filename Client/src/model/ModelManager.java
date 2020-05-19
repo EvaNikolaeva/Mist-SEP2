@@ -12,12 +12,16 @@ import java.util.Calendar;
 public class ModelManager implements Model
 {
   private User user;
+  private String username;
+  private String password;
   private PropertyChangeSupport property;
   private GameListClientClient gameListClientModel;
 
   public ModelManager()
   {
     this.property = new PropertyChangeSupport(this);
+    this.username = "";
+    this.password = "";
   }
 
   public void setClient(GameListClientClient gameListClientModel)
@@ -34,9 +38,12 @@ public class ModelManager implements Model
   @Override public User login(String username, String password)
       throws RemoteException
   {
+    this.username = username;
+    this.password = password;
     user = gameListClientModel.login(username, password);
     return gameListClientModel.login(username, password);
   }
+
 
   @Override public void clientAcceptIncomingGame(Rental rental)
       throws RemoteException
@@ -69,6 +76,21 @@ public class ModelManager implements Model
   @Override public User getUser(Game game) throws RemoteException
   {
     return gameListClientModel.getUserFromServer(game);
+  }
+
+  @Override
+  public String getUsername() {
+    return username;
+  }
+
+  @Override
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
+  public void setBio(User user, String bioText) throws RemoteException {
+    gameListClientModel.clientSetBio(user, bioText);
   }
 
   @Override public void requestGameFromServer(Rental rental)

@@ -7,8 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 
-public interface AddGameModel
-{
+public interface AddGameModel extends UnnamedPropertyChangeSubject {
   void clientAddGame(Game game) throws RemoteException;
   void validateGame(String name, String type, String releaseYear,
       String availablePeriod, boolean needsDeposit) throws RemoteException;

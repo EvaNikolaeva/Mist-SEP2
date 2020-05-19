@@ -14,8 +14,6 @@ import java.rmi.RemoteException;
 public class GameMenuController
 {
   @FXML TextField availabilityPeriod;
-  @FXML DatePicker rentalFrom;
-  @FXML DatePicker rentalTo;
   @FXML TextField name;
   @FXML TextField type;
   @FXML TextField releaseYear;
@@ -35,10 +33,6 @@ public class GameMenuController
     this.gameMenuViewModel = gameMenuViewModel;
     this.name.textProperty().bindBidirectional(gameMenuViewModel.getName());
     this.type.textProperty().bindBidirectional(gameMenuViewModel.getType());
-    this.rentalTo.valueProperty()
-        .bindBidirectional(gameMenuViewModel.getToDate());
-    this.rentalFrom.valueProperty()
-        .bindBidirectional(gameMenuViewModel.getFromDate());
     this.releaseYear.textProperty()
         .bindBidirectional(gameMenuViewModel.getReleaseYear());
     this.availabilityPeriod.textProperty()
@@ -60,8 +54,6 @@ public class GameMenuController
     releaseYear.clear();
     deposit.setSelected(false);
     availabilityPeriod.clear();
-    rentalFrom.setValue(null);
-    rentalTo.setValue(null);
   }
 
   @FXML public void onReset()

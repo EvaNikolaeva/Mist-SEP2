@@ -18,11 +18,11 @@ public class EditProfileViewModel
     this.bio = new SimpleStringProperty();
   }
   public StringProperty getBio() throws RemoteException {
-    bio.setValue(model.getBio(model.getLocalUserId()));
+    bio.setValue(model.login(model.getUsername(), model.getPassword()).getBio());
     return bio;
   }
   public void editBio(String bio) throws RemoteException
   {
-    model.setBio(model.getLocalUserId(), bio);
+    model.setBio(model.login(model.getUsername(), model.getPassword()), bio);
   }
 }

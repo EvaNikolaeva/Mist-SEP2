@@ -1,6 +1,4 @@
 package mediator;
-
-import javafx.application.Platform;
 import model.*;
 
 import java.beans.PropertyChangeEvent;

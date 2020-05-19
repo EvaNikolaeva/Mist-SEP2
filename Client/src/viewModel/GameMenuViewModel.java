@@ -28,8 +28,6 @@ public class GameMenuViewModel implements PropertyChangeListener
     this.title = new SimpleStringProperty();
     this.type = new SimpleStringProperty();
     this.releaseYear = new SimpleStringProperty();
-    this.rentalFrom = new SimpleObjectProperty<>();
-    this.rentalTo = new SimpleObjectProperty<>();
     this.availabilityPeriod = new SimpleStringProperty();
     this.checkBox = new SimpleBooleanProperty();
     this.responseMessage = new SimpleStringProperty();
@@ -80,7 +78,6 @@ public class GameMenuViewModel implements PropertyChangeListener
   {
     model
         .validateGame(title.getValue(), type.getValue(), releaseYear.getValue(),
-            rentalFrom.getValue(), rentalTo.getValue(),
             availabilityPeriod.getValue(), checkBox.getValue());
   }
 
@@ -89,8 +86,6 @@ public class GameMenuViewModel implements PropertyChangeListener
     title.setValue("");
     type.setValue("");
     releaseYear.setValue("");
-    rentalTo.setValue(null);
-    rentalFrom.setValue(null);
     availabilityPeriod.setValue("");
     checkBox.setValue(false);
   }

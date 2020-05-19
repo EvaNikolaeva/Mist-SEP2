@@ -18,7 +18,6 @@ public interface GameListClientClient
   void clientRemoveGame(Game game) throws RemoteException;
   void clientSetBio(User user, String bio) throws RemoteException;
   void clientAddGame(User user, Game game) throws RemoteException;
-
   void clientRequestGame(User requester,Game game) throws RemoteException;
   void clientAcceptIncomingGame(Rental rental) throws RemoteException;
   void clientDeclineIncomingGame(Rental rental) throws RemoteException;
