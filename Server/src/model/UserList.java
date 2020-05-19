@@ -39,7 +39,7 @@ public class UserList
 
     for (int i = 0; i < users.size(); i++)
     {
-      if (!(userID == users.get(i).getUserID()))
+      if (!(userID == users.get(i).getUserID()) && users.get(i).getUsername().equals(username))
       {
         users.add(user);
       }

@@ -33,13 +33,11 @@ public class LoginViewModel
     return loginPassword;
   }
 
-  public boolean exist(String username, String password) throws RemoteException
+  public User login(String username, String password) throws RemoteException
   {
-    return model.login(username, password) != null;
+    return model.login(username, password);
   }
-  public void setLocalUser() throws RemoteException {
-    //model.setLocalUser(username.getValue());
-    User user1 = model.login(loginUsername.getValue(), loginPassword.getValue());
-    model.setLocalUserID(user1.getUserID());
+  public void registerUser(String username, String password) throws RemoteException {
+    model.registerNewUser(username, password);
   }
 }

@@ -9,28 +9,30 @@ import model.Model;
 
 import java.rmi.RemoteException;
 
-public class GameListViewModel
-{
-  private GameListModel model;
-  private ObservableList<Game> availableGames;
-  public GameListViewModel(GameListModel model)
-  {
-    this.model = model;
-    this.availableGames = FXCollections.observableArrayList();
-  }
+public class GameListViewModel {
+    private GameListModel model;
+    private ObservableList<Game> availableGames;
 
-  public ObservableList<Game> getAvailableGames() throws RemoteException {
- GameList gameList = model.getAllGamesFromServer();
+    public GameListViewModel(GameListModel model) {
+        this.model = model;
+        this.availableGames = FXCollections.observableArrayList();
+    }
 
-   return availableGames;
-  }
+    public ObservableList<Game> getAvailableGames() throws RemoteException {
+        GameList gameList = model.getAllGamesFromServer();
+        availableGames.clear();
+        for (int i = 0; i < gameList.size(); i++) {
+            availableGames.add(gameList.getGame(i));
+        }
+        return availableGames;
+    }
 
-  public void requestTrade(Game game, int userID) throws RemoteException
-  {
-    model.requestGame(userID, game.getId());
-  }
-  public void setSelectedUserId(int id) throws RemoteException {
-    model.getOtherUserByID(id);
-  }
+    public void requestTrade(Game game) throws RemoteException {
+        model.clientRequestGame(model.login(model.getUsername(), model.getPassword()), game);
+    }
+
+    public void setGameBuffer(Game game) throws RemoteException {
+        model.setGameBuffer(game);
+    }
 
 }
