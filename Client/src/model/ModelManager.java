@@ -16,7 +16,7 @@ public class ModelManager implements Model
   private String password;
   private PropertyChangeSupport property;
   private GameListClientClient gameListClientModel;
-
+  private Game gameBuffer;
   public ModelManager()
   {
     this.property = new PropertyChangeSupport(this);
@@ -76,6 +76,16 @@ public class ModelManager implements Model
   @Override public User getUser(Game game) throws RemoteException
   {
     return gameListClientModel.getUserFromServer(game);
+  }
+
+  @Override
+  public void setGameBuffer(Game game) {
+    gameBuffer = game;
+  }
+
+  @Override
+  public Game getGameBuffer() {
+    return gameBuffer;
   }
 
   @Override

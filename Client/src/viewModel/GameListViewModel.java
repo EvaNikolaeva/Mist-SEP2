@@ -3,6 +3,7 @@ package viewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Game;
+import model.GameList;
 import model.GameListModel;
 import model.Model;
 
@@ -19,9 +20,8 @@ public class GameListViewModel
   }
 
   public ObservableList<Game> getAvailableGames() throws RemoteException {
-    {
-      
-    }
+ GameList gameList = model.getAllGamesFromServer();
+
    return availableGames;
   }
 

@@ -18,6 +18,10 @@ public interface Model
 
     User getUser(Game game) throws RemoteException;
 
+    void setGameBuffer(Game game);
+
+    Game getGameBuffer();
+
     String getUsername();
 
     String getPassword();
