@@ -31,6 +31,7 @@ public interface Model
     void validateGame(String name, String type, String releaseYear,
                       String availablePeriod, boolean needsDeposit) throws RemoteException;
 
+    RentalList getRentalList() throws RemoteException;
 //  void setLocalUser(User user);
 
 //  Game getGameByID(int userID) throws RemoteException;

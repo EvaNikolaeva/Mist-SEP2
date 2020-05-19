@@ -15,12 +15,12 @@ public interface Model extends UnnamedPropertyChangeSubject
   void declineGame(Rental rental) throws RemoteException;
   GameList getFullListOfGames() throws RemoteException;
 
-  void addGame(User user, Game game) throws RemoteException;
+  void addGame(Game game) throws RemoteException;
   void removeGame(Game game) throws RemoteException;
   Game getGameByIndex(int index);
   Game getGameByID(int gameID);
   User getUserByGame(Game game);
   int getSizeOfGameList();
-
+RentalList getRentalList();
   void registerUser(String username, String password) throws RemoteException;
 }

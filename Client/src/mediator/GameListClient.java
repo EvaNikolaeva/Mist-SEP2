@@ -83,6 +83,19 @@ public class GameListClient implements GameListClientClient, RemoteGameListClien
     }
   }
 
+  @Override
+  public RentalList clientGetRentalList() throws RemoteException {
+    try
+    {
+      ServerRead serverRead = serverAccess.acquireRead();
+      return serverRead.getRentalList();
+    }
+    finally
+    {
+      serverAccess.releaseRead();
+    }
+  }
+
   @Override public void clientRemoveGame(Game game) throws RemoteException
   {
     ServerWrite serverWrite = serverAccess.acquireWrite();

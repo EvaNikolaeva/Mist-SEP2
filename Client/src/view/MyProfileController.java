@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import model.Game;
+import model.Rental;
 import viewModel.MyProfileViewModel;
 
 import java.net.MalformedURLException;
@@ -17,10 +18,8 @@ import java.rmi.RemoteException;
 
 public class MyProfileController
 {
-  @FXML ListView<Game> incomingGames;
   @FXML ListView<Game> ownedGames;
-  @FXML ListView<Game> pendingGames;
-  @FXML ListView<Game> rentedGames;
+  @FXML ListView<Rental> rentals;
   @FXML Label bio;
   @FXML Label username;
   private MyProfileViewModel myProfileViewModel;
@@ -34,10 +33,8 @@ public class MyProfileController
   {
     this.viewHandler = viewHandler;
     this.root = root;
-    this.pendingGames.setItems(myProfileViewModel.getPendingGames());
-    this.incomingGames.setItems(myProfileViewModel.getIncomingGames());
     this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
-    this.rentedGames.setItems(myProfileViewModel.getRentedGames());
+    this.rentals.setItems(myProfileViewModel.getRentals());
     this.bio.textProperty().bind(myProfileViewModel.getBio());
     this.myProfileViewModel = myProfileViewModel;
     this.username.textProperty().bind(myProfileViewModel.getUsername());
@@ -52,11 +49,8 @@ public class MyProfileController
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {
-    this.incomingGames.setItems(myProfileViewModel.getIncomingGames());
     this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
-    this.rentedGames.setItems(myProfileViewModel.getRentedGames());
-    this.pendingGames.setItems(myProfileViewModel.getPendingGames());
-    myProfileViewModel.setBio();
+    this.rentals.setItems(myProfileViewModel.getRentals());
   }
 
   @FXML public void onAddGame()
@@ -85,7 +79,7 @@ public class MyProfileController
     else
     {
       Game selectedGame = ownedGames.getSelectionModel().getSelectedItem();
-      myProfileViewModel.removeGame(selectedGame.getId());
+      myProfileViewModel.removeGame(selectedGame);
       int index = ownedGames.getSelectionModel().getSelectedIndex();
       if (ownedGames.getSelectionModel().getSelectedItem() == null)
       {
@@ -101,8 +95,8 @@ public class MyProfileController
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {
-    Game selectedGame = incomingGames.getSelectionModel().getSelectedItem();
-    myProfileViewModel.acceptGame(selectedGame.getId());
+    Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
+    myProfileViewModel.acceptGame(selectedRental);
     Platform.runLater(() -> {
       try
       {
@@ -118,7 +112,7 @@ public class MyProfileController
 
   @FXML public void onDecline() throws RemoteException
   {
-    if (incomingGames.getSelectionModel().getSelectedIndex() < 0)
+    if (rentals.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
           "You have to select a game.", ButtonType.OK);
@@ -128,15 +122,15 @@ public class MyProfileController
     else
     {
         //CATA: i think this needs to happen in two sides
-      Game selectedGame = incomingGames.getSelectionModel().getSelectedItem();
-      myProfileViewModel.removeGame(selectedGame.getId());
-      int index = incomingGames.getSelectionModel().getSelectedItem().getId();
+      Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
+      int index = rentals.getSelectionModel().getSelectedItem().getId();
       if(index== 0)
       {
-        this.myProfileViewModel.getIncomingGames().remove(index);
+        myProfileViewModel.declineGame(selectedRental);
+        this.myProfileViewModel.getRentals().remove(index);
       }
-      this.myProfileViewModel.getIncomingGames().clear();
-      this.incomingGames.setItems(myProfileViewModel.getIncomingGames());
+      this.myProfileViewModel.getRentals().clear();
+      this.rentals.setItems(myProfileViewModel.getRentals());
     }
   }
 

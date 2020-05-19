@@ -16,21 +16,14 @@ public class OtherProfileViewModel
   private StringProperty bio;
   private StringProperty username;
   private ObservableList<Game> ownedGames;
-  private ObservableList<Game> pendingGames;
   private Model model;
 
   public OtherProfileViewModel(Model model) throws RemoteException
   {
     this.model = model;
-    this.bio = new SimpleStringProperty();
-    this.username = new SimpleStringProperty();
+    this.bio = new SimpleStringProperty(model.getUser(model.getGameBuffer()).getBio());
+    this.username = new SimpleStringProperty(model.getUser(model.getGameBuffer()).getUsername());
     this.ownedGames = FXCollections.observableArrayList();
-    this.pendingGames = FXCollections.observableArrayList();
-  }
-
-  public int getUserID()
-  {
-    return model.getLocalUserId();
   }
 
   public StringProperty getBio()
@@ -42,35 +35,13 @@ public class OtherProfileViewModel
   {
     return username;
   }
-
-  public String getUsername(int userID) throws RemoteException
-  {
-    return model.getUsername(userID);
-  }
-
-  public String getBio(int userID) throws RemoteException
-  {
-    return model.getBio(userID);
-  }
-
   public ObservableList<Game> getAllOtherUserOwnedGames(int userID)
       throws RemoteException
   {
-    ArrayList<Integer> games = model.getOtherAllUserOwnedGames(userID);
-    for (int i = 0; i < model.getOtherAllUserOwnedGames(userID).size(); i++)
+ownedGames.clear();
+    for (int i = 0; i < model.getUser(model.getGameBuffer()).getGameList().size(); i++)
     {
-      games.add(model.getOtherUserByID(userID).getOwnedGames().get(i));
-    }
-    return ownedGames;
-  }
-
-  public ObservableList<Game> getAllOtherUserPendingGames(int userID)
-      throws RemoteException
-  {
-    ArrayList<Integer> games = model.getOtherAllUserOwnedGames(userID);
-    for (int i = 0; i < model.getOtherAllUserPendingGames(userID).size(); i++)
-    {
-      games.add(model.getOtherUserByID(userID).getPendingGames().get(i));
+      ownedGames.add(model.getUser(model.getGameBuffer()).getGameList().getGame(i));
     }
     return ownedGames;
   }

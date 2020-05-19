@@ -1,9 +1,6 @@
 package mediator;
 
-import model.Game;
-import model.GameList;
-import model.Rental;
-import model.User;
+import model.*;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ public interface GameListClientClient
   void registerNewUser(String username, String password) throws RemoteException;
   User login(String username, String password) throws RemoteException;  //instead of the first 4 from below and last 2 from below
   GameList getGamesFromServer() throws RemoteException;
-
+  RentalList clientGetRentalList() throws RemoteException;
   void clientRemoveGame(Game game) throws RemoteException;
   void clientSetBio(User user, String bio) throws RemoteException;
   void clientAddGame(User user, Game game) throws RemoteException;

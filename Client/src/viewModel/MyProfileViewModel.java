@@ -4,10 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Game;
-import model.Model;
-import model.MyProfileModel;
-import model.User;
+import model.*;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -16,10 +13,8 @@ import java.rmi.RemoteException;
 public class MyProfileViewModel
 {
   private MyProfileModel model;
-  private ObservableList<Game> incomingGames;
   private ObservableList<Game> ownedGames;
-  private ObservableList<Game> rentedGames;
-  private ObservableList<Game> pendingGames;
+  private ObservableList<Rental> rentals;
   private StringProperty bio;
   private StringProperty username;
 
@@ -28,61 +23,49 @@ public class MyProfileViewModel
       MalformedURLException
   {
     this.model = model;
-    this.incomingGames = FXCollections.observableArrayList();
     this.ownedGames = FXCollections.observableArrayList();
-    this.rentedGames = FXCollections.observableArrayList();
-    this.pendingGames = FXCollections.observableArrayList();
-    this.bio = new SimpleStringProperty();
-    this.username = new SimpleStringProperty();
+    this.rentals = FXCollections.observableArrayList();
+    this.bio = new SimpleStringProperty(model.login(model.getUsername(), model.getPassword()).getBio());
+    this.username = new SimpleStringProperty(model.getUsername());
   }
 
   public ObservableList<Game> getOwnedGames() throws RemoteException
   {
+    User userBuffer = model.login(model.getUsername(), model.getPassword());
+    ownedGames.clear();
+    for(int i = 0; i < userBuffer.getGameList().size(); i++){
+      ownedGames.add(userBuffer.getGameList().getGame(i));
+    }
     return ownedGames;
   }
 
-  public ObservableList<Game> getPendingGames() throws RemoteException
+  public ObservableList<Rental> getRentals() throws RemoteException
   {
-    return pendingGames;
+    rentals.clear();
+    for(int i = 0; i <  model.getRentalList().size(); i++){
+      if(model.getRentalList().getRentals().get(i).getOwner() == model.login(model.getUsername(), model.getPassword())){
+        rentals.add(model.getRentalList().getRentals().get(i));
+      }
+    }
+    return rentals;
   }
 
-  public ObservableList<Game> getRentedGames() throws RemoteException
-  {
-    return rentedGames;
-  }
-
-  public ObservableList<Game> getIncomingGames() throws RemoteException
-  {
-    return incomingGames;
-  }
-
-  public StringProperty getBio() throws RemoteException
-  {
+public StringProperty getBio(){
     return bio;
-  }
-
-  public StringProperty getUsername() throws RemoteException
-  {
+}
+  public StringProperty getUsername(){
     return username;
   }
-
-  public User getLocalUser() throws RemoteException
+  public void removeGame(Game game) throws RemoteException
   {
-    return model.getOtherUserByID(model.getLocalUserId());
+    model.clientRemoveGame(game);
   }
 
-  public void setBio() throws RemoteException
+  public void acceptGame(Rental rental) throws RemoteException
   {
-    model.getBio(model.getLocalUserId());
+    model.clientAcceptIncomingGame(rental);
   }
-
-  public void removeGame(int gameID) throws RemoteException
-  {
-    model.removeGame(getLocalUser().getUserID(), gameID);
-  }
-
-  public void acceptGame(int gameID) throws RemoteException
-  {
-    model.acceptIncomingGame(getLocalUser().getUserID(), gameID);
+  public void declineGame(Rental rental) throws RemoteException {
+    model.clientDeclineIncomingGame(rental);
   }
 }

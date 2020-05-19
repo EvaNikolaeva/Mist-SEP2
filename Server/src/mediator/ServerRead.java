@@ -2,6 +2,7 @@ package mediator;
 
 import model.Game;
 import model.GameList;
+import model.RentalList;
 import model.User;
 
 import java.rmi.Remote;
@@ -13,7 +14,7 @@ public interface ServerRead extends Remote
   GameList getAllGames() throws RemoteException;
   User getUserByGame(Game game) throws RemoteException;
   User getUserByCredentials(String username,String password) throws RemoteException;
-
+  RentalList getRentalList() throws RemoteException;
 
 
 //  User getUserByID(int id) throws RemoteException;

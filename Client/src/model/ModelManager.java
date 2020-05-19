@@ -220,6 +220,11 @@ public class ModelManager implements Model
     }
   }
 
+  @Override
+  public RentalList getRentalList() throws RemoteException {
+    return gameListClientModel.clientGetRentalList();
+  }
+
 
   @Override public void addListener(PropertyChangeListener listener)
   {

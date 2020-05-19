@@ -4,10 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -68,29 +66,23 @@
       </VBox>
    </left>
    <center>
-      <SplitPane dividerPositions="0.5418502202643172" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #75B5C6;" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox layoutX="8.0" layoutY="20.0" prefHeight="317.0" prefWidth="228.0">
+                  <Label text="My Games">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="ownedGames" prefHeight="348.0" prefWidth="228.0" />
+                        <ListView fx:id="ownedGames" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <Label layoutX="108.0" layoutY="6.0" prefHeight="17.0" prefWidth="39.0" text="Owned" />
                </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <VBox layoutX="2.0" layoutY="21.0" prefHeight="317.0" prefWidth="201.0">
-                     <children>
-                        <ListView fx:id="pendingGames" prefHeight="321.0" prefWidth="201.0" />
-                     </children>
-                  </VBox>
-                  <Label layoutX="81.0" layoutY="6.0" text="Pending" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+            </VBox>
+         </children>
+      </VBox>
    </center>
 </BorderPane>

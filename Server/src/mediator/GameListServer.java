@@ -165,7 +165,7 @@ public class GameListServer
 
   @Override public void addGame(User user, Game game) throws RemoteException
   {
-    this.model.addGame(user,game);
+    this.model.addGame(game);
   }
 
   @Override public void requestGame(User requester,Game game) throws RemoteException
@@ -198,5 +198,10 @@ public class GameListServer
       throws RemoteException
   {
     return this.model.getUserByCredentials(username, password);
+  }
+
+  @Override
+  public RentalList getRentalList() throws RemoteException {
+    return model.getRentalList();
   }
 }

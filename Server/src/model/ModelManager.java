@@ -88,10 +88,10 @@ public class ModelManager implements Model
     return gameList;
   }
 
-  @Override public void addGame(User user, Game game) throws RemoteException
+  @Override public void addGame(Game game) throws RemoteException
   {
     gameList.addGame(game);
-    userList.getUser(user).addGame(game);
+    userList.getUser(getUserByID(game.getUserId())).addGame(game);
     propertyChangeSupport.firePropertyChange("addGame", null, game);
   }
 
@@ -120,6 +120,11 @@ public class ModelManager implements Model
   @Override public int getSizeOfGameList()
   {
     return gameList.size();
+  }
+
+  @Override
+  public RentalList getRentalList() {
+    return rentalList;
   }
 
   @Override public void registerUser(String username, String password)

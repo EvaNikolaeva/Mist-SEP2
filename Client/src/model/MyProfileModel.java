@@ -9,7 +9,9 @@ public interface MyProfileModel
   void clientAcceptIncomingGame(Rental rental) throws RemoteException;
   void clientDeclineIncomingGame(Rental rental) throws RemoteException;
   void clientRemoveGame(Game game) throws RemoteException;
-
+  String getUsername();
+  String getPassword();
+  RentalList getRentalList() throws RemoteException;
 //  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;
