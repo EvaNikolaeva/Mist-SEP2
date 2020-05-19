@@ -9,7 +9,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public interface ServerRead extends Remote
+public interface ServerRead
 {
   GameList getAllGames() throws RemoteException;
   User getUserByGame(Game game) throws RemoteException;

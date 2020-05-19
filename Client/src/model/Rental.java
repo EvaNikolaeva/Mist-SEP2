@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Rental implements Serializable
 {
+
   private User owner;
   private User requester;
   private Game game;
@@ -46,5 +47,8 @@ public class Rental implements Serializable
   public int getId()
   {
     return id;
+  }
+  public String toString(){
+    return getGame().getTitle() + " " + getOwner();
   }
 }

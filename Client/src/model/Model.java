@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface Model
         extends UnnamedPropertyChangeSubject, OtherProfileModel, MyProfileModel,
-        LoginModel, GameListModel, EditProfileModel, AddGameModel, ClientCallOutOnModel {
+        LoginModel, GameListModel, EditProfileModel, AddGameModel{
     void registerNewUser(String username, String password) throws RemoteException;
 
     User login(String username, String password) throws RemoteException;

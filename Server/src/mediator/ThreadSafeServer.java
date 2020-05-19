@@ -1,21 +1,21 @@
 package mediator;
 
+import mediator.ServerAccess;
+
 public class ThreadSafeServer implements ServerAccess
 {
   private int writers;
   private int readers;
   private int waitingWriters;
-  private GameListServer gameListServer;
 
-  public ThreadSafeServer(GameListServer gameListServer)
+  public ThreadSafeServer()
   {
     this.waitingWriters = 0;
     this.writers = 0;
     this.readers = 0;
-    this.gameListServer = gameListServer;
   }
 
-  @Override public synchronized ServerRead acquireRead()
+  @Override public synchronized void acquireRead()
   {
     while (waitingWriters > 0 || writers > 0)
     {
@@ -30,10 +30,9 @@ public class ThreadSafeServer implements ServerAccess
       }
     }
     readers++;
-    return gameListServer;
   }
 
-  @Override public synchronized ServerWrite acquireWrite()
+  @Override public synchronized void acquireWrite()
   {
     waitingWriters++;
     while (readers > 0 || writers > 0)
@@ -49,7 +48,6 @@ public class ThreadSafeServer implements ServerAccess
     }
     waitingWriters--;
     writers++;
-    return gameListServer;
   }
 
   @Override public synchronized void releaseRead()

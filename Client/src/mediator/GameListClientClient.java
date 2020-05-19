@@ -1,35 +1,38 @@
 package mediator;
 
 import model.*;
+import utility.observer.subject.RemoteSubject;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-
-public interface GameListClientClient
-{
-  void connect() throws InterruptedException;
-  void registerNewUser(String username, String password) throws RemoteException;
-  User login(String username, String password) throws RemoteException;  //instead of the first 4 from below and last 2 from below
-  GameList getGamesFromServer() throws RemoteException;
-  RentalList clientGetRentalList() throws RemoteException;
-  void clientRemoveGame(Game game) throws RemoteException;
-  void clientSetBio(User user, String bio) throws RemoteException;
-  void clientAddGame(User user, Game game) throws RemoteException;
-  void clientRequestGame(User requester,Game game) throws RemoteException;
-  void clientAcceptIncomingGame(Rental rental) throws RemoteException;
-  void clientDeclineIncomingGame(Rental rental) throws RemoteException;
-
-  User getUserFromServer(Game game) throws RemoteException; // instead of the 4 below
-
-  //return type is only for me
 
 
+public interface GameListClientClient{
+    void connect() throws InterruptedException;
 
+    void registerNewUser(String username, String password) throws RemoteException;
 
+    User login(String username, String password) throws RemoteException;  //instead of the first 4 from below and last 2 from below
 
+    GameList getGamesFromServer() throws RemoteException;
 
+    RentalList clientGetRentalList() throws RemoteException;
 
+    void clientRemoveGame(Game game) throws RemoteException;
 
+    void clientSetBio(User user, String bio) throws RemoteException;
+
+    void clientAddGame(Game game) throws RemoteException;
+
+    void clientRequestGame(User requester, Game game) throws RemoteException;
+
+    void clientAcceptIncomingGame(Rental rental) throws RemoteException;
+
+    void clientDeclineIncomingGame(Rental rental) throws RemoteException;
+
+    User getUserFromServer(Game game) throws RemoteException; // instead of the 4 below
+
+    //return type is only for me
 
 
 //  ArrayList<Integer> getAllAvailableGames() throws RemoteException;
@@ -39,8 +42,6 @@ public interface GameListClientClient
 //  ArrayList<Integer> getAllUserPendingGames(int userID) throws RemoteException;
 //  ArrayList<Integer> getAllUserRentedGames(int userID) throws RemoteException;
 //  ArrayList<Integer> getAllUserIncomingGames(int userID) throws RemoteException;
-
-
 
 
 //  ArrayList<Integer> getOtherAllUserOwnedGames(int userID)

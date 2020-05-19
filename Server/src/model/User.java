@@ -10,6 +10,7 @@ public class User implements Serializable
   private int userID;
   private String bio;
   private GameList gameList;
+  private GameList rentedList;
 
   public User(String username, String password, int userID)
   {
@@ -18,6 +19,7 @@ public class User implements Serializable
     this.password = password;
     this.bio = "";
     this.gameList = new GameList();
+    this.rentedList = new GameList();
   }
 
   public int getUserID()
@@ -44,7 +46,12 @@ public class User implements Serializable
   {
     this.bio = bio;
   }
-
+  public GameList getRentedGameList(){
+    return rentedList;
+  }
+  public void addToRented(Game game){
+    rentedList.addGame(game);
+  }
   public void addGame(Game game)
   {
     gameList.addGame(game);

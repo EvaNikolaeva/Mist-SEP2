@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
+import mediator.GameListClient;
 import model.Model;
 import model.ModelManager;
 import view.ViewHandler;
@@ -9,10 +10,12 @@ public class MyApplication extends Application
 {
   @Override public void start(Stage stage) throws Exception
   {
-    Model model = new ModelManager();
+    GameListClient gameListClient = new GameListClient();
+    Model model = new ModelManager(gameListClient);
     GameMenuViewModel gameMenuViewModel = new GameMenuViewModel(model);
     GameListViewModel gameListViewModel = new GameListViewModel(model);
     LoginViewModel loginViewModel = new LoginViewModel(model);
+
     EditProfileViewModel editProfileViewModel = new EditProfileViewModel(model);
     MyProfileViewModel myProfileViewModel = new MyProfileViewModel(model);
     ViewModelFactory viewModelFactory = new ViewModelFactory(model);

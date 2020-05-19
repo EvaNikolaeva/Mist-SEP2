@@ -52,13 +52,34 @@ public class LoginScreenController
   }
 
   @FXML public void onLogin() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
-User userBuffer = loginViewModel.login(loginUsername.getText(), loginPassword.getText());
-if(userBuffer == null){
-  errorLabel.setText("Invalid username or password.");
-}
-else{
-  viewHandler.openView("list");
-}
+
+    Platform.runLater(() -> {
+      User userBuffer = null;
+      try {
+        userBuffer = loginViewModel.login(loginUsername.getText(), loginPassword.getText());
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      }
+      if(userBuffer != null){
+
+        try {
+          viewHandler.openView("list");
+        } catch (RemoteException e) {
+          e.printStackTrace();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        } catch (NotBoundException e) {
+          e.printStackTrace();
+        } catch (MalformedURLException e) {
+          e.printStackTrace();
+        }
+      }
+      else{
+        errorLabel.setText("Invalid username or password.");
+      }
+
+    });
+
   }
 
   @FXML public void onRegister() throws RemoteException {

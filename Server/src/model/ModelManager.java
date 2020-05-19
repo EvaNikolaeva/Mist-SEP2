@@ -53,12 +53,15 @@ public class ModelManager implements Model
   {
     for (int i = 0; i < userList.size(); i++)
     {
-      if (userList.getUserByIndex(i).getUserID() == game.getId())
+      if (userList.getUserByIndex(i).getUserID() == game.getUserId())
       {
         Rental rental = new Rental(userList.getUserByIndex(i), requester, game);
         rentalList.addRental(rental);
+        System.out.println("Game added to rentals");
         propertyChangeSupport.firePropertyChange("newRental", null, rental);
-        i = userList.size();
+        removeGame(game);
+        // What the fuck is that
+//        i = userList.size();
       }
     }
 
@@ -68,11 +71,13 @@ public class ModelManager implements Model
   {
     for (int i = 0; i < rentalList.size(); i++)
     {
-      if (rentalList.getRentalById(i).equals(rental))
+      if (rentalList.getRentals().get(i).getId() == rental.getId())
       {
         rentalList.getRentalById(i).setIsComplete(true);
-        propertyChangeSupport.firePropertyChange("acceptGame", null,
-            rentalList.getRentalById(i));
+        propertyChangeSupport.firePropertyChange("acceptGame", null, rentalList.getRentalById(i));
+        userList.getUserByUserID(rental.getRequester().getUserID()).addToRented(rental.getGame());
+        rentalList.removeRental(rental);
+
       }
     }
   }
@@ -80,6 +85,7 @@ public class ModelManager implements Model
   @Override public void declineGame(Rental rental) throws RemoteException
   {
     rentalList.removeRental(rental);
+    addGame(rental.getGame());
     propertyChangeSupport.firePropertyChange("declineGame", null, rental);
   }
 
@@ -91,14 +97,13 @@ public class ModelManager implements Model
   @Override public void addGame(Game game) throws RemoteException
   {
     gameList.addGame(game);
-    userList.getUser(getUserByID(game.getUserId())).addGame(game);
+    userList.getUserByUserID(game.getUserId()).addGame(game);
     propertyChangeSupport.firePropertyChange("addGame", null, game);
   }
 
   @Override public void removeGame(Game game) throws RemoteException
   {
     gameList.removeGame(game);
-    userList.getUserByUserID(game.getUserId()).removeGame(game);
     propertyChangeSupport.firePropertyChange("removeGame", null, game);
   }
 

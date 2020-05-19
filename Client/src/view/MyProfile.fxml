@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -96,7 +98,28 @@
                         </Label>
                         <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <ListView fx:id="ownedGames" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                              <Accordion VBox.vgrow="ALWAYS">
+                                <panes>
+                                  <TitledPane animated="false" text="Owned">
+                                       <content>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <ListView fx:id="ownedGames" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" text="Rented">
+                                       <content>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <ListView fx:id="rentedGames" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                  </TitledPane>
+                                </panes>
+                              </Accordion>
                            </children>
                         </VBox>
                      </children>

@@ -57,8 +57,8 @@ public class GameListController {
             alert.close();
         } else {
           gameListViewModel.setGameBuffer(availableGames.getSelectionModel().getSelectedItem());
-            gameListViewModel
-                    .requestTrade(availableGames.getSelectionModel().getSelectedItem());
+            gameListViewModel.requestTrade(availableGames.getSelectionModel().getSelectedItem());
+            reset();
         }
     }
 

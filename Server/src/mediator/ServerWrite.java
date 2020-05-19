@@ -1,14 +1,13 @@
 package mediator;
 
-import model.Game;
-import model.Rental;
-import model.User;
+import model.*;
+import utility.observer.subject.RemoteSubject;
 
 import java.rmi.RemoteException;
 
 public interface ServerWrite extends ServerRead
 {
-  void addClient(RemoteGameListClient client) throws RemoteException;
+//  void addClient(RemoteGameListClient client) throws RemoteException;
   void registerClient(String username, String password) throws RemoteException;
   User loginClient(String username, String password) throws RemoteException;
 

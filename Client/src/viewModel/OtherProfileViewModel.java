@@ -21,18 +21,18 @@ public class OtherProfileViewModel
   public OtherProfileViewModel(Model model) throws RemoteException
   {
     this.model = model;
-    this.bio = new SimpleStringProperty(model.getUser(model.getGameBuffer()).getBio());
-    this.username = new SimpleStringProperty(model.getUser(model.getGameBuffer()).getUsername());
+    this.bio = new SimpleStringProperty();
+    this.username = new SimpleStringProperty();
     this.ownedGames = FXCollections.observableArrayList();
   }
 
-  public StringProperty getBio()
-  {
+  public StringProperty getBio() throws RemoteException {
+    bio.setValue(model.getUser(model.getGameBuffer()).getBio());
     return bio;
   }
 
-  public StringProperty getUsername()
-  {
+  public StringProperty getUsername() throws RemoteException {
+    username.setValue(model.getUser(model.getGameBuffer()).getUsername());
     return username;
   }
   public ObservableList<Game> getAllOtherUserOwnedGames()

@@ -1,5 +1,6 @@
 package model;
 
+import mediator.GameListClient;
 import mediator.GameListClientClient;
 
 import java.beans.PropertyChangeListener;
@@ -17,15 +18,11 @@ public class ModelManager implements Model
   private PropertyChangeSupport property;
   private GameListClientClient gameListClientModel;
   private Game gameBuffer;
-  public ModelManager()
+  public ModelManager(GameListClient gameListClientModel)
   {
     this.property = new PropertyChangeSupport(this);
     this.username = "";
     this.password = "";
-  }
-
-  public void setClient(GameListClientClient gameListClientModel)
-  {
     this.gameListClientModel = gameListClientModel;
   }
 
@@ -103,34 +100,6 @@ public class ModelManager implements Model
     gameListClientModel.clientSetBio(user, bioText);
   }
 
-  @Override public void requestGameFromServer(Rental rental)
-      throws RemoteException
-  {
-    property.firePropertyChange("requestFromServer", null, rental);
-  }
-
-  @Override public void acceptIncomingGameFromServer(Rental rental)
-      throws RemoteException
-  {
-    property.firePropertyChange("acceptFromServer", null, rental);
-  }
-
-  @Override public void declineIncomingGameFromServer(Rental rental)
-      throws RemoteException
-  {
-    property.firePropertyChange("declineFromServer", null, rental);
-  }
-
-  @Override public void addGameFromServer(Game game) throws RemoteException
-  {
-    property.firePropertyChange("addFromServer", null, game);
-  }
-
-  @Override public void removeGameFromServer(Game game) throws RemoteException
-  {
-    property.firePropertyChange("removeFromServer", null, game);
-  }
-
   //validate game is used to validate each field inserted in the view.
   //It checks that everything is not null and each field has content
   // and the logic of the dates makes sense in the real world
@@ -141,7 +110,7 @@ public class ModelManager implements Model
 
   @Override public void clientAddGame(Game game) throws RemoteException
   {
-
+gameListClientModel.clientAddGame(game);
   }
 
   @Override public void validateGame(String name, String type,

@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RentalList
+public class RentalList implements Serializable
 {
   ArrayList<Rental> rentals;
 
@@ -28,7 +29,11 @@ public class RentalList
 
   public void removeRental(Rental rental)
   {
-    rentals.remove(rental);
+    for(int i = 0; i < rentals.size(); i++){
+      if(rentals.get(i).getId() == rental.getId()){
+        rentals.remove(i);
+      }
+    }
   }
 
   public int size()

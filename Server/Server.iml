@@ -34,6 +34,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="Client" />
+    <orderEntry type="library" name="MyObserver-1.2" level="application" />
   </component>
 </module>

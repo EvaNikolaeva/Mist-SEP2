@@ -1,6 +1,8 @@
 package model;
 
-public class Rental
+import java.io.Serializable;
+
+public class Rental implements Serializable
 {
 
   private User owner;
@@ -45,5 +47,8 @@ public class Rental
   public int getId()
   {
     return id;
+  }
+  public String toString(){
+    return getGame().getTitle() + " " + getOwner();
   }
 }
