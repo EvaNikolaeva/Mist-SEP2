@@ -8,16 +8,18 @@ public interface Model extends UnnamedPropertyChangeSubject
 {
   User getUserByID(int id);
   User getUserByCredentials(String username, String password);
-  void setBio(int userID, String bio) throws RemoteException;
+  void setBio(User user, String bio) throws RemoteException;
 
-  void requestGame(int userID, int gameID) throws RemoteException;
-  void acceptGame(int userID, int gameID) throws RemoteException;
-  void declineGame(int userID, int gameID) throws RemoteException;
+  void requestGame(User requester, Game game) throws RemoteException;
+  void acceptGame(Rental rental) throws RemoteException;
+  void declineGame(Rental rental) throws RemoteException;
+  GameList getAllGames() throws RemoteException;
 
-  void addGame(int userID, Game game) throws RemoteException;
-  void removeGame(int userID, int gameID) throws RemoteException;
+  void addGame(User user, Game game) throws RemoteException;
+  void removeGame(Game game) throws RemoteException;
   Game getGameByIndex(int index);
   Game getGameByID(int gameID);
+  User getUserByGame(Game game);
   int getSizeOfGameList();
 
   void registerUser(String username, String password) throws RemoteException;

@@ -1,10 +1,8 @@
 package model;
 
 import Utility.UnnamedPropertyChangeSubject;
-import mediator.GameListClientModel;
+import mediator.GameListClientClient;
 
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ public interface Model
     extends UnnamedPropertyChangeSubject, OtherProfileModel, MyProfileModel,
     LoginModel, GameListModel, EditProfileModel, AddGameModel
 {
-  void setClient(GameListClientModel gameListClientModel);
+  void setClient(GameListClientClient gameListClientModel);
 
   void registerNewUser(String username, String password) throws RemoteException;
   User login(String username, String password) throws RemoteException;

@@ -53,18 +53,22 @@ public class OtherProfileViewModel
     return model.getBio(userID);
   }
 
-  public ObservableList<Game> getAllOtherUserOwnedGames(int userID) throws RemoteException {
+  public ObservableList<Game> getAllOtherUserOwnedGames(int userID)
+      throws RemoteException
+  {
     ArrayList<Integer> games = model.getOtherAllUserOwnedGames(userID);
-    for(int i = 0; i < model.getOtherAllUserOwnedGames(userID).size(); i++)
+    for (int i = 0; i < model.getOtherAllUserOwnedGames(userID).size(); i++)
     {
       games.add(model.getOtherUserByID(userID).getOwnedGames().get(i));
     }
     return ownedGames;
   }
 
-  public ObservableList<Game> getAllOtherUserPendingGames(int userID) throws RemoteException {
+  public ObservableList<Game> getAllOtherUserPendingGames(int userID)
+      throws RemoteException
+  {
     ArrayList<Integer> games = model.getOtherAllUserOwnedGames(userID);
-    for(int i = 0; i < model.getOtherAllUserPendingGames(userID).size(); i++)
+    for (int i = 0; i < model.getOtherAllUserPendingGames(userID).size(); i++)
     {
       games.add(model.getOtherUserByID(userID).getPendingGames().get(i));
     }

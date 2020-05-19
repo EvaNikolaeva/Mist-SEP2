@@ -127,7 +127,7 @@ public class MyProfileController
     }
     else
     {
-
+        //CATA: i think this needs to happen in two sides
       Game selectedGame = incomingGames.getSelectionModel().getSelectedItem();
       myProfileViewModel.removeGame(selectedGame.getId());
       int index = incomingGames.getSelectionModel().getSelectedItem().getId();

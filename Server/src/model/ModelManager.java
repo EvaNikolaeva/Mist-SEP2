@@ -1,9 +1,5 @@
 package model;
 
-import mediator.GameListServer;
-import mediator.RemoteGameListModel;
-import utility.UnnamedPropertyChangeSubject;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
@@ -13,19 +9,26 @@ public class ModelManager implements Model
   private PropertyChangeSupport propertyChangeSupport;
   private GameList gameList;
   private UserList userList;
-  private RemoteGameListModel remoteGameListModel;
+  private RentalList rentalList;
 
   public ModelManager()
   {
     this.gameList = new GameList();
     this.userList = new UserList();
+    this.rentalList = new RentalList();
     this.propertyChangeSupport = new PropertyChangeSupport(this);
-    this.remoteGameListModel = new GameListServer(this);
   }
 
-  @Override public User getUserByID(int id)
+  @Override public User getUserByID(int gameID)
   {
-    return userList.getUserByUserID(id);
+    for(int i = 0 ;i<userList.size();i++)
+    {
+      if(userList.getUserByIndex(i).ownsGame(gameList.getGameById(gameID)))
+      {
+        return userList.getUserByIndex(i);
+      }
+    }
+    return null;
   }
 
   @Override public User getUserByCredentials(String username, String password)
@@ -33,51 +36,70 @@ public class ModelManager implements Model
     return userList.getUserByCredentials(username, password);
   }
 
-  @Override public void setBio(int userID, String bio) throws RemoteException
+  @Override public void setBio(User user, String bio) throws RemoteException
   {
-    userList.getUserByUserID(userID).setBio(bio);
+    for (int i = 0 ; i < userList.size();i++)
+    {
+      if (userList.getUserByIndex(i).equals(user))
+      {
+        user.setBio(bio);
+        return;
+      }
+    }
   }
 
-  @Override public void requestGame(int userID, int gameID)
+  @Override public void requestGame(User requester, Game game)
       throws RemoteException
   {
-    userList.addToPending(userID, gameID);
-    userList.addToIncoming(userList.getUserWhoHasGamePending(gameID), gameID);
-    remoteGameListModel.requestGame(userID, gameID);
+    for (int i = 0 ; i < userList.size();i++)
+    {
+      if (userList.getUserByIndex(i).getUserID() == game.getId())
+      {
+        Rental rental = new Rental(userList.getUserByIndex(i),requester,game);
+        rentalList.addRental(rental);
+        propertyChangeSupport.firePropertyChange("newRental",null,rental);
+        i = userList.size();
+      }
+    }
+
 
   }
 
-  @Override public void acceptGame(int userID, int gameID)
-      throws RemoteException
+  @Override public void acceptGame(Rental rental) throws RemoteException
   {
-    userList.addToRented(userList.getUserWhoHasGamePending(gameID), gameID);
-    userList.removeFromIncoming(userID, gameID);
-    userList
-        .removeFromPending(userList.getUserWhoHasGamePending(gameID), gameID);
-    remoteGameListModel.acceptGame(userID, gameID);
+    for (int i = 0 ; i < rentalList.size();i++)
+    {
+      if (rentalList.getRentalById(i).equals(rental))
+      {
+        rentalList.getRentalById(i).setIsComplete(true);
+        propertyChangeSupport.firePropertyChange("acceptGame",null,rentalList.getRentalById(i));
+      }
+    }
   }
 
-  @Override public void declineGame(int userID, int gameID)
-      throws RemoteException
+  @Override public void declineGame(Rental rental) throws RemoteException
   {
-    userList.removeFromIncoming(userID, gameID);
-    userList
-        .removeFromPending(userList.getUserWhoHasGamePending(gameID), gameID);
-    remoteGameListModel.declineGame(userID, gameID);
+        rentalList.removeRental(rental);
+        propertyChangeSupport.firePropertyChange("declineGame",null,rental);
   }
 
-  @Override public void addGame(int userID, Game game) throws RemoteException
+  @Override public GameList getAllGames() throws RemoteException
   {
-    userList.addToOwned(userID, game.getId());
+    return gameList;
+  }
+
+  @Override public void addGame(User user, Game game) throws RemoteException
+  {
     gameList.addGame(game);
-
+    userList.getUser(user).addGame(game);
+    propertyChangeSupport.firePropertyChange("addGame",null,game);
   }
 
-  @Override public void removeGame(int userID, int gameID)
-      throws RemoteException
+  @Override public void removeGame(Game game) throws RemoteException
   {
-    userList.getUserByUserID(userID).getOwnedGames().remove(gameID);
-
+    gameList.removeGame(game);
+    userList.getUserByUserID(game.getUserId()).removeGame(game);
+    propertyChangeSupport.firePropertyChange("removeGame",null,game);
   }
 
   @Override public Game getGameByIndex(int index)
@@ -88,6 +110,11 @@ public class ModelManager implements Model
   @Override public Game getGameByID(int gameID)
   {
     return gameList.getGameById(gameID);
+  }
+
+  @Override public User getUserByGame(Game game)
+  {
+    return userList.getUserByUserID(game.getUserId());
   }
 
   @Override public int getSizeOfGameList()

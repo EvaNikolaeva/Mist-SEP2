@@ -24,15 +24,18 @@ public class OtherProfileController
   private ViewHandler viewHandler;
 
   public void init(ViewHandler viewHandler,
-      OtherProfileViewModel otherProfileViewModel, Region root) throws RemoteException
+      OtherProfileViewModel otherProfileViewModel, Region root)
+      throws RemoteException
   {
     this.viewHandler = viewHandler;
     this.root = root;
     this.username.textProperty().bind(otherProfileViewModel.getUsername());
     this.bio.textProperty().bind(otherProfileViewModel.getBio());
     this.otherProfileViewModel = otherProfileViewModel;
-    this.ownedGames.setItems(otherProfileViewModel.getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
-    this.pendingGames.setItems(otherProfileViewModel.getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
+    this.ownedGames.setItems(otherProfileViewModel
+        .getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
+    this.pendingGames.setItems(otherProfileViewModel
+        .getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
   }
 
   public Region getRoot()
@@ -42,8 +45,10 @@ public class OtherProfileController
 
   public void reset() throws RemoteException
   {
-    this.ownedGames.setItems(otherProfileViewModel.getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
-    this.pendingGames.setItems(otherProfileViewModel.getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
+    this.ownedGames.setItems(otherProfileViewModel
+        .getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
+    this.pendingGames.setItems(otherProfileViewModel
+        .getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
   }
 
   @FXML public void onChat()
@@ -65,7 +70,9 @@ public class OtherProfileController
     viewHandler.openView("menu");
   }
 
-  @FXML public void onMyProfile() throws RemoteException, MalformedURLException, InterruptedException, NotBoundException
+  @FXML public void onMyProfile()
+      throws RemoteException, MalformedURLException, InterruptedException,
+      NotBoundException
   {
     viewHandler.openView("profile");
   }

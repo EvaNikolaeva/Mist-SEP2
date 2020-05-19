@@ -37,9 +37,14 @@ public class GameList implements Serializable
     }
   }
 
+  public void removeGame(Game game)
+  {
+    games.remove(game);
+  }
+
   public Game getGameById(int id)
   {
-    return (Game) games.stream().filter(game -> id == game.getId()).findFirst().orElse(null);
+    return games.stream().filter(game -> id == game.getId()).findFirst().orElse(null);
   }
 
   public Game getGame(int index)
@@ -60,6 +65,28 @@ public class GameList implements Serializable
       return false;
     GameList other = (GameList) obj;
     return games.equals(other.games);
+  }
+
+  public ArrayList<Game> getAvailableGames()
+  {
+    ArrayList<Game> dummy = new ArrayList<>();
+    for(int i = 0;i<games.size();i++)
+    {
+      if(games.get(i).getAvailable())
+        dummy.add(games.get(i));
+    }
+    return dummy;
+  }
+
+  public ArrayList<Game> getUnavailableGames()
+  {
+    ArrayList<Game> dummy = new ArrayList<>();
+    for(int i = 0;i<games.size();i++)
+    {
+      if(!(games.get(i).getAvailable()))
+        dummy.add(games.get(i));
+    }
+    return dummy;
   }
 
 }

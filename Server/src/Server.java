@@ -11,9 +11,9 @@ public class Server
     GameListServer chatServer = new GameListServer(model);
     DateInterval dateInterval = new DateInterval(12, 12, 12, 12);
     Game game1 = new Game("Doom Eternal", "PC", 2020, false, dateInterval, 10,
-            421421);
+        421421);
     Game game2 = new Game("Doom  GOT", "PC", 2020, false, dateInterval, 10,
-            4214231);
+        4214231);
 
     model.registerUser("admin", "1111");
     model.registerUser("user1", "1222");
@@ -22,8 +22,6 @@ public class Server
 
     model.addGame(game1.getUserID(), game1);
     model.addGame(game2.getUserID(), game2);
-
-
 
   }
 }

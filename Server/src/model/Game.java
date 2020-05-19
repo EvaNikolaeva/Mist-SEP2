@@ -11,12 +11,12 @@ public class Game implements Serializable
   private DateInterval rentalPeriod;
   private int availabilityPeriod;
   private int id;
-  private int userID;
-  private GameState gameState;
+  private int userId;
+  private boolean available;
 
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-              DateInterval rentalPeriod, int availabilityPeriod, int userID)
+              DateInterval rentalPeriod, int availabilityPeriod, int userId)
   {
     this.title = title;
     this.type = type;
@@ -25,12 +25,12 @@ public class Game implements Serializable
     this.rentalPeriod = rentalPeriod;
     this.availabilityPeriod = availabilityPeriod;
     this.id = (int) (Math.random() * 9999) + 1;
-    this.userID = userID;
-    this.gameState = new GameAvailable();
+    this.userId = userId;
+    this.available = true;
   }
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-              DateInterval rentalPeriod, int availabilityPeriod, int userID, int gameID)
+              DateInterval rentalPeriod, int availabilityPeriod, int userId, int gameID)
   {
     this.title = title;
     this.type = type;
@@ -39,8 +39,8 @@ public class Game implements Serializable
     this.rentalPeriod = rentalPeriod;
     this.availabilityPeriod = availabilityPeriod;
     this.id = gameID;
-    this.userID = userID;
-    this.gameState = new GameAvailable();
+    this.userId = userId;
+    this.available = true;
   }
 
   public void reRollID()
@@ -53,10 +53,7 @@ public class Game implements Serializable
     return id;
   }
 
-  public int getUserID()
-  {
-    return userID;
-  }
+  public int getUserId(){return userId;}
 
   public String getTitle()
   {
@@ -108,18 +105,13 @@ public class Game implements Serializable
             && availabilityPeriod == other.availabilityPeriod;
   }
 
-  public void setState(GameState gameState)
+  public void setAvailable(boolean available)
   {
-    this.gameState = gameState;
+    this.available = available;
   }
 
-  public String status()
+  public boolean getAvailable()
   {
-    return gameState.status();
-  }
-
-  public void changeState()
-  {
-    gameState.changeState(this);
+    return available;
   }
 }

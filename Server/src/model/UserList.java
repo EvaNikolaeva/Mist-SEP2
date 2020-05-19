@@ -13,16 +13,21 @@ public class UserList
 
   public User getUserByUserID(int id)
   {
-    return (User) users.stream()
+    return users.stream()
         .filter(user -> user.getUserID() == id)
             .findAny()
             .orElse(null);
      //the "better way"
   }
 
+  public User getUser(User user)
+  {
+    return users.stream().filter(user1 -> user1.equals(user)).findAny().orElse(null);
+  }
+
   public User getUserByCredentials(String username, String password)
   {
-    return (User) users.stream().filter(
+    return users.stream().filter(
         user -> username.equals(user.getUsername()) && password
             .equals(user.getPassword())).findFirst().orElse(null);
   }
@@ -45,70 +50,14 @@ public class UserList
     }
   }
 
-  public void updateBio(int id, String bio)
+  public User getUserByIndex(int index)
   {
-    User dummy = (User) users.stream().filter(user -> id == user.getUserID()).findFirst().orElse(null);
-    dummy.setBio(bio);
+    return users.get(index);
   }
 
-  public void addToOwned(int userID, int gameID)
-  {
-User userTemp = users.stream().filter(user -> user.getUserID() == userID).findFirst().orElse(null);
-  }
 
-  public void removeFromOwned(int userID, int gameID)
+  public int size()
   {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
-    dummy.getOwnedGames().remove(gameID);
-  }
-
-  public void addToPending(int userID, int gameID)
-  {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
-    dummy.getPendingGames().add(gameID);
-  }
-
-  public void removeFromPending(int userID, int gameID)
-  {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
-    dummy.getPendingGames().remove(gameID);
-  }
-
-  public void addToRented(int userID, int gameID)
-  {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
-    dummy.getRentedGames().add(gameID);
-  }
-
-  public void removeFromRented(int userID, int gameID)
-  {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
-    dummy.getRentedGames().remove(gameID);
-  }
-
-  public void addToIncoming(int userID, int gameID)
-  {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
-    dummy.getIncomingGames().add(gameID);
-  }
-
-  public void removeFromIncoming(int userID, int gameID)
-  {
-    User dummy = (User) users.stream()
-        .filter(user -> userID == user.getUserID()).findFirst().orElse(null);
-    dummy.getIncomingGames().remove(gameID);
-  }
-
-  public int getUserWhoHasGamePending(int gameID)
-  {
-    User dummy = (User) users.stream()
-        .filter(user -> user.getPendingGames().contains(gameID)).findFirst().orElse(null);
-    return dummy.getUserID();
+    return users.size();
   }
 }

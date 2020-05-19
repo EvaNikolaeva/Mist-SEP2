@@ -15,16 +15,12 @@ public class LoginViewModel
   private LoginModel model;
   private StringProperty loginUsername;
   private StringProperty loginPassword;
-  private StringProperty registerUsername;
-  private StringProperty registerPassword;
 
   public LoginViewModel(LoginModel model)
   {
     this.model = model;
     this.loginUsername = new SimpleStringProperty();
     this.loginPassword = new SimpleStringProperty();
-    this.registerUsername = new SimpleStringProperty();
-    this.registerPassword = new SimpleStringProperty();
   }
 
   public StringProperty getLoginUsername()
@@ -35,16 +31,6 @@ public class LoginViewModel
   public StringProperty getLoginPassword()
   {
     return loginPassword;
-  }
-
-  public StringProperty getRegisterUsername()
-  {
-    return registerUsername;
-  }
-
-  public StringProperty getRegisterPassword()
-  {
-    return registerPassword;
   }
 
   public boolean exist(String username, String password) throws RemoteException

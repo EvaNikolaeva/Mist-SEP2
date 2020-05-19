@@ -1,32 +1,26 @@
 package model;
 
-import Utility.UnnamedPropertyChangeSubject;
-import mediator.GameListClient;
-import mediator.GameListClientModel;
+import mediator.GameListClientClient;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class ModelManager implements Model
 {
-  private int user;
+  private User user;
   private PropertyChangeSupport property;
-  private GameListClientModel gameListClientModel;
+  private GameListClientClient gameListClientModel;
 
   public ModelManager()
   {
    this.property = new PropertyChangeSupport(this);
   }
 
-  public void setClient(GameListClientModel gameListClientModel)
+  public void setClient(GameListClientClient gameListClientModel)
   {
     this.gameListClientModel = gameListClientModel;
   }

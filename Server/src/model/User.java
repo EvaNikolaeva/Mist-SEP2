@@ -9,10 +9,7 @@ public class User implements Serializable
   private String password;
   private int userID;
   private String bio;
-  private ArrayList<Integer> ownedGames;
-  private ArrayList<Integer> rentedGames;
-  private ArrayList<Integer> pendingGames;
-  private ArrayList<Integer> incomingGames;
+  private GameList gameList;
 
   public User(String username, String password, int userID)
   {
@@ -20,10 +17,7 @@ public class User implements Serializable
     this.username = username;
     this.password = password;
     this.bio = "";
-    this.ownedGames = new ArrayList<>();
-    this.rentedGames = new ArrayList<>();
-    this.pendingGames = new ArrayList<>();
-    this.incomingGames = new ArrayList<>();
+    this.gameList = new GameList();
   }
 
   public int getUserID()
@@ -51,23 +45,28 @@ public class User implements Serializable
     this.bio = bio;
   }
 
-  public ArrayList<Integer> getOwnedGames()
+  public void addGame(Game game)
   {
-    return ownedGames;
+    gameList.addGame(game);
   }
 
-  public ArrayList<Integer> getRentedGames()
+  public void removeGame(Game game)
   {
-    return rentedGames;
+    gameList.removeGame(game);
   }
 
-  public ArrayList<Integer> getPendingGames()
+  public GameList getGameList()
   {
-    return pendingGames;
+    return gameList;
   }
 
-  public ArrayList<Integer> getIncomingGames()
+  public boolean ownsGame(Game game)
   {
-    return incomingGames;
+    for (int i = 0; i < gameList.size(); i++)
+    {
+      if(gameList.getGame(i).equals(game))
+        return true;
+    }
+    return false;
   }
 }
