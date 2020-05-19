@@ -5,8 +5,12 @@ import java.util.ArrayList;
 
 public interface GameListModel
 {
-  ArrayList<Integer> getAllAvailableGames() throws RemoteException;
-  ArrayList<Integer> getAllPendingGames() throws RemoteException;
-  void requestGame(int userID, int gameID) throws RemoteException;
-  User getOtherUserByID(int userID) throws RemoteException;
+  GameList  getAllGamesFromServer() throws RemoteException;
+  void clientRequestGame(User requester, Game game) throws RemoteException;
+
+
+//  ArrayList<Integer> getAllAvailableGames() throws RemoteException;
+//  ArrayList<Integer> getAllPendingGames() throws RemoteException;
+//  void requestGame(int userID, int gameID) throws RemoteException;
+//  User getOtherUserByID(int userID) throws RemoteException;
 }

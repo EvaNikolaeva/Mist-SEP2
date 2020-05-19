@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 public class GameListClient implements GameListClientClient, RemoteGameListClient
 {
-  private Model model;
+  private ClientCallOutOnModel clientCallOutOnModel;
   private int failedConnectionCount;
   private ServerAccess serverAccess;
 
-  public GameListClient(Model model) throws InterruptedException
+  public GameListClient(ClientCallOutOnModel clientCallOutOnModel) throws InterruptedException
   {
-    this.model = model;
-    this.model.setClient(this);
+    this.clientCallOutOnModel = clientCallOutOnModel;
+    this.clientCallOutOnModel.setClient(this);
     this.failedConnectionCount = 0;
     connect();
   }
@@ -72,8 +72,15 @@ public class GameListClient implements GameListClientClient, RemoteGameListClien
 
   @Override public GameList getGamesFromServer() throws RemoteException
   {
-    ServerRead serverRead = serverAccess.acquireRead();
-    return serverRead.getAllGames();
+    try
+    {
+      ServerRead serverRead = serverAccess.acquireRead();
+      return serverRead.getAllGames();
+    }
+    finally
+    {
+      serverAccess.releaseRead();
+    }
   }
 
   @Override public void clientRemoveGame(Game game) throws RemoteException
@@ -127,12 +134,8 @@ public class GameListClient implements GameListClientClient, RemoteGameListClien
   {
     try
     {
-      ServerRead server = (ServerRead) serverAccess.acquireRead();
-      return server.getUser(game);
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
+      ServerRead server = serverAccess.acquireRead();
+      return server.getUserByGame(game);
     }
     finally
     {
@@ -142,28 +145,28 @@ public class GameListClient implements GameListClientClient, RemoteGameListClien
 
   @Override public void serverRemoveGame(Game game) throws RemoteException
   {
-
+    clientCallOutOnModel.removeGameFromServer(game);
   }
 
   @Override public void serverAddGame(Game game) throws RemoteException
   {
-
+    clientCallOutOnModel.addGameFromServer(game);
   }
 
   @Override public void serverRequestGame(Rental rental) throws RemoteException
   {
-
+    clientCallOutOnModel.requestGameFromServer(rental);
   }
 
   @Override public void serverAcceptIncomingGame(Rental rental)
       throws RemoteException
   {
-
+    clientCallOutOnModel.acceptIncomingGameFromServer(rental);
   }
 
   @Override public void serverDeclineIncomingGame(Rental rental)
       throws RemoteException
   {
-
+    clientCallOutOnModel.declineIncomingGameFromServer(rental);
   }
 }

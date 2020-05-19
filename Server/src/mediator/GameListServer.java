@@ -162,7 +162,7 @@ public class GameListServer
 
   @Override public void setBio(User user, String bio) throws RemoteException
   {
-    this.model.setBio(user,bio);
+    this.model.setUserBio(user,bio);
   }
 
   @Override public void addGame(User user, Game game) throws RemoteException
@@ -188,10 +188,10 @@ public class GameListServer
 
   @Override public GameList getAllGames() throws RemoteException
   {
-    return this.model.getAllGames();
+    return this.model.getFullListOfGames();
   }
 
-  @Override public User getUser(Game game) throws RemoteException
+  @Override public User getUserByGame(Game game) throws RemoteException
   {
     return this.model.getUserByGame(game);
   }

@@ -2,22 +2,14 @@ package view;
 
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
-import model.AddGameModel;
-import model.DateInterval;
-import model.Game;
 import viewModel.GameMenuViewModel;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class GameMenuController
 {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface ServerRead extends Remote
 {
   GameList getAllGames() throws RemoteException;
-  User getUser(Game game) throws RemoteException;
+  User getUserByGame(Game game) throws RemoteException;
   User getUserByCredentials(String username,String password) throws RemoteException;
 
 

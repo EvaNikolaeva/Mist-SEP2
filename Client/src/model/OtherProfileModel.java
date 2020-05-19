@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 public interface OtherProfileModel
 {
-  void requestGame(int userID, int gameID) throws RemoteException;
-  String getUsername(int userID) throws RemoteException;
-  String getBio(int userID) throws RemoteException;
-  ArrayList<Integer> getOtherAllUserOwnedGames(int userID) throws RemoteException;
-  ArrayList<Integer> getOtherAllUserPendingGames(int userID) throws RemoteException;
+  User getUser(Game game) throws RemoteException;
+
+//  void requestGame(int userID, int gameID) throws RemoteException;
+//  String getUsername(int userID) throws RemoteException;
+//  String getBio(int userID) throws RemoteException;
+//  ArrayList<Integer> getOtherAllUserOwnedGames(int userID) throws RemoteException;
+//  ArrayList<Integer> getOtherAllUserPendingGames(int userID) throws RemoteException;
 }

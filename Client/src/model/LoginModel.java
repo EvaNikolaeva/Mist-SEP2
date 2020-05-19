@@ -6,5 +6,9 @@ public interface LoginModel
 {
   void registerNewUser(String username, String password) throws RemoteException;
   User login(String username, String password) throws RemoteException;
-  void setLocalUserID(int userID);
+
+
+//  void registerNewUser(String username, String password) throws RemoteException;
+//  User login(String username, String password) throws RemoteException;
+//  void setLocalUserID(int userID);
 }

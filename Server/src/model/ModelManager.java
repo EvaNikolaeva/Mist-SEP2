@@ -21,9 +21,9 @@ public class ModelManager implements Model
 
   @Override public User getUserByID(int gameID)
   {
-    for(int i = 0 ;i<userList.size();i++)
+    for (int i = 0; i < userList.size(); i++)
     {
-      if(userList.getUserByIndex(i).ownsGame(gameList.getGameById(gameID)))
+      if (userList.getUserByIndex(i).ownsGame(gameList.getGameById(gameID)))
       {
         return userList.getUserByIndex(i);
       }
@@ -36,9 +36,9 @@ public class ModelManager implements Model
     return userList.getUserByCredentials(username, password);
   }
 
-  @Override public void setBio(User user, String bio) throws RemoteException
+  @Override public void setUserBio(User user, String bio) throws RemoteException
   {
-    for (int i = 0 ; i < userList.size();i++)
+    for (int i = 0; i < userList.size(); i++)
     {
       if (userList.getUserByIndex(i).equals(user))
       {
@@ -51,39 +51,39 @@ public class ModelManager implements Model
   @Override public void requestGame(User requester, Game game)
       throws RemoteException
   {
-    for (int i = 0 ; i < userList.size();i++)
+    for (int i = 0; i < userList.size(); i++)
     {
       if (userList.getUserByIndex(i).getUserID() == game.getId())
       {
-        Rental rental = new Rental(userList.getUserByIndex(i),requester,game);
+        Rental rental = new Rental(userList.getUserByIndex(i), requester, game);
         rentalList.addRental(rental);
-        propertyChangeSupport.firePropertyChange("newRental",null,rental);
+        propertyChangeSupport.firePropertyChange("newRental", null, rental);
         i = userList.size();
       }
     }
-
 
   }
 
   @Override public void acceptGame(Rental rental) throws RemoteException
   {
-    for (int i = 0 ; i < rentalList.size();i++)
+    for (int i = 0; i < rentalList.size(); i++)
     {
       if (rentalList.getRentalById(i).equals(rental))
       {
         rentalList.getRentalById(i).setIsComplete(true);
-        propertyChangeSupport.firePropertyChange("acceptGame",null,rentalList.getRentalById(i));
+        propertyChangeSupport.firePropertyChange("acceptGame", null,
+            rentalList.getRentalById(i));
       }
     }
   }
 
   @Override public void declineGame(Rental rental) throws RemoteException
   {
-        rentalList.removeRental(rental);
-        propertyChangeSupport.firePropertyChange("declineGame",null,rental);
+    rentalList.removeRental(rental);
+    propertyChangeSupport.firePropertyChange("declineGame", null, rental);
   }
 
-  @Override public GameList getAllGames() throws RemoteException
+  @Override public GameList getFullListOfGames() throws RemoteException
   {
     return gameList;
   }
@@ -92,14 +92,14 @@ public class ModelManager implements Model
   {
     gameList.addGame(game);
     userList.getUser(user).addGame(game);
-    propertyChangeSupport.firePropertyChange("addGame",null,game);
+    propertyChangeSupport.firePropertyChange("addGame", null, game);
   }
 
   @Override public void removeGame(Game game) throws RemoteException
   {
     gameList.removeGame(game);
     userList.getUserByUserID(game.getUserId()).removeGame(game);
-    propertyChangeSupport.firePropertyChange("removeGame",null,game);
+    propertyChangeSupport.firePropertyChange("removeGame", null, game);
   }
 
   @Override public Game getGameByIndex(int index)
