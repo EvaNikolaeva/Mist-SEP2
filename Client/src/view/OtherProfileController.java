@@ -33,9 +33,7 @@ public class OtherProfileController
     this.bio.textProperty().bind(otherProfileViewModel.getBio());
     this.otherProfileViewModel = otherProfileViewModel;
     this.ownedGames.setItems(otherProfileViewModel
-        .getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
-    this.pendingGames.setItems(otherProfileViewModel
-        .getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
+        .getAllOtherUserOwnedGames());
   }
 
   public Region getRoot()
@@ -46,9 +44,7 @@ public class OtherProfileController
   public void reset() throws RemoteException
   {
     this.ownedGames.setItems(otherProfileViewModel
-        .getAllOtherUserOwnedGames(otherProfileViewModel.getUserID()));
-    this.pendingGames.setItems(otherProfileViewModel
-        .getAllOtherUserPendingGames(otherProfileViewModel.getUserID()));
+            .getAllOtherUserOwnedGames());
   }
 
   @FXML public void onChat()

@@ -35,7 +35,7 @@ public class OtherProfileViewModel
   {
     return username;
   }
-  public ObservableList<Game> getAllOtherUserOwnedGames(int userID)
+  public ObservableList<Game> getAllOtherUserOwnedGames()
       throws RemoteException
   {
 ownedGames.clear();
