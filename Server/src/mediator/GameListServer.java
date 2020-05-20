@@ -175,6 +175,17 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
+    public void setGameAvailableTrue(Game game) throws RemoteException {
+        try{
+            threadSafeServer.acquireWrite();
+            model.setGameAvailableTrue(game);
+        }
+        finally {
+            threadSafeServer.releaseWrite();
+        }
+    }
+
+    @Override
     public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
         return false;
     }

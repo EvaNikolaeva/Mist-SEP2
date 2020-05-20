@@ -32,6 +32,7 @@ public interface GameListClientClient{
 
     User getUserFromServer(Game game) throws RemoteException; // instead of the 4 below
 
+    void setGameAvailableTrue(Game game) throws RemoteException;
     //return type is only for me
 
 

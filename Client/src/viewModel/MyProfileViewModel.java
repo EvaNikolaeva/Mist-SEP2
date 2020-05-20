@@ -81,4 +81,7 @@ public StringProperty getBio() throws RemoteException {
   public void declineGame(Rental rental) throws RemoteException {
     model.clientDeclineIncomingGame(rental);
   }
+  public void setGameAvailable(Game game) throws RemoteException {
+model.setGameAvailabilityTrue(game);
+  }
 }

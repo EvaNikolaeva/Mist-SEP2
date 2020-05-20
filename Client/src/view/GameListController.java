@@ -55,7 +55,14 @@ public class GameListController {
                     "You have to select a game.", ButtonType.OK);
             alert.showAndWait();
             alert.close();
-        } else {
+        }
+        else if(!availableGames.getSelectionModel().getSelectedItem().getAvailable()){
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "You have to select a available game", ButtonType.OK);
+            alert.showAndWait();
+            alert.close();
+        }
+        else {
           gameListViewModel.setGameBuffer(availableGames.getSelectionModel().getSelectedItem());
             gameListViewModel.requestTrade(availableGames.getSelectionModel().getSelectedItem());
             reset();

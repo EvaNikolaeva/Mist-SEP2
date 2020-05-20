@@ -22,5 +22,6 @@ public interface Model extends UnnamedPropertyChangeSubject
   User getUserByGame(Game game);
   int getSizeOfGameList();
 RentalList getRentalList();
-  void registerUser(String username, String password) throws RemoteException;
+  void registerUser(String username, String password);
+  void setGameAvailableTrue(Game game);
 }

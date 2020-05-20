@@ -194,6 +194,11 @@ gameListClientModel.clientAddGame(game);
     return gameListClientModel.clientGetRentalList();
   }
 
+  @Override
+  public void setGameAvailabilityTrue(Game game) throws RemoteException {
+    gameListClientModel.setGameAvailableTrue(game);
+  }
+
 
   @Override public void addListener(PropertyChangeListener listener)
   {

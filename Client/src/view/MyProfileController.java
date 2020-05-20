@@ -2,6 +2,7 @@ package view;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -142,5 +143,25 @@ public class MyProfileController
       MalformedURLException
   {
     viewHandler.openView("editBio");
+  }
+
+ @FXML public void onSetAvailable() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
+   if (ownedGames.getSelectionModel().getSelectedIndex() < 0)
+   {
+     Alert alert = new Alert(Alert.AlertType.ERROR,
+             "You have to select a game.", ButtonType.OK);
+     alert.showAndWait();
+     alert.close();
+   }
+   else if(ownedGames.getSelectionModel().getSelectedItem().getAvailable()){
+     Alert alert = new Alert(Alert.AlertType.ERROR,
+             "You have to select a game that is not available", ButtonType.OK);
+     alert.showAndWait();
+     alert.close();
+   }
+ else{
+   myProfileViewModel.setGameAvailable(ownedGames.getSelectionModel().getSelectedItem());
+   reset();
+   }
   }
 }

@@ -112,6 +112,11 @@ server.declineIncomingGame(rental);
     return server.getUserByGame(game);
   }
 
+  @Override
+  public void setGameAvailableTrue(Game game) throws RemoteException {
+    server.setGameAvailableTrue(game);
+  }
+
 //  @Override
 //  public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
 //    return false;

@@ -2,11 +2,12 @@ package mediator;
 
 
 import model.*;
+import utility.observer.subject.RemoteSubject;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 //RemoteSubject<GameList, RentalList>
-public interface GameListServerModel extends Remote{
+public interface GameListServerModel extends Remote, RemoteSubject<GameList, RentalList>{
 
     GameList getAllGames() throws RemoteException;
 
@@ -30,4 +31,5 @@ public interface GameListServerModel extends Remote{
 
     void declineIncomingGame(Rental rental) throws RemoteException;
 
+    void setGameAvailableTrue(Game game) throws RemoteException;
 }

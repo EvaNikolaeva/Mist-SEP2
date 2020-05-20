@@ -31,4 +31,5 @@ public interface GameListServerModel extends Remote, RemoteSubject<GameList, Ren
 
     void declineIncomingGame(Rental rental) throws RemoteException;
 
+    void setGameAvailableTrue(Game game) throws RemoteException;
 }

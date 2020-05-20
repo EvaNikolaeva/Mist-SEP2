@@ -45,14 +45,14 @@
          </children></HBox>
    </top>
    <left>
-      <VBox alignment="TOP_CENTER" minWidth="240.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" minWidth="240.0" prefHeight="340.0" prefWidth="272.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="username" text="Username">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="77.0" prefWidth="198.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onAccept" style="-fx-background-color: #75B5C6;" text="Accept Trade">
                      <HBox.margin>
@@ -66,17 +66,21 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="377.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onEdit" style="-fx-background-color: #75B5C6;" text="Edit Profile">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onDelete" style="-fx-background-color: #75B5C6;" text="Delete Game" />
+                  <Button mnemonicParsing="false" onAction="#onDelete" style="-fx-background-color: #75B5C6;" text="Delete Game">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
+                  <Button mnemonicParsing="false" onAction="#onSetAvailable" style="-fx-background-color: #75B5C6;" text="Set Available" />
                </children>
             </HBox>
-            <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #67666D;">
+            <TextFlow prefHeight="207.0" prefWidth="240.0" style="-fx-background-color: #67666D;">
                <children>
                   <Label fx:id="bio" text="Type information about you" textFill="#e4e4e4" />
                </children>

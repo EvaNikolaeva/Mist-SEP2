@@ -12,6 +12,7 @@ public interface MyProfileModel
   String getUsername();
   String getPassword();
   RentalList getRentalList() throws RemoteException;
+  void setGameAvailabilityTrue(Game game) throws RemoteException;
 //  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;

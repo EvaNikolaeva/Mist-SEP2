@@ -32,6 +32,8 @@ public interface Model
                       String availablePeriod, boolean needsDeposit) throws RemoteException;
 
     RentalList getRentalList() throws RemoteException;
+
+    void setGameAvailabilityTrue(Game game) throws RemoteException;
 //  void setLocalUser(User user);
 
 //  Game getGameByID(int userID) throws RemoteException;
