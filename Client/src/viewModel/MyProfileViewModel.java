@@ -63,6 +63,7 @@ public class MyProfileViewModel
 
 public StringProperty getBio() throws RemoteException {
     bio.setValue(model.login(model.getUsername(), model.getPassword()).getBio());
+  System.out.println(bio.getValue() + " Users bio");
     return bio;
 }
   public StringProperty getUsername(){

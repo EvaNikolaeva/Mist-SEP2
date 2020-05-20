@@ -55,6 +55,7 @@ public class MyProfileController
     this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
     this.rentals.setItems(myProfileViewModel.getRentals());
     this.rentedGames.setItems(myProfileViewModel.getRentedGames());
+    this.bio.textProperty().bind(myProfileViewModel.getBio());
   }
 
   @FXML public void onAddGame()

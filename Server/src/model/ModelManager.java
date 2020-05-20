@@ -40,10 +40,10 @@ public class ModelManager implements Model
   {
     for (int i = 0; i < userList.size(); i++)
     {
-      if (userList.getUserByIndex(i).equals(user))
+      if (userList.getUserByIndex(i).getUserID() == user.getUserID())
       {
-        user.setBio(bio);
-        return;
+        userList.getUserByIndex(i).setBio(bio);
+        System.out.println("Bio set for" + user.getUsername());
       }
     }
   }
