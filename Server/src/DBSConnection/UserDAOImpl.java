@@ -16,6 +16,11 @@ public class UserDAOImpl extends Database implements UserDAO
         super();
     }
 
+    public Connection getConnection() throws SQLException
+    {
+        return super.getConnection();
+    }
+
     public static UserDAOImpl getInstance() throws SQLException
     {
         if (instance == null)
@@ -63,6 +68,6 @@ public class UserDAOImpl extends Database implements UserDAO
     @Override
     public void registerUser(String username, String password)
     {
-        
+
     }
 }
