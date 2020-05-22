@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Game;
 import model.Model;
+import model.OtherProfileModel;
 import model.User;
 
 import java.rmi.RemoteException;
@@ -16,9 +17,9 @@ public class OtherProfileViewModel
   private StringProperty bio;
   private StringProperty username;
   private ObservableList<Game> ownedGames;
-  private Model model;
+  private OtherProfileModel model;
 
-  public OtherProfileViewModel(Model model) throws RemoteException
+  public OtherProfileViewModel(OtherProfileModel model) throws RemoteException
   {
     this.model = model;
     this.bio = new SimpleStringProperty();
@@ -26,22 +27,26 @@ public class OtherProfileViewModel
     this.ownedGames = FXCollections.observableArrayList();
   }
 
-  public StringProperty getBio() throws RemoteException {
+  public StringProperty getBio() throws RemoteException
+  {
     bio.setValue(model.getUser(model.getGameBuffer()).getBio());
     return bio;
   }
 
-  public StringProperty getUsername() throws RemoteException {
+  public StringProperty getUsername() throws RemoteException
+  {
     username.setValue(model.getUser(model.getGameBuffer()).getUsername());
     return username;
   }
-  public ObservableList<Game> getAllOtherUserOwnedGames()
-      throws RemoteException
+
+  public ObservableList<Game> getAllOtherUserOwnedGames() throws RemoteException
   {
-ownedGames.clear();
-    for (int i = 0; i < model.getUser(model.getGameBuffer()).getGameList().size(); i++)
+    ownedGames.clear();
+    for (int i = 0;
+         i < model.getUser(model.getGameBuffer()).getGameList().size(); i++)
     {
-      ownedGames.add(model.getUser(model.getGameBuffer()).getGameList().getGame(i));
+      ownedGames
+          .add(model.getUser(model.getGameBuffer()).getGameList().getGame(i));
     }
     return ownedGames;
   }

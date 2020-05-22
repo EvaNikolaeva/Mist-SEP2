@@ -7,12 +7,15 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 
-public interface GameListClientClient{
+public interface GameListClientClient
+{
     void connect() throws InterruptedException;
 
-    void registerNewUser(String username, String password) throws RemoteException;
+    void registerNewUser(String username, String password)
+        throws RemoteException;
 
-    User login(String username, String password) throws RemoteException;  //instead of the first 4 from below and last 2 from below
+    User login(String username, String password) throws
+        RemoteException;  //instead of the first 4 from below and last 2 from below
 
     GameList getGamesFromServer() throws RemoteException;
 

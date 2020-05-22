@@ -46,12 +46,17 @@ public class User implements Serializable
   {
     this.bio = bio;
   }
-  public GameList getRentedGameList(){
+
+  public GameList getRentedGameList()
+  {
     return rentedList;
   }
-  public void addToRented(Game game){
+
+  public void addToRented(Game game)
+  {
     rentedList.addGame(game);
   }
+
   public void addGame(Game game)
   {
     gameList.addGame(game);
@@ -71,7 +76,7 @@ public class User implements Serializable
   {
     for (int i = 0; i < gameList.size(); i++)
     {
-      if(gameList.getGame(i).equals(game))
+      if (gameList.getGame(i).equals(game))
         return true;
     }
     return false;

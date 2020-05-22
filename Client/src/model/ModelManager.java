@@ -18,6 +18,7 @@ public class ModelManager implements Model
   private PropertyChangeSupport property;
   private GameListClientClient gameListClientModel;
   private Game gameBuffer;
+
   public ModelManager(GameListClient gameListClientModel)
   {
     this.property = new PropertyChangeSupport(this);
@@ -40,7 +41,6 @@ public class ModelManager implements Model
     user = gameListClientModel.login(username, password);
     return gameListClientModel.login(username, password);
   }
-
 
   @Override public void clientAcceptIncomingGame(Rental rental)
       throws RemoteException
@@ -75,28 +75,28 @@ public class ModelManager implements Model
     return gameListClientModel.getUserFromServer(game);
   }
 
-  @Override
-  public void setGameBuffer(Game game) {
+  @Override public void setGameBuffer(Game game)
+  {
     gameBuffer = game;
   }
 
-  @Override
-  public Game getGameBuffer() {
+  @Override public Game getGameBuffer()
+  {
     return gameBuffer;
   }
 
-  @Override
-  public String getUsername() {
+  @Override public String getUsername()
+  {
     return username;
   }
 
-  @Override
-  public String getPassword() {
+  @Override public String getPassword()
+  {
     return password;
   }
 
-  @Override
-  public void setBio(User user, String bioText) throws RemoteException {
+  @Override public void setBio(User user, String bioText) throws RemoteException
+  {
     gameListClientModel.clientSetBio(user, bioText);
   }
 
@@ -110,7 +110,7 @@ public class ModelManager implements Model
 
   @Override public void clientAddGame(Game game) throws RemoteException
   {
-gameListClientModel.clientAddGame(game);
+    gameListClientModel.clientAddGame(game);
   }
 
   @Override public void validateGame(String name, String type,
@@ -189,16 +189,16 @@ gameListClientModel.clientAddGame(game);
     }
   }
 
-  @Override
-  public RentalList getRentalList() throws RemoteException {
+  @Override public RentalList getRentalList() throws RemoteException
+  {
     return gameListClientModel.clientGetRentalList();
   }
 
-  @Override
-  public void setGameAvailabilityTrue(Game game) throws RemoteException {
+  @Override public void setGameAvailabilityTrue(Game game)
+      throws RemoteException
+  {
     gameListClientModel.setGameAvailableTrue(game);
   }
-
 
   @Override public void addListener(PropertyChangeListener listener)
   {

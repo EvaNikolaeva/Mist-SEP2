@@ -83,7 +83,7 @@ public class Game implements Serializable
   {
     return "Title: " + title + ", id: " + id + ", type: " + type
         + ", release year: " + releaseYear + ", deposit: " + needsDeposit
-        + ", availability period: " + availabilityPeriod + " Available:" + available;
+        + ", availability period: " + availabilityPeriod + ", Available:" + available;
   }
 
   public boolean equals(Object obj)

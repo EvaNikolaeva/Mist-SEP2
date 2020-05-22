@@ -46,9 +46,11 @@ public class Rental implements Serializable
 
   public int getId()
   {
-    return id;
+    return id;   //this cant work atm. need database
   }
-  public String toString(){
-    return getGame().getTitle() + " " + getOwner();
+
+  public String toString()
+  {
+    return getGame().getTitle() + " " + getOwner().getUsername();
   }
 }

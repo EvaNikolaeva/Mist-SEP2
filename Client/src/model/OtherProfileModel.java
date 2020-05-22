@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public interface OtherProfileModel
 {
   User getUser(Game game) throws RemoteException;
+  Game getGameBuffer();
 
 //  void requestGame(int userID, int gameID) throws RemoteException;
 //  String getUsername(int userID) throws RemoteException;

@@ -60,9 +60,10 @@ public class ModelManager implements Model
         System.out.println("Game added to rentals");
         propertyChangeSupport.firePropertyChange("newRental", null, rental);
         gameList.getGameById(game.getId()).setAvailable(false);
-        getUserByGame(game).getGameList().getGameById(game.getId()).setAvailable(false);
+        getUserByGame(game).getGameList().getGameById(game.getId())
+            .setAvailable(false);
         // What the fuck is that
-//        i = userList.size();
+        //        i = userList.size();
       }
     }
 
@@ -74,9 +75,11 @@ public class ModelManager implements Model
     {
       if (rentalList.getRentals().get(i).getId() == rental.getId())
       {
-//        rentalList.getRentalById(i).setIsComplete(true);
-        propertyChangeSupport.firePropertyChange("acceptGame", null, rentalList.getRentalById(i));
-        userList.getUserByUserID(rental.getRequester().getUserID()).addToRented(rental.getGame());
+        //        rentalList.getRentalById(i).setIsComplete(true);
+        propertyChangeSupport.firePropertyChange("acceptGame", null,
+            rentalList.getRentalById(i));
+        userList.getUserByUserID(rental.getRequester().getUserID())
+            .addToRented(rental.getGame());
         rentalList.removeRental(rental);
       }
     }
@@ -86,7 +89,8 @@ public class ModelManager implements Model
   {
     rentalList.removeRental(rental);
     gameList.getGameById(rental.getGame().getId()).setAvailable(true);
-    getUserByGame(rental.getGame()).getGameList().getGameById(rental.getGame().getId()).setAvailable(true);
+    getUserByGame(rental.getGame()).getGameList()
+        .getGameById(rental.getGame().getId()).setAvailable(true);
     propertyChangeSupport.firePropertyChange("declineGame", null, rental);
   }
 
@@ -129,8 +133,8 @@ public class ModelManager implements Model
     return gameList.size();
   }
 
-  @Override
-  public RentalList getRentalList() {
+  @Override public RentalList getRentalList()
+  {
     return rentalList;
   }
 
@@ -139,10 +143,11 @@ public class ModelManager implements Model
     userList.registerUser(username, password);
   }
 
-  @Override
-  public void setGameAvailableTrue(Game game) {
-gameList.getGameById(game.getId()).setAvailable(true);
-userList.getUserByUserID(game.getUserId()).getGameList().getGameById(game.getId()).setAvailable(true);
+  @Override public void setGameAvailableTrue(Game game)
+  {
+    gameList.getGameById(game.getId()).setAvailable(true);
+    userList.getUserByUserID(game.getUserId()).getGameList()
+        .getGameById(game.getId()).setAvailable(true);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

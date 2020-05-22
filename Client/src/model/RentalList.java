@@ -25,7 +25,7 @@ public class RentalList implements Serializable
   public Rental getRentalById(int id)
   {
     return rentals.get(id);
-  }
+  } //cant use
 
   public void removeRental(Rental rental)
   {

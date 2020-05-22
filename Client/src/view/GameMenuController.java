@@ -95,7 +95,7 @@ public class GameMenuController
     }
   }
 
-  public void onBack()
+  @FXML public void onBack()
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
   {

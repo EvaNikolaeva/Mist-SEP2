@@ -25,10 +25,11 @@ public class GameListClient implements GameListClientClient, Remote
   {
     try
     {
-//      this.serverAccess = (ServerAccess) Naming
-//          .lookup("rmi://localhost:1099/games");
-//      UnicastRemoteObject.exportObject(this, 0);
-      this.server = (GameListServerModel) Naming.lookup("rmi://localhost:1099/games");
+      //      this.serverAccess = (ServerAccess) Naming
+      //          .lookup("rmi://localhost:1099/games");
+      //      UnicastRemoteObject.exportObject(this, 0);
+      this.server = (GameListServerModel) Naming
+          .lookup("rmi://localhost:1099/games");
       UnicastRemoteObject.exportObject(this, 0);
     }
     catch (Exception e)
@@ -53,58 +54,57 @@ public class GameListClient implements GameListClientClient, Remote
   @Override public void registerNewUser(String username, String password)
       throws RemoteException
   {
-   server.registerClient(username, password);
+    server.registerClient(username, password);
   }
 
   @Override public User login(String username, String password)
       throws RemoteException
   {
-return server.getUserByCredentials(username, password);
+    return server.getUserByCredentials(username, password);
   }
 
   @Override public GameList getGamesFromServer() throws RemoteException
   {
-   return server.getAllGames();
+    return server.getAllGames();
   }
 
-  @Override
-  public RentalList clientGetRentalList() throws RemoteException {
-  return server.getRentalList();
+  @Override public RentalList clientGetRentalList() throws RemoteException
+  {
+    return server.getRentalList();
   }
 
   @Override public void clientRemoveGame(Game game) throws RemoteException
   {
- server.removeGame(game);
+    server.removeGame(game);
   }
 
   @Override public void clientSetBio(User user, String bio)
       throws RemoteException
   {
-  server.setBio(user, bio);
+    server.setBio(user, bio);
   }
 
-  @Override public void clientAddGame(Game game)
-      throws RemoteException
+  @Override public void clientAddGame(Game game) throws RemoteException
   {
-server.addGame(game);
+    server.addGame(game);
   }
 
   @Override public void clientRequestGame(User requester, Game game)
       throws RemoteException
   {
-server.requestGame(requester, game);
+    server.requestGame(requester, game);
   }
 
   @Override public void clientAcceptIncomingGame(Rental rental)
       throws RemoteException
   {
-  server.acceptIncomingGame(rental);
+    server.acceptIncomingGame(rental);
   }
 
   @Override public void clientDeclineIncomingGame(Rental rental)
       throws RemoteException
   {
-server.declineIncomingGame(rental);
+    server.declineIncomingGame(rental);
   }
 
   @Override public User getUserFromServer(Game game) throws RemoteException
@@ -112,18 +112,18 @@ server.declineIncomingGame(rental);
     return server.getUserByGame(game);
   }
 
-  @Override
-  public void setGameAvailableTrue(Game game) throws RemoteException {
+  @Override public void setGameAvailableTrue(Game game) throws RemoteException
+  {
     server.setGameAvailableTrue(game);
   }
 
-//  @Override
-//  public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-//    return false;
-//  }
-//
-//  @Override
-//  public boolean removeListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-//    return false;
-//  }
+  //  @Override
+  //  public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
+  //    return false;
+  //  }
+  //
+  //  @Override
+  //  public boolean removeListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
+  //    return false;
+  //  }
 }
