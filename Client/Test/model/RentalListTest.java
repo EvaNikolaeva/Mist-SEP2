@@ -30,8 +30,8 @@ class RentalListTest
     requester2 = new User("john1", "4321", 54321);
     game2 = new Game("Doom", "PC", 2016, false, 10, 123456);
 
-    rental1 = new Rental(owner1, requester1, game1);
-    rental2 = new Rental(owner2, requester2, game2);
+    rental1 = new Rental(owner1, requester1, game1, 12);
+    rental2 = new Rental(owner2, requester2, game2, 12);
     rentals = new ArrayList<>();
     rentalList = new RentalList();
   }

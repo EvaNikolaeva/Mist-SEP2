@@ -4,7 +4,6 @@ import model.Game;
 import model.Rental;
 import model.User;
 
-import java.security.acl.Owner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,6 +46,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
       ArrayList<Rental> rentals = new ArrayList<>();
       while (resultSet.next())
       {
+        int rentalId = resultSet.getInt("RentalID");
         int ownerId = resultSet.getInt("gameownerid");
         int requesterId = resultSet.getInt("gamerequesterid");
         int gameId = resultSet.getInt("rentedgameid");
@@ -67,23 +67,23 @@ public class RentalDAOImpl extends Database implements RentalDAO
         ResultSet result1 = statement1.executeQuery();
         if (result1.next())
         {
-          requester = new User(result.getString("username"),
-              result.getString("password"), result.getInt("userid"));
+          requester = new User(result1.getString("username"),
+              result1.getString("password"), result1.getInt("userid"));
 
         }
         PreparedStatement statement3 = connection
-            .prepareStatement("SELECT * FROM Game WHERE game_id =?");
+            .prepareStatement("SELECT * FROM Game WHERE gameid =?");
         statement3.setInt(1, gameId);
-        ResultSet result2 = statement.executeQuery();
+        ResultSet result2 = statement3.executeQuery();
         if (result2.next())
         {
-          game = new Game(resultSet.getString("title"),
-              resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
-              resultSet.getBoolean("NeedsDeposit"),
-              resultSet.getInt("AvailabilityPeriod"),
-              resultSet.getInt("UserID"));
+          game = new Game(result2.getString("Title"),
+                  result2.getString("type"), result2.getInt("ReleaseYear"),
+                  result2.getBoolean("NeedsDeposit"),
+                  result2.getInt("AvailabilityPeriod"),
+                  result2.getInt("UserID"));
         }
-        Rental rental = new Rental(owner, requester, game);
+        Rental rental = new Rental(owner, requester, game, rentalId);
         rentals.add(rental);
 
         return rentals;
@@ -105,15 +105,17 @@ public class RentalDAOImpl extends Database implements RentalDAO
       statement.setInt(2, requester.getUserID());
       statement.setInt(3, game.getId());
       statement.executeUpdate();
+      //something not working, doesn't set to false.
       PreparedStatement statement1 = connection.prepareStatement(
           "UPDATE Game SET available = false WHERE gameid = ?");
       statement1.setInt(1, id);
-      statement.executeUpdate();
+      statement1.executeUpdate();
     }
   }
 
   @Override public Rental getRentalById(int id) throws SQLException
   {
+    //The if statements don't work, the game/requester stay as null objects;
     Game game = null;
     User owner = null;
     User requester = null;
@@ -124,6 +126,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
           .prepareStatement("SELECT * FROM Rental WHERE rentalid = ?");
       statement.setInt(1, id);
       ResultSet resultSet = statement.executeQuery();
+      int rentalId = resultSet.getInt("rentalId");
       int ownerId = resultSet.getInt("gameownerid");
       int requesterId = resultSet.getInt("gamerequesterid");
       int gameId = resultSet.getInt("rentedgameid");
@@ -162,7 +165,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
               resultSet.getInt("UserID"));
         }
 
-        return new Rental(owner, requester, game);
+        return new Rental(owner, requester, game,rentalId);
       }
       else
       {

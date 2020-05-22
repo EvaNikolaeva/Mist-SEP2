@@ -11,11 +11,12 @@ public class Rental implements Serializable
   //  private boolean isComplete;
   private int id; //this id will be handled by the database
 
-  public Rental(User owner, User requester, Game game)
+  public Rental(User owner, User requester, Game game,int Id)
   {
     this.owner = owner;
     this.requester = requester;
     this.game = game;
+    this.id = Id;
 //    this.isComplete = false;
   }
 
@@ -46,11 +47,10 @@ public class Rental implements Serializable
 
   public int getId()
   {
-    return id;   //this cant work atm. need database
+    return id;
   }
-
-  public String toString()
-  {
-    return getGame().getTitle() + " " + getOwner().getUsername();
+  public String toString(){
+//    return game.getTitle() + " " + owner.getUsername();
+    return game + " ";
   }
 }

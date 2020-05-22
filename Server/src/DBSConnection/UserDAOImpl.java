@@ -75,13 +75,16 @@ public class UserDAOImpl extends Database implements UserDAO
             statement.setString(2, "%" + password +"%");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("userid");
-                return new User(username, password, id);
+                if(resultSet.getString("username").equals(username) && resultSet.getString("password").equals(password)){
+                    int id = resultSet.getInt("userid");
+                    return new User(username, password, id);
+                }
             }
             else {
                 return null;
             }
         }
+        return null;
     }
 
     @Override

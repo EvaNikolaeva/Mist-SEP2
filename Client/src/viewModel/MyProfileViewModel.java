@@ -17,6 +17,7 @@ public class MyProfileViewModel
   private ObservableList<Game> ownedGames;
   private ObservableList<Game> rentedGames;
   private ObservableList<Rental> rentals;
+  private ObservableList<Rental> pendingRentals;
   private StringProperty bio;
   private StringProperty username;
 
@@ -28,6 +29,7 @@ public class MyProfileViewModel
     this.ownedGames = FXCollections.observableArrayList();
     this.rentedGames = FXCollections.observableArrayList();
     this.rentals = FXCollections.observableArrayList();
+    this.pendingRentals = FXCollections.observableArrayList();
     this.bio = new SimpleStringProperty();
     this.username = new SimpleStringProperty();
   }
@@ -60,6 +62,15 @@ public class MyProfileViewModel
       }
     }
     return rentals;
+  }
+  public ObservableList<Rental> getPendingRentals() throws RemoteException, SQLException {
+    pendingRentals.clear();
+    for(int i = 0; i <  model.getRentalList().getRentals().size(); i++){
+      if(model.getRentalList().getRentals().get(i).getRequester().getUserID() == model.login(model.getUsername(), model.getPassword()).getUserID()){
+        pendingRentals.add(model.getRentalList().getRentals().get(i));
+      }
+    }
+    return pendingRentals;
   }
 
 public StringProperty getBio() throws RemoteException, SQLException {

@@ -23,6 +23,7 @@ public class MyProfileController
   @FXML ListView<Game> ownedGames;
   @FXML ListView<Rental> rentals;
   @FXML ListView<Game> rentedGames;
+  @FXML ListView<Rental> pendingRentals;
   @FXML Label bio;
   @FXML Label username;
   private MyProfileViewModel myProfileViewModel;
@@ -41,6 +42,7 @@ public class MyProfileController
     this.myProfileViewModel = myProfileViewModel;
     this.username.textProperty().bind(myProfileViewModel.getUsername());
     this.rentedGames.setItems(myProfileViewModel.getRentedGames());
+    this.pendingRentals.setItems(myProfileViewModel.getPendingRentals());
   }
 
   public Region getRoot()
@@ -55,6 +57,7 @@ public class MyProfileController
     this.rentals.setItems(myProfileViewModel.getRentals());
     this.rentedGames.setItems(myProfileViewModel.getRentedGames());
     this.bio.textProperty().bind(myProfileViewModel.getBio());
+    this.pendingRentals.setItems(myProfileViewModel.getPendingRentals());
   }
 
   @FXML public void onAddGame()

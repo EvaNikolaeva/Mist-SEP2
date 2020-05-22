@@ -8,14 +8,15 @@ public class Rental implements Serializable
   private User owner;
   private User requester;
   private Game game;
-//  private boolean isComplete;
+  //  private boolean isComplete;
   private int id; //this id will be handled by the database
 
-  public Rental(User owner, User requester, Game game)
+  public Rental(User owner, User requester, Game game,int Id)
   {
     this.owner = owner;
     this.requester = requester;
     this.game = game;
+    this.id = Id;
 //    this.isComplete = false;
   }
 
@@ -49,6 +50,7 @@ public class Rental implements Serializable
     return id;
   }
   public String toString(){
-    return getGame().getTitle() + " " + getOwner();
+//    return game.getTitle() + " " + owner.getUsername();
+    return game + " ";
   }
 }
