@@ -36,6 +36,9 @@ public class RentalDAOImpl extends Database implements RentalDAO
 
   @Override public ArrayList<Rental> getRentals() throws SQLException
   {
+    Game game = null;
+    User owner = null;
+    User requester = null;
     try (Connection connection = getConnection())
     {
       PreparedStatement statement = connection
@@ -52,30 +55,41 @@ public class RentalDAOImpl extends Database implements RentalDAO
             .prepareStatement("SELECT * FROM user_dbms where userid = ?");
         statement1.setInt(1, ownerId);
         ResultSet result = statement1.executeQuery();
-        User owner = new User(result.getString("username"),
-            result.getString("password"), result.getInt("userid"));
+        if (result.next())
+        {
+          owner = new User(result.getString("username"),
+              result.getString("password"), result.getInt("userid"));
 
+        }
         PreparedStatement statement2 = connection
             .prepareStatement("SELECT * FROM user_dbms where userid = ?");
-        statement1.setInt(1, requesterId);
+        statement2.setInt(1, requesterId);
         ResultSet result1 = statement1.executeQuery();
-        User requester = new User(result.getString("username"),
-            result.getString("password"), result.getInt("userid"));
+        if (result1.next())
+        {
+          requester = new User(result.getString("username"),
+              result.getString("password"), result.getInt("userid"));
 
+        }
         PreparedStatement statement3 = connection
             .prepareStatement("SELECT * FROM Game WHERE game_id =?");
         statement3.setInt(1, gameId);
         ResultSet result2 = statement.executeQuery();
-        Game game = new Game(resultSet.getString("title"),
-            resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
-            resultSet.getBoolean("NeedsDeposit"),
-            resultSet.getInt("AvailabilityPeriod"), resultSet.getInt("UserID"));
-
+        if (result2.next())
+        {
+          game = new Game(resultSet.getString("title"),
+              resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
+              resultSet.getBoolean("NeedsDeposit"),
+              resultSet.getInt("AvailabilityPeriod"),
+              resultSet.getInt("UserID"));
+        }
         Rental rental = new Rental(owner, requester, game);
         rentals.add(rental);
+
+        return rentals;
       }
-      return rentals;
     }
+    return null;
   }
 
   @Override public void addRental(User owner, User requester, Game game)
