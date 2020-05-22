@@ -115,4 +115,15 @@ public class UserDAOImpl extends Database implements UserDAO
             }
         }
     }
+
+    @Override
+    public void setBio(User user, String bio) throws SQLException
+    {
+        try(Connection connection = getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement("UPDATE bio FROM User_dbms WHERE userid = ?");
+            statement.setInt(1, user.getUserID());
+            statement.executeUpdate();
+        }
+    }
 }

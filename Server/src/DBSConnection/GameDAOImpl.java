@@ -48,7 +48,7 @@ public class GameDAOImpl extends Database implements GameDAO
       statement.setInt(5, availabilityPeriod);
       statement.setBoolean(6, true);
       statement.setInt(7, userId);
-      statement.executeQuery();
+      statement.executeUpdate();
     }
   }
 
@@ -59,7 +59,7 @@ public class GameDAOImpl extends Database implements GameDAO
       PreparedStatement statement = connection
           .prepareStatement("DELETE FROM GAME WHERE game_id=?");
       statement.setInt(1, id);
-      statement.executeQuery();
+      statement.executeUpdate();
     }
   }
 
@@ -70,7 +70,7 @@ public class GameDAOImpl extends Database implements GameDAO
       PreparedStatement statement = connection
           .prepareStatement("DELETE FROM GAME WHERE game_id=?");
       statement.setInt(1, game.getId());
-      statement.executeQuery();
+      statement.executeUpdate();
     }
   }
 

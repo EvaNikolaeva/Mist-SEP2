@@ -12,5 +12,6 @@ public interface UserDAO
     void registerUser(String username, String password) throws SQLException;
    // User getUserByIndex(int index) throws SQLException;
     int size() throws SQLException;
+    void setBio(User user, String bio) throws SQLException;
 
 }

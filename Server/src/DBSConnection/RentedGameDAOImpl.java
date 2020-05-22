@@ -85,7 +85,7 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
       PreparedStatement statement = connection
           .prepareStatement("DELETE FROM GAME WHERE game_id=?");
       statement.setInt(1, id);
-      statement.executeQuery();
+      statement.executeUpdate();
     }
   }
 }
