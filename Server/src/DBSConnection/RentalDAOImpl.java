@@ -55,6 +55,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
     @Override
     public void addRental(User owner, User requester, Game game) throws SQLException
     {
+        int id = game.getId();
         try (Connection connection = getConnection())
         {
             PreparedStatement statement = connection.prepareStatement(
@@ -63,6 +64,8 @@ public class RentalDAOImpl extends Database implements RentalDAO
             statement.setInt(2, requester.getUserID());
             statement.setInt(3, game.getId());
             statement.executeUpdate();
+            PreparedStatement statement1 = connection.prepareStatement("UPDATE Game SET available = false WHERE gameid = ?");
+            statement1.setInt(1, id);
         }
     }
 
