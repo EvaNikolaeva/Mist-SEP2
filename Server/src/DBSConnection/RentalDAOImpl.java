@@ -37,18 +37,37 @@ public class RentalDAOImpl extends Database implements RentalDAO
     public ArrayList<Rental> getRentals() throws SQLException {
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Rental");
-            //statement.setString(1, "%" + searchString + "%");
             ResultSet resultSet = statement.executeQuery();
-            ArrayList<Rental> result = new ArrayList<>();
+            ArrayList<Rental> rentals = new ArrayList<>();
             while (resultSet.next())
             {
-                User owner = (User) resultSet.getObject("gameownerid");
-                User requester = (User) resultSet.getObject("gamerequesterid");
-                Game game = (Game) resultSet.getObject("rentedgameid");
+                int ownerId = resultSet.getInt("gameownerid");
+                int requesterId = resultSet.getInt("gamerequesterid");
+                int gameId = resultSet.getInt("rentedgameid");
+
+                PreparedStatement statement1 = connection.prepareStatement("SELECT * FROM user_dbms where userid = ?");
+                statement1.setInt(1, ownerId);
+                ResultSet result = statement1.executeQuery();
+                User owner = new User(result.getString("username"), result.getString("password"), result.getInt("userid"));
+
+                PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM user_dbms where userid = ?");
+                statement1.setInt(1, requesterId);
+                ResultSet result1 = statement1.executeQuery();
+                User requester = new User(result.getString("username"), result.getString("password"), result.getInt("userid"));
+
+                PreparedStatement statement3 = connection.prepareStatement("SELECT * FROM Game WHERE game_id =?");
+                statement3.setInt(1, gameId);
+                ResultSet result2 = statement.executeQuery();
+                Game game = new Game(resultSet.getString("title"),
+                        resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
+                        resultSet.getBoolean("NeedsDeposit"),
+                        resultSet.getInt("AvailabilityPeriod"),
+                        resultSet.getInt("UserID"));
+
                 Rental rental = new Rental(owner, requester, game);
-                result.add(rental);
+                rentals.add(rental);
             }
-            return result;
+            return rentals;
         }
     }
 
@@ -78,10 +97,28 @@ public class RentalDAOImpl extends Database implements RentalDAO
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Rental WHERE rentalid = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
+            int ownerId = resultSet.getInt("gameownerid");
+            int requesterId = resultSet.getInt("gamerequesterid");
+            int gameId = resultSet.getInt("rentedgameid");
             if (resultSet.next()) {
-                User owner = (User) resultSet.getObject("gameownerid");
-                User requester = (User) resultSet.getObject("gamerequesterid");
-                Game game = (Game) resultSet.getObject("rentedgameid");
+                PreparedStatement statement1 = connection.prepareStatement("SELECT * FROM user_dbms where userid = ?");
+                statement1.setInt(1, ownerId);
+                ResultSet result = statement1.executeQuery();
+                User owner = new User(result.getString("username"), result.getString("password"), result.getInt("userid"));
+
+                PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM user_dbms where userid = ?");
+                statement1.setInt(1, requesterId);
+                ResultSet result1 = statement1.executeQuery();
+                User requester = new User(result.getString("username"), result.getString("password"), result.getInt("userid"));
+
+                PreparedStatement statement3 = connection.prepareStatement("SELECT * FROM Game WHERE game_id =?");
+                statement3.setInt(1, gameId);
+                ResultSet result2 = statement.executeQuery();
+                Game game = new Game(resultSet.getString("title"),
+                        resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
+                        resultSet.getBoolean("NeedsDeposit"),
+                        resultSet.getInt("AvailabilityPeriod"),
+                        resultSet.getInt("UserID"));
                 return new Rental(owner, requester, game);
             }
             else {
