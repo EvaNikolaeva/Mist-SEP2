@@ -16,6 +16,7 @@ import viewModel.MyProfileViewModel;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class MyProfileController
 {
@@ -30,9 +31,8 @@ public class MyProfileController
 
   public void init(ViewHandler viewHandler,
       MyProfileViewModel myProfileViewModel, Region root)
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     this.viewHandler = viewHandler;
     this.root = root;
     this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
@@ -49,9 +49,8 @@ public class MyProfileController
   }
 
   public void reset()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
     this.rentals.setItems(myProfileViewModel.getRentals());
     this.rentedGames.setItems(myProfileViewModel.getRentedGames());
@@ -59,21 +58,18 @@ public class MyProfileController
   }
 
   @FXML public void onAddGame()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     viewHandler.openView("menu");
   }
 
   @FXML public void onBrowseGames()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     viewHandler.openView("list");
   }
 
-  @FXML public void onDelete() throws RemoteException
-  {
+  @FXML public void onDelete() throws RemoteException, SQLException {
     if (ownedGames.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
@@ -97,9 +93,8 @@ public class MyProfileController
   }
 
   @FXML public void onAccept()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
     myProfileViewModel.acceptGame(selectedRental);
     Platform.runLater(() -> {
@@ -115,8 +110,7 @@ public class MyProfileController
     });
   }
 
-  @FXML public void onDecline() throws RemoteException
-  {
+  @FXML public void onDecline() throws RemoteException, SQLException {
     if (rentals.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
@@ -140,13 +134,12 @@ public class MyProfileController
   }
 
   @FXML public void onEdit()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     viewHandler.openView("editBio");
   }
 
- @FXML public void onSetAvailable() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException {
+ @FXML public void onSetAvailable() throws RemoteException, InterruptedException, NotBoundException, MalformedURLException, SQLException {
    if (ownedGames.getSelectionModel().getSelectedIndex() < 0)
    {
      Alert alert = new Alert(Alert.AlertType.ERROR,

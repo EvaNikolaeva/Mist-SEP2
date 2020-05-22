@@ -10,6 +10,7 @@ import viewModel.GameListViewModel;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class EditProfileController
 {
@@ -21,7 +22,7 @@ public class EditProfileController
   private EditProfileViewModel editProfileViewModel;
 
   public void init(ViewHandler viewHandler,
-      EditProfileViewModel editProfileViewModel, Region root) throws RemoteException {
+      EditProfileViewModel editProfileViewModel, Region root) throws RemoteException, SQLException {
     this.root = root;
     this.viewHandler = viewHandler;
     this.editProfileViewModel = editProfileViewModel;
@@ -34,16 +35,14 @@ public class EditProfileController
   }
 
   @FXML public void onCancel()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     viewHandler.openView("profile");
   }
 
   @FXML public void onSave()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     editProfileViewModel.editBio(textArea.getText());
     viewHandler.openView("profile");
   }

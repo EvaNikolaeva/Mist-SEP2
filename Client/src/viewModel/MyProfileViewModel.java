@@ -9,6 +9,7 @@ import model.*;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class MyProfileViewModel
 {
@@ -31,17 +32,18 @@ public class MyProfileViewModel
     this.username = new SimpleStringProperty();
   }
 
-  public ObservableList<Game> getOwnedGames() throws RemoteException
-  {
+  public ObservableList<Game> getOwnedGames() throws RemoteException, SQLException {
     User userBuffer = model.login(model.getUsername(), model.getPassword());
+    GameList allGames = model.getAllGamesFromServer();
     ownedGames.clear();
-    for(int i = 0; i < userBuffer.getGameList().size(); i++){
-      ownedGames.add(userBuffer.getGameList().getGame(i));
+    for(int i = 0; i < allGames.size(); i++){
+      if(allGames.getGame(i).getUserId() == userBuffer.getUserID()){
+        ownedGames.add(allGames.getGame(i));
+      }
     }
     return ownedGames;
   }
-  public ObservableList<Game> getRentedGames() throws RemoteException
-  {
+  public ObservableList<Game> getRentedGames() throws RemoteException, SQLException {
     User userBuffer = model.login(model.getUsername(), model.getPassword());
     rentedGames.clear();
     for(int i = 0; i < userBuffer.getRentedGameList().size(); i++){
@@ -50,8 +52,7 @@ public class MyProfileViewModel
     return rentedGames;
   }
 
-  public ObservableList<Rental> getRentals() throws RemoteException
-  {
+  public ObservableList<Rental> getRentals() throws RemoteException, SQLException {
     rentals.clear();
     for(int i = 0; i <  model.getRentalList().getRentals().size(); i++){
       if(model.getRentalList().getRentals().get(i).getOwner().getUserID() == model.login(model.getUsername(), model.getPassword()).getUserID()){
@@ -61,7 +62,7 @@ public class MyProfileViewModel
     return rentals;
   }
 
-public StringProperty getBio() throws RemoteException {
+public StringProperty getBio() throws RemoteException, SQLException {
     bio.setValue(model.login(model.getUsername(), model.getPassword()).getBio());
   System.out.println(bio.getValue() + " Users bio");
     return bio;
@@ -70,19 +71,17 @@ public StringProperty getBio() throws RemoteException {
     username.setValue(model.getUsername());
     return username;
   }
-  public void removeGame(Game game) throws RemoteException
-  {
+  public void removeGame(Game game) throws RemoteException, SQLException {
     model.clientRemoveGame(game);
   }
 
-  public void acceptGame(Rental rental) throws RemoteException
-  {
+  public void acceptGame(Rental rental) throws RemoteException, SQLException {
     model.clientAcceptIncomingGame(rental);
   }
-  public void declineGame(Rental rental) throws RemoteException {
+  public void declineGame(Rental rental) throws RemoteException, SQLException {
     model.clientDeclineIncomingGame(rental);
   }
-  public void setGameAvailable(Game game) throws RemoteException {
+  public void setGameAvailable(Game game) throws RemoteException, SQLException {
 model.setGameAvailabilityTrue(game);
   }
 }

@@ -11,6 +11,7 @@ import viewModel.LoginViewModel;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class LoginScreenController
 {
@@ -57,20 +58,15 @@ public class LoginScreenController
       User userBuffer = null;
       try {
         userBuffer = loginViewModel.login(loginUsername.getText(), loginPassword.getText());
-      } catch (RemoteException e) {
+      } catch (RemoteException | SQLException e) {
         e.printStackTrace();
       }
       if(userBuffer != null){
 
         try {
           viewHandler.openView("list");
-        } catch (RemoteException e) {
-          e.printStackTrace();
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        } catch (NotBoundException e) {
-          e.printStackTrace();
-        } catch (MalformedURLException e) {
+        }
+        catch (Exception e) {
           e.printStackTrace();
         }
       }
@@ -82,7 +78,7 @@ public class LoginScreenController
 
   }
 
-  @FXML public void onRegister() throws RemoteException {
+  @FXML public void onRegister() throws RemoteException, SQLException {
     loginViewModel.registerUser(loginUsername.getText(), loginPassword.getText());
     errorLabel.setText("User created if username was not taken. You can now try to log in.");
   }

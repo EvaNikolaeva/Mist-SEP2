@@ -6,6 +6,7 @@ import model.AddGameModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -74,8 +75,7 @@ public class GameMenuViewModel implements PropertyChangeListener
     return responseMessage;
   }
 
-  public void addCurrentGame() throws RemoteException
-  {
+  public void addCurrentGame() throws RemoteException, SQLException {
     model
         .validateGame(title.getValue(), type.getValue(), releaseYear.getValue(),
             availabilityPeriod.getValue(), checkBox.getValue());

@@ -9,6 +9,7 @@ import model.User;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class LoginViewModel
 {
@@ -33,11 +34,10 @@ public class LoginViewModel
     return loginPassword;
   }
 
-  public User login(String username, String password) throws RemoteException
-  {
+  public User login(String username, String password) throws RemoteException, SQLException {
     return model.login(username, password);
   }
-  public void registerUser(String username, String password) throws RemoteException {
+  public void registerUser(String username, String password) throws RemoteException, SQLException {
     model.registerNewUser(username, password);
   }
 }

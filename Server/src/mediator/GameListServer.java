@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 
 
 public class GameListServer implements GameListServerModel
@@ -51,18 +52,17 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public GameList getAllGames() throws RemoteException {
+    public GameList getAllGames() throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireRead();
             return model.getFullListOfGames();
-        }
-        finally {
+        } finally {
             threadSafeServer.releaseRead();
         }
     }
 
     @Override
-    public User getUserByGame(Game game) throws RemoteException {
+    public User getUserByGame(Game game) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireRead();
             return model.getUserByGame(game);
@@ -73,7 +73,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public User getUserByCredentials(String username, String password) throws RemoteException {
+    public User getUserByCredentials(String username, String password) throws RemoteException, SQLException {
        try{
            threadSafeServer.acquireRead();
            return model.getUserByCredentials(username, password);
@@ -84,7 +84,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public RentalList getRentalList() throws RemoteException {
+    public RentalList getRentalList() throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireRead();
             return model.getRentalList();
@@ -95,7 +95,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void registerClient(String username, String password) throws RemoteException {
+    public void registerClient(String username, String password) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             model.registerUser(username, password);
@@ -106,7 +106,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void removeGame(Game game) throws RemoteException {
+    public void removeGame(Game game) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             model.removeGame(game);
@@ -117,7 +117,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void setBio(User user, String bio) throws RemoteException {
+    public void setBio(User user, String bio) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             model.setUserBio(user, bio);
@@ -128,7 +128,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void addGame(Game game) throws RemoteException {
+    public void addGame(Game game) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             System.out.println("got write");
@@ -141,7 +141,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void requestGame(User requester, Game game) throws RemoteException {
+    public void requestGame(User requester, Game game) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             model.requestGame(requester, game);
@@ -153,7 +153,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void acceptIncomingGame(Rental rental) throws RemoteException {
+    public void acceptIncomingGame(Rental rental) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             model.acceptGame(rental);
@@ -164,7 +164,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void declineIncomingGame(Rental rental) throws RemoteException {
+    public void declineIncomingGame(Rental rental) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             model.declineGame(rental);
@@ -175,7 +175,7 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public void setGameAvailableTrue(Game game) throws RemoteException {
+    public void setGameAvailableTrue(Game game) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
             model.setGameAvailableTrue(game);

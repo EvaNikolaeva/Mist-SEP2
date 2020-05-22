@@ -39,7 +39,7 @@ public class GameDAOImpl extends Database implements GameDAO
     try (Connection connection = getConnection())
     {
       PreparedStatement statement = connection.prepareStatement(
-          "INSERT INTO Game(title, type,release_year,needs_deposit, availability_period, available, user_id) VALUES("
+          "INSERT INTO Game(title, type,ReleaseYear ,NeedsDeposit , AvailabilityPeriod , Available , UserID ) VALUES("
               + "?,?,?,?,?,?,?" + "); ", PreparedStatement.RETURN_GENERATED_KEYS);
       statement.setString(1, title);
       statement.setString(2, type);
@@ -86,10 +86,10 @@ public class GameDAOImpl extends Database implements GameDAO
       if (resultSet.next())
       {
         return new Game(resultSet.getString("title"),
-            resultSet.getString("type"), resultSet.getInt("release_year"),
-            resultSet.getBoolean("needs_deposit"),
-            resultSet.getInt("availability_period"),
-            resultSet.getInt("user_id"));
+            resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
+            resultSet.getBoolean("NeedsDeposit"),
+            resultSet.getInt("AvailabilityPeriod"),
+            resultSet.getInt("UserID"));
       }
       else
       {
@@ -130,10 +130,10 @@ public class GameDAOImpl extends Database implements GameDAO
       while (resultSet.next())
       {
         Game game = new Game(resultSet.getString("title"),
-            resultSet.getString("type"), resultSet.getInt("release_year"),
-            resultSet.getBoolean("needs_deposit"),
-            resultSet.getInt("availability_period"),
-            resultSet.getInt("user_id"));
+            resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
+            resultSet.getBoolean("NeedsDeposit"),
+            resultSet.getInt("AvailabilityPeriod"),
+            resultSet.getInt("UserID"));
         availableGames.add(game);
       }
       return availableGames;
@@ -152,10 +152,10 @@ public class GameDAOImpl extends Database implements GameDAO
       while (resultSet.next())
       {
         Game game = new Game(resultSet.getString("title"),
-            resultSet.getString("type"), resultSet.getInt("release_year"),
-            resultSet.getBoolean("needs_deposit"),
-            resultSet.getInt("availability_period"),
-            resultSet.getInt("user_id"));
+            resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
+            resultSet.getBoolean("NeedsDeposit"),
+            resultSet.getInt("AvailabilityPeriod"),
+            resultSet.getInt("UserID"));
         UnavailableGames.add(game);
       }
       return UnavailableGames;

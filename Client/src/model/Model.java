@@ -4,19 +4,20 @@ import Utility.UnnamedPropertyChangeSubject;
 import mediator.GameListClientClient;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface Model
         extends UnnamedPropertyChangeSubject, OtherProfileModel, MyProfileModel,
         LoginModel, GameListModel, EditProfileModel, AddGameModel{
-    void registerNewUser(String username, String password) throws RemoteException;
+    void registerNewUser(String username, String password) throws RemoteException, SQLException;
 
-    User login(String username, String password) throws RemoteException;
+    User login(String username, String password) throws RemoteException, SQLException;
 
-    GameList getAllGamesFromServer() throws RemoteException;
+    GameList getAllGamesFromServer() throws RemoteException, SQLException;
 
-    User getUser(Game game) throws RemoteException;
+    User getUser(Game game) throws RemoteException, SQLException;
 
     void setGameBuffer(Game game);
 
@@ -26,14 +27,14 @@ public interface Model
 
     String getPassword();
 
-    void setBio(User user, String bioText) throws RemoteException;
+    void setBio(User user, String bioText) throws RemoteException, SQLException;
 
     void validateGame(String name, String type, String releaseYear,
-                      String availablePeriod, boolean needsDeposit) throws RemoteException;
+                      String availablePeriod, boolean needsDeposit) throws RemoteException, SQLException;
 
-    RentalList getRentalList() throws RemoteException;
+    RentalList getRentalList() throws RemoteException, SQLException;
 
-    void setGameAvailabilityTrue(Game game) throws RemoteException;
+    void setGameAvailabilityTrue(Game game) throws RemoteException, SQLException;
 //  void setLocalUser(User user);
 
 //  Game getGameByID(int userID) throws RemoteException;

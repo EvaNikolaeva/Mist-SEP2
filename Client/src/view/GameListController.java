@@ -9,6 +9,7 @@ import viewModel.GameListViewModel;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class GameListController {
 
@@ -19,7 +20,7 @@ public class GameListController {
     private GameListViewModel gameListViewModel;
 
     public void init(ViewHandler viewHandler, GameListViewModel gameListViewModel,
-                     Region root) throws RemoteException {
+                     Region root) throws RemoteException, SQLException {
         this.root = root;
         this.viewHandler = viewHandler;
         this.gameListViewModel = gameListViewModel;
@@ -30,26 +31,26 @@ public class GameListController {
         return root;
     }
 
-    public void reset() throws RemoteException {
+    public void reset() throws RemoteException, SQLException {
         this.availableGames.setItems(gameListViewModel.getAvailableGames());
     }
 
     @FXML
     public void onMyProfile()
             throws RemoteException, InterruptedException, NotBoundException,
-            MalformedURLException {
+            MalformedURLException, SQLException {
         viewHandler.openView("profile");
     }
 
     @FXML
     public void onAddGame()
             throws RemoteException, InterruptedException, NotBoundException,
-            MalformedURLException {
+            MalformedURLException, SQLException {
         viewHandler.openView("menu");
     }
 
     @FXML
-    public void requestGame() throws RemoteException {
+    public void requestGame() throws RemoteException, SQLException {
         if (availableGames.getSelectionModel().getSelectedIndex() < 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR,
                     "You have to select a game.", ButtonType.OK);
@@ -72,7 +73,7 @@ public class GameListController {
     @FXML
     public void onOtherProfile()
             throws RemoteException, InterruptedException, NotBoundException,
-            MalformedURLException {
+            MalformedURLException, SQLException {
         if (availableGames.getSelectionModel().getSelectedIndex() < 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR,
                     "You have to select a game.", ButtonType.OK);

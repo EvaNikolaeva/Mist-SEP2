@@ -12,6 +12,7 @@ import viewModel.OtherProfileViewModel;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class OtherProfileController
 {
@@ -25,8 +26,7 @@ public class OtherProfileController
 
   public void init(ViewHandler viewHandler,
       OtherProfileViewModel otherProfileViewModel, Region root)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     this.viewHandler = viewHandler;
     this.root = root;
     this.username.textProperty().bind(otherProfileViewModel.getUsername());
@@ -41,8 +41,7 @@ public class OtherProfileController
     return root;
   }
 
-  public void reset() throws RemoteException
-  {
+  public void reset() throws RemoteException, SQLException {
     this.ownedGames.setItems(otherProfileViewModel
             .getAllOtherUserOwnedGames());
   }
@@ -53,23 +52,20 @@ public class OtherProfileController
   }
 
   @FXML public void onBrowseGames()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     viewHandler.openView("list");
   }
 
   @FXML public void onAddGame()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     viewHandler.openView("menu");
   }
 
   @FXML public void onMyProfile()
-      throws RemoteException, MalformedURLException, InterruptedException,
-      NotBoundException
-  {
+          throws RemoteException, MalformedURLException, InterruptedException,
+          NotBoundException, SQLException {
     viewHandler.openView("profile");
   }
 }

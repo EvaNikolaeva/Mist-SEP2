@@ -1,38 +1,37 @@
 package mediator;
 
+
 import model.*;
 import utility.observer.subject.RemoteSubject;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 //RemoteSubject<GameList, RentalList>
-public interface GameListServerModel
-    extends Remote, RemoteSubject<GameList, RentalList>
-{
+public interface GameListServerModel extends Remote, RemoteSubject<GameList, RentalList>{
 
-  GameList getAllGames() throws RemoteException;
+  GameList getAllGames() throws RemoteException, SQLException;
 
-  User getUserByGame(Game game) throws RemoteException;
+  User getUserByGame(Game game) throws RemoteException, SQLException;
 
-  User getUserByCredentials(String username, String password)
-      throws RemoteException;
+  User getUserByCredentials(String username, String password) throws RemoteException, SQLException;
 
-  RentalList getRentalList() throws RemoteException;
+  RentalList getRentalList() throws RemoteException, SQLException;
 
-  void registerClient(String username, String password) throws RemoteException;
+  void registerClient(String username, String password) throws RemoteException, SQLException;
 
-  void removeGame(Game game) throws RemoteException;
+  void removeGame(Game game) throws RemoteException, SQLException;
 
-  void setBio(User user, String bio) throws RemoteException;
+  void setBio(User user, String bio) throws RemoteException, SQLException;
 
-  void addGame(Game game) throws RemoteException;
+  void addGame(Game game) throws RemoteException, SQLException;
 
-  void requestGame(User requester, Game game) throws RemoteException;
+  void requestGame(User requester, Game game) throws RemoteException, SQLException;
 
-  void acceptIncomingGame(Rental rental) throws RemoteException;
+  void acceptIncomingGame(Rental rental) throws RemoteException, SQLException;
 
-  void declineIncomingGame(Rental rental) throws RemoteException;
+  void declineIncomingGame(Rental rental) throws RemoteException, SQLException;
 
-  void setGameAvailableTrue(Game game) throws RemoteException;
+  void setGameAvailableTrue(Game game) throws RemoteException, SQLException;
 }

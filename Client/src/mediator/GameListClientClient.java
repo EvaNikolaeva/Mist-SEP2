@@ -5,6 +5,7 @@ import utility.observer.subject.RemoteSubject;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 
 public interface GameListClientClient
@@ -12,30 +13,30 @@ public interface GameListClientClient
     void connect() throws InterruptedException;
 
     void registerNewUser(String username, String password)
-        throws RemoteException;
+            throws RemoteException, SQLException;
 
     User login(String username, String password) throws
-        RemoteException;  //instead of the first 4 from below and last 2 from below
+            RemoteException, SQLException;  //instead of the first 4 from below and last 2 from below
 
-    GameList getGamesFromServer() throws RemoteException;
+    GameList getGamesFromServer() throws RemoteException, SQLException;
 
-    RentalList clientGetRentalList() throws RemoteException;
+    RentalList clientGetRentalList() throws RemoteException, SQLException;
 
-    void clientRemoveGame(Game game) throws RemoteException;
+    void clientRemoveGame(Game game) throws RemoteException, SQLException;
 
-    void clientSetBio(User user, String bio) throws RemoteException;
+    void clientSetBio(User user, String bio) throws RemoteException, SQLException;
 
-    void clientAddGame(Game game) throws RemoteException;
+    void clientAddGame(Game game) throws RemoteException, SQLException;
 
-    void clientRequestGame(User requester, Game game) throws RemoteException;
+    void clientRequestGame(User requester, Game game) throws RemoteException, SQLException;
 
-    void clientAcceptIncomingGame(Rental rental) throws RemoteException;
+    void clientAcceptIncomingGame(Rental rental) throws RemoteException, SQLException;
 
-    void clientDeclineIncomingGame(Rental rental) throws RemoteException;
+    void clientDeclineIncomingGame(Rental rental) throws RemoteException, SQLException;
 
-    User getUserFromServer(Game game) throws RemoteException; // instead of the 4 below
+    User getUserFromServer(Game game) throws RemoteException, SQLException; // instead of the 4 below
 
-    void setGameAvailableTrue(Game game) throws RemoteException;
+    void setGameAvailableTrue(Game game) throws RemoteException, SQLException;
     //return type is only for me
 
 

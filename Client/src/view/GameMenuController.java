@@ -10,6 +10,7 @@ import viewModel.GameMenuViewModel;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class GameMenuController
 {
@@ -61,15 +62,14 @@ public class GameMenuController
     reset();
   }
 
-  @FXML public void onSubmit() throws RemoteException
-  {
+  @FXML public void onSubmit() throws RemoteException, SQLException {
     gameMenuViewModel.addCurrentGame();
     Platform.runLater(() -> {
       try
       {
         checkGame();
       }
-      catch (RemoteException | InterruptedException | NotBoundException | MalformedURLException e)
+      catch (RemoteException | InterruptedException | NotBoundException | MalformedURLException | SQLException e)
       {
         e.printStackTrace();
       }
@@ -78,9 +78,8 @@ public class GameMenuController
   }
 
   public void checkGame()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     System.out.println(responseMessage);
     if (responseMessage.getValue().equals("Success"))
     {
@@ -96,9 +95,8 @@ public class GameMenuController
   }
 
   @FXML public void onBack()
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     viewHandler.openView("list");
   }
 }

@@ -6,6 +6,7 @@ import mediator.GameListClientClient;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,14 +29,12 @@ public class ModelManager implements Model
   }
 
   @Override public void registerNewUser(String username, String password)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     gameListClientModel.registerNewUser(username, password);
   }
 
   @Override public User login(String username, String password)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     this.username = username;
     this.password = password;
     user = gameListClientModel.login(username, password);
@@ -43,35 +42,29 @@ public class ModelManager implements Model
   }
 
   @Override public void clientAcceptIncomingGame(Rental rental)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     gameListClientModel.clientAcceptIncomingGame(rental);
   }
 
   @Override public void clientDeclineIncomingGame(Rental rental)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     gameListClientModel.clientDeclineIncomingGame(rental);
   }
 
-  @Override public void clientRemoveGame(Game game) throws RemoteException
-  {
+  @Override public void clientRemoveGame(Game game) throws RemoteException, SQLException {
     gameListClientModel.clientRemoveGame(game);
   }
 
-  @Override public GameList getAllGamesFromServer() throws RemoteException
-  {
+  @Override public GameList getAllGamesFromServer() throws RemoteException, SQLException {
     return gameListClientModel.getGamesFromServer();
   }
 
   @Override public void clientRequestGame(User requester, Game game)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     gameListClientModel.clientRequestGame(requester, game);
   }
 
-  @Override public User getUser(Game game) throws RemoteException
-  {
+  @Override public User getUser(Game game) throws RemoteException, SQLException {
     return gameListClientModel.getUserFromServer(game);
   }
 
@@ -95,8 +88,7 @@ public class ModelManager implements Model
     return password;
   }
 
-  @Override public void setBio(User user, String bioText) throws RemoteException
-  {
+  @Override public void setBio(User user, String bioText) throws RemoteException, SQLException {
     gameListClientModel.clientSetBio(user, bioText);
   }
 
@@ -108,15 +100,13 @@ public class ModelManager implements Model
   //If the result is "Success" the game is added. Anything else will result in a pop up error
   //Also, the order each check is made makes sense programming wise.
 
-  @Override public void clientAddGame(Game game) throws RemoteException
-  {
+  @Override public void clientAddGame(Game game) throws RemoteException, SQLException {
     gameListClientModel.clientAddGame(game);
   }
 
   @Override public void validateGame(String name, String type,
       String releaseYear, String availablePeriod, boolean needsDeposit)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
 
     //this is the check for everything not null. If the if is valid, which is not good,
     //the error message is sent
@@ -189,14 +179,12 @@ public class ModelManager implements Model
     }
   }
 
-  @Override public RentalList getRentalList() throws RemoteException
-  {
+  @Override public RentalList getRentalList() throws RemoteException, SQLException {
     return gameListClientModel.clientGetRentalList();
   }
 
   @Override public void setGameAvailabilityTrue(Game game)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     gameListClientModel.setGameAvailableTrue(game);
   }
 

@@ -72,6 +72,7 @@ public class UserDAOImpl extends Database implements UserDAO
         try(Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM User_dbms WHERE username LIKE ? and password LIKE ?");
             statement.setString(1, "%" + username +"%");
+            statement.setString(2, "%" + password +"%");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("userid");
@@ -89,9 +90,10 @@ public class UserDAOImpl extends Database implements UserDAO
         try (Connection connection = getConnection())
         {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO User_dbms (username,password) VALUES (?,?) ", PreparedStatement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO User_dbms (username,password,bio) VALUES (?,?,?) ", PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, username);
             statement.setString(2, password);
+            statement.setString(3, "Default bio, please change");
             statement.executeUpdate();
         }
     }

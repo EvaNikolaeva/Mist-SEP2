@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class ViewHandler
 {
@@ -30,18 +31,16 @@ public class ViewHandler
   }
 
   public void start(Stage primaryStage)
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     this.primaryStage = primaryStage;
     this.currentScene = new Scene(new Region());
     openView("loading");
   }
 
   public void openView(String id)
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     Region root = null;
     switch (id)
     {
@@ -78,8 +77,7 @@ public class ViewHandler
     primaryStage.show();
   }
 
-  private Region loadGameListView(String fxmlFile) throws RemoteException
-  {
+  private Region loadGameListView(String fxmlFile) throws RemoteException, SQLException {
     if (gameListController == null)
     {
       try
@@ -129,9 +127,8 @@ public class ViewHandler
   }
 
   private Region loadMyProfileMenuView(String fxmlFile)
-      throws RemoteException, InterruptedException, NotBoundException,
-      MalformedURLException
-  {
+          throws RemoteException, InterruptedException, NotBoundException,
+          MalformedURLException, SQLException {
     if (myProfileController == null)
     {
       try
@@ -206,8 +203,7 @@ public class ViewHandler
     return loginScreenController.getRoot();
   }
 
-  private Region loadOtherProfileController(String fxmlFile) throws RemoteException
-  {
+  private Region loadOtherProfileController(String fxmlFile) throws RemoteException, SQLException {
     if (otherProfileController == null)
     {
       try

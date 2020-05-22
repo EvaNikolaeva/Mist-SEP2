@@ -8,6 +8,7 @@ import model.GameListModel;
 import model.Model;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class GameListViewModel {
     private GameListModel model;
@@ -18,7 +19,7 @@ public class GameListViewModel {
         this.availableGames = FXCollections.observableArrayList();
     }
 
-    public ObservableList<Game> getAvailableGames() throws RemoteException {
+    public ObservableList<Game> getAvailableGames() throws RemoteException, SQLException {
         GameList gameList = model.getAllGamesFromServer();
         availableGames.clear();
         for (int i = 0; i < gameList.size(); i++) {
@@ -27,7 +28,7 @@ public class GameListViewModel {
         return availableGames;
     }
 
-    public void requestTrade(Game game) throws RemoteException {
+    public void requestTrade(Game game) throws RemoteException, SQLException {
         model.clientRequestGame(model.login(model.getUsername(), model.getPassword()), game);
     }
 

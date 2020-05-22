@@ -6,6 +6,7 @@ import model.EditProfileModel;
 import model.Model;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class EditProfileViewModel
 {
@@ -17,12 +18,11 @@ public class EditProfileViewModel
     this.model = model;
     this.bio = new SimpleStringProperty();
   }
-  public StringProperty getBio() throws RemoteException {
+  public StringProperty getBio() throws RemoteException, SQLException {
     bio.setValue(model.login(model.getUsername(), model.getPassword()).getBio());
     return bio;
   }
-  public void editBio(String bio) throws RemoteException
-  {
+  public void editBio(String bio) throws RemoteException, SQLException {
     model.setBio(model.login(model.getUsername(), model.getPassword()), bio);
   }
 }

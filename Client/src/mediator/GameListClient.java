@@ -8,6 +8,7 @@ import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 
 public class GameListClient implements GameListClientClient, Remote
 {
@@ -52,68 +53,56 @@ public class GameListClient implements GameListClientClient, Remote
   }
 
   @Override public void registerNewUser(String username, String password)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     server.registerClient(username, password);
   }
 
   @Override public User login(String username, String password)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     return server.getUserByCredentials(username, password);
   }
 
-  @Override public GameList getGamesFromServer() throws RemoteException
-  {
+  @Override public GameList getGamesFromServer() throws RemoteException, SQLException {
     return server.getAllGames();
   }
 
-  @Override public RentalList clientGetRentalList() throws RemoteException
-  {
+  @Override public RentalList clientGetRentalList() throws RemoteException, SQLException {
     return server.getRentalList();
   }
 
-  @Override public void clientRemoveGame(Game game) throws RemoteException
-  {
+  @Override public void clientRemoveGame(Game game) throws RemoteException, SQLException {
     server.removeGame(game);
   }
 
   @Override public void clientSetBio(User user, String bio)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     server.setBio(user, bio);
   }
 
-  @Override public void clientAddGame(Game game) throws RemoteException
-  {
+  @Override public void clientAddGame(Game game) throws RemoteException, SQLException {
     server.addGame(game);
   }
 
   @Override public void clientRequestGame(User requester, Game game)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     server.requestGame(requester, game);
   }
 
   @Override public void clientAcceptIncomingGame(Rental rental)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     server.acceptIncomingGame(rental);
   }
 
   @Override public void clientDeclineIncomingGame(Rental rental)
-      throws RemoteException
-  {
+          throws RemoteException, SQLException {
     server.declineIncomingGame(rental);
   }
 
-  @Override public User getUserFromServer(Game game) throws RemoteException
-  {
+  @Override public User getUserFromServer(Game game) throws RemoteException, SQLException {
     return server.getUserByGame(game);
   }
 
-  @Override public void setGameAvailableTrue(Game game) throws RemoteException
-  {
+  @Override public void setGameAvailableTrue(Game game) throws RemoteException, SQLException {
     server.setGameAvailableTrue(game);
   }
 

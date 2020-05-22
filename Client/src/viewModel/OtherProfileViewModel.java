@@ -4,12 +4,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Game;
-import model.Model;
-import model.OtherProfileModel;
-import model.User;
+import model.*;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OtherProfileViewModel
@@ -27,26 +25,25 @@ public class OtherProfileViewModel
     this.ownedGames = FXCollections.observableArrayList();
   }
 
-  public StringProperty getBio() throws RemoteException
-  {
+  public StringProperty getBio() throws RemoteException, SQLException {
     bio.setValue(model.getUser(model.getGameBuffer()).getBio());
     return bio;
   }
 
-  public StringProperty getUsername() throws RemoteException
-  {
+  public StringProperty getUsername() throws RemoteException, SQLException {
     username.setValue(model.getUser(model.getGameBuffer()).getUsername());
     return username;
   }
 
-  public ObservableList<Game> getAllOtherUserOwnedGames() throws RemoteException
-  {
+  public ObservableList<Game> getAllOtherUserOwnedGames() throws RemoteException, SQLException {
     ownedGames.clear();
-    for (int i = 0;
-         i < model.getUser(model.getGameBuffer()).getGameList().size(); i++)
-    {
-      ownedGames
-          .add(model.getUser(model.getGameBuffer()).getGameList().getGame(i));
+    User userBuffer = model.getUser(model.getGameBuffer());
+    GameList allGames = model.getAllGamesFromServer();
+    ownedGames.clear();
+    for(int i = 0; i < allGames.size(); i++){
+      if(allGames.getGame(i).getUserId() == userBuffer.getUserID()){
+        ownedGames.add(allGames.getGame(i));
+      }
     }
     return ownedGames;
   }

@@ -3,25 +3,26 @@ package model;
 import utility.UnnamedPropertyChangeSubject;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public interface Model extends UnnamedPropertyChangeSubject
 {
-  User getUserByID(int id);
-  User getUserByCredentials(String username, String password);
-  void setUserBio(User user, String bio) throws RemoteException;
+  User getUserByID(int id) throws SQLException;
+  User getUserByCredentials(String username, String password) throws SQLException;
+  void setUserBio(User user, String bio) throws RemoteException, SQLException;
 
-  void requestGame(User requester, Game game) throws RemoteException;
-  void acceptGame(Rental rental) throws RemoteException;
-  void declineGame(Rental rental) throws RemoteException;
-  GameList getFullListOfGames() throws RemoteException;
+  void requestGame(User requester, Game game) throws RemoteException, SQLException;
+  void acceptGame(Rental rental) throws RemoteException, SQLException;
+  void declineGame(Rental rental) throws RemoteException, SQLException;
+  GameList getFullListOfGames() throws RemoteException, SQLException;
 
-  void addGame(Game game) throws RemoteException;
-  void removeGame(Game game) throws RemoteException;
+  void addGame(Game game) throws RemoteException, SQLException;
+  void removeGame(Game game) throws RemoteException, SQLException;
   Game getGameByIndex(int index);
-  Game getGameByID(int gameID);
-  User getUserByGame(Game game);
-  int getSizeOfGameList();
-RentalList getRentalList();
-  void registerUser(String username, String password);
-  void setGameAvailableTrue(Game game);
+  Game getGameByID(int gameID) throws SQLException;
+  User getUserByGame(Game game) throws SQLException;
+  int getSizeOfGameList() throws SQLException;
+RentalList getRentalList() throws SQLException;
+  void registerUser(String username, String password) throws SQLException;
+  void setGameAvailableTrue(Game game) throws SQLException;
 }

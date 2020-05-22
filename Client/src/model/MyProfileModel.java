@@ -1,18 +1,20 @@
 package model;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface MyProfileModel
 {
-  User login(String username, String password) throws RemoteException;
-  void clientAcceptIncomingGame(Rental rental) throws RemoteException;
-  void clientDeclineIncomingGame(Rental rental) throws RemoteException;
-  void clientRemoveGame(Game game) throws RemoteException;
+  User login(String username, String password) throws RemoteException, SQLException;
+  void clientAcceptIncomingGame(Rental rental) throws RemoteException, SQLException;
+  void clientDeclineIncomingGame(Rental rental) throws RemoteException, SQLException;
+  void clientRemoveGame(Game game) throws RemoteException, SQLException;
   String getUsername();
   String getPassword();
-  RentalList getRentalList() throws RemoteException;
-  void setGameAvailabilityTrue(Game game) throws RemoteException;
+  RentalList getRentalList() throws RemoteException, SQLException;
+  void setGameAvailabilityTrue(Game game) throws RemoteException, SQLException;
+  GameList getAllGamesFromServer() throws RemoteException, SQLException;
 //  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;
