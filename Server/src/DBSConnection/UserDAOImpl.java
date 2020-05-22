@@ -21,7 +21,7 @@ public class UserDAOImpl extends Database implements UserDAO
         return super.getConnection();
     }
 
-    public static UserDAOImpl getInstance() throws SQLException
+    public static synchronized UserDAOImpl getInstance() throws SQLException
     {
         if (instance == null)
         {
@@ -66,8 +66,22 @@ public class UserDAOImpl extends Database implements UserDAO
     }
 
     @Override
-    public void registerUser(String username, String password)
+    public void registerUser(String username, String password) throws SQLException
     {
-
+        try (Connection connection = getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO User_dbms (username,password) VALUES (?,?) ", PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.executeUpdate();
+            ResultSet keys = statement.getGeneratedKeys();
+//            if (keys.next())
+//            {
+//                return new User(keys.getInt("userid"), username, password);
+//            } else {
+//                throw new SQLException("No keys generated");
+//            }
+        }
     }
 }
