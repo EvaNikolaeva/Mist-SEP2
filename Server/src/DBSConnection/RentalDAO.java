@@ -11,6 +11,7 @@ public interface RentalDAO
     ArrayList<Rental> getRentals();
     void addRental(User owner, User requester, Game game);
     Rental getRentalById(int id);
-    void removeRental(Rental rental);
-    //int size();
+    void acceptRental(Rental rental);
+    void declineRental(Rental rental);
+    int size();
 }
