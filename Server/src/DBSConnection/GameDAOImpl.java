@@ -49,7 +49,6 @@ public class GameDAOImpl extends Database implements GameDAO
       statement.setBoolean(6, true);
       statement.setInt(7, userId);
       statement.executeQuery();
-
     }
   }
 
