@@ -40,7 +40,7 @@ public class GameDAOImpl extends Database implements GameDAO
     {
       PreparedStatement statement = connection.prepareStatement(
           "INSERT INTO Game(title, type,release_year,needs_deposit, availability_period, available, user_id) VALUES("
-              + "?,?,?,?,?,?,?" + "); ");
+              + "?,?,?,?,?,?,?" + "); ", PreparedStatement.RETURN_GENERATED_KEYS);
       statement.setString(1, title);
       statement.setString(2, type);
       statement.setInt(3, releaseYear);

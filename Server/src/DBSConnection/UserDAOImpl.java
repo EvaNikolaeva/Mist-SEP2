@@ -31,16 +31,34 @@ public class UserDAOImpl extends Database implements UserDAO
     }
 
     @Override
-    public User getUserByUserID(int id) throws SQLException
-    {
-        try(Connection connection = getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM User WHERE userid = ?");
+    public User getUserByUserID(int id) throws SQLException {
+        try (Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM User_dbms WHERE userid = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
-                return new User(username, password,id);
+                return new User(username, password, id);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    // I'm not sure about this method
+    @Override
+    public User getUser(User user) throws SQLException
+    {
+        try(Connection connection = getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM User_dbms WHERE userid = ?");
+            statement.setInt(1, user.getUserID());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                return new User(username, password,user.getUserID());
             }
             else {
                 return null;
@@ -52,7 +70,7 @@ public class UserDAOImpl extends Database implements UserDAO
     public User getUserByCredentials(String username, String password) throws SQLException
     {
         try(Connection connection = getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM User WHERE username LIKE ? and password LIKE ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM User_dbms WHERE username LIKE ? and password LIKE ?");
             statement.setString(1, "%" + username +"%");
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -75,13 +93,26 @@ public class UserDAOImpl extends Database implements UserDAO
             statement.setString(1, username);
             statement.setString(2, password);
             statement.executeUpdate();
-            ResultSet keys = statement.getGeneratedKeys();
-//            if (keys.next())
-//            {
-//                return new User(keys.getInt("userid"), username, password);
-//            } else {
-//                throw new SQLException("No keys generated");
-//            }
+        }
+    }
+
+    @Override
+    public int size() throws SQLException
+    {
+        try (Connection connection = getConnection())
+        {
+            PreparedStatement statement = connection
+                    .prepareStatement("SELECT COUNT(userid) as size FROM User_dbms");
+            statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                return resultSet.getInt("size");
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }
