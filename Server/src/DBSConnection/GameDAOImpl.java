@@ -161,4 +161,15 @@ public class GameDAOImpl extends Database implements GameDAO
       return UnavailableGames;
     }
   }
+
+  @Override
+  public void setAvailable(Game game) throws SQLException
+  {
+    try(Connection connection = getConnection())
+    {
+      PreparedStatement statement = connection.prepareStatement("UPDATE Game SET available = true WHERE gameid = ?");
+      statement.setInt(1, game.getId());
+      statement.executeUpdate();
+    }
+  }
 }

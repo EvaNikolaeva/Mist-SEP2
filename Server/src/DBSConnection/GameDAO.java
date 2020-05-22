@@ -17,4 +17,5 @@ public interface GameDAO
 //    boolean equals(Object obj);
     ArrayList<Game> getAvailableGames() throws SQLException;
     ArrayList<Game> getUnavailableGames() throws SQLException;
+    void setAvailable(Game game) throws SQLException;
 }
