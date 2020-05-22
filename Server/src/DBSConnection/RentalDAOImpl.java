@@ -66,6 +66,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
             statement.executeUpdate();
             PreparedStatement statement1 = connection.prepareStatement("UPDATE Game SET available = false WHERE gameid = ?");
             statement1.setInt(1, id);
+            statement.executeUpdate();
         }
     }
 
