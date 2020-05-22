@@ -13,6 +13,6 @@ public abstract class Database
 
     public Connection getConnection() throws SQLException
     {
-        return DriverManager.getConnection("jdbc:postgresql://35.204.219.115:5432/postgres", "postgres", "dankmemes");
+        return DriverManager.getConnection("jdbc:postgresql://35.204.219.115:5432/postgres", "JavaApp", "password123");
     }
 }
