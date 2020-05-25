@@ -13,5 +13,6 @@ public interface UserDAO
    // User getUserByIndex(int index) throws SQLException;
     int size() throws SQLException;
     void setBio(User user, String bio) throws SQLException;
+//    String getBio(User user) throws SQLException;
 
 }
