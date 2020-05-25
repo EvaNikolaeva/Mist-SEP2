@@ -54,13 +54,13 @@ public class GameDAOImpl extends Database implements GameDAO
 
   @Override public void removeGame(int id) throws SQLException
   {
-    try (Connection connection = getConnection())
-    {
-      PreparedStatement statement = connection
-          .prepareStatement("DELETE FROM GAME WHERE game_id=?");
-      statement.setInt(1, id);
-      statement.executeUpdate();
-    }
+//    try (Connection connection = getConnection())
+//    {
+//      PreparedStatement statement = connection
+//          .prepareStatement("DELETE FROM GAME WHERE gameid=?");
+//      statement.setInt(1, id);
+//      statement.executeUpdate();
+//    }    Cata:this is not used anywhere
   }
 
   @Override public void removeGame(Game game) throws SQLException
@@ -68,7 +68,7 @@ public class GameDAOImpl extends Database implements GameDAO
     try (Connection connection = getConnection())
     {
       PreparedStatement statement = connection
-          .prepareStatement("DELETE FROM GAME WHERE game_id=?");
+          .prepareStatement("DELETE FROM GAME WHERE gameid=?");
       statement.setInt(1, game.getId());
       statement.executeUpdate();
     }
@@ -79,7 +79,7 @@ public class GameDAOImpl extends Database implements GameDAO
     try (Connection connection = getConnection())
     {
       PreparedStatement statement = connection
-          .prepareStatement("SELECT * FROM Game WHERE game_id =?");
+          .prepareStatement("SELECT * FROM Game WHERE gameid =?");
       statement.setInt(1, id);
       statement.executeQuery();
       ResultSet resultSet = statement.executeQuery();
@@ -103,7 +103,7 @@ public class GameDAOImpl extends Database implements GameDAO
     try (Connection connection = getConnection())
     {
       PreparedStatement statement = connection
-          .prepareStatement("SELECT COUNT(game_id) as size FROM Game");
+          .prepareStatement("SELECT COUNT(gameid) as size FROM Game");
       statement.executeQuery();
       ResultSet resultSet = statement.executeQuery();
       if (resultSet.next())
