@@ -34,65 +34,98 @@ public class MyProfileViewModel
     this.username = new SimpleStringProperty();
   }
 
-  public ObservableList<Game> getOwnedGames() throws RemoteException, SQLException {
+  public ObservableList<Game> getOwnedGames()
+      throws RemoteException, SQLException
+  {
     User userBuffer = model.login(model.getUsername(), model.getPassword());
     GameList allGames = model.getAllGamesFromServer();
     ownedGames.clear();
-    for(int i = 0; i < allGames.size(); i++){
-      if(allGames.getGame(i).getUserId() == userBuffer.getUserID()){
+    for (int i = 0; i < allGames.size(); i++)
+    {
+      if (allGames.getGame(i).getUserId() == userBuffer.getUserID())
+      {
         ownedGames.add(allGames.getGame(i));
       }
     }
     return ownedGames;
   }
-  public ObservableList<Game> getRentedGames() throws RemoteException, SQLException {
+
+  public ObservableList<Game> getRentedGames()
+      throws RemoteException, SQLException
+  {
     User userBuffer = model.login(model.getUsername(), model.getPassword());
     rentedGames.clear();
-    for(int i = 0; i < userBuffer.getRentedGameList().size(); i++){
+    for (int i = 0; i < userBuffer.getRentedGameList().size(); i++)
+    {
       rentedGames.add(userBuffer.getRentedGameList().getGame(i));
     }
     return rentedGames;
   }
 
-  public ObservableList<Rental> getRentals() throws RemoteException, SQLException {
+  public ObservableList<Rental> getRentals()
+      throws RemoteException, SQLException
+  {
+
+    RentalList rentalList = model.getRentalList();
     rentals.clear();
-    for(int i = 0; i <  model.getRentalList().getRentals().size(); i++){
-      if(model.getRentalList().getRentals().get(i).getOwner().getUserID() == model.login(model.getUsername(), model.getPassword()).getUserID()){
-        rentals.add(model.getRentalList().getRentals().get(i));
+    for (int i = 0; i < rentalList.size(); i++)
+    {
+      if (rentalList.getRentals().get(i).getOwner().getUserID() == model
+          .login(model.getUsername(), model.getPassword()).getUserID())
+      {
+        rentals.add(rentalList.getRentals().get(i));
       }
     }
     return rentals;
+
   }
-  public ObservableList<Rental> getPendingRentals() throws RemoteException, SQLException {
+
+  public ObservableList<Rental> getPendingRentals()
+      throws RemoteException, SQLException
+  {
     pendingRentals.clear();
-    for(int i = 0; i <  model.getRentalList().getRentals().size(); i++){
-      if(model.getRentalList().getRentals().get(i).getRequester().getUserID() == model.login(model.getUsername(), model.getPassword()).getUserID()){
+    for (int i = 0; i < model.getRentalList().getRentals().size(); i++)
+    {
+      if (model.getRentalList().getRentals().get(i).getRequester().getUserID()
+          == model.login(model.getUsername(), model.getPassword()).getUserID())
+      {
         pendingRentals.add(model.getRentalList().getRentals().get(i));
       }
     }
     return pendingRentals;
   }
 
-public StringProperty getBio() throws RemoteException, SQLException {
-    bio.setValue(model.login(model.getUsername(), model.getPassword()).getBio());
-  System.out.println(bio.getValue() + " Users bio");
+  public StringProperty getBio() throws RemoteException, SQLException
+  {
+    bio.setValue(
+        model.login(model.getUsername(), model.getPassword()).getBio());
+    System.out.println(bio.getValue() + " Users bio");
     return bio;
-}
-  public StringProperty getUsername(){
+  }
+
+  public StringProperty getUsername()
+  {
     username.setValue(model.getUsername());
     return username;
   }
-  public void removeGame(Game game) throws RemoteException, SQLException {
+
+  public void removeGame(Game game) throws RemoteException, SQLException
+  {
     model.clientRemoveGame(game);
   }
 
-  public void acceptGame(Rental rental) throws RemoteException, SQLException {
+  public void acceptGame(Rental rental) throws RemoteException, SQLException
+  {
     model.clientAcceptIncomingGame(rental);
   }
-  public void declineGame(Rental rental) throws RemoteException, SQLException {
+
+  public void declineGame(Rental rental) throws RemoteException, SQLException
+  {
     model.clientDeclineIncomingGame(rental);
   }
-  public void setGameAvailable(Game game) throws RemoteException, SQLException {
-model.setGameAvailabilityTrue(game);
+
+  public void setGameAvailable(Game game) throws RemoteException, SQLException
+  {
+    model.setGameAvailabilityTrue(game);
   }
 }

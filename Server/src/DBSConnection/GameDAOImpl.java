@@ -133,7 +133,8 @@ public class GameDAOImpl extends Database implements GameDAO
             resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
             resultSet.getBoolean("NeedsDeposit"),
             resultSet.getInt("AvailabilityPeriod"),
-            resultSet.getInt("UserID"));
+            resultSet.getInt("UserID"),
+            resultSet.getInt("gameid"));
         availableGames.add(game);
       }
       return availableGames;

@@ -64,7 +64,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
         PreparedStatement statement2 = connection
             .prepareStatement("SELECT * FROM user_dbms where userid = ?");
         statement2.setInt(1, requesterId);
-        ResultSet result1 = statement1.executeQuery();
+        ResultSet result1 = statement2.executeQuery();
         if (result1.next())
         {
           requester = new User(result1.getString("username"),
@@ -81,11 +81,14 @@ public class RentalDAOImpl extends Database implements RentalDAO
                   result2.getString("type"), result2.getInt("ReleaseYear"),
                   result2.getBoolean("NeedsDeposit"),
                   result2.getInt("AvailabilityPeriod"),
-                  result2.getInt("UserID"));
+                  result2.getInt("UserID"),
+                  result2.getInt("gameid"));
         }
         Rental rental = new Rental(owner, requester, game, rentalId);
         rentals.add(rental);
-
+        System.out.println("||||||||||||||" + "Owner:" +  owner.getUsername() +
+            " " + "Requester:" + requester.getUsername() + " " + "Game:" + game.getTitle()
+            + " " + rentalId);
         return rentals;
       }
     }
@@ -115,7 +118,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
 
   @Override public Rental getRentalById(int id) throws SQLException
   {
-    //The if statements don't work, the game/requester stay as null objects;
+    //The if statements don't work, the game/requester stay as null objects; not used
     Game game = null;
     User owner = null;
     User requester = null;
@@ -164,7 +167,9 @@ public class RentalDAOImpl extends Database implements RentalDAO
               resultSet.getInt("AvailabilityPeriod"),
               resultSet.getInt("UserID"));
         }
-
+        System.out.println("||||||||||||||" + "Owner:" +  owner.getUsername() +
+            " " + "Requester:" + requester.getUsername() + " " + "Game:" + game.getTitle()
+        + " " + rentalId);
         return new Rental(owner, requester, game,rentalId);
       }
       else
