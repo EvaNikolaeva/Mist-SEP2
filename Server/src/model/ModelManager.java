@@ -14,11 +14,13 @@ public class ModelManager implements Model
   private GameDAO gameList;
   private RentalDAO rentalList;
   private UserDAO userList;
+  private RentedGameDAO rentedList;
 
   public ModelManager() throws SQLException {
-    this.gameList = new GameDAOImpl();
-    this.userList = new UserDAOImpl();
-    this.rentalList = new RentalDAOImpl();
+    this.gameList = GameDAOImpl.getInstance();
+    this.userList = UserDAOImpl.getInstance();
+    this.rentalList = RentalDAOImpl.getInstance();
+    this.rentedList = RentedGameDAOImpl.getInstance();
     this.propertyChangeSupport = new PropertyChangeSupport(this);
   }
 
@@ -56,8 +58,12 @@ else{
   @Override public GameList getFullListOfGames() throws RemoteException, SQLException {
     GameList gameListObject = new GameList();
     ArrayList<Game> gamesDBS = gameList.getAvailableGames();
+    ArrayList<Game> unavailableGames = gameList.getUnavailableGames();
     for(int i = 0; i < gamesDBS.size(); i++){
       gameListObject.addGame(gamesDBS.get(i));
+    }
+    for(int i = 0; i< unavailableGames.size(); i++){
+        gameListObject.addGame(unavailableGames.get(i));
     }
 return gameListObject;
   }
@@ -105,7 +111,14 @@ gameList.addGame(game.getTitle(), game.getType(), game.getReleaseYear(), game.de
   @Override public void setGameAvailableTrue(Game game) throws SQLException {
 gameList.setAvailable(game);
   }
-
+  @Override public GameList getRentedGames() throws SQLException{
+      GameList rentedGamesObj = new GameList();
+      ArrayList<Game> rentedArray = rentedList.getRentedGames();
+      for(int i = 0; i < rentedArray.size(); i++){
+          rentedGamesObj.addGame(rentedArray.get(i));
+      }
+      return rentedGamesObj;
+  }
   @Override public void addListener(PropertyChangeListener listener)
   {
     propertyChangeSupport.addPropertyChangeListener(listener);

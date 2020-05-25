@@ -11,7 +11,7 @@ public class UserDAOImpl extends Database implements UserDAO
 {
   private static UserDAOImpl instance;
 
-  public UserDAOImpl() throws SQLException
+  private UserDAOImpl() throws SQLException
   {
     super();
   }

@@ -23,8 +23,11 @@ public class GameListViewModel {
         GameList gameList = model.getAllGamesFromServer();
         availableGames.clear();
         for (int i = 0; i < gameList.size(); i++) {
-            availableGames.add(gameList.getGame(i));
+            if(!(gameList.getGame(i).getId() == -1)){
+                availableGames.add(gameList.getGame(i));
+            }
         }
+        GameList gameListUnavailable = model.getAllGamesFromServer();
         return availableGames;
     }
 

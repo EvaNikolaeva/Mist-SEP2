@@ -35,6 +35,8 @@ public interface Model
     RentalList getRentalList() throws RemoteException, SQLException;
 
     void setGameAvailabilityTrue(Game game) throws RemoteException, SQLException;
+
+    GameList getAllRentedGames() throws RemoteException, SQLException;
 //  void setLocalUser(User user);
 
 //  Game getGameByID(int userID) throws RemoteException;

@@ -14,7 +14,7 @@ public class RentalDAOImpl extends Database implements RentalDAO
 {
   private static RentalDAOImpl instance;
 
-  public RentalDAOImpl() throws SQLException
+  private RentalDAOImpl() throws SQLException
   {
     super();
   }
@@ -86,13 +86,14 @@ public class RentalDAOImpl extends Database implements RentalDAO
         }
         Rental rental = new Rental(owner, requester, game, rentalId);
         rentals.add(rental);
-        System.out.println("||||||||||||||" + "Owner:" +  owner.getUsername() +
-            " " + "Requester:" + requester.getUsername() + " " + "Game:" + game.getTitle()
-            + " " + rentalId);
+          System.out.println("bruh moment");
         return rentals;
       }
     }
-    return null;
+    ArrayList<Rental> rentalArrayDummy = new ArrayList<>();
+    Rental rentalDummy = new Rental(null, null, null, -1);
+    rentalArrayDummy.add(rentalDummy);
+    return rentalArrayDummy;
   }
 
   @Override public void addRental(User owner, User requester, Game game)
@@ -199,19 +200,22 @@ public class RentalDAOImpl extends Database implements RentalDAO
     }
   }
 
-  //might have to use joins
+
   @Override public void declineRental(Rental rental) throws SQLException
   {
     try (Connection connection = getConnection())
     {
-      int id = rental.getId();
+      int Gameid = rental.getGame().getId();
+      System.out.println(Gameid);
       PreparedStatement statement = connection
           .prepareStatement("DELETE FROM Rental WHERE rentalid = ?");
       statement.setInt(1, rental.getId());
       statement.executeUpdate();
+      System.out.println("what the fuck");
       PreparedStatement statement1 = connection.prepareStatement(
           "UPDATE Game SET available = true WHERE gameid = ?");
-      statement1.setInt(1, id);
+      statement1.setInt(1, Gameid);
+      statement1.executeUpdate();
     }
   }
 

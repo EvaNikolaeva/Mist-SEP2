@@ -186,6 +186,11 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
+    public GameList getRentedGames() throws RemoteException, SQLException {
+        return model.getRentedGames();
+    }
+
+    @Override
     public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
         return false;
     }

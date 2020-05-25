@@ -1,5 +1,8 @@
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import mediator.GameListClient;
 import model.Model;
 import model.ModelManager;
@@ -25,12 +28,12 @@ public class MyApplication extends Application {
         ViewHandler viewHandler = new ViewHandler(viewModelFactory);
         viewHandler.start(stage);
 
-//    stage.setOnCloseRequest((WindowEvent event1) -> {
-//      model.removeUser();
-//    });
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
-//  public void stop(){
-//    Platform.exit();
-//    System.exit(0);
-//  }
 }

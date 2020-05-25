@@ -54,10 +54,15 @@ public class MyProfileViewModel
       throws RemoteException, SQLException
   {
     User userBuffer = model.login(model.getUsername(), model.getPassword());
+    GameList rentedGamesList = model.getAllRentedGames();
     rentedGames.clear();
-    for (int i = 0; i < userBuffer.getRentedGameList().size(); i++)
+    for (int i = 0; i < rentedGamesList.size(); i++)
     {
-      rentedGames.add(userBuffer.getRentedGameList().getGame(i));
+      if(!(rentedGamesList.getGame(i).getId() == -1)){
+        if(rentedGamesList.getGame(i).getUserId() == userBuffer.getUserID()){
+          rentedGames.add(rentedGamesList.getGame(i));
+        }
+      }
     }
     return rentedGames;
   }
@@ -70,10 +75,12 @@ public class MyProfileViewModel
     rentals.clear();
     for (int i = 0; i < rentalList.size(); i++)
     {
-      if (rentalList.getRentals().get(i).getOwner().getUserID() == model
-          .login(model.getUsername(), model.getPassword()).getUserID())
-      {
-        rentals.add(rentalList.getRentals().get(i));
+      if(!(rentalList.getRentals().get(i).getId() == -1)){
+        if (rentalList.getRentals().get(i).getOwner().getUserID() == model
+                .login(model.getUsername(), model.getPassword()).getUserID())
+        {
+          rentals.add(rentalList.getRentals().get(i));
+        }
       }
     }
     return rentals;
@@ -86,10 +93,12 @@ public class MyProfileViewModel
     pendingRentals.clear();
     for (int i = 0; i < model.getRentalList().getRentals().size(); i++)
     {
-      if (model.getRentalList().getRentals().get(i).getRequester().getUserID()
-          == model.login(model.getUsername(), model.getPassword()).getUserID())
-      {
-        pendingRentals.add(model.getRentalList().getRentals().get(i));
+      if(!(model.getRentalList().getRentals().get(i).getId() == -1)){
+        if (model.getRentalList().getRentals().get(i).getRequester().getUserID()
+                == model.login(model.getUsername(), model.getPassword()).getUserID())
+        {
+          pendingRentals.add(model.getRentalList().getRentals().get(i));
+        }
       }
     }
     return pendingRentals;

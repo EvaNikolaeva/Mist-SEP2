@@ -188,6 +188,11 @@ public class ModelManager implements Model
     gameListClientModel.setGameAvailableTrue(game);
   }
 
+  @Override
+  public GameList getAllRentedGames() throws RemoteException, SQLException {
+    return gameListClientModel.getRentedGames();
+  }
+
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);

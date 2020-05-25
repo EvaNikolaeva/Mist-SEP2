@@ -106,6 +106,11 @@ public class GameListClient implements GameListClientClient, Remote
     server.setGameAvailableTrue(game);
   }
 
+  @Override
+  public GameList getRentedGames() throws RemoteException, SQLException {
+    return server.getRentedGames();
+  }
+
   //  @Override
   //  public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
   //    return false;

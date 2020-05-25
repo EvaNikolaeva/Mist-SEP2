@@ -12,7 +12,7 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
 {
   private static RentedGameDAOImpl instance;
 
-  public RentedGameDAOImpl() throws SQLException
+  private RentedGameDAOImpl() throws SQLException
   {
     super();
   }
@@ -37,19 +37,32 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
     try (Connection connection = getConnection())
     {
       PreparedStatement statement1 = connection.prepareStatement(
-          "SELECT * FROM Game where game_id=(SELECT game_ID FROM Rented_game)");
-      statement1.executeQuery();
+          "SELECT * FROM Rented_game;");
       ResultSet resultSet1 = statement1.executeQuery();
       while (resultSet1.next())
       {
-        Game game = new Game(resultSet1.getString("title"),
-            resultSet1.getString("type"), resultSet1.getInt("release_year"),
-            resultSet1.getBoolean("needs_deposit"),
-            resultSet1.getInt("availability_period"),
-            resultSet1.getInt("user_id"));
-        rentedGames.add(game);
+        int idbuffer = resultSet1.getInt("gameid");
+        PreparedStatement statement2 = connection.prepareStatement("Select * from Game where gameid = ?");
+        statement2.setInt(1, idbuffer);
+        ResultSet resultSet2 = statement2.executeQuery();
+        while(resultSet2.next()){
+          Game game = new  Game(resultSet2.getString("title"),
+                  resultSet2.getString("type"), resultSet2.getInt("releaseyear"),
+                  resultSet2.getBoolean("needsdeposit"),
+                  resultSet2.getInt("availabilityperiod"),
+                  resultSet2.getInt("userid"), resultSet2.getInt("gameid"));
+          rentedGames.add(game);
+        }
       }
-      return rentedGames;
+      if(rentedGames.size() == 0){
+        Game gameDummy = new Game("placeholder", "placeholder", -1, false, 1, -1, -1);
+        gameDummy.setAvailable(false);
+        rentedGames.add(gameDummy);
+        return rentedGames;
+      }
+      else{
+        return rentedGames;
+      }
     }
   }
 
@@ -58,7 +71,7 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
     try (Connection connection = getConnection())
     {
       PreparedStatement statement = connection
-          .prepareStatement("SELECT * FROM Rented_game WHERE game_id =?");
+          .prepareStatement("SELECT * FROM Rented_game WHERE gameid =?");
       statement.setInt(1, id);
       statement.executeQuery();
       ResultSet resultSet = statement.executeQuery();
@@ -83,7 +96,7 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
     try (Connection connection = getConnection())
     {
       PreparedStatement statement = connection
-          .prepareStatement("DELETE FROM GAME WHERE game_id=?");
+          .prepareStatement("DELETE FROM GAME WHERE gameid=?");
       statement.setInt(1, id);
       statement.executeUpdate();
     }

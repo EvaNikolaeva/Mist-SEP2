@@ -113,7 +113,7 @@ public class MyProfileController
     });
   }
 
-  @FXML public void onDecline() throws RemoteException, SQLException {
+  @FXML public void onDecline() throws RemoteException, SQLException, InterruptedException, NotBoundException, MalformedURLException {
     if (rentals.getSelectionModel().getSelectedIndex() < 0)
     {
       Alert alert = new Alert(Alert.AlertType.ERROR,
@@ -125,11 +125,10 @@ public class MyProfileController
     {
         //CATA: i think this needs to happen in two sides
       Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
-      int index = rentals.getSelectionModel().getSelectedItem().getId();
+      int index = rentals.getSelectionModel().getSelectedIndex();
       if(index== 0)
       {
         myProfileViewModel.declineGame(selectedRental);
-        this.myProfileViewModel.getRentals().remove(index);
       }
       this.myProfileViewModel.getRentals().clear();
       this.rentals.setItems(myProfileViewModel.getRentals());

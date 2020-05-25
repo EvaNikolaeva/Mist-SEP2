@@ -13,7 +13,7 @@ public class GameDAOImpl extends Database implements GameDAO
 {
   private static GameDAOImpl instance;
 
-  public GameDAOImpl() throws SQLException
+  private GameDAOImpl() throws SQLException
   {
     super();
   }
@@ -137,7 +137,16 @@ public class GameDAOImpl extends Database implements GameDAO
             resultSet.getInt("gameid"));
         availableGames.add(game);
       }
+      if(availableGames.size() == 0){
+        Game gameDummy = new Game("placeholder", "placeholder", -1, false, 1, -1, -1);
+        gameDummy.setAvailable(false);
+        availableGames.add(gameDummy);
+        return availableGames;
+      }
+      else {
       return availableGames;
+      }
+
     }
   }
 
@@ -156,7 +165,8 @@ public class GameDAOImpl extends Database implements GameDAO
             resultSet.getString("type"), resultSet.getInt("ReleaseYear"),
             resultSet.getBoolean("NeedsDeposit"),
             resultSet.getInt("AvailabilityPeriod"),
-            resultSet.getInt("UserID"));
+            resultSet.getInt("UserID"), resultSet.getInt("gameid"));
+        game.setAvailable(false);
         UnavailableGames.add(game);
       }
       return UnavailableGames;
