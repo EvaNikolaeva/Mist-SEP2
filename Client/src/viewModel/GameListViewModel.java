@@ -32,22 +32,6 @@ public class GameListViewModel implements PropertyChangeListener
   {
     return search;
   }
-
-  public ObservableList<Game> getAvailableGames()
-      throws RemoteException, SQLException
-  {
-    GameList gameList = model.getAllGamesFromServer();
-    availableGames.clear();
-    for (int i = 0; i < gameList.size(); i++)
-    {
-      if (!(gameList.getGame(i).getId() == -1))
-      {
-        availableGames.add(gameList.getGame(i));
-      }
-    }
-    return availableGames;
-  }
-
     public ObservableList<Game> getAvailableGames() throws RemoteException, SQLException {
         GameList gameList = model.getAllGamesFromServer();
         availableGames.clear();
@@ -58,8 +42,6 @@ public class GameListViewModel implements PropertyChangeListener
         }
         return availableGames;
     }
-  }
-
   public void requestTrade(Game game) throws RemoteException, SQLException
   {
     model.clientRequestGame(
@@ -113,7 +95,24 @@ public class GameListViewModel implements PropertyChangeListener
     }
     return availableGames;
   }
+  public void addGameToGameList(Game game) throws RemoteException, SQLException
+  {
+    availableGames.add(game);
+  }
 
+  public void removeGameFromGameList(Game game)
+          throws RemoteException, SQLException
+  {
+    for (int i = 0; i < availableGames.size(); i++)
+    {
+      if (availableGames.get(i).getTitle().equals(game.getTitle()) && game
+              .getType().equals(availableGames.get(i).getType())
+              && availableGames.get(i).getUserId() == game.getUserId())
+      {
+        availableGames.remove(i);
+      }
+    }
+  }
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     Platform.runLater(() -> {
