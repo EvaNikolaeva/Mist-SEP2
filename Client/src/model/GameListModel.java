@@ -21,7 +21,7 @@ public interface GameListModel extends UnnamedPropertyChangeSubject{
 
     User login(String username, String password) throws RemoteException, SQLException;
 
-    void GameAddedOnServer(Game game) throws RemoteException;
+    void gameAddedOnServer(Game game) throws RemoteException, SQLException;
 
 //  ArrayList<Integer> getAllAvailableGames() throws RemoteException;
 //  ArrayList<Integer> getAllPendingGames() throws RemoteException;

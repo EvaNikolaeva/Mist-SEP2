@@ -40,6 +40,7 @@ public class ModelManager implements Model
     return gameListClientModel.login(username, password);
   }
 
+
   @Override public void clientAcceptIncomingGame(Rental rental)
           throws RemoteException, SQLException {
     gameListClientModel.clientAcceptIncomingGame(rental);
