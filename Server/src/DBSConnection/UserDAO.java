@@ -14,5 +14,6 @@ public interface UserDAO
     int size() throws SQLException;
     void setBio(User user, String bio) throws SQLException;
 //    String getBio(User user) throws SQLException;
+    void removeUser(User user) throws SQLException;
 
 }
