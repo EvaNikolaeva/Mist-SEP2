@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModelManagerTest
 {
 
-  private Model model;
   private Game game1;
   private Game game2;
   private GameList gameList1;
@@ -23,15 +22,11 @@ class ModelManagerTest
   private UserList userList1;
   private UserList userList2;
 
+  //Not everything can be tested because of networking and database
 
-  private ModelManager modelManager;
 
   @BeforeEach void setUp()
-      throws RemoteException, MalformedURLException, InterruptedException,
-      NotBoundException
   {
-    //  model = new ModelManager();  //this is liskov, but breaks because networking
-    //    modelManager = new ModelManager();
     gameList1 = new GameList();
     gameList2 = new GameList();
 
@@ -140,10 +135,4 @@ class ModelManagerTest
 
     assertEquals(gameList1, gameList2);
   }
-
-  @Test void testGetUserByID()
-  {
-
-  }
-
 }

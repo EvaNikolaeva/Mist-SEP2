@@ -44,6 +44,7 @@ public class User implements Serializable
 
   public void setBio(String bio)
   {
+    if(bio != null)
     this.bio = bio;
   }
 

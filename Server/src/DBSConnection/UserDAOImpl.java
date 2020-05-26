@@ -148,6 +148,17 @@ public class UserDAOImpl extends Database implements UserDAO
     }
   }
 
+  @Override
+  public void removeUser(User user) throws SQLException
+  {
+    try (Connection connection = getConnection()) {
+      PreparedStatement statement = connection
+              .prepareStatement("DELETE FROM User_dbms WHERE userid=?");
+      statement.setInt(1, user.getUserID());
+      statement.executeUpdate();
+    }
+  }
+
   //    @Override public String getBio(User user) throws SQLException
   //    {
   //        try(Connection connection = getConnection())

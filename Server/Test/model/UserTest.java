@@ -33,6 +33,10 @@ class UserTest
     assertNotNull(gameList);
     assertNotNull(rentedList);
     assertNotNull(user);
+    assertNotNull(userID);
+    assertNotNull(username);
+    assertNotNull(password);
+    assertNotNull(bio);
   }
 
   @Test void testUserID()
@@ -55,7 +59,19 @@ class UserTest
     assertEquals("zzzz", bio);
   }
 
-  @Test void testAddGames()
+  @Test void testSetBio()
+  {
+    user.setBio("aaaa");
+    assertEquals("aaaa", user.getBio());
+  }
+
+  @Test void testSetBioNull()
+  {
+    user.setBio(null);
+    assertNotNull(user.getBio());
+  }
+
+  @Test void testAddGameOneOrMany()
   {
 
     Game game = new Game("Doom", "PC", 2016, false, 10, 123456);
@@ -65,7 +81,12 @@ class UserTest
 
     assertEquals(game, gameList.getGame(0));
     assertEquals(game1, gameList.getGame(1));
+  }
 
+  @Test void testAddGameNull()
+  {
+    gameList.addGame(null);
+    assertEquals(0, gameList.size());
   }
 
   @Test void testRentedGames()
@@ -93,10 +114,17 @@ class UserTest
     assertEquals(0, gameList.size());
   }
 
+  @Test void testRemoveGameNull()
+  {
+
+    gameList.removeGame(null);
+    assertEquals(0, gameList.size());
+  }
+
   @Test void testOwns()
   {
     Game game = new Game("Doom", "PC", 2016, false, 10, 123456);
     user.addGame(game);
-    assertEquals(game, user.getGameList().getGame(0));
+    assertTrue(user.ownsGame(game));
   }
 }
