@@ -152,6 +152,11 @@ public class UserDAOImpl extends Database implements UserDAO
   public void removeUser(User user) throws SQLException
   {
     try (Connection connection = getConnection()) {
+
+      PreparedStatement statementGames = connection.prepareStatement("DELETE FROM Game where userid=?");
+      statementGames.setInt(1, user.getUserID());
+      statementGames.executeUpdate();
+
       PreparedStatement statement = connection
               .prepareStatement("DELETE FROM User_dbms WHERE userid=?");
       statement.setInt(1, user.getUserID());
