@@ -72,10 +72,16 @@ public class GameListViewModel implements PropertyChangeListener
     availableGames.clear();
     for (int i = 0; i < gameList.size(); i++)
     {
-      if (!(gameList.getGame(i).getId() == -1) && (gameList.getGame(i)
-          .getTitle()).equalsIgnoreCase(search.getValue()))
+      String s = gameList.getGame(i).getTitle();
+      if (!(gameList.getGame(i).getId() == -1) &&
+          (s.toLowerCase().contains(search.getValue().toLowerCase()) ||
+              s.toUpperCase().contains(search.getValue().toUpperCase())))
       {
         availableGames.add(gameList.getGame(i));
+      }
+      else if(search.getValue().equals(""))
+      {
+       return getAvailableGames();
       }
     }
     return availableGames;
@@ -93,7 +99,7 @@ public class GameListViewModel implements PropertyChangeListener
         availableGames.add(gameList.getGame(i));
       }
     }
-    return availableGames;
+    return availableGames.sorted();
   }
   public void addGameToGameList(Game game) throws RemoteException, SQLException
   {
