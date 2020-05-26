@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public interface Model
 {
-  User getUserByID(int id) throws SQLException;
+  User getUserByID(int userId) throws SQLException;
   User getUserByCredentials(String username, String password) throws SQLException;
   void setUserBio(User user, String bio) throws RemoteException, SQLException;
 
@@ -26,4 +26,5 @@ RentalList getRentalList() throws SQLException;
   void registerUser(String username, String password) throws SQLException;
   void setGameAvailableTrue(Game game) throws RemoteException, SQLException;
   void removeUser(User user) throws RemoteException, SQLException;
+
 }

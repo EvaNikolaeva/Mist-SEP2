@@ -228,6 +228,11 @@ public class ModelManager implements Model
     property.firePropertyChange("userRemoved", null, user);
   }
 
+  @Override
+  public User getUserByUserId(int userId) throws RemoteException, SQLException {
+   return gameListClientModel.getUserById(userId);
+  }
+
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);

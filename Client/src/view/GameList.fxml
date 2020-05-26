@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameListController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" stylesheets="@window.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameListController">
    <top>
       <HBox prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER_LEFT">
          <children>
@@ -88,6 +88,10 @@
       </VBox>
    </left>
    <center>
-      <ListView fx:id="availableGames" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="availableGames" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
    </center>
 </BorderPane>

@@ -9,6 +9,7 @@ public interface OtherProfileModel
   User getUser(Game game) throws RemoteException, SQLException;
   Game getGameBuffer();
   GameList getAllGamesFromServer() throws RemoteException, SQLException;
+  User getUserByUserId(int userId) throws RemoteException, SQLException;
 //  void requestGame(int userID, int gameID) throws RemoteException;
 //  String getUsername(int userID) throws RemoteException;
 //  String getBio(int userID) throws RemoteException;

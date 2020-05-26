@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="838.0" stylesheets="@window.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameMenuController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="119.0" style="-fx-background-color: #AFC3CF;" BorderPane.alignment="CENTER">
          <children>
@@ -42,8 +42,8 @@
          <children>
             <GridPane VBox.vgrow="ALWAYS">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="155.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.0" minWidth="10.0" prefWidth="326.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="365.0" minWidth="10.0" prefWidth="102.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="580.0" minWidth="10.0" prefWidth="540.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -53,7 +53,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="name" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="234.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="name" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" />
                   <Text fill="#222222" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the game">
                      <font>
                         <Font name="Arial Narrow Bold" size="16.0" />
@@ -79,8 +79,8 @@
                         <Font name="Arial Narrow Bold" size="16.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="type" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="releaseYear" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="type" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="releaseYear" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <CheckBox fx:id="deposit" mnemonicParsing="false" text="Yes" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets />

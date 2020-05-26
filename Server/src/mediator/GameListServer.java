@@ -217,7 +217,22 @@ private ThreadSafeServer threadSafeServer;
 
     @Override
     public GameList getRentedGames(User user) throws RemoteException, SQLException {
-        return model.getRentedGames(user);
+        try{
+            threadSafeServer.acquireRead();
+            return model.getRentedGames(user);
+        }
+        finally{
+            threadSafeServer.releaseRead();
+        }
+    }
+    @Override public User getUserById(int userId) throws RemoteException, SQLException {
+        try{
+            threadSafeServer.acquireRead();
+            return model.getUserByID(userId);
+        }
+        finally{
+            threadSafeServer.releaseRead();
+        }
     }
 
     @Override

@@ -25,11 +25,11 @@ public class ModelManager implements Model
 
   }
 
-  @Override public User getUserByID(int gameID) throws SQLException
+  @Override public User getUserByID(int userId) throws SQLException
   {
-    if (userList.getUserByUserID(gameID) != null)
+    if (userList.getUserByUserID(userId) != null)
     {
-      return userList.getUserByUserID(gameID);
+      return userList.getUserByUserID(userId);
     }
     else
     {

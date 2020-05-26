@@ -48,5 +48,7 @@ public interface Model
 
     void userRemovedOnServer(User user) throws RemoteException, SQLException;
 
+    User getUserByUserId(int userId) throws RemoteException, SQLException;
+
 
 }

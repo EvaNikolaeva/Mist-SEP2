@@ -38,4 +38,6 @@ public interface GameListServerModel extends RemoteSubject<Game, User>{
   GameList getRentedGames(User user) throws RemoteException, SQLException;
 
   void removeUser(User user) throws RemoteException, SQLException;
+
+  public User getUserById(int userId) throws RemoteException, SQLException;
 }

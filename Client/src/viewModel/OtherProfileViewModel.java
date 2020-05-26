@@ -26,7 +26,8 @@ public class OtherProfileViewModel
   }
 
   public StringProperty getBio() throws RemoteException, SQLException {
-    bio.setValue(model.getUser(model.getGameBuffer()).getBio());
+    bio.setValue((model.getUserByUserId(model.getGameBuffer().getUserId())).getBio());
+    System.out.println(bio.getValue());
     return bio;
   }
 

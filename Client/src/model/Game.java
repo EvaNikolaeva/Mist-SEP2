@@ -81,9 +81,27 @@ public class Game implements Serializable
 
   public String toString()
   {
-    return "Title: " + title + ", id: " + id + ", type: " + type
-            + ", release year: " + releaseYear + ", deposit: " + needsDeposit
-            + ", availability period: " + availabilityPeriod + ", Available:" + available;
+    if(deposit()){
+      if(available){
+        return  title + ", " + type
+                + ", " + releaseYear + ", Deposit required" + ", Game Available for " + availabilityPeriod + " days, Available";
+      }
+      else {
+        return  title + ", " + type
+                + ", " + releaseYear + ", Deposit required" + ", Game Available for " + availabilityPeriod + " days, Unavailable";
+      }
+    }
+    else{
+      if(available){
+        return  title + ", " + type
+                + ", " + releaseYear + ", Game Available for " + availabilityPeriod + " days, Available";
+      }
+      else{
+        return  title + ", " + type
+                + ", " + releaseYear + ", Game Available for " + availabilityPeriod + " days, Unavailable";
+      }
+    }
+
   }
 
   public boolean equals(Object obj)

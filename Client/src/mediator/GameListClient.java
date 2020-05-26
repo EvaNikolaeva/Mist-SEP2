@@ -121,6 +121,11 @@ public class GameListClient implements GameListClientClient, RemoteListener<Game
   }
 
   @Override
+  public User getUserById(int userId) throws RemoteException, SQLException {
+    return server.getUserById(userId);
+  }
+
+  @Override
   public void propertyChange(ObserverEvent<Game, User> event) throws RemoteException {
 
     switch (event.getPropertyName()) {

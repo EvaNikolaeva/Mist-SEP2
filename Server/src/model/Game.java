@@ -14,7 +14,7 @@ public class Game implements Serializable
   private boolean available;
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-      int availabilityPeriod, int userId)
+              int availabilityPeriod, int userId)
   {
     this.title = title;
     this.type = type;
@@ -27,7 +27,7 @@ public class Game implements Serializable
   }
 
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-      int availabilityPeriod, int userId, int gameID)
+              int availabilityPeriod, int userId, int gameID)
   {
     this.title = title;
     this.type = type;
@@ -81,9 +81,27 @@ public class Game implements Serializable
 
   public String toString()
   {
-    return "Title: " + title + ", id: " + id + ", type: " + type
-        + ", release year: " + releaseYear + ", deposit: " + needsDeposit
-        + ", availability period: " + availabilityPeriod + ", Available:" + available;
+    if(deposit()){
+      if(available){
+        return  title + ", " + type
+                + ", " + releaseYear + ", Deposit required" + ", Game Available for " + availabilityPeriod + " days, Available";
+      }
+      else {
+        return  title + ", " + type
+                + ", " + releaseYear + ", Deposit required" + ", Game Available for " + availabilityPeriod + " days, Unavailable";
+      }
+    }
+    else{
+      if(available){
+        return  title + ", " + type
+                + ", " + releaseYear + ", Game Available for " + availabilityPeriod + " days, Available";
+      }
+      else{
+        return  title + ", " + type
+                + ", " + releaseYear + ", Game Available for " + availabilityPeriod + " days, Unavailable";
+      }
+    }
+
   }
 
   public boolean equals(Object obj)
@@ -92,9 +110,9 @@ public class Game implements Serializable
       return false;
     Game other = (Game) obj;
     return title.equals(other.title) && type.equals(other.type)
-        && id == other.id && releaseYear == other.releaseYear
-        && needsDeposit == other.needsDeposit
-        && availabilityPeriod == other.availabilityPeriod;
+            && id == other.id && releaseYear == other.releaseYear
+            && needsDeposit == other.needsDeposit
+            && availabilityPeriod == other.availabilityPeriod;
   }
 
   public void setAvailable(boolean available)
