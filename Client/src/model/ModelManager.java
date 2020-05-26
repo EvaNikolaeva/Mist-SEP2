@@ -194,6 +194,17 @@ public class ModelManager implements Model
   }
 
   @Override
+  public void clientRemoveUser(User user) throws RemoteException, SQLException
+  {
+    gameListClientModel.clientRemoveUser(user);
+  }
+
+  @Override
+  public User getUser() throws RemoteException, SQLException {
+    return user;
+  }
+
+  @Override
   public void gameAddedOnServer(Game game) throws RemoteException, SQLException {
     property.firePropertyChange("gameAdded", null, game);
   }
@@ -209,6 +220,12 @@ public class ModelManager implements Model
   @Override
   public void gameAvailabilityUpdate(Game game) throws RemoteException, SQLException {
     property.firePropertyChange("gameAvailabilityChange", null, game);
+  }
+
+  @Override
+  public void userRemovedOnServer(User user) throws RemoteException, SQLException
+  {
+    property.firePropertyChange("userRemoved", null, user);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

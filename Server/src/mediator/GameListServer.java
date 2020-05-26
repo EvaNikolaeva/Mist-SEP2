@@ -221,6 +221,19 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
+    public void removeUser(User user) throws RemoteException, SQLException
+    {
+        try{
+            threadSafeServer.acquireWrite();
+            model.removeUser(user);
+            property.firePropertyChange("userRemoved", null, user);
+        }
+        finally {
+            threadSafeServer.releaseWrite();
+        }
+    }
+
+    @Override
     public boolean addListener(GeneralListener<Game, User> listener, String... propertyNames) throws RemoteException {
         return property.addListener(listener, propertyNames);
     }

@@ -115,6 +115,12 @@ public class GameListClient implements GameListClientClient, RemoteListener<Game
   }
 
   @Override
+  public void clientRemoveUser(User user) throws RemoteException, SQLException
+  {
+    server.removeUser(user);
+  }
+
+  @Override
   public void propertyChange(ObserverEvent<Game, User> event) throws RemoteException {
 
     switch (event.getPropertyName()) {

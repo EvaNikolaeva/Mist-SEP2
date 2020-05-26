@@ -27,6 +27,11 @@ public interface MyProfileModel extends UnnamedPropertyChangeSubject
   GameList getAllGamesFromServer() throws RemoteException, SQLException;
 
   GameList getAllRentedGames(User user) throws RemoteException, SQLException;
+
+  void clientRemoveUser(User user) throws RemoteException, SQLException;
+
+  User getUser() throws RemoteException, SQLException;
+
 //  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;

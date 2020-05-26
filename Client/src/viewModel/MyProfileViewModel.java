@@ -35,7 +35,7 @@ public class MyProfileViewModel implements PropertyChangeListener
     this.pendingRentals = FXCollections.observableArrayList();
     this.bio = new SimpleStringProperty();
     this.username = new SimpleStringProperty();
-    model.addListener(this);
+    //model.addListener(this);
   }
 
   public ObservableList<Game> getOwnedGames()
@@ -52,6 +52,11 @@ public class MyProfileViewModel implements PropertyChangeListener
       }
     }
     return ownedGames;
+  }
+
+  public User getUser() throws RemoteException, SQLException
+  {
+   return model.getUser();
   }
 
   public ObservableList<Game> getRentedGames()
@@ -120,6 +125,11 @@ public class MyProfileViewModel implements PropertyChangeListener
     return username;
   }
 
+  public void removeUser(User user) throws RemoteException, SQLException
+  {
+    model.clientRemoveUser(user);
+  }
+
   public void removeGame(Game game) throws RemoteException, SQLException
   {
     model.clientRemoveGame(game);
@@ -139,6 +149,7 @@ public class MyProfileViewModel implements PropertyChangeListener
   {
     model.setGameAvailabilityTrue(game);
   }
+
   public void reload() throws RemoteException, SQLException{
     getRentals();
     getPendingRentals();

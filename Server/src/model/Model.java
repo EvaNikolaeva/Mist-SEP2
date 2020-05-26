@@ -25,4 +25,5 @@ public interface Model
 RentalList getRentalList() throws SQLException;
   void registerUser(String username, String password) throws SQLException;
   void setGameAvailableTrue(Game game) throws RemoteException, SQLException;
+  void removeUser(User user) throws RemoteException, SQLException;
 }

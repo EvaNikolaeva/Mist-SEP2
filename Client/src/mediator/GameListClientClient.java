@@ -39,4 +39,6 @@ public interface GameListClientClient
     void setGameAvailableTrue(Game game) throws RemoteException, SQLException;
 
     GameList getRentedGames(User user) throws RemoteException, SQLException;
+
+    void clientRemoveUser(User user) throws RemoteException, SQLException;
 }

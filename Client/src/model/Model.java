@@ -46,5 +46,7 @@ public interface Model
 
     public void gameAvailabilityUpdate(Game game) throws RemoteException, SQLException;
 
+    void userRemovedOnServer(User user) throws RemoteException, SQLException;
+
 
 }

@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import model.Game;
 import model.Rental;
+import model.User;
 import viewModel.MyProfileViewModel;
 
 import java.net.MalformedURLException;
@@ -189,6 +190,21 @@ public class MyProfileController {
         } else {
             myProfileViewModel.setGameAvailable(ownedGames.getSelectionModel().getSelectedItem());
             reset();
+        }
+    }
+
+
+    @FXML
+    public void onDeleteUser() throws RemoteException, SQLException, InterruptedException, NotBoundException, MalformedURLException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to proceed?", ButtonType.YES);
+        alert.showAndWait();
+        alert.close();
+        if (alert.getResult() == ButtonType.YES)
+        {
+        User selectedUser = myProfileViewModel.getUser();
+        myProfileViewModel.removeUser(selectedUser);
+        viewHandler.openView("loading");
         }
     }
 }

@@ -140,6 +140,12 @@ gameList.addGame(game.getTitle(), game.getType(), game.getReleaseYear(), game.de
     gameList.setAvailable(game);
   }
 
+  @Override
+  public void removeUser(User user) throws RemoteException, SQLException
+  {
+    userList.removeUser(user);
+  }
+
   @Override public GameList getRentedGames(User user) throws SQLException
   {
     GameList rentedGamesObj = new GameList();
