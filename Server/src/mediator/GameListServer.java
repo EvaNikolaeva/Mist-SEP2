@@ -22,8 +22,8 @@ private ThreadSafeServer threadSafeServer;
     private PropertyChangeAction<Game, User> property;
     public GameListServer(Model model, ThreadSafeServer threadSafeServer) {
         this.model = model;
-this.property= new PropertyChangeProxy<>(this, true);
         this.threadSafeServer = threadSafeServer;
+        this.property= new PropertyChangeProxy<>(this, true);
         startServer();
     }
 
@@ -112,6 +112,7 @@ this.property= new PropertyChangeProxy<>(this, true);
         try{
             threadSafeServer.acquireWrite();
             model.removeGame(game);
+            property.firePropertyChange("gameRemoved", game, null);
         }
         finally {
             threadSafeServer.releaseWrite();
@@ -135,6 +136,26 @@ this.property= new PropertyChangeProxy<>(this, true);
             threadSafeServer.acquireWrite();
             System.out.println("got write");
             model.addGame(game);
+            System.out.println("property fired on server");
+            Thread t = new Thread() {
+                public void run() {
+                    try {
+                        GameList gameList =  model.getFullListOfGames();
+                        Game returnGame = null;
+                        for(int i = 0; i < model.getFullListOfGames().size(); i++){
+                            if(gameList.getGame(i).getTitle().equals(game.getTitle()) && gameList.getGame(i).getType().equals(game.getType()) && game.getUserId() == gameList.getGame(i).getUserId()){
+                                returnGame = gameList.getGame(i);
+                            }
+                        }
+                        property.firePropertyChange("gameAdded", returnGame, null);
+                    }
+          catch (Exception e){
+
+          }
+                }
+            };
+            t.start();
+
         }
         finally {
             threadSafeServer.releaseWrite();
@@ -148,6 +169,9 @@ this.property= new PropertyChangeProxy<>(this, true);
             threadSafeServer.acquireWrite();
             model.requestGame(requester, game);
             System.out.println("game requested");
+            property.firePropertyChange("gameRentalUpdate", null, model.getUserByID(game.getUserId()));
+            game.setAvailable(false);
+            property.firePropertyChange("gameAvailabilityChange", game, null);
         }
         finally {
             threadSafeServer.releaseWrite();
@@ -159,6 +183,7 @@ this.property= new PropertyChangeProxy<>(this, true);
         try{
             threadSafeServer.acquireWrite();
             model.acceptGame(rental);
+            property.firePropertyChange("gameRentalUpdate", null, rental.getRequester());
         }
         finally {
             threadSafeServer.releaseWrite();
@@ -170,6 +195,10 @@ this.property= new PropertyChangeProxy<>(this, true);
         try{
             threadSafeServer.acquireWrite();
             model.declineGame(rental);
+            property.firePropertyChange("gameRentalUpdate", null, rental.getRequester());
+            Game game = rental.getGame();
+            game.setAvailable(true);
+            property.firePropertyChange("gameAvailabilityChange", game, null);
         }
         finally {
             threadSafeServer.releaseWrite();
@@ -178,13 +207,12 @@ this.property= new PropertyChangeProxy<>(this, true);
 
     @Override
     public void setGameAvailableTrue(Game game) throws RemoteException, SQLException {
-        try{
+
             threadSafeServer.acquireWrite();
             model.setGameAvailableTrue(game);
-        }
-        finally {
+            game.setAvailable(true);
+            property.firePropertyChange("gameAvailabilityChange", game, null);
             threadSafeServer.releaseWrite();
-        }
     }
 
     @Override
@@ -202,99 +230,4 @@ this.property= new PropertyChangeProxy<>(this, true);
         return property.removeListener(listener, propertyNames);
     }
 
-//    @Override
-//    public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean removeListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-//        return false;
-//    }
-
-
-//  @Override public void registerClient(String username, String password)
-//      throws RemoteException
-//  {
-//    this.model.registerUser(username,password);
-//  }
-//
-//  @Override public User loginClient(String username, String password)
-//      throws RemoteException
-//  {
-// try{
-//   threadSafeServer.acquireRead();
-//  return model.getUserByCredentials(username, password);
-// }
-// finally {
-//   threadSafeServer.releaseRead();
-// }
-//  }
-//
-//  @Override public void removeGame(Game game) throws RemoteException
-//  {
-//    this.model.removeGame(game);
-//    property.firePropertyChange("gameListUpdate", model.getFullListOfGames(), null);
-//  }
-//
-//  @Override public void setBio(User user, String bio) throws RemoteException
-//  {
-//    this.model.setUserBio(user,bio);
-//  }
-//
-//  @Override public void addGame(Game game) throws RemoteException
-//  {
-//    this.model.addGame(game);
-//    property.firePropertyChange("gameListUpdate", model.getFullListOfGames(), null);
-//  }
-//
-//  @Override public void requestGame(User requester,Game game) throws RemoteException
-//  {
-//    this.model.requestGame(requester, game);
-//    property.firePropertyChange("rentalListUpdate", null, model.getRentalList());
-//  }
-//
-//  @Override public void acceptIncomingGame(Rental rental) throws RemoteException
-//  {
-//    this.model.acceptGame(rental);
-//    property.firePropertyChange("rentalListUpdate", null, model.getRentalList());
-//  }
-//
-//  @Override public void declineIncomingGame(Rental rental)
-//      throws RemoteException
-//  {
-//    this.model.declineGame(rental);
-//    property.firePropertyChange("rentalListUpdate", null, model.getRentalList());
-//  }
-//
-//  @Override public GameList getAllGames() throws RemoteException
-//  {
-//    return this.model.getFullListOfGames();
-//  }
-//
-//  @Override public User getUserByGame(Game game) throws RemoteException
-//  {
-//    return this.model.getUserByGame(game);
-//  }
-//
-//  @Override public User getUserByCredentials(String username, String password)
-//      throws RemoteException
-//  {
-//    return this.model.getUserByCredentials(username, password);
-//  }
-//
-//  @Override
-//  public RentalList getRentalList() throws RemoteException {
-//    return model.getRentalList();
-//  }
-//
-//  @Override
-//  public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-//    return property.addListener(listener, propertyNames);
-//  }
-//
-//  @Override
-//  public boolean removeListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-//    return property.removeListener(listener, propertyNames);
-//  }
 }

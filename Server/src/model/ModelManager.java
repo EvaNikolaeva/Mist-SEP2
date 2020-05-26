@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ModelManager implements Model
 {
-  private PropertyChangeSupport propertyChangeSupport;
+
   private GameDAO gameList;
   private RentalDAO rentalList;
   private UserDAO userList;
@@ -21,7 +21,7 @@ public class ModelManager implements Model
     this.userList = UserDAOImpl.getInstance();
     this.rentalList = RentalDAOImpl.getInstance();
     this.rentedList = RentedGameDAOImpl.getInstance();
-    this.propertyChangeSupport = new PropertyChangeSupport(this);
+
   }
 
   @Override public User getUserByID(int gameID) throws SQLException {
@@ -70,7 +70,6 @@ return gameListObject;
 
   @Override public void addGame(Game game) throws RemoteException, SQLException {
 gameList.addGame(game.getTitle(), game.getType(), game.getReleaseYear(), game.deposit(), game.getAvailabilityPeriod(), game.getUserId());
-      propertyChangeSupport.firePropertyChange("gameAdded", null, null);
   }
 
   @Override public void removeGame(Game game) throws RemoteException, SQLException {
@@ -119,15 +118,6 @@ gameList.setAvailable(game);
           rentedGamesObj.addGame(rentedArray.get(i));
       }
       return rentedGamesObj;
-  }
-  @Override public void addListener(PropertyChangeListener listener)
-  {
-    propertyChangeSupport.addPropertyChangeListener(listener);
-  }
-
-  @Override public void removeListener(PropertyChangeListener listener)
-  {
-    propertyChangeSupport.removePropertyChangeListener(listener);
   }
 }
 

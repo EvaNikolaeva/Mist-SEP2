@@ -5,7 +5,7 @@ import utility.UnnamedPropertyChangeSubject;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-public interface Model extends UnnamedPropertyChangeSubject
+public interface Model
 {
   User getUserByID(int id) throws SQLException;
   User getUserByCredentials(String username, String password) throws SQLException;

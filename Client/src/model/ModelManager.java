@@ -193,8 +193,21 @@ public class ModelManager implements Model
   }
 
   @Override
-  public void GameAddedOnServer() throws RemoteException, SQLException {
-    property.firePropertyChange("gameAdded", null, null);
+  public void gameAddedOnServer(Game game) throws RemoteException, SQLException {
+    property.firePropertyChange("gameAdded", null, game);
+  }
+  @Override
+  public void gameRemovedOnServer(Game game) throws RemoteException, SQLException {
+    property.firePropertyChange("gameRemoved", null, game);
+}
+
+  @Override
+  public void profileUpdate(User user) throws RemoteException, SQLException {
+    property.firePropertyChange("gameRentalUpdate", null, user);
+  }
+  @Override
+  public void gameAvailabilityUpdate(Game game) throws RemoteException, SQLException {
+    property.firePropertyChange("gameAvailabilityChange", null, game);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

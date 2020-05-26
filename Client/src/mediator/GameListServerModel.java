@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 //RemoteSubject<GameList, RentalList>
-public interface GameListServerModel extends Remote, RemoteSubject<Game, User>{
+public interface GameListServerModel extends RemoteSubject<Game, User>{
 
   GameList getAllGames() throws RemoteException, SQLException;
 

@@ -92,7 +92,9 @@ public class GameMenuViewModel implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    responseMessage.setValue((String) evt.getNewValue());
-    System.out.println((String) evt.getNewValue());
+    if(evt.getPropertyName().equals("validateGame")){
+      responseMessage.setValue((String) evt.getNewValue());
+      System.out.println((String) evt.getNewValue());
+    }
   }
 }

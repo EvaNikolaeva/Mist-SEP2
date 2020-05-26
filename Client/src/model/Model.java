@@ -38,36 +38,13 @@ public interface Model
 
     GameList getAllRentedGames(User user) throws RemoteException, SQLException;
 
-    void GameAddedOnServer() throws RemoteException, SQLException;
-//  void setLocalUser(User user);
+    void gameAddedOnServer(Game game) throws RemoteException, SQLException;
 
-//  Game getGameByID(int userID) throws RemoteException;
+    void gameRemovedOnServer(Game game) throws RemoteException, SQLException;
 
-    //  ArrayList<Integer> getAllAvailableGames() throws RemoteException;
-    //  ArrayList<Integer> getAllPendingGames() throws RemoteException;
+    void profileUpdate(User user)  throws RemoteException, SQLException;
 
-    //  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
-    //  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
-    //  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;
-    //  ArrayList<Integer> getAllUserIncomingGames() throws RemoteException;
-
-    //  void requestGame(int userID, int gameID) throws RemoteException;
-    //  String getUsername(int userID) throws RemoteException;
-    //  String getBio(int userID) throws RemoteException;
-
-    //  void removeGame(int userID, int gameID) throws RemoteException;
-    //  void setBio(int userID, String bio) throws RemoteException;
-    //  public int getLocalUserId();
-    //  void acceptIncomingGame(int userID, int gameID) throws RemoteException;
-    //  void declineIncomingGame(int userID, int gameID) throws RemoteException;
-
-    //  void addGame(Game game) throws RemoteException;
-
-//  User getOtherUserByID(int userID) throws RemoteException;
-//  ArrayList<Integer> getOtherAllUserOwnedGames(int userID)
-//      throws RemoteException;
-//  ArrayList<Integer> getOtherAllUserPendingGames(int userID)
-//      throws RemoteException;
+    public void gameAvailabilityUpdate(Game game) throws RemoteException, SQLException;
 
 
 }

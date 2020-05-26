@@ -2,109 +2,110 @@ package mediator;
 
 import model.*;
 import utility.observer.event.ObserverEvent;
-import utility.observer.listener.GeneralListener;
 import utility.observer.listener.RemoteListener;
 
 import java.rmi.Naming;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
-public class GameListClient implements GameListClientClient, Remote, RemoteListener<Game, User>
-{
+public class GameListClient implements GameListClientClient, RemoteListener<Game, User> {
 
   private int failedConnectionCount;
   private GameListServerModel server;
   private Model model;
-  public GameListClient(Model model) throws InterruptedException
-  {
+
+  public GameListClient(Model model) throws InterruptedException {
     this.failedConnectionCount = 0;
     connect();
     this.model = model;
   }
 
-  @Override public void connect() throws InterruptedException
-  {
-    try
-    {
-      //      this.serverAccess = (ServerAccess) Naming
-      //          .lookup("rmi://localhost:1099/games");
-      //      UnicastRemoteObject.exportObject(this, 0);
+  @Override
+  public void connect() throws InterruptedException {
+    try {
       this.server = (GameListServerModel) Naming
-          .lookup("rmi://localhost:1099/games");
+              .lookup("rmi://localhost:1099/games");
       UnicastRemoteObject.exportObject(this, 0);
-    }
-    catch (Exception e)
-    {
+      server.addListener(this, "gameAdded", "gameRemoved", "gameRentalUpdate", "gameAvailabilityChange");
+    } catch (Exception e) {
       failedConnectionCount++;
-      if (failedConnectionCount <= 5)
-      {
+      if (failedConnectionCount <= 5) {
         System.out.println(
-            "Client failed to connect, attempting to connect in 5 seconds.");
+                "Client failed to connect, attempting to connect in 5 seconds.");
         System.out.println(e);
         Thread.sleep(5000);
         connect();
-      }
-      else
-      {
+      } else {
         System.out.println("Connection timed out, exiting.");
         System.exit(0);
       }
     }
   }
 
-  @Override public void registerNewUser(String username, String password)
+  @Override
+  public void registerNewUser(String username, String password)
           throws RemoteException, SQLException {
     server.registerClient(username, password);
   }
 
-  @Override public User login(String username, String password)
+  @Override
+  public User login(String username, String password)
           throws RemoteException, SQLException {
     return server.getUserByCredentials(username, password);
   }
 
-  @Override public GameList getGamesFromServer() throws RemoteException, SQLException {
+  @Override
+  public GameList getGamesFromServer() throws RemoteException, SQLException {
     return server.getAllGames();
   }
 
-  @Override public RentalList clientGetRentalList() throws RemoteException, SQLException {
+  @Override
+  public RentalList clientGetRentalList() throws RemoteException, SQLException {
     return server.getRentalList();
   }
 
-  @Override public void clientRemoveGame(Game game) throws RemoteException, SQLException {
+  @Override
+  public void clientRemoveGame(Game game) throws RemoteException, SQLException {
     server.removeGame(game);
   }
 
-  @Override public void clientSetBio(User user, String bio)
+  @Override
+  public void clientSetBio(User user, String bio)
           throws RemoteException, SQLException {
     server.setBio(user, bio);
   }
 
-  @Override public void clientAddGame(Game game) throws RemoteException, SQLException {
+  @Override
+  public void clientAddGame(Game game) throws RemoteException, SQLException {
     server.addGame(game);
   }
 
-  @Override public void clientRequestGame(User requester, Game game)
+  @Override
+  public void clientRequestGame(User requester, Game game)
           throws RemoteException, SQLException {
     server.requestGame(requester, game);
   }
 
-  @Override public void clientAcceptIncomingGame(Rental rental)
+  @Override
+  public void clientAcceptIncomingGame(Rental rental)
           throws RemoteException, SQLException {
     server.acceptIncomingGame(rental);
   }
 
-  @Override public void clientDeclineIncomingGame(Rental rental)
+  @Override
+  public void clientDeclineIncomingGame(Rental rental)
           throws RemoteException, SQLException {
     server.declineIncomingGame(rental);
   }
 
-  @Override public User getUserFromServer(Game game) throws RemoteException, SQLException {
+  @Override
+  public User getUserFromServer(Game game) throws RemoteException, SQLException {
     return server.getUserByGame(game);
   }
 
-  @Override public void setGameAvailableTrue(Game game) throws RemoteException, SQLException {
+  @Override
+  public void setGameAvailableTrue(Game game) throws RemoteException, SQLException {
     server.setGameAvailableTrue(game);
   }
 
@@ -115,24 +116,41 @@ public class GameListClient implements GameListClientClient, Remote, RemoteListe
 
   @Override
   public void propertyChange(ObserverEvent<Game, User> event) throws RemoteException {
-switch(event.getPropertyName()){
-  case "gameAdded":
-    try {
-      model.GameAddedOnServer();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    break;
-}
-  }
 
-  //  @Override
-  //  public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-  //    return false;
-  //  }
-  //
-  //  @Override
-  //  public boolean removeListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-  //    return false;
-  //  }
+    switch (event.getPropertyName()) {
+      case "gameAdded":
+        try {
+          model.gameAddedOnServer(event.getValue1());
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+        break;
+      case "gameRemoved":
+        try {
+          model.gameRemovedOnServer(event.getValue1());
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      case "gameRentalUpdate":
+        try {
+          if (event.getValue2().getUserID() == model.login(model.getUsername(), model.getPassword()).getUserID()) {
+            try {
+              model.profileUpdate(event.getValue2());
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+          }
+
+        } catch (Exception e) {
+
+        }
+        break;
+      case "gameAvailabilityChange":
+        try {
+          model.gameAvailabilityUpdate(event.getValue1());
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+    }
+  }
 }

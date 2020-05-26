@@ -1,17 +1,20 @@
 package viewModel;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-public class MyProfileViewModel
+public class MyProfileViewModel implements PropertyChangeListener
 {
   private MyProfileModel model;
   private ObservableList<Game> ownedGames;
@@ -32,6 +35,7 @@ public class MyProfileViewModel
     this.pendingRentals = FXCollections.observableArrayList();
     this.bio = new SimpleStringProperty();
     this.username = new SimpleStringProperty();
+    model.addListener(this);
   }
 
   public ObservableList<Game> getOwnedGames()
@@ -134,5 +138,26 @@ public class MyProfileViewModel
   public void setGameAvailable(Game game) throws RemoteException, SQLException
   {
     model.setGameAvailabilityTrue(game);
+  }
+  public void reload() throws RemoteException, SQLException{
+    getRentals();
+    getPendingRentals();
+    getRentedGames();
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    Platform.runLater(() -> {
+      if(evt.getPropertyName().equals("gameRentalUpdate")){
+        System.out.println("Attempt was made");
+      try {
+        reload();
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    });
   }
 }
