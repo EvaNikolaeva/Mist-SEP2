@@ -44,7 +44,8 @@ public class User implements Serializable
 
   public void setBio(String bio)
   {
-    this.bio = bio;
+    if(bio != null)
+      this.bio = bio;
   }
   public GameList getRentedGameList(){
     return rentedList;

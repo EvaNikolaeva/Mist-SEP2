@@ -21,9 +21,10 @@ class GameTest
   @Test void Game()
   {
     assertNotNull(game);
+    assertTrue(available);
   }
 
-  @Test void reRollID()
+  @Test void reRollID()  //this was used in previous tests before DBS and is still used for testing purposes
   {
     int value = game.getId();
     game.reRollID();
@@ -75,9 +76,27 @@ class GameTest
         game.toString());
   }
 
-  @Test void testAvailable()
+  @Test void testGetAvailable()
   {
     assertTrue(available);
+  }
+
+  @Test void testSetAvailable()
+  {
+    game.setAvailable(false);
+    assertFalse(game.getAvailable());
+  }
+
+  @Test void testEquals()
+  {
+    int value = game.getId();
+    assertEquals("Doom", game.getTitle());
+    assertEquals("PC", game.getType());
+    assertEquals(value, game.getId());
+    assertEquals(2016, game.getReleaseYear());
+    assertFalse(game.deposit());
+    assertEquals(10, game.getAvailabilityPeriod());
+
   }
 
 }

@@ -42,18 +42,18 @@ public class GameListViewModel implements PropertyChangeListener {
     }
     @Override public void propertyChange(PropertyChangeEvent evt)
     {
-   switch (evt.getPropertyName()){
-       case "gameAdded":
-           try {
-               getAvailableGames();
-               System.out.println("welp I Tried");
-           } catch (RemoteException e) {
-               e.printStackTrace();
-           } catch (SQLException e) {
-               e.printStackTrace();
-           }
-           break;
-    }
+        if ("gameAdded".equals(evt.getPropertyName()))
+        {
+            try
+            {
+                model.GameAddedOnServer((Game) evt.getNewValue());
+                System.out.println("welp I Tried");
+            }
+            catch (RemoteException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

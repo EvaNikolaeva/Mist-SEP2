@@ -25,13 +25,16 @@ class ModelManagerTest
   private GameList gameList1;
   private GameList gameList2;
 
-  private ModelManager modelManager;
+  //Not everything can be tested because of networking. And most of the methods are call outs to the other classes.
 
   @BeforeEach void setUp()
-      throws RemoteException, MalformedURLException, InterruptedException,
-      NotBoundException
   {
-    //  model = new ModelManager();  //this is liskov, but breaks because networking
+    username1 = "abc";
+    username2 = "xyz";
+
+    password1 = "123";
+    password2 = "987";
+
     user1 = new User("bob", "1234", 1234);
     user2 = new User("Joe", "9876", 9876);
 
@@ -45,6 +48,10 @@ class ModelManagerTest
 
   @Test void ModelManager()
   {
+    assertNotNull(username1);
+    assertNotNull(username2);
+    assertNotNull(password1);
+    assertNotNull(password2);
     assertNotNull(user1);
     assertNotNull(user2);
     assertNotNull(game1);
@@ -168,6 +175,4 @@ class ModelManagerTest
     assertTrue(game1.getReleaseYear() > 0);
     assertTrue(game1.getAvailabilityPeriod() > 1);
   }
-
-
 }

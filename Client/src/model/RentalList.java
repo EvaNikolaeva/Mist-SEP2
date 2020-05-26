@@ -19,6 +19,7 @@ public class RentalList implements Serializable
 
   public void addRental(Rental rental)
   {
+    if(rental != null)
     rentals.add(rental);
   }
 
