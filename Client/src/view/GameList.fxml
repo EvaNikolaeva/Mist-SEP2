@@ -40,12 +40,12 @@
             </ImageView>
             <HBox prefHeight="60.0" prefWidth="410.0">
                <children>
-                  <TextField onAction="#searchText">
+                  <TextField fx:id="search">
                      <HBox.margin>
                         <Insets top="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#search" style="-fx-background-color: #75B5C6;" text="Search">
+                  <Button mnemonicParsing="false" onAction="#onSearch" style="-fx-background-color: #75B5C6;" text="Search">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
