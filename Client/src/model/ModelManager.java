@@ -189,8 +189,8 @@ public class ModelManager implements Model
   }
 
   @Override
-  public GameList getAllRentedGames() throws RemoteException, SQLException {
-    return gameListClientModel.getRentedGames();
+  public GameList getAllRentedGames(User user) throws RemoteException, SQLException {
+    return gameListClientModel.getRentedGames(user);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

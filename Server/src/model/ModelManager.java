@@ -111,9 +111,9 @@ gameList.addGame(game.getTitle(), game.getType(), game.getReleaseYear(), game.de
   @Override public void setGameAvailableTrue(Game game) throws SQLException {
 gameList.setAvailable(game);
   }
-  @Override public GameList getRentedGames() throws SQLException{
+  @Override public GameList getRentedGames(User user) throws SQLException{
       GameList rentedGamesObj = new GameList();
-      ArrayList<Game> rentedArray = rentedList.getRentedGames();
+      ArrayList<Game> rentedArray = rentedList.getRentedGames(user);
       for(int i = 0; i < rentedArray.size(); i++){
           rentedGamesObj.addGame(rentedArray.get(i));
       }

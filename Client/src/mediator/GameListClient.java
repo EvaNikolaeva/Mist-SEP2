@@ -107,8 +107,8 @@ public class GameListClient implements GameListClientClient, Remote
   }
 
   @Override
-  public GameList getRentedGames() throws RemoteException, SQLException {
-    return server.getRentedGames();
+  public GameList getRentedGames(User user) throws RemoteException, SQLException {
+    return server.getRentedGames(user);
   }
 
   //  @Override

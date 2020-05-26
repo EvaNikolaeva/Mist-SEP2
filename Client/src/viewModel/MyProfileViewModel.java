@@ -54,14 +54,12 @@ public class MyProfileViewModel
       throws RemoteException, SQLException
   {
     User userBuffer = model.login(model.getUsername(), model.getPassword());
-    GameList rentedGamesList = model.getAllRentedGames();
+    GameList rentedGamesList = model.getAllRentedGames(model.login(model.getUsername(), model.getPassword()));
     rentedGames.clear();
     for (int i = 0; i < rentedGamesList.size(); i++)
     {
       if(!(rentedGamesList.getGame(i).getId() == -1)){
-        if(rentedGamesList.getGame(i).getUserId() == userBuffer.getUserID()){
           rentedGames.add(rentedGamesList.getGame(i));
-        }
       }
     }
     return rentedGames;

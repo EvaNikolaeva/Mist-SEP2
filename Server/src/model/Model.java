@@ -15,7 +15,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   void acceptGame(Rental rental) throws RemoteException, SQLException;
   void declineGame(Rental rental) throws RemoteException, SQLException;
   GameList getFullListOfGames() throws RemoteException, SQLException;
-  GameList getRentedGames() throws SQLException;
+  GameList getRentedGames(User user) throws SQLException;
   void addGame(Game game) throws RemoteException, SQLException;
   void removeGame(Game game) throws RemoteException, SQLException;
   Game getGameByIndex(int index);

@@ -15,7 +15,7 @@ public interface MyProfileModel
   RentalList getRentalList() throws RemoteException, SQLException;
   void setGameAvailabilityTrue(Game game) throws RemoteException, SQLException;
   GameList getAllGamesFromServer() throws RemoteException, SQLException;
-  GameList getAllRentedGames() throws RemoteException, SQLException;
+  GameList getAllRentedGames(User user) throws RemoteException, SQLException;
 //  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
 //  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;

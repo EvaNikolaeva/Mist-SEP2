@@ -186,8 +186,8 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public GameList getRentedGames() throws RemoteException, SQLException {
-        return model.getRentedGames();
+    public GameList getRentedGames(User user) throws RemoteException, SQLException {
+        return model.getRentedGames(user);
     }
 
     @Override

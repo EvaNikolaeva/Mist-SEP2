@@ -1,6 +1,7 @@
 package DBSConnection;
 
 import model.Game;
+import model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,9 +32,10 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
     return instance;
   }
 
-  @Override public ArrayList<Game> getRentedGames() throws SQLException
+  @Override public ArrayList<Game> getRentedGames(User user) throws SQLException
   {
     ArrayList<Game> rentedGames = new ArrayList<>();
+    int receiverId = user.getUserID();
     try (Connection connection = getConnection())
     {
       PreparedStatement statement1 = connection.prepareStatement(
@@ -41,17 +43,19 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
       ResultSet resultSet1 = statement1.executeQuery();
       while (resultSet1.next())
       {
-        int idbuffer = resultSet1.getInt("gameid");
-        PreparedStatement statement2 = connection.prepareStatement("Select * from Game where gameid = ?");
-        statement2.setInt(1, idbuffer);
-        ResultSet resultSet2 = statement2.executeQuery();
-        while(resultSet2.next()){
-          Game game = new  Game(resultSet2.getString("title"),
-                  resultSet2.getString("type"), resultSet2.getInt("releaseyear"),
-                  resultSet2.getBoolean("needsdeposit"),
-                  resultSet2.getInt("availabilityperiod"),
-                  resultSet2.getInt("userid"), resultSet2.getInt("gameid"));
-          rentedGames.add(game);
+        if(resultSet1.getInt("userid") == receiverId){
+          int idbuffer = resultSet1.getInt("gameid");
+          PreparedStatement statement2 = connection.prepareStatement("Select * from Game where gameid = ?");
+          statement2.setInt(1, idbuffer);
+          ResultSet resultSet2 = statement2.executeQuery();
+          while(resultSet2.next()){
+            Game game = new  Game(resultSet2.getString("title"),
+                    resultSet2.getString("type"), resultSet2.getInt("releaseyear"),
+                    resultSet2.getBoolean("needsdeposit"),
+                    resultSet2.getInt("availabilityperiod"),
+                    resultSet2.getInt("userid"), resultSet2.getInt("gameid"));
+            rentedGames.add(game);
+        }
         }
       }
       if(rentedGames.size() == 0){
