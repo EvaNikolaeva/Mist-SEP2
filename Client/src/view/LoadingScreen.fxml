@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" stylesheets="@window.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginScreenController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #67666D;" BorderPane.alignment="CENTER">
          <children>
@@ -31,12 +32,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="loginUsername" maxWidth="250.0" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter Username" />
-            <TextField fx:id="loginPassword" maxWidth="250.0">
+            <TextField fx:id="loginUsername" maxWidth="250.0" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter Username">
                <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
+                  <Insets bottom="5.0" />
+               </VBox.margin></TextField>
+            <PasswordField fx:id="loginPassword" maxWidth="250.0" promptText="Enter Password" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onLogin" style="-fx-background-color: #75B5C6;" text="Log In">

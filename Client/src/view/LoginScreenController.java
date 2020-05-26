@@ -3,6 +3,7 @@ package view;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import model.User;
@@ -16,7 +17,8 @@ import java.sql.SQLException;
 public class LoginScreenController
 {
   @FXML TextField loginUsername;
-  @FXML TextField loginPassword;
+  @FXML
+  PasswordField loginPassword;
   @FXML Label errorLabel;
 
   private Region root;
