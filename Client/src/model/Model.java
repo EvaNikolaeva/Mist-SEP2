@@ -38,7 +38,7 @@ public interface Model
 
     GameList getAllRentedGames(User user) throws RemoteException, SQLException;
 
-    void GameAddedOnServer() throws RemoteException, SQLException;
+    void GameAddedOnServer(Game game) throws RemoteException;
 //  void setLocalUser(User user);
 
 //  Game getGameByID(int userID) throws RemoteException;

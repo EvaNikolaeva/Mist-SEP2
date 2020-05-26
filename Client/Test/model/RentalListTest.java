@@ -31,7 +31,7 @@ class RentalListTest
     game2 = new Game("Doom", "PC", 2016, false, 10, 123456);
 
     rental1 = new Rental(owner1, requester1, game1, 12);
-    rental2 = new Rental(owner2, requester2, game2, 12);
+    rental2 = new Rental(owner2, requester2, game2, 16);
     rentals = new ArrayList<>();
     rentalList = new RentalList();
   }
@@ -55,20 +55,55 @@ class RentalListTest
     assertEquals(rentals, rentalList.getRentals());
   }
 
-  @Test void addRental()
+  @Test void addRentalOne()
   {
     rentalList.addRental(rental1);
     assertEquals(1, rentalList.size());
   }
 
+  @Test void addRentalMany()
+  {
+    rentalList.addRental(rental1);
+    rentalList.addRental(rental2);
+    assertEquals(2, rentalList.size());
+  }
 
-  @Test void removeRental()
+  @Test void addRentalNull()
+  {
+    rentalList.addRental(null);
+    assertEquals(0, rentalList.size());
+  }
+
+
+  @Test void removeRentalOne()
   {
     rentalList.addRental(rental1);
     assertEquals(1, rentalList.size());
     rentalList.removeRental(rental1);
     assertEquals(0, rentalList.size());
   }
+
+  @Test void removeRentalMany()
+  {
+    rentalList.addRental(rental1);
+    rentalList.addRental(rental2);
+    assertEquals(2, rentalList.size());
+    rentalList.removeRental(rental1);
+    rentalList.removeRental(rental2);
+    assertEquals(0, rentalList.size());
+  }
+
+  @Test void removeRentalNull()
+  {
+    rentalList.removeRental(null);
+    assertEquals(0, rentalList.size());
+  }
+
+  //  @Test void testGetRentalByID()
+  //  {
+  //    rentalList.addRental(rental1);
+  //    assertEquals(rental1, rentalList.getRentalById(12));
+  //  }
 
   @Test void size()
   {

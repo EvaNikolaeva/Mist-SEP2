@@ -115,15 +115,17 @@ public class GameListClient implements GameListClientClient, Remote, RemoteListe
 
   @Override
   public void propertyChange(ObserverEvent<Game, User> event) throws RemoteException {
-switch(event.getPropertyName()){
-  case "gameAdded":
-    try {
-      model.GameAddedOnServer();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    break;
-}
+//    if ("gameAdded".equals(event.getPropertyName()))
+//    {
+//      try
+//      {
+//        model.GameAddedOnServer(event.getValue1());
+//      }
+//      catch (SQLException e)
+//      {
+//        e.printStackTrace();
+//      }
+//    }
   }
 
   //  @Override
