@@ -2,6 +2,8 @@ package mediator;
 
 import model.*;
 import utility.observer.listener.GeneralListener;
+import utility.observer.subject.PropertyChangeAction;
+import utility.observer.subject.PropertyChangeProxy;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -17,10 +19,10 @@ public class GameListServer implements GameListServerModel
 {
     private Model model;
 private ThreadSafeServer threadSafeServer;
-    //  private PropertyChangeAction<GameList, RentalList> property;
+    private PropertyChangeAction<Game, User> property;
     public GameListServer(Model model, ThreadSafeServer threadSafeServer) {
         this.model = model;
-//    this.property= new PropertyChangeProxy<>(this, true);
+this.property= new PropertyChangeProxy<>(this, true);
         this.threadSafeServer = threadSafeServer;
         startServer();
     }
@@ -191,13 +193,13 @@ private ThreadSafeServer threadSafeServer;
     }
 
     @Override
-    public boolean addListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-        return false;
+    public boolean addListener(GeneralListener<Game, User> listener, String... propertyNames) throws RemoteException {
+        return property.addListener(listener, propertyNames);
     }
 
     @Override
-    public boolean removeListener(GeneralListener<GameList, RentalList> listener, String... propertyNames) throws RemoteException {
-        return false;
+    public boolean removeListener(GeneralListener<Game, User> listener, String... propertyNames) throws RemoteException {
+        return property.removeListener(listener, propertyNames);
     }
 
 //    @Override

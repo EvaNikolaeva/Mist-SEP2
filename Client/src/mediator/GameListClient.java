@@ -1,6 +1,7 @@
 package mediator;
 
 import model.*;
+import utility.observer.event.ObserverEvent;
 import utility.observer.listener.GeneralListener;
 import utility.observer.listener.RemoteListener;
 
@@ -10,16 +11,17 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
-public class GameListClient implements GameListClientClient, Remote
+public class GameListClient implements GameListClientClient, Remote, RemoteListener<Game, User>
 {
 
   private int failedConnectionCount;
   private GameListServerModel server;
-
-  public GameListClient() throws InterruptedException
+  private Model model;
+  public GameListClient(Model model) throws InterruptedException
   {
     this.failedConnectionCount = 0;
     connect();
+    this.model = model;
   }
 
   @Override public void connect() throws InterruptedException
@@ -109,6 +111,19 @@ public class GameListClient implements GameListClientClient, Remote
   @Override
   public GameList getRentedGames(User user) throws RemoteException, SQLException {
     return server.getRentedGames(user);
+  }
+
+  @Override
+  public void propertyChange(ObserverEvent<Game, User> event) throws RemoteException {
+switch(event.getPropertyName()){
+  case "gameAdded":
+    try {
+      model.GameAddedOnServer();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    break;
+}
   }
 
   //  @Override

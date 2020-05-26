@@ -20,12 +20,11 @@ public class ModelManager implements Model
   private GameListClientClient gameListClientModel;
   private Game gameBuffer;
 
-  public ModelManager(GameListClient gameListClientModel)
-  {
+  public ModelManager() throws InterruptedException {
     this.property = new PropertyChangeSupport(this);
     this.username = "";
     this.password = "";
-    this.gameListClientModel = gameListClientModel;
+    this.gameListClientModel = new GameListClient(this);
   }
 
   @Override public void registerNewUser(String username, String password)
@@ -191,6 +190,11 @@ public class ModelManager implements Model
   @Override
   public GameList getAllRentedGames(User user) throws RemoteException, SQLException {
     return gameListClientModel.getRentedGames(user);
+  }
+
+  @Override
+  public void GameAddedOnServer() throws RemoteException, SQLException {
+    property.firePropertyChange("gameAdded", null, null);
   }
 
   @Override public void addListener(PropertyChangeListener listener)

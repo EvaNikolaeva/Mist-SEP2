@@ -15,8 +15,7 @@ public class MyApplication extends Application {
 //        if (System.getSecurityManager() == null) {
 //            System.setSecurityManager(new SecurityManager());
 //        }
-        GameListClient gameListClient = new GameListClient();
-        Model model = new ModelManager(gameListClient);
+        Model model = new ModelManager();
         GameMenuViewModel gameMenuViewModel = new GameMenuViewModel(model);
         GameListViewModel gameListViewModel = new GameListViewModel(model);
         LoginViewModel loginViewModel = new LoginViewModel(model);

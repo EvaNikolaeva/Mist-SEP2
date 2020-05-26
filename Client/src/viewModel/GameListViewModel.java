@@ -7,10 +7,12 @@ import model.GameList;
 import model.GameListModel;
 import model.Model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-public class GameListViewModel {
+public class GameListViewModel implements PropertyChangeListener {
     private GameListModel model;
     private ObservableList<Game> availableGames;
 
@@ -37,6 +39,21 @@ public class GameListViewModel {
 
     public void setGameBuffer(Game game) throws RemoteException {
         model.setGameBuffer(game);
+    }
+    @Override public void propertyChange(PropertyChangeEvent evt)
+    {
+   switch (evt.getPropertyName()){
+       case "gameAdded":
+           try {
+               getAvailableGames();
+               System.out.println("welp I Tried");
+           } catch (RemoteException e) {
+               e.printStackTrace();
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+           break;
+    }
     }
 
 }

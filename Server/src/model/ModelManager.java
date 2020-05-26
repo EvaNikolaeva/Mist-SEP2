@@ -70,6 +70,7 @@ return gameListObject;
 
   @Override public void addGame(Game game) throws RemoteException, SQLException {
 gameList.addGame(game.getTitle(), game.getType(), game.getReleaseYear(), game.deposit(), game.getAvailabilityPeriod(), game.getUserId());
+      propertyChangeSupport.firePropertyChange("gameAdded", null, null);
   }
 
   @Override public void removeGame(Game game) throws RemoteException, SQLException {
