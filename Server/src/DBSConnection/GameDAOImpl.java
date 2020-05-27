@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The type Game dao.
+ */
 public class GameDAOImpl extends Database implements GameDAO
 {
   private static GameDAOImpl instance;
@@ -23,6 +26,12 @@ public class GameDAOImpl extends Database implements GameDAO
     return super.getConnection();
   }
 
+  /**
+   * Gets instance.
+   *
+   * @return the instance
+   * @throws SQLException the sql exception
+   */
   public static GameDAOImpl getInstance() throws SQLException
   {
     if (instance == null)

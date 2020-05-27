@@ -9,12 +9,21 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
+/**
+ * The type Game list client.
+ */
 public class GameListClient implements GameListClientClient, RemoteListener<Game, User> {
 
   private int failedConnectionCount;
   private GameListServerModel server;
   private Model model;
 
+  /**
+   * Instantiates a new Game list client.
+   *
+   * @param model the model
+   * @throws InterruptedException the interrupted exception
+   */
   public GameListClient(Model model) throws InterruptedException {
     this.failedConnectionCount = 0;
     connect();

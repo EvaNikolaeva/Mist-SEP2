@@ -14,12 +14,20 @@ import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+/**
+ * The type Game list view model.
+ */
 public class GameListViewModel implements PropertyChangeListener
 {
   private GameListModel model;
   private ObservableList<Game> availableGames;
   private StringProperty search;
 
+  /**
+   * Instantiates a new Game list view model.
+   *
+   * @param model the model
+   */
   public GameListViewModel(GameListModel model)
   {
     this.model = model;
@@ -28,11 +36,24 @@ public class GameListViewModel implements PropertyChangeListener
     model.addListener(this);
   }
 
+  /**
+   * Gets search.
+   *
+   * @return the search
+   */
   public StringProperty getSearch()
   {
     return search;
   }
-    public ObservableList<Game> getAvailableGames() throws RemoteException, SQLException {
+
+  /**
+   * Gets available games.
+   *
+   * @return the available games
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
+  public ObservableList<Game> getAvailableGames() throws RemoteException, SQLException {
         GameList gameList = model.getAllGamesFromServer();
         availableGames.clear();
         for (int i = 0; i < gameList.size(); i++) {
@@ -42,17 +63,36 @@ public class GameListViewModel implements PropertyChangeListener
         }
         return availableGames;
     }
+
+  /**
+   * Request trade.
+   *
+   * @param game the game
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void requestTrade(Game game) throws RemoteException, SQLException
   {
     model.clientRequestGame(
         model.login(model.getUsername(), model.getPassword()), game);
   }
 
+  /**
+   * Sets game buffer.
+   *
+   * @param game the game
+   * @throws RemoteException the remote exception
+   */
   public void setGameBuffer(Game game) throws RemoteException
   {
     model.setGameBuffer(game);
   }
 
+  /**
+   * Update game availability.
+   *
+   * @param game the game
+   */
   public void updateGameAvailability(Game game)
   {
     for (int i = 0; i < availableGames.size(); i++)
@@ -65,6 +105,13 @@ public class GameListViewModel implements PropertyChangeListener
     }
   }
 
+  /**
+   * Gets specific games.
+   *
+   * @return the specific games
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public ObservableList<Game> getSpecificGames()
       throws RemoteException, SQLException
   {
@@ -87,6 +134,13 @@ public class GameListViewModel implements PropertyChangeListener
     return availableGames;
   }
 
+  /**
+   * Gets sorted games.
+   *
+   * @return the sorted games
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public ObservableList<Game> getSortedGames()
       throws RemoteException, SQLException
   {
@@ -101,6 +155,14 @@ public class GameListViewModel implements PropertyChangeListener
     }
     return availableGames.sorted();
   }
+
+  /**
+   * Add game to game list.
+   *
+   * @param game the game
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void addGameToGameList(Game game) throws RemoteException, SQLException
   {
     boolean hasCopy = false;
@@ -114,6 +176,13 @@ public class GameListViewModel implements PropertyChangeListener
     }
   }
 
+  /**
+   * Remove game from game list.
+   *
+   * @param game the game
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void removeGameFromGameList(Game game)
           throws RemoteException, SQLException
   {

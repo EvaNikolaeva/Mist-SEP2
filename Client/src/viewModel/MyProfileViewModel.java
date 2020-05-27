@@ -14,6 +14,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+/**
+ * The type My profile view model.
+ */
 public class MyProfileViewModel implements PropertyChangeListener
 {
   private MyProfileModel model;
@@ -24,6 +27,15 @@ public class MyProfileViewModel implements PropertyChangeListener
   private StringProperty bio;
   private StringProperty username;
 
+  /**
+   * Instantiates a new My profile view model.
+   *
+   * @param model the model
+   * @throws RemoteException       the remote exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws MalformedURLException the malformed url exception
+   */
   public MyProfileViewModel(MyProfileModel model)
       throws RemoteException, InterruptedException, NotBoundException,
       MalformedURLException
@@ -38,6 +50,13 @@ public class MyProfileViewModel implements PropertyChangeListener
     model.addListener(this);
   }
 
+  /**
+   * Gets owned games.
+   *
+   * @return the owned games
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public ObservableList<Game> getOwnedGames()
       throws RemoteException, SQLException
   {
@@ -54,11 +73,25 @@ public class MyProfileViewModel implements PropertyChangeListener
     return ownedGames;
   }
 
+  /**
+   * Gets user.
+   *
+   * @return the user
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public User getUser() throws RemoteException, SQLException
   {
    return model.getUser();
   }
 
+  /**
+   * Gets rented games.
+   *
+   * @return the rented games
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public ObservableList<Game> getRentedGames()
       throws RemoteException, SQLException
   {
@@ -73,6 +106,13 @@ public class MyProfileViewModel implements PropertyChangeListener
     return rentedGames;
   }
 
+  /**
+   * Gets rentals.
+   *
+   * @return the rentals
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public ObservableList<Rental> getRentals()
       throws RemoteException, SQLException
   {
@@ -92,6 +132,13 @@ public class MyProfileViewModel implements PropertyChangeListener
 
   }
 
+  /**
+   * Gets pending rentals.
+   *
+   * @return the pending rentals
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public ObservableList<Rental> getPendingRentals()
       throws RemoteException, SQLException
   {
@@ -110,6 +157,13 @@ public class MyProfileViewModel implements PropertyChangeListener
     return pendingRentals;
   }
 
+  /**
+   * Gets bio.
+   *
+   * @return the bio
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public StringProperty getBio() throws RemoteException, SQLException
   {
     bio.setValue(
@@ -118,37 +172,83 @@ public class MyProfileViewModel implements PropertyChangeListener
     return bio;
   }
 
+  /**
+   * Gets username.
+   *
+   * @return the username
+   */
   public StringProperty getUsername()
   {
     username.setValue(model.getUsername());
     return username;
   }
 
+  /**
+   * Remove user.
+   *
+   * @param user the user
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void removeUser(User user) throws RemoteException, SQLException
   {
     model.clientRemoveUser(user);
   }
 
+  /**
+   * Remove game.
+   *
+   * @param game the game
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void removeGame(Game game) throws RemoteException, SQLException
   {
     model.clientRemoveGame(game);
   }
 
+  /**
+   * Accept game.
+   *
+   * @param rental the rental
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void acceptGame(Rental rental) throws RemoteException, SQLException
   {
     model.clientAcceptIncomingGame(rental);
   }
 
+  /**
+   * Decline game.
+   *
+   * @param rental the rental
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void declineGame(Rental rental) throws RemoteException, SQLException
   {
     model.clientDeclineIncomingGame(rental);
   }
 
+  /**
+   * Sets game available.
+   *
+   * @param game the game
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void setGameAvailable(Game game) throws RemoteException, SQLException
   {
     model.setGameAvailabilityTrue(game);
   }
 
+  /**
+   * Reload.
+   *
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void reload() throws RemoteException, SQLException{
     getRentals();
     getPendingRentals();

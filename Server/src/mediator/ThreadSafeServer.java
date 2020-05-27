@@ -2,12 +2,18 @@ package mediator;
 
 import mediator.ServerAccess;
 
+/**
+ * The type Thread safe server.
+ */
 public class ThreadSafeServer implements ServerAccess
 {
   private int writers;
   private int readers;
   private int waitingWriters;
 
+  /**
+   * Instantiates a new Thread safe server.
+   */
   public ThreadSafeServer()
   {
     this.waitingWriters = 0;

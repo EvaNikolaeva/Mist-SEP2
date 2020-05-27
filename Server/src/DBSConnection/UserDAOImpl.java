@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type User dao.
+ */
 public class UserDAOImpl extends Database implements UserDAO
 {
   private static UserDAOImpl instance;
@@ -21,6 +24,12 @@ public class UserDAOImpl extends Database implements UserDAO
     return super.getConnection();
   }
 
+  /**
+   * Gets instance.
+   *
+   * @return the instance
+   * @throws SQLException the sql exception
+   */
   public static synchronized UserDAOImpl getInstance() throws SQLException
   {
     if (instance == null)

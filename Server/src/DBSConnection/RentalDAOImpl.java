@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The type Rental dao.
+ */
 public class RentalDAOImpl extends Database implements RentalDAO
 {
   private static RentalDAOImpl instance;
@@ -24,6 +27,12 @@ public class RentalDAOImpl extends Database implements RentalDAO
     return super.getConnection();
   }
 
+  /**
+   * Gets instance.
+   *
+   * @return the instance
+   * @throws SQLException the sql exception
+   */
   public static synchronized RentalDAOImpl getInstance() throws SQLException
   {
     if (instance == null)

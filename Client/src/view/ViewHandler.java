@@ -12,6 +12,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+/**
+ * The type View handler.
+ */
 public class ViewHandler
 {
   private Stage primaryStage;
@@ -25,11 +28,26 @@ public class ViewHandler
   private LoginScreenController loginScreenController;
   private OtherProfileController otherProfileController;
 
+  /**
+   * Instantiates a new View handler.
+   *
+   * @param viewModelFactory the view model factory
+   */
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
   }
 
+  /**
+   * Start.
+   *
+   * @param primaryStage the primary stage
+   * @throws RemoteException       the remote exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws MalformedURLException the malformed url exception
+   * @throws SQLException          the sql exception
+   */
   public void start(Stage primaryStage)
           throws RemoteException, InterruptedException, NotBoundException,
           MalformedURLException, SQLException {
@@ -38,6 +56,16 @@ public class ViewHandler
     openView("loading");
   }
 
+  /**
+   * Open view.
+   *
+   * @param id the id
+   * @throws RemoteException       the remote exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws MalformedURLException the malformed url exception
+   * @throws SQLException          the sql exception
+   */
   public void openView(String id)
           throws RemoteException, InterruptedException, NotBoundException,
           MalformedURLException, SQLException {

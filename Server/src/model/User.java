@@ -20,9 +20,9 @@ public class User implements Serializable
   /**
    * Three argument constructor initialising the variables.
    *
-   * @param username The username of the user,
+   * @param username The username of the user.
    * @param password The password for the profile.
-   * @param userID   The ID of the user to be indentyfied by.
+   * @param userID   The ID of the user to be identified by.
    */
   public User(String username, String password, int userID)
   {

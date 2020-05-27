@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 
+/**
+ * The type Game menu view model.
+ */
 public class GameMenuViewModel implements PropertyChangeListener
 {
   private StringProperty title;
@@ -23,6 +26,11 @@ public class GameMenuViewModel implements PropertyChangeListener
 
   private AddGameModel model;
 
+  /**
+   * Instantiates a new Game menu view model.
+   *
+   * @param model the model
+   */
   public GameMenuViewModel(AddGameModel model)
   {
     this.model = model;
@@ -35,52 +43,101 @@ public class GameMenuViewModel implements PropertyChangeListener
     model.addListener(this);
   }
 
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
   public StringProperty getName()
   {
     return title;
   }
 
+  /**
+   * Gets type.
+   *
+   * @return the type
+   */
   public StringProperty getType()
   {
     return type;
   }
 
+  /**
+   * Gets release year.
+   *
+   * @return the release year
+   */
   public StringProperty getReleaseYear()
   {
     return releaseYear;
   }
 
+  /**
+   * Gets from date.
+   *
+   * @return the from date
+   */
   public ObjectProperty<LocalDate> getFromDate()
   {
     return rentalFrom;
   }
 
+  /**
+   * Gets to date.
+   *
+   * @return the to date
+   */
   public ObjectProperty<LocalDate> getToDate()
   {
     return rentalTo;
   }
 
+  /**
+   * Gets availability period.
+   *
+   * @return the availability period
+   */
   public StringProperty getAvailabilityPeriod()
   {
     return availabilityPeriod;
   }
 
+  /**
+   * Gets check box.
+   *
+   * @return the check box
+   */
   public BooleanProperty getCheckBox()
   {
     return checkBox;
   }
 
+  /**
+   * Gets response message.
+   *
+   * @return the response message
+   */
   public StringProperty getResponseMessage()
   {
     return responseMessage;
   }
 
+  /**
+   * Add current game.
+   *
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void addCurrentGame() throws RemoteException, SQLException {
     model
         .validateGame(title.getValue(), type.getValue(), releaseYear.getValue(),
             availabilityPeriod.getValue(), checkBox.getValue());
   }
 
+  /**
+   * Reset.
+   */
   public void reset()
   {
     title.setValue("");

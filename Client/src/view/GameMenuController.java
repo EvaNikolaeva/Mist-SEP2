@@ -12,12 +12,30 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+/**
+ * The type Game menu controller.
+ */
 public class GameMenuController
 {
+  /**
+   * The Availability period.
+   */
   @FXML TextField availabilityPeriod;
+  /**
+   * The Name.
+   */
   @FXML TextField name;
+  /**
+   * The Type.
+   */
   @FXML TextField type;
+  /**
+   * The Release year.
+   */
   @FXML TextField releaseYear;
+  /**
+   * The Deposit.
+   */
   @FXML CheckBox deposit;
 
   private Region root;
@@ -26,6 +44,13 @@ public class GameMenuController
   private StringProperty responseMessage;
 
 
+  /**
+   * Init.
+   *
+   * @param viewHandler       the view handler
+   * @param gameMenuViewModel the game menu view model
+   * @param root              the root
+   */
   public void init(ViewHandler viewHandler, GameMenuViewModel gameMenuViewModel,
       Region root)
   {
@@ -43,11 +68,19 @@ public class GameMenuController
     this.responseMessage = gameMenuViewModel.getResponseMessage();
   }
 
+  /**
+   * Gets root.
+   *
+   * @return the root
+   */
   public Region getRoot()
   {
     return root;
   }
 
+  /**
+   * Reset.
+   */
   public void reset()
   {
     name.clear();
@@ -57,11 +90,20 @@ public class GameMenuController
     availabilityPeriod.clear();
   }
 
+  /**
+   * On reset.
+   */
   @FXML public void onReset()
   {
     reset();
   }
 
+  /**
+   * On submit.
+   *
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   @FXML public void onSubmit() throws RemoteException, SQLException {
     gameMenuViewModel.addCurrentGame();
     Platform.runLater(() -> {
@@ -77,6 +119,15 @@ public class GameMenuController
 
   }
 
+  /**
+   * Check game.
+   *
+   * @throws RemoteException       the remote exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws MalformedURLException the malformed url exception
+   * @throws SQLException          the sql exception
+   */
   public void checkGame()
           throws RemoteException, InterruptedException, NotBoundException,
           MalformedURLException, SQLException {
@@ -94,6 +145,15 @@ public class GameMenuController
     }
   }
 
+  /**
+   * On back.
+   *
+   * @throws RemoteException       the remote exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws MalformedURLException the malformed url exception
+   * @throws SQLException          the sql exception
+   */
   @FXML public void onBack()
           throws RemoteException, InterruptedException, NotBoundException,
           MalformedURLException, SQLException {

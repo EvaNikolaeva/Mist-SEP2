@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * The interface Model.
+ */
 public interface Model
         extends UnnamedPropertyChangeSubject, OtherProfileModel, MyProfileModel,
         LoginModel, GameListModel, EditProfileModel, AddGameModel{
@@ -40,12 +43,40 @@ public interface Model
 
     public void gameAddedOnServer(Game game) throws RemoteException, SQLException;
 
+    /**
+     * Game removed on server.
+     *
+     * @param game the game
+     * @throws RemoteException the remote exception
+     * @throws SQLException    the sql exception
+     */
     void gameRemovedOnServer(Game game) throws RemoteException, SQLException;
 
+    /**
+     * Profile update.
+     *
+     * @param user the user
+     * @throws RemoteException the remote exception
+     * @throws SQLException    the sql exception
+     */
     void profileUpdate(User user)  throws RemoteException, SQLException;
 
+    /**
+     * Game availability update.
+     *
+     * @param game the game
+     * @throws RemoteException the remote exception
+     * @throws SQLException    the sql exception
+     */
     public void gameAvailabilityUpdate(Game game) throws RemoteException, SQLException;
 
+    /**
+     * User removed on server.
+     *
+     * @param user the user
+     * @throws RemoteException the remote exception
+     * @throws SQLException    the sql exception
+     */
     void userRemovedOnServer(User user) throws RemoteException, SQLException;
 
     User getUserByUserId(int userId) throws RemoteException, SQLException;

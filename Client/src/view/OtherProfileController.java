@@ -14,16 +14,40 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+/**
+ * The type Other profile controller.
+ */
 public class OtherProfileController
 {
+  /**
+   * The Owned games.
+   */
   @FXML ListView<Game> ownedGames;
+  /**
+   * The Pending games.
+   */
   @FXML ListView<Game> pendingGames;
+  /**
+   * The Bio.
+   */
   @FXML Label bio;
+  /**
+   * The Username.
+   */
   @FXML Label username;
   private OtherProfileViewModel otherProfileViewModel;
   private Region root;
   private ViewHandler viewHandler;
 
+  /**
+   * Init.
+   *
+   * @param viewHandler           the view handler
+   * @param otherProfileViewModel the other profile view model
+   * @param root                  the root
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void init(ViewHandler viewHandler,
       OtherProfileViewModel otherProfileViewModel, Region root)
           throws RemoteException, SQLException {
@@ -36,33 +60,74 @@ public class OtherProfileController
         .getAllOtherUserOwnedGames());
   }
 
+  /**
+   * Gets root.
+   *
+   * @return the root
+   */
   public Region getRoot()
   {
     return root;
   }
 
+  /**
+   * Reset.
+   *
+   * @throws RemoteException the remote exception
+   * @throws SQLException    the sql exception
+   */
   public void reset() throws RemoteException, SQLException {
     this.ownedGames.setItems(otherProfileViewModel
             .getAllOtherUserOwnedGames());
   }
 
+  /**
+   * On chat.
+   */
   @FXML public void onChat()
   {
     //add Chat Window to ViewHandler and connect
   }
 
+  /**
+   * On browse games.
+   *
+   * @throws RemoteException       the remote exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws MalformedURLException the malformed url exception
+   * @throws SQLException          the sql exception
+   */
   @FXML public void onBrowseGames()
           throws RemoteException, InterruptedException, NotBoundException,
           MalformedURLException, SQLException {
     viewHandler.openView("list");
   }
 
+  /**
+   * On add game.
+   *
+   * @throws RemoteException       the remote exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws MalformedURLException the malformed url exception
+   * @throws SQLException          the sql exception
+   */
   @FXML public void onAddGame()
           throws RemoteException, InterruptedException, NotBoundException,
           MalformedURLException, SQLException {
     viewHandler.openView("menu");
   }
 
+  /**
+   * On my profile.
+   *
+   * @throws RemoteException       the remote exception
+   * @throws MalformedURLException the malformed url exception
+   * @throws InterruptedException  the interrupted exception
+   * @throws NotBoundException     the not bound exception
+   * @throws SQLException          the sql exception
+   */
   @FXML public void onMyProfile()
           throws RemoteException, MalformedURLException, InterruptedException,
           NotBoundException, SQLException {

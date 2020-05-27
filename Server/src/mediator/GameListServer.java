@@ -15,11 +15,21 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
 
+/**
+ * The type Game list server.
+ */
 public class GameListServer implements GameListServerModel
 {
     private Model model;
 private ThreadSafeServer threadSafeServer;
     private PropertyChangeAction<Game, User> property;
+
+    /**
+     * Instantiates a new Game list server.
+     *
+     * @param model            the model
+     * @param threadSafeServer the thread safe server
+     */
     public GameListServer(Model model, ThreadSafeServer threadSafeServer) {
         this.model = model;
         this.threadSafeServer = threadSafeServer;
