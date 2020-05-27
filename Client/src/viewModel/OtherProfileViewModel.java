@@ -19,6 +19,7 @@ public class OtherProfileViewModel
   private StringProperty username;
   private ObservableList<Game> ownedGames;
   private OtherProfileModel model;
+  private User otherUser;
 
   /**
    * Instantiates a new Other profile view model.
@@ -33,6 +34,9 @@ public class OtherProfileViewModel
     this.username = new SimpleStringProperty();
     this.ownedGames = FXCollections.observableArrayList();
   }
+  public void setOtherUser() throws RemoteException, SQLException {
+    this.otherUser = model.getUserByUserId(model.getUserBuffer());
+  }
 
   /**
    * Gets bio.
@@ -42,7 +46,7 @@ public class OtherProfileViewModel
    * @throws SQLException    the sql exception
    */
   public StringProperty getBio() throws RemoteException, SQLException {
-    bio.setValue((model.getUserByUserId(model.getGameBuffer().getUserId())).getBio());
+    bio.setValue(otherUser.getBio());
     System.out.println(bio.getValue());
     return bio;
   }
@@ -55,7 +59,7 @@ public class OtherProfileViewModel
    * @throws SQLException    the sql exception
    */
   public StringProperty getUsername() throws RemoteException, SQLException {
-    username.setValue(model.getUser(model.getGameBuffer()).getUsername());
+    username.setValue(otherUser.getUsername());
     return username;
   }
 
@@ -68,11 +72,10 @@ public class OtherProfileViewModel
    */
   public ObservableList<Game> getAllOtherUserOwnedGames() throws RemoteException, SQLException {
     ownedGames.clear();
-    User userBuffer = model.getUser(model.getGameBuffer());
     GameList allGames = model.getAllGamesFromServer();
     ownedGames.clear();
     for(int i = 0; i < allGames.size(); i++){
-      if(allGames.getGame(i).getUserId() == userBuffer.getUserID()){
+      if(allGames.getGame(i).getUserId() == otherUser.getUserID()){
         ownedGames.add(allGames.getGame(i));
       }
     }

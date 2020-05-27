@@ -77,15 +77,9 @@ public class GameListViewModel implements PropertyChangeListener
         model.login(model.getUsername(), model.getPassword()), game);
   }
 
-  /**
-   * Sets game buffer.
-   *
-   * @param game the game
-   * @throws RemoteException the remote exception
-   */
-  public void setGameBuffer(Game game) throws RemoteException
+  public void setUserBuffer(Game game) throws RemoteException
   {
-    model.setGameBuffer(game);
+    model.setUserBuffer(game.getUserId());
   }
 
   /**

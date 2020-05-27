@@ -29,25 +29,8 @@ public interface GameListModel extends UnnamedPropertyChangeSubject{
      */
     void clientRequestGame(User requester, Game game) throws RemoteException, SQLException;
 
-    /**
-     * Sets game buffer.
-     *
-     * @param game the game
-     */
-    void setGameBuffer(Game game);
+    public void setUserBuffer(int userId);
 
-    /**
-     * Gets game buffer.
-     *
-     * @return the game buffer
-     */
-    Game getGameBuffer();
-
-    /**
-     * Gets username.
-     *
-     * @return the username
-     */
     String getUsername();
 
     /**

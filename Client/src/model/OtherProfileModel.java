@@ -18,21 +18,7 @@ public interface OtherProfileModel
    * @throws SQLException    the sql exception
    */
   User getUser(Game game) throws RemoteException, SQLException;
-
-  /**
-   * Gets game buffer.
-   *
-   * @return the game buffer
-   */
-  Game getGameBuffer();
-
-  /**
-   * Gets all games from server.
-   *
-   * @return the all games from server
-   * @throws RemoteException the remote exception
-   * @throws SQLException    the sql exception
-   */
+  public int getUserBuffer();
   GameList getAllGamesFromServer() throws RemoteException, SQLException;
 
   /**

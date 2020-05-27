@@ -63,6 +63,8 @@ public interface MyProfileModel extends UnnamedPropertyChangeSubject
    */
   String getPassword();
 
+  public void setUserBuffer(int userId);
+
   /**
    * Gets rental list.
    *

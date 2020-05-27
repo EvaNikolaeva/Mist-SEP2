@@ -105,6 +105,9 @@ public class MyProfileViewModel implements PropertyChangeListener
     }
     return rentedGames;
   }
+  public void setUserBuffer(Rental rental){
+    model.setUserBuffer(rental.getRequester().getUserID());
+  }
 
   /**
    * Gets rentals.

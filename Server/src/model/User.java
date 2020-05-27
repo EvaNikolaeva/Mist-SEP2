@@ -14,8 +14,8 @@ public class User implements Serializable
   private String password;
   private int userID;
   private String bio;
-  private GameList gameList;
-  private GameList rentedList;
+  private GameList gameList; //useless
+  private GameList rentedList; //useless
 
   /**
    * Three argument constructor initialising the variables.
@@ -93,7 +93,7 @@ public class User implements Serializable
   public GameList getRentedGameList()
   {
     return rentedList;
-  }
+  } //useless
 
   /**
    * Adding to the list of the Games the User has rented.
@@ -103,7 +103,7 @@ public class User implements Serializable
   public void addToRented(Game game)
   {
     rentedList.addGame(game);
-  }
+  } //useless
 
   /**
    * Adding a Game to the list of games the User owns.
@@ -113,7 +113,7 @@ public class User implements Serializable
   public void addGame(Game game)
   {
     gameList.addGame(game);
-  }
+  } //useless
 
   /**
    * Removing a Game from the owned games.
@@ -123,7 +123,7 @@ public class User implements Serializable
   public void removeGame(Game game)
   {
     gameList.removeGame(game);
-  }
+  } //useless
 
   /**
    * Returning the Games the User owns.
@@ -133,7 +133,7 @@ public class User implements Serializable
   public GameList getGameList()
   {
     return gameList;
-  }
+  } //useless
 
   /**
    * Returning whether the User has the given Game.

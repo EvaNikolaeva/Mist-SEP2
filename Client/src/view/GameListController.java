@@ -127,7 +127,7 @@ public class GameListController
     else
     {
       gameListViewModel
-          .setGameBuffer(availableGames.getSelectionModel().getSelectedItem());
+          .setUserBuffer(availableGames.getSelectionModel().getSelectedItem());
       gameListViewModel
           .requestTrade(availableGames.getSelectionModel().getSelectedItem());
       reset();
@@ -157,7 +157,7 @@ public class GameListController
     else
     {
       gameListViewModel
-          .setGameBuffer(availableGames.getSelectionModel().getSelectedItem());
+          .setUserBuffer(availableGames.getSelectionModel().getSelectedItem());
       viewHandler.openView("other");
     }
   }

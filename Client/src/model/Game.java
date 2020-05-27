@@ -149,24 +149,32 @@ public class Game implements Serializable
    */
   public String toString()
   {
-    if(deposit()){
-      if(available){
-        return  title + ", " + type
-                + ", " + releaseYear + ", Deposit required" + ", Game Available for " + availabilityPeriod + " days, Available";
+    if (deposit())
+    {
+      if (available)
+      {
+        return title + ", " + type + ", " + releaseYear + ", Deposit required"
+                + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
       }
-      else {
-        return  title + ", " + type
-                + ", " + releaseYear + ", Deposit required" + ", Game Available for " + availabilityPeriod + " days, Unavailable";
+      else
+      {
+        return title + ", " + type + ", " + releaseYear + ", Deposit required"
+                + ", Game Available for " + availabilityPeriod
+                + " days, Unavailable, " + "Owner Id: " + userId;
       }
     }
-    else{
-      if(available){
-        return  title + ", " + type
-                + ", " + releaseYear + ", Game Available for " + availabilityPeriod + " days, Available";
+    else
+    {
+      if (available)
+      {
+        return title + ", " + type + ", " + releaseYear
+                + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
       }
-      else{
-        return  title + ", " + type
-                + ", " + releaseYear + ", Game Available for " + availabilityPeriod + " days, Unavailable";
+      else
+      {
+        return title + ", " + type + ", " + releaseYear
+                + ", Game Available for " + availabilityPeriod
+                + " days, Unavailable, " + "Owner Id: " + userId;
       }
     }
 

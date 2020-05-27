@@ -51,11 +51,13 @@ public class OtherProfileController
   public void init(ViewHandler viewHandler,
       OtherProfileViewModel otherProfileViewModel, Region root)
           throws RemoteException, SQLException {
+    this.otherProfileViewModel = otherProfileViewModel;
+    otherProfileViewModel.setOtherUser();
     this.viewHandler = viewHandler;
     this.root = root;
     this.username.textProperty().bind(otherProfileViewModel.getUsername());
     this.bio.textProperty().bind(otherProfileViewModel.getBio());
-    this.otherProfileViewModel = otherProfileViewModel;
+    this.bio.setWrapText(true);
     this.ownedGames.setItems(otherProfileViewModel
         .getAllOtherUserOwnedGames());
   }
@@ -77,6 +79,9 @@ public class OtherProfileController
    * @throws SQLException    the sql exception
    */
   public void reset() throws RemoteException, SQLException {
+    otherProfileViewModel.setOtherUser();
+    this.username.textProperty().bind(otherProfileViewModel.getUsername());
+    this.bio.textProperty().bind(otherProfileViewModel.getBio());
     this.ownedGames.setItems(otherProfileViewModel
             .getAllOtherUserOwnedGames());
   }

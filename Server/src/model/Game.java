@@ -145,13 +145,13 @@ public class Game implements Serializable
       if (available)
       {
         return title + ", " + type + ", " + releaseYear + ", Deposit required"
-            + ", Game Available for " + availabilityPeriod + " days, Available";
+            + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
       }
       else
       {
         return title + ", " + type + ", " + releaseYear + ", Deposit required"
             + ", Game Available for " + availabilityPeriod
-            + " days, Unavailable";
+            + " days, Unavailable, " + "Owner Id: " + userId;
       }
     }
     else
@@ -159,13 +159,13 @@ public class Game implements Serializable
       if (available)
       {
         return title + ", " + type + ", " + releaseYear
-            + ", Game Available for " + availabilityPeriod + " days, Available";
+            + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
       }
       else
       {
         return title + ", " + type + ", " + releaseYear
             + ", Game Available for " + availabilityPeriod
-            + " days, Unavailable";
+            + " days, Unavailable, " + "Owner Id: " + userId;
       }
     }
 

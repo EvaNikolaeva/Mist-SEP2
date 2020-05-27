@@ -22,9 +22,9 @@ public interface Model
 
     User getUser(Game game) throws RemoteException, SQLException;
 
-    void setGameBuffer(Game game);
-
-    Game getGameBuffer();
+//    void setGameBuffer(Game game);
+//
+//    Game getGameBuffer();
 
     String getUsername();
 
@@ -80,6 +80,10 @@ public interface Model
     void userRemovedOnServer(User user) throws RemoteException, SQLException;
 
     User getUserByUserId(int userId) throws RemoteException, SQLException;
+
+    public void setUserBuffer(int userId);
+
+    public int getUserBuffer();
 
 
 }

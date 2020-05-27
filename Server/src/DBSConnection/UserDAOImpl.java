@@ -51,7 +51,9 @@ public class UserDAOImpl extends Database implements UserDAO
       {
         String username = resultSet.getString("username");
         String password = resultSet.getString("password");
-        return new User(username, password, id);
+        User user = new User(username, password, id);
+        user.setBio(resultSet.getString("bio"));
+        return user;
       }
       else
       {

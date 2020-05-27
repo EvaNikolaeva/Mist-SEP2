@@ -75,47 +75,13 @@ public class MyProfileController {
             MalformedURLException, SQLException {
         this.viewHandler = viewHandler;
         this.root = root;
-
         this.myProfileViewModel = myProfileViewModel;
-
-        Platform.runLater(() -> {
-            this.username.textProperty().bind(myProfileViewModel.getUsername());
-          try {
-            this.rentedGames.setItems(myProfileViewModel.getRentedGames());
-          } catch (RemoteException e) {
-            e.printStackTrace();
-          } catch (SQLException e) {
-            e.printStackTrace();
-          }
-          try {
-            this.pendingRentals.setItems(myProfileViewModel.getPendingRentals());
-          } catch (RemoteException e) {
-            e.printStackTrace();
-          } catch (SQLException e) {
-            e.printStackTrace();
-          }
-          try {
-            this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
-          } catch (RemoteException e) {
-            e.printStackTrace();
-          } catch (SQLException e) {
-            e.printStackTrace();
-          }
-          try {
-            this.rentals.setItems(myProfileViewModel.getRentals());
-          } catch (RemoteException e) {
-            e.printStackTrace();
-          } catch (SQLException e) {
-            e.printStackTrace();
-          }
-          try {
-            this.bio.textProperty().bind(myProfileViewModel.getBio());
-          } catch (RemoteException e) {
-            e.printStackTrace();
-          } catch (SQLException e) {
-            e.printStackTrace();
-          }
-        });
+        this.username.textProperty().bind(myProfileViewModel.getUsername());
+        this.rentedGames.setItems(myProfileViewModel.getRentedGames());
+        this.pendingRentals.setItems(myProfileViewModel.getPendingRentals());
+        this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
+        this.rentals.setItems(myProfileViewModel.getRentals());
+        this.bio.textProperty().bind(myProfileViewModel.getBio());
     }
 
     /**
@@ -143,6 +109,7 @@ public class MyProfileController {
         this.rentals.setItems(myProfileViewModel.getRentals());
         this.rentedGames.setItems(myProfileViewModel.getRentedGames());
         this.bio.textProperty().bind(myProfileViewModel.getBio());
+        this.bio.setWrapText(true);
         this.pendingRentals.setItems(myProfileViewModel.getPendingRentals());
     }
 
@@ -197,7 +164,7 @@ public class MyProfileController {
             int index = ownedGames.getSelectionModel().getSelectedIndex();
             if (ownedGames.getSelectionModel().getSelectedItem() == null) {
                 this.myProfileViewModel.getOwnedGames()
-                        .remove(index); //ok java you kinky
+                        .remove(index);
             }
             this.myProfileViewModel.getOwnedGames().clear();
             this.ownedGames.setItems(myProfileViewModel.getOwnedGames());
@@ -217,16 +184,6 @@ public class MyProfileController {
     public void onAccept()
             throws RemoteException, InterruptedException, NotBoundException,
             MalformedURLException, SQLException {
-//        Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
-//        myProfileViewModel.acceptGame(selectedRental);
-//        Platform.runLater(() -> {
-//            try {
-//                reset();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//        });
         if (rentals.getSelectionModel().getSelectedIndex() < 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR,
                     "You have to select a incoming trade.", ButtonType.OK);
@@ -257,7 +214,6 @@ public class MyProfileController {
             alert.showAndWait();
             alert.close();
         } else {
-            //CATA: i think this needs to happen in two sides
             Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
             int index = rentals.getSelectionModel().getSelectedIndex();
             if (index == 0) {
@@ -327,11 +283,23 @@ public class MyProfileController {
                 "Are you sure you want to proceed?", ButtonType.YES);
         alert.showAndWait();
         alert.close();
-        if (alert.getResult() == ButtonType.YES)
-        {
-        User selectedUser = myProfileViewModel.getUser();
-        myProfileViewModel.removeUser(selectedUser);
-        viewHandler.openView("loading");
+        if (alert.getResult() == ButtonType.YES) {
+            User selectedUser = myProfileViewModel.getUser();
+            myProfileViewModel.removeUser(selectedUser);
+            viewHandler.openView("loading");
+        }
+    }
+
+    public void onViewOtherProfile() throws RemoteException, MalformedURLException, SQLException, InterruptedException, NotBoundException {
+        if (rentals.getSelectionModel().getSelectedIndex() < 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "You have to select an incoming trade from the incoming trades list.", ButtonType.OK);
+            alert.showAndWait();
+            alert.close();
+        } else {
+            Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
+            myProfileViewModel.setUserBuffer(rentals.getSelectionModel().getSelectedItem());
+            viewHandler.openView("other");
         }
     }
 }

@@ -34,9 +34,4 @@ public interface AddGameModel extends UnnamedPropertyChangeSubject {
    */
   void validateGame(String name, String type, String releaseYear,
       String availablePeriod, boolean needsDeposit) throws RemoteException, SQLException;
-
-//  void addGame(Game game) throws RemoteException;
-//  void validateGame(String name, String type, String releaseYear,
-//      LocalDate rentalFrom, LocalDate rentalTo, String availablePeriod,
-//      boolean needsDeposit) throws RemoteException;
 }

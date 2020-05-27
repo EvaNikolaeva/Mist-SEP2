@@ -11,18 +11,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Class representing all the necessary methods the views will use.
- * @author Group 1
- */
-public class ModelManager implements Model
-{
-  private User user;
-  private String username;
-  private String password;
-  private PropertyChangeSupport property;
-  private GameListClientClient gameListClientModel;
-  private Game gameBuffer;
+public class ModelManager implements Model {
+    private User user;
+    private String username;
+    private String password;
+    private PropertyChangeSupport property;
+    private GameListClientClient gameListClientModel;
+//    private Game gameBuffer;
+    private int userIdBuffer;
 
   /**
    * Initialising the instance variables.
@@ -117,6 +113,10 @@ public class ModelManager implements Model
   @Override public GameList getAllGamesFromServer() throws RemoteException, SQLException {
     return gameListClientModel.getGamesFromServer();
   }
+    @Override
+    public void setUserBuffer(int userId) {
+      userIdBuffer = userId;
+    }
 
   /**
    * Requesting a game.
@@ -131,6 +131,10 @@ public class ModelManager implements Model
           throws RemoteException, SQLException {
     gameListClientModel.clientRequestGame(requester, game);
   }
+    @Override
+    public int getUserBuffer() {
+        return userIdBuffer;
+    }
 
   /**
    * Getting a User by a game he owns.
@@ -145,27 +149,6 @@ public class ModelManager implements Model
   @Override public User getUser(Game game) throws RemoteException, SQLException {
     return gameListClientModel.getUserFromServer(game);
   }
-
-  /**
-   * It saves in a variable a selected game.
-   *
-   *@param game The game wanted.
-   */
-  @Override public void setGameBuffer(Game game)
-  {
-    gameBuffer = game;
-  }
-
-  /**
-   * Returning the variable in which is stored a specific game.
-   *
-   *@return The selected game.
-   */
-  @Override public Game getGameBuffer()
-  {
-    return gameBuffer;
-  }
-
   /**
    * Returning the username of the user.
    *
@@ -198,15 +181,6 @@ public class ModelManager implements Model
   @Override public void setBio(User user, String bioText) throws RemoteException, SQLException {
     gameListClientModel.clientSetBio(user, bioText);
   }
-
-  //validate game is used to validate each field inserted in the view.
-  //It checks that everything is not null and each field has content
-  // and the logic of the dates makes sense in the real world
-  //after all checks, a result is sent to through the view model to the view to continue the process
-  //If the result is "Success" the game is added. Anything else will result in a pop up error
-  //If the result is "Success" the game is added. Anything else will result in a pop up error
-  //Also, the order each check is made makes sense programming wise.
-
   /**
    * Adding a game.
    *
@@ -231,80 +205,64 @@ public class ModelManager implements Model
    * @throws RemoteException
    * @throws SQLException
    */
-  @Override public void validateGame(String name, String type,
-      String releaseYear, String availablePeriod, boolean needsDeposit)
-          throws RemoteException, SQLException {
+    @Override
+    public void validateGame(String name, String type,
+                             String releaseYear, String availablePeriod, boolean needsDeposit)
+            throws RemoteException, SQLException {
 
-    //this is the check for everything not null. If the if is valid, which is not good,
-    //the error message is sent
+        //this is the check for everything not null. If the if is valid, which is not good,
+        //the error message is sent
 
-    String result = "";
-    if (name == null || type == null || releaseYear == null
-        || availablePeriod == null)
-    {
-      result += "All fields ought to be filled out!" + "\n";
-      property.firePropertyChange("validateGame", null, result);
+        String result = "";
+        if (name == null || type == null || releaseYear == null
+                || availablePeriod == null) {
+            result += "All fields ought to be filled out!" + "\n";
+            property.firePropertyChange("validateGame", null, result);
+        }
+
+        //In this else, the system checks for the empty fields and logic of the dates
+        //If something fails, the error message is sent, if not, "success" is sent and the game is valid
+
+        else {
+            int releaseYearInt = 0;
+            try {
+                releaseYearInt = Integer.parseInt(releaseYear);
+            } catch (Exception e) {
+                result += "Release year has to a number" + "\n";
+                property.firePropertyChange("validateGame", null, result);
+            }
+            int availablePeriodInt = 0;
+            try {
+                availablePeriodInt = Integer.parseInt(availablePeriod);
+            } catch (Exception e) {
+                result += "Availability period has to be a number" + "\n";
+                property.firePropertyChange("validateGame", null, result);
+            }
+
+            //here, we created specific date object to help with the check and to also look good in the list
+
+            Game game = new Game(name, type, releaseYearInt, needsDeposit,
+                    availablePeriodInt, user.getUserID());
+            if (game.getTitle().equals("")) {
+                result += "Title can't be empty." + "\n";
+                property.firePropertyChange("validateGame", null, result);
+            } else if (game.getType().equals("")) {
+                result += "Type can't be empty." + "\n";
+                property.firePropertyChange("validateGame", null, result);
+            } else if (!(game.getReleaseYear() > 0) || !(game.getReleaseYear() < 3000)) {
+                result += "Release year has to be between 0 - 3000" + "\n";
+                property.firePropertyChange("validateGame", null, result);
+            } else if (!(game.getAvailabilityPeriod() > 0) || !(game.getAvailabilityPeriod() < 3652)) {
+                result +=
+                        "Availability period must be larger than a single day and less than 10 years." + "\n";
+                property.firePropertyChange("validateGame", null, result);
+            } else {
+                result = "Success";
+                clientAddGame(game);
+                property.firePropertyChange("validateGame", null, result);
+            }
+        }
     }
-
-    //In this else, the system checks for the empty fields and logic of the dates
-    //If something fails, the error message is sent, if not, "success" is sent and the game is valid
-
-    else
-    {
-      int releaseYearInt = 0;
-      try
-      {
-        releaseYearInt = Integer.parseInt(releaseYear);
-      }
-      catch (Exception e)
-      {
-        result += "Release year has to a number" + "\n";
-        property.firePropertyChange("validateGame", null, result);
-      }
-      int availablePeriodInt = 0;
-      try
-      {
-        availablePeriodInt = Integer.parseInt(availablePeriod);
-      }
-      catch (Exception e)
-      {
-        result += "Availability period has to be a number" + "\n";
-        property.firePropertyChange("validateGame", null, result);
-      }
-
-      //here, we created specific date object to help with the check and to also look good in the list
-
-      Game game = new Game(name, type, releaseYearInt, needsDeposit,
-          availablePeriodInt, user.getUserID());
-      if (game.getTitle().equals(""))
-      {
-        result += "Title can't be empty." + "\n";
-        property.firePropertyChange("validateGame", null, result);
-      }
-      else if (game.getType().equals(""))
-      {
-        result += "Type can't be empty." + "\n";
-        property.firePropertyChange("validateGame", null, result);
-      }
-      else if (!(game.getReleaseYear() > 0) || !(game.getReleaseYear() < 3000))
-      {
-        result += "Release year has to be between 0 - 3000" + "\n";
-        property.firePropertyChange("validateGame", null, result);
-      }
-      else if (!(game.getAvailabilityPeriod() > 0) || !(game.getAvailabilityPeriod() < 3652))
-      {
-        result +=
-            "Availability period must be larger than a single day and less than 10 years." + "\n";
-        property.firePropertyChange("validateGame", null, result);
-      }
-      else
-      {
-        result = "Success";
-        clientAddGame(game);
-        property.firePropertyChange("validateGame", null, result);
-      }
-    }
-  }
 
   /**
    * Returning the list of all rentals.
