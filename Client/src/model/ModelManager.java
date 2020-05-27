@@ -159,15 +159,15 @@ public class ModelManager implements Model
         result += "Type can't be empty." + "\n";
         property.firePropertyChange("validateGame", null, result);
       }
-      else if (!(game.getReleaseYear() > 0) && game.getReleaseYear() < 3000)
+      else if (!(game.getReleaseYear() > 0) || !(game.getReleaseYear() < 3000))
       {
-        result += "Release year should be after the birth of Christ." + "\n";
+        result += "Release year has to be between 0 - 3000" + "\n";
         property.firePropertyChange("validateGame", null, result);
       }
-      else if (!(game.getAvailabilityPeriod() > 0))
+      else if (!(game.getAvailabilityPeriod() > 0) || !(game.getAvailabilityPeriod() < 3652))
       {
         result +=
-            "Availability period must be larger than a single day." + "\n";
+            "Availability period must be larger than a single day and less than 10 years." + "\n";
         property.firePropertyChange("validateGame", null, result);
       }
       else

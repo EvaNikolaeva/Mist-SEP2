@@ -103,7 +103,15 @@ public class GameListViewModel implements PropertyChangeListener
   }
   public void addGameToGameList(Game game) throws RemoteException, SQLException
   {
-    availableGames.add(game);
+    boolean hasCopy = false;
+    for(int i =0; i < availableGames.size(); i++)
+    {
+      if(availableGames.get(i).getId() == game.getId())
+      hasCopy = true;
+    }
+    if(!hasCopy){
+      availableGames.add(game);
+    }
   }
 
   public void removeGameFromGameList(Game game)

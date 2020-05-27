@@ -87,13 +87,17 @@ public class RentalDAOImpl extends Database implements RentalDAO
         Rental rental = new Rental(owner, requester, game, rentalId);
         rentals.add(rental);
           System.out.println("bruh moment");
-        return rentals;
+
       }
+      if(rentals.size() == 0){
+        ArrayList<Rental> rentalArrayDummy = new ArrayList<>();
+        Rental rentalDummy = new Rental(null, null, null, -1);
+        rentalArrayDummy.add(rentalDummy);
+        return rentalArrayDummy;
+      }
+      return rentals;
     }
-    ArrayList<Rental> rentalArrayDummy = new ArrayList<>();
-    Rental rentalDummy = new Rental(null, null, null, -1);
-    rentalArrayDummy.add(rentalDummy);
-    return rentalArrayDummy;
+
   }
 
   @Override public void addRental(User owner, User requester, Game game)

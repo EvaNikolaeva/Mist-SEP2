@@ -157,7 +157,6 @@ gameList.addGame(game.getTitle(), game.getType(), game.getReleaseYear(), game.de
       throws RemoteException, SQLException
   {
     gameList.removeGame(game);
-    //Change the viewModel on the client
   }
 
   /**
@@ -168,7 +167,6 @@ gameList.addGame(game.getTitle(), game.getType(), game.getReleaseYear(), game.de
   @Override public Game getGameByIndex(int index)
   {
     return null;
-    //missing
   }
 
   /**

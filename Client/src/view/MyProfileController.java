@@ -137,16 +137,27 @@ public class MyProfileController {
     public void onAccept()
             throws RemoteException, InterruptedException, NotBoundException,
             MalformedURLException, SQLException {
-        Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
-        myProfileViewModel.acceptGame(selectedRental);
-        Platform.runLater(() -> {
-            try {
-                reset();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        });
+//        Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
+//        myProfileViewModel.acceptGame(selectedRental);
+//        Platform.runLater(() -> {
+//            try {
+//                reset();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        });
+        if (rentals.getSelectionModel().getSelectedIndex() < 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "You have to select a incoming trade.", ButtonType.OK);
+            alert.showAndWait();
+            alert.close();
+        } else {
+            Rental selectedRental = rentals.getSelectionModel().getSelectedItem();
+            myProfileViewModel.acceptGame(selectedRental);
+            int index = rentals.getSelectionModel().getSelectedIndex();
+            rentals.setItems(myProfileViewModel.getPendingRentals());
+        }
     }
 
     @FXML

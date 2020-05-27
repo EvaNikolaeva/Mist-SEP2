@@ -35,18 +35,18 @@ public class MyProfileViewModel implements PropertyChangeListener
     this.pendingRentals = FXCollections.observableArrayList();
     this.bio = new SimpleStringProperty();
     this.username = new SimpleStringProperty();
-    //model.addListener(this);
+    model.addListener(this);
   }
 
   public ObservableList<Game> getOwnedGames()
       throws RemoteException, SQLException
   {
-    User userBuffer = model.login(model.getUsername(), model.getPassword());
+
     GameList allGames = model.getAllGamesFromServer();
     ownedGames.clear();
     for (int i = 0; i < allGames.size(); i++)
     {
-      if (allGames.getGame(i).getUserId() == userBuffer.getUserID())
+      if (allGames.getGame(i).getUserId() == model.getUser().getUserID())
       {
         ownedGames.add(allGames.getGame(i));
       }
@@ -62,8 +62,7 @@ public class MyProfileViewModel implements PropertyChangeListener
   public ObservableList<Game> getRentedGames()
       throws RemoteException, SQLException
   {
-    User userBuffer = model.login(model.getUsername(), model.getPassword());
-    GameList rentedGamesList = model.getAllRentedGames(model.login(model.getUsername(), model.getPassword()));
+    GameList rentedGamesList = model.getAllRentedGames(model.getUser());
     rentedGames.clear();
     for (int i = 0; i < rentedGamesList.size(); i++)
     {
@@ -83,8 +82,7 @@ public class MyProfileViewModel implements PropertyChangeListener
     for (int i = 0; i < rentalList.size(); i++)
     {
       if(!(rentalList.getRentals().get(i).getId() == -1)){
-        if (rentalList.getRentals().get(i).getOwner().getUserID() == model
-                .login(model.getUsername(), model.getPassword()).getUserID())
+        if (rentalList.getRentals().get(i).getOwner().getUserID() == model.getUser().getUserID())
         {
           rentals.add(rentalList.getRentals().get(i));
         }
@@ -97,14 +95,15 @@ public class MyProfileViewModel implements PropertyChangeListener
   public ObservableList<Rental> getPendingRentals()
       throws RemoteException, SQLException
   {
+    RentalList rentalList = model.getRentalList();
     pendingRentals.clear();
-    for (int i = 0; i < model.getRentalList().getRentals().size(); i++)
+    for (int i = 0; i < rentalList.getRentals().size(); i++)
     {
-      if(!(model.getRentalList().getRentals().get(i).getId() == -1)){
-        if (model.getRentalList().getRentals().get(i).getRequester().getUserID()
-                == model.login(model.getUsername(), model.getPassword()).getUserID())
+      if(!(rentalList.getRentals().get(i).getId() == -1)){
+        if (rentalList.getRentals().get(i).getRequester().getUserID()
+                == model.getUser().getUserID())
         {
-          pendingRentals.add(model.getRentalList().getRentals().get(i));
+          pendingRentals.add(rentalList.getRentals().get(i));
         }
       }
     }

@@ -241,7 +241,6 @@ private ThreadSafeServer threadSafeServer;
         try{
             threadSafeServer.acquireWrite();
             model.removeUser(user);
-            property.firePropertyChange("userRemoved", null, user);
         }
         finally {
             threadSafeServer.releaseWrite();
