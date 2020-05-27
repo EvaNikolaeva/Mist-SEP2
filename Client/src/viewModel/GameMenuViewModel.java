@@ -18,8 +18,6 @@ public class GameMenuViewModel implements PropertyChangeListener
   private StringProperty title;
   private StringProperty type;
   private StringProperty releaseYear;
-  private ObjectProperty<LocalDate> rentalFrom;
-  private ObjectProperty<LocalDate> rentalTo;
   private StringProperty availabilityPeriod;
   private BooleanProperty checkBox;
   private StringProperty responseMessage;
@@ -77,26 +75,6 @@ public class GameMenuViewModel implements PropertyChangeListener
    * Gets from date.
    *
    * @return the from date
-   */
-  public ObjectProperty<LocalDate> getFromDate()
-  {
-    return rentalFrom;
-  }
-
-  /**
-   * Gets to date.
-   *
-   * @return the to date
-   */
-  public ObjectProperty<LocalDate> getToDate()
-  {
-    return rentalTo;
-  }
-
-  /**
-   * Gets availability period.
-   *
-   * @return the availability period
    */
   public StringProperty getAvailabilityPeriod()
   {

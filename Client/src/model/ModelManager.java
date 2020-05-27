@@ -243,11 +243,11 @@ public class ModelManager implements Model {
 
             Game game = new Game(name, type, releaseYearInt, needsDeposit,
                     availablePeriodInt, user.getUserID());
-            if (game.getTitle().equals("")) {
-                result += "Title can't be empty." + "\n";
+            if (game.getTitle().equals("") || game.getTitle().length() > 150) {
+                result += "Title can't be empty or longer than 150 characters." + "\n";
                 property.firePropertyChange("validateGame", null, result);
-            } else if (game.getType().equals("")) {
-                result += "Type can't be empty." + "\n";
+            } else if (game.getType().equals("") || game.getTitle().length() > 50) {
+                result += "Type can't be empty or longer than 50 characters" + "\n";
                 property.firePropertyChange("validateGame", null, result);
             } else if (!(game.getReleaseYear() > 0) || !(game.getReleaseYear() < 3000)) {
                 result += "Release year has to be between 0 - 3000" + "\n";
