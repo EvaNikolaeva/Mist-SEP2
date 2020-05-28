@@ -2,8 +2,6 @@ package model;
 
 import DBSConnection.*;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -89,7 +87,6 @@ public class ModelManager implements Model
   {
     rentalList
         .addRental(userList.getUserByUserID(game.getUserId()), requester, game);
-    //add to rental in dbs to set the game to unavailable
   }
 
   /**

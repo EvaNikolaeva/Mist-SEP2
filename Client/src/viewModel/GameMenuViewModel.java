@@ -129,7 +129,6 @@ public class GameMenuViewModel implements PropertyChangeListener
   {
     if(evt.getPropertyName().equals("validateGame")){
       responseMessage.setValue((String) evt.getNewValue());
-      System.out.println((String) evt.getNewValue());
     }
   }
 }

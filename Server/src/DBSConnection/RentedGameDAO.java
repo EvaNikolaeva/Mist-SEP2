@@ -1,7 +1,6 @@
 package DBSConnection;
 
 import model.Game;
-import model.Rental;
 import model.User;
 
 import java.sql.SQLException;

@@ -2,7 +2,6 @@ package model;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * The interface Other profile model.
@@ -30,9 +29,4 @@ public interface OtherProfileModel
    * @throws SQLException    the sql exception
    */
   User getUserByUserId(int userId) throws RemoteException, SQLException;
-//  void requestGame(int userID, int gameID) throws RemoteException;
-//  String getUsername(int userID) throws RemoteException;
-//  String getBio(int userID) throws RemoteException;
-//  ArrayList<Integer> getOtherAllUserOwnedGames(int userID) throws RemoteException;
-//  ArrayList<Integer> getOtherAllUserPendingGames(int userID) throws RemoteException;
 }

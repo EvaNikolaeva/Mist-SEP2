@@ -61,17 +61,6 @@ public class GameDAOImpl extends Database implements GameDAO
     }
   }
 
-  @Override public void removeGame(int id) throws SQLException
-  {
-//    try (Connection connection = getConnection())
-//    {
-//      PreparedStatement statement = connection
-//          .prepareStatement("DELETE FROM GAME WHERE gameid=?");
-//      statement.setInt(1, id);
-//      statement.executeUpdate();
-//    }    Cata:this is not used anywhere
-  }
-
   @Override public void removeGame(Game game) throws SQLException
   {
     try (Connection connection = getConnection())

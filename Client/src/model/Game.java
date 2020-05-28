@@ -13,7 +13,7 @@ public class Game implements Serializable
   private String type;
   private int releaseYear;
   private boolean needsDeposit;
-  private int availabilityPeriod; //after the point of acquire
+  private int availabilityPeriod;
   private int id;
   private int userId;
   private boolean available;

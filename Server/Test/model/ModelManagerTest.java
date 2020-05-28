@@ -19,8 +19,7 @@ class ModelManagerTest
   private GameList gameList2;
   private User user1;
   private User user2;
-  private UserList userList1;
-  private UserList userList2;
+
 
   //Not everything can be tested because of networking and database
 
@@ -30,8 +29,7 @@ class ModelManagerTest
     gameList1 = new GameList();
     gameList2 = new GameList();
 
-    userList1 = new UserList();
-    userList2 = new UserList();
+
 
     user1 = new User("bob", "1234", 1234);
     user2 = new User("john", "9876", 9987);
@@ -44,9 +42,6 @@ class ModelManagerTest
   {
     assertNotNull(gameList1);
     assertNotNull(gameList2);
-
-    assertNotNull(userList1);
-    assertNotNull(userList2);
 
     assertNotNull(user1);
     assertNotNull(user2);

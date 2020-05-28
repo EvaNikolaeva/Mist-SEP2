@@ -52,7 +52,6 @@ public interface UserDAO
      * @return the
      * @throws SQLException the sql exception
      */
-// User getUserByIndex(int index) throws SQLException;
     int size() throws SQLException;
 
     /**
@@ -70,7 +69,6 @@ public interface UserDAO
      * @param user the user
      * @throws SQLException the sql exception
      */
-//    String getBio(User user) throws SQLException;
     void removeUser(User user) throws SQLException;
 
 }

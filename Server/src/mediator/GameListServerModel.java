@@ -4,14 +4,12 @@ package mediator;
 import model.*;
 import utility.observer.subject.RemoteSubject;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 /**
  * The interface Game list server model.
  */
-//RemoteSubject<GameList, RentalList>
 public interface GameListServerModel extends RemoteSubject<Game, User>{
 
     /**

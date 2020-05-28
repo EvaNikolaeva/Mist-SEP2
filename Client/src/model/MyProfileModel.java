@@ -4,7 +4,6 @@ import Utility.UnnamedPropertyChangeSubject;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * The interface My profile model.
@@ -119,17 +118,4 @@ public interface MyProfileModel extends UnnamedPropertyChangeSubject
    * @throws SQLException    the sql exception
    */
   User getUser() throws RemoteException, SQLException;
-
-//  ArrayList<Integer> getAllUserOwnedGames() throws RemoteException;
-//  ArrayList<Integer> getAllUserPendingGames() throws RemoteException;
-//  ArrayList<Integer> getAllUserRentedGames() throws RemoteException;
-//  ArrayList<Integer> getAllUserIncomingGames() throws RemoteException;
-//
-//  String getUsername(int userID) throws RemoteException;
-//  String getBio(int userID) throws RemoteException;
-//  void removeGame(int userID, int gameID) throws RemoteException;
-//  void acceptIncomingGame(int userID, int gameID) throws RemoteException;
-//  void declineIncomingGame(int userID, int gameID) throws RemoteException;
-//  User getOtherUserByID(int userID) throws RemoteException;
-//  public int getLocalUserId();
 }

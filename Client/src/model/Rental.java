@@ -13,8 +13,7 @@ public class Rental implements Serializable
   private User owner;
   private User requester;
   private Game game;
-  //  private boolean isComplete;
-  private int id; //this id will be handled by the database
+  private int id;
 
   /**
    * Four parameter constructor initialising the instance variables.
@@ -30,7 +29,6 @@ public class Rental implements Serializable
     this.requester = requester;
     this.game = game;
     this.id = Id;
-//    this.isComplete = false;
   }
 
   /**
@@ -63,16 +61,6 @@ public class Rental implements Serializable
     return game;
   }
 
-//  public boolean isComplete()
-//  {
-//    return isComplete;
-//  }
-//
-//  public void setIsComplete(boolean isComplete)
-//  {
-//    this.isComplete = isComplete;
-//  }
-
   /**
    * Returning the ID corresponding to the renting process.
    *
@@ -89,7 +77,6 @@ public class Rental implements Serializable
    * @return A String with the information of the object.
    */
   public String toString(){
-//    return game.getTitle() + " " + owner.getUsername();
     return game + " ";
   }
 }

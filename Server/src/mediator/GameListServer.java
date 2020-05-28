@@ -144,32 +144,27 @@ private ThreadSafeServer threadSafeServer;
     public void addGame(Game game) throws RemoteException, SQLException {
         try{
             threadSafeServer.acquireWrite();
-            System.out.println("got write");
             model.addGame(game);
-            System.out.println("property fired on server");
-            Thread t = new Thread() {
-                public void run() {
-                    try {
-                        GameList gameList =  model.getFullListOfGames();
-                        Game returnGame = null;
-                        for(int i = 0; i < model.getFullListOfGames().size(); i++){
-                            if(gameList.getGame(i).getTitle().equals(game.getTitle()) && gameList.getGame(i).getType().equals(game.getType()) && game.getUserId() == gameList.getGame(i).getUserId()){
-                                returnGame = gameList.getGame(i);
-                            }
+            Thread t = new Thread(() -> {
+                try {
+                    GameList gameList =  model.getFullListOfGames();
+                    Game returnGame = null;
+                    for(int i = 0; i < model.getFullListOfGames().size(); i++){
+                        if(gameList.getGame(i).getTitle().equals(game.getTitle()) && gameList.getGame(i).getType().equals(game.getType()) && game.getUserId() == gameList.getGame(i).getUserId()){
+                            returnGame = gameList.getGame(i);
                         }
-                        property.firePropertyChange("gameAdded", returnGame, null);
                     }
-          catch (Exception e){
-
-          }
+                    property.firePropertyChange("gameAdded", returnGame, null);
                 }
-            };
+      catch (Exception e){
+
+      }
+            });
             t.start();
 
         }
         finally {
             threadSafeServer.releaseWrite();
-            System.out.println("Released write");
         }
     }
 
@@ -178,7 +173,6 @@ private ThreadSafeServer threadSafeServer;
         try{
             threadSafeServer.acquireWrite();
             model.requestGame(requester, game);
-            System.out.println("game requested");
             property.firePropertyChange("gameRentalUpdate", null, model.getUserByID(game.getUserId()));
             game.setAvailable(false);
             property.firePropertyChange("gameAvailabilityChange", game, null);

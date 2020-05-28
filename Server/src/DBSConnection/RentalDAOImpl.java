@@ -95,8 +95,6 @@ public class RentalDAOImpl extends Database implements RentalDAO
         }
         Rental rental = new Rental(owner, requester, game, rentalId);
         rentals.add(rental);
-          System.out.println("bruh moment");
-
       }
       if(rentals.size() == 0){
         ArrayList<Rental> rentalArrayDummy = new ArrayList<>();
@@ -122,7 +120,6 @@ public class RentalDAOImpl extends Database implements RentalDAO
       statement.setInt(2, requester.getUserID());
       statement.setInt(3, game.getId());
       statement.executeUpdate();
-      //something not working, doesn't set to false.
       PreparedStatement statement1 = connection.prepareStatement(
           "UPDATE Game SET available = false WHERE gameid = ?");
       statement1.setInt(1, id);
@@ -132,7 +129,6 @@ public class RentalDAOImpl extends Database implements RentalDAO
 
   @Override public Rental getRentalById(int id) throws SQLException
   {
-    //The if statements don't work, the game/requester stay as null objects; not used
     Game game = null;
     User owner = null;
     User requester = null;
@@ -181,9 +177,6 @@ public class RentalDAOImpl extends Database implements RentalDAO
               resultSet.getInt("AvailabilityPeriod"),
               resultSet.getInt("UserID"));
         }
-        System.out.println("||||||||||||||" + "Owner:" +  owner.getUsername() +
-            " " + "Requester:" + requester.getUsername() + " " + "Game:" + game.getTitle()
-        + " " + rentalId);
         return new Rental(owner, requester, game,rentalId);
       }
       else
@@ -224,7 +217,6 @@ public class RentalDAOImpl extends Database implements RentalDAO
           .prepareStatement("DELETE FROM Rental WHERE rentalid = ?");
       statement.setInt(1, rental.getId());
       statement.executeUpdate();
-      System.out.println("what the fuck");
       PreparedStatement statement1 = connection.prepareStatement(
           "UPDATE Game SET available = true WHERE gameid = ?");
       statement1.setInt(1, Gameid);

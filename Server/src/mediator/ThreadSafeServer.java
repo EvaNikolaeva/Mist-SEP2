@@ -1,6 +1,5 @@
 package mediator;
 
-import mediator.ServerAccess;
 
 /**
  * The type Thread safe server.

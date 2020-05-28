@@ -27,14 +27,6 @@ public interface GameDAO
     /**
      * Remove game.
      *
-     * @param id the id
-     * @throws SQLException the sql exception
-     */
-    void removeGame(int id) throws SQLException;
-
-    /**
-     * Remove game.
-     *
      * @param game the game
      * @throws SQLException the sql exception
      */
@@ -55,7 +47,6 @@ public interface GameDAO
      * @return the
      * @throws SQLException the sql exception
      */
-//    Game getGame(int index);
    int size() throws SQLException;
 
     /**
@@ -64,7 +55,6 @@ public interface GameDAO
      * @return the available games
      * @throws SQLException the sql exception
      */
-//    boolean equals(Object obj);
     ArrayList<Game> getAvailableGames() throws SQLException;
 
     /**

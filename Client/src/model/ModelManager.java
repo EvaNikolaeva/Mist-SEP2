@@ -17,7 +17,6 @@ public class ModelManager implements Model {
     private String password;
     private PropertyChangeSupport property;
     private GameListClientClient gameListClientModel;
-//    private Game gameBuffer;
     private int userIdBuffer;
 
   /**

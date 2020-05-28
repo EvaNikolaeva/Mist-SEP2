@@ -1,6 +1,5 @@
 package mediator;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**

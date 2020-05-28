@@ -28,9 +28,4 @@ public interface LoginModel
    * @throws SQLException    the sql exception
    */
   User login(String username, String password) throws RemoteException, SQLException;
-
-
-//  void registerNewUser(String username, String password) throws RemoteException;
-//  User login(String username, String password) throws RemoteException;
-//  void setLocalUserID(int userID);
 }

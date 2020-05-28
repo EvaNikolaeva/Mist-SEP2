@@ -73,19 +73,19 @@ public class ViewHandler
     switch (id)
     {
       case "list":
-        root = loadGameListView("GameList.fxml"); //"view" should be replaced "controller"
+        root = loadGameListView("GameList.fxml");
         break;
       case "menu":
-        root = loadGameMenuView("GameMenu.fxml"); //"view" should be replaced "controller"
+        root = loadGameMenuView("GameMenu.fxml");
         break;
       case "profile":
-        root = loadMyProfileMenuView("MyProfile.fxml"); //"view" should be replaced "controller"
+        root = loadMyProfileMenuView("MyProfile.fxml");
         break;
       case "editBio":
         root = loadEditProfileController("EditProfile.fxml");
         break;
       case "loading":
-        root = loadLoadingController("LoadingScreen.fxml");
+        root = loadLoadingController("LoginScreen.fxml");
         break;
       case "other":
         root = loadOtherProfileController("OtherProfile.fxml");

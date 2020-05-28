@@ -33,7 +33,7 @@
             </Button>
             <ImageView fitHeight="56.0" fitWidth="200.0">
                <image>
-                  <Image url="@../../../../../titlewithicon.png" />
+                  <Image url="@titlewithicon.png" />
                </image>
                <HBox.margin>
                   <Insets left="50.0" />

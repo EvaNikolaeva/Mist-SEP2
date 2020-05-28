@@ -3,7 +3,6 @@ package viewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.EditProfileModel;
-import model.Model;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;

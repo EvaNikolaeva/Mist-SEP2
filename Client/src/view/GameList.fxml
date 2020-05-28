@@ -40,7 +40,7 @@
             </ImageView>
             <HBox prefHeight="60.0" prefWidth="410.0">
                <children>
-                  <TextField fx:id="search">
+                  <TextField fx:id="search" onAction="#onEnterSearch">
                      <HBox.margin>
                         <Insets top="20.0" />
                      </HBox.margin>

@@ -41,7 +41,4 @@ public interface EditProfileModel {
      * @throws SQLException    the sql exception
      */
     void setBio(User user, String bioText) throws RemoteException, SQLException;
-//  void setBio(int userID, String bio) throws RemoteException;
-//  String getBio(int userID) throws RemoteException;
-//  int getLocalUserId();
 }

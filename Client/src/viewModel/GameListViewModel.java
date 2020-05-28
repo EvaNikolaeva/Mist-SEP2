@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import model.Game;
 import model.GameList;
 import model.GameListModel;
-
+import model.User;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
@@ -190,6 +190,9 @@ public class GameListViewModel implements PropertyChangeListener
       }
     }
   }
+  public User getLocalUser() throws RemoteException, SQLException {
+    return model.getUser();
+  }
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     Platform.runLater(() -> {
@@ -209,7 +212,6 @@ public class GameListViewModel implements PropertyChangeListener
           try
           {
             removeGameFromGameList((Game) evt.getNewValue());
-            System.out.println("trying to remove");
           }
           catch (RemoteException | SQLException e)
           {
@@ -217,7 +219,6 @@ public class GameListViewModel implements PropertyChangeListener
           }
           break;
         case "gameAvailabilityChange":
-          System.out.println("Updating availability");
           updateGameAvailability((Game) evt.getNewValue());
       }
     });

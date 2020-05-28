@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import model.Game;
-import viewModel.MyProfileViewModel;
 import viewModel.OtherProfileViewModel;
 
 import java.net.MalformedURLException;
@@ -23,10 +22,6 @@ public class OtherProfileController
    * The Owned games.
    */
   @FXML ListView<Game> ownedGames;
-  /**
-   * The Pending games.
-   */
-  @FXML ListView<Game> pendingGames;
   /**
    * The Bio.
    */
@@ -85,15 +80,6 @@ public class OtherProfileController
     this.ownedGames.setItems(otherProfileViewModel
             .getAllOtherUserOwnedGames());
   }
-
-  /**
-   * On chat.
-   */
-  @FXML public void onChat()
-  {
-    //add Chat Window to ViewHandler and connect
-  }
-
   /**
    * On browse games.
    *

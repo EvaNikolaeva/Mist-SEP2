@@ -1,11 +1,11 @@
 package view;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import model.Game;
 import viewModel.GameListViewModel;
-
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -124,6 +124,12 @@ public class GameListController
       alert.showAndWait();
       alert.close();
     }
+    else if(availableGames.getSelectionModel().getSelectedItem().getUserId() == gameListViewModel.getLocalUser().getUserID()){
+      Alert alert = new Alert(Alert.AlertType.ERROR,
+              "You can't request your own game.", ButtonType.OK);
+      alert.showAndWait();
+      alert.close();
+    }
     else
     {
       gameListViewModel
@@ -182,5 +188,9 @@ public class GameListController
   @FXML public void onSort() throws RemoteException, SQLException
   {
     availableGames.setItems(gameListViewModel.getSortedGames());
+  }
+
+  @FXML public void onEnterSearch() throws RemoteException, SQLException {
+    onSearch();
   }
 }

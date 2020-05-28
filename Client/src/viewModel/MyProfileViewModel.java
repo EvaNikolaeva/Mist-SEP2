@@ -6,7 +6,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
@@ -60,7 +59,6 @@ public class MyProfileViewModel implements PropertyChangeListener
   public ObservableList<Game> getOwnedGames()
       throws RemoteException, SQLException
   {
-
     GameList allGames = model.getAllGamesFromServer();
     ownedGames.clear();
     for (int i = 0; i < allGames.size(); i++)
@@ -171,7 +169,6 @@ public class MyProfileViewModel implements PropertyChangeListener
   {
     bio.setValue(
         model.login(model.getUsername(), model.getPassword()).getBio());
-    System.out.println(bio.getValue() + " Users bio");
     return bio;
   }
 
@@ -262,7 +259,6 @@ public class MyProfileViewModel implements PropertyChangeListener
   public void propertyChange(PropertyChangeEvent evt) {
     Platform.runLater(() -> {
       if(evt.getPropertyName().equals("gameRentalUpdate")){
-        System.out.println("Attempt was made");
       try {
         reload();
       } catch (RemoteException e) {

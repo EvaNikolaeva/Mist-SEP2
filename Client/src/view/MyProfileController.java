@@ -1,8 +1,5 @@
 package view;
 
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -13,7 +10,6 @@ import model.Game;
 import model.Rental;
 import model.User;
 import viewModel.MyProfileViewModel;
-
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

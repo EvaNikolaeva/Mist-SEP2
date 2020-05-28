@@ -4,7 +4,6 @@ import Utility.UnnamedPropertyChangeSubject;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * The interface Game list model.
@@ -30,6 +29,8 @@ public interface GameListModel extends UnnamedPropertyChangeSubject{
     void clientRequestGame(User requester, Game game) throws RemoteException, SQLException;
 
     public void setUserBuffer(int userId);
+
+    User getUser() throws RemoteException, SQLException;
 
     String getUsername();
 
@@ -59,9 +60,4 @@ public interface GameListModel extends UnnamedPropertyChangeSubject{
      * @throws SQLException    the sql exception
      */
     void gameAddedOnServer(Game game) throws RemoteException, SQLException;
-
-//  ArrayList<Integer> getAllAvailableGames() throws RemoteException;
-//  ArrayList<Integer> getAllPendingGames() throws RemoteException;
-//  void requestGame(int userID, int gameID) throws RemoteException;
-//  User getOtherUserByID(int userID) throws RemoteException;
 }

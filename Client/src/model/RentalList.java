@@ -51,8 +51,7 @@ public class RentalList implements Serializable
   public Rental getRentalById(int id)
   {
     return rentals.get(id);
-  } //cant use
-
+  }
   /**
    * Removing an object from the list that is the same as given.
    *

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * A class representing a list containing Game objects.
+ *
  * @author Group 1
  */
 public class GameList implements Serializable
@@ -21,6 +22,7 @@ public class GameList implements Serializable
 
   /**
    * Adding a Game to the list of games.
+   *
    * @param game The game to be added.
    */
   public void addGame(Game game)
@@ -41,6 +43,7 @@ public class GameList implements Serializable
 
   /**
    * Removing a Game by its ID from the list of games.
+   *
    * @param id The ID of the Game to be removed.
    */
   public void removeGame(int id)
@@ -54,6 +57,7 @@ public class GameList implements Serializable
 
   /**
    * Removing a Game from the list of games.
+   *
    * @param game The game to be removed.
    */
   public void removeGame(Game game)
@@ -63,7 +67,9 @@ public class GameList implements Serializable
 
   /**
    * Getting a Game object by its ID.
+   *
    * @param id The ID of a Game.
+   *
    * @return A Game object that has the corresponding ID.
    */
   public Game getGameById(int id)
@@ -73,7 +79,9 @@ public class GameList implements Serializable
 
   /**
    * Returning a Game object that has a specific index in the ArrayList.
+   *
    * @param index The index of an object in the list.
+   *
    * @return A Game with the index in the list.
    */
   public Game getGame(int index)
@@ -85,6 +93,7 @@ public class GameList implements Serializable
 
   /**
    * Returning the size of the ArrayList.
+   *
    * @return An integer representing the amount of objects present in the ArrayList.
    */
   public int size()
@@ -94,7 +103,9 @@ public class GameList implements Serializable
 
   /**
    * Returning whether a GameList object is the same as the obj.
+   *
    * @param obj An object to compare a GameLis object to.
+   *
    * @return A boolean of whether the two objects are the same.
    */
   public boolean equals(Object obj)
@@ -107,6 +118,7 @@ public class GameList implements Serializable
 
   /**
    * Returning the games that are available for renting. In other words available equals true.
+   *
    * @return An ArrayList with the Games that are available for renting.
    */
   public ArrayList<Game> getAvailableGames()
@@ -119,8 +131,10 @@ public class GameList implements Serializable
     }
     return dummy;
   }
+
   /**
    * Returning the games that are not available for renting. In other words available equals false.
+   *
    * @return An ArrayList with the Games that are not available for renting.
    */
   public ArrayList<Game> getUnavailableGames()

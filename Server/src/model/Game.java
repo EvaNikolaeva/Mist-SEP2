@@ -13,7 +13,7 @@ public class Game implements Serializable
   private String type;
   private int releaseYear;
   private boolean needsDeposit;
-  private int availabilityPeriod; //after the point of acquire
+  private int availabilityPeriod;
   private int id;
   private int userId;
   private boolean available;
@@ -29,7 +29,7 @@ public class Game implements Serializable
    * @param userId             The user who owns the Game.
    */
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-      int availabilityPeriod, int userId)
+              int availabilityPeriod, int userId)
   {
     this.title = title;
     this.type = type;
@@ -40,6 +40,7 @@ public class Game implements Serializable
     this.userId = userId;
     this.available = true;
   }
+
   /**
    * Seven argument constructor. The instance variables are initialised.
    *
@@ -49,10 +50,10 @@ public class Game implements Serializable
    * @param needsDeposit       Whether the Game needs deposit.
    * @param availabilityPeriod For how long the Game can be rented.
    * @param userId             The user who owns the Game.
-   * @param gameID              The ID of the Game.
+   * @param gameID             The ID of the Game.
    */
   public Game(String title, String type, int releaseYear, boolean needsDeposit,
-      int availabilityPeriod, int userId, int gameID)
+              int availabilityPeriod, int userId, int gameID)
   {
     this.title = title;
     this.type = type;
@@ -74,6 +75,7 @@ public class Game implements Serializable
 
   /**
    * Returning the ID of the Game.
+   *
    * @return The ID of the Game as an Integer.
    */
   public int getId()
@@ -83,6 +85,7 @@ public class Game implements Serializable
 
   /**
    * Returning the owner of the Game.
+   *
    * @return The ID of the user who owns the game as an Integer.
    */
   public int getUserId()
@@ -92,6 +95,7 @@ public class Game implements Serializable
 
   /**
    * Returning the title of the Game.
+   *
    * @return The title of the Game as a String.
    */
   public String getTitle()
@@ -101,6 +105,7 @@ public class Game implements Serializable
 
   /**
    *Returning the type of the Game.
+   *
    * @return The type of the Game as a String.
    */
   public String getType()
@@ -110,6 +115,7 @@ public class Game implements Serializable
 
   /**
    * Returning the year the Game was released.
+   *
    * @return The year the Game was released as an Integer.
    */
   public int getReleaseYear()
@@ -119,6 +125,7 @@ public class Game implements Serializable
 
   /**
    * Returning whether the renting of the Game requires a deposit.
+   *
    * @return A Boolean, if the game requires a deposit.
    */
   public boolean deposit()
@@ -128,6 +135,7 @@ public class Game implements Serializable
 
   /**
    * Returning how long the Game can be rented for.
+   *
    * @return The length of rentability as an Integer.
    */
   public int getAvailabilityPeriod()
@@ -136,6 +144,7 @@ public class Game implements Serializable
   }
 
   /**Returning all the information about the Game.
+   *
    * @return The information about the Game as a String.
    */
   public String toString()
@@ -145,13 +154,13 @@ public class Game implements Serializable
       if (available)
       {
         return title + ", " + type + ", " + releaseYear + ", Deposit required"
-            + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
+                + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
       }
       else
       {
         return title + ", " + type + ", " + releaseYear + ", Deposit required"
-            + ", Game Available for " + availabilityPeriod
-            + " days, Unavailable, " + "Owner Id: " + userId;
+                + ", Game Available for " + availabilityPeriod
+                + " days, Unavailable, " + "Owner Id: " + userId;
       }
     }
     else
@@ -159,13 +168,13 @@ public class Game implements Serializable
       if (available)
       {
         return title + ", " + type + ", " + releaseYear
-            + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
+                + ", Game Available for " + availabilityPeriod + " days, Available, " + "Owner Id: " + userId;
       }
       else
       {
         return title + ", " + type + ", " + releaseYear
-            + ", Game Available for " + availabilityPeriod
-            + " days, Unavailable, " + "Owner Id: " + userId;
+                + ", Game Available for " + availabilityPeriod
+                + " days, Unavailable, " + "Owner Id: " + userId;
       }
     }
 
@@ -173,7 +182,9 @@ public class Game implements Serializable
 
   /**
    * Returning whether the Game object is the same as the one compared to.
+   *
    * @param obj A Game object that should be compared to.
+   *
    * @return A boolean, whether the Game is the same as the one compared to.
    */
   public boolean equals(Object obj)
@@ -182,13 +193,14 @@ public class Game implements Serializable
       return false;
     Game other = (Game) obj;
     return title.equals(other.title) && type.equals(other.type)
-        && id == other.id && releaseYear == other.releaseYear
-        && needsDeposit == other.needsDeposit
-        && availabilityPeriod == other.availabilityPeriod;
+            && id == other.id && releaseYear == other.releaseYear
+            && needsDeposit == other.needsDeposit
+            && availabilityPeriod == other.availabilityPeriod;
   }
 
   /**
    * Setting the Game's status.
+   *
    * @param available A boolean representing the status we want the Game to set.
    */
   public void setAvailable(boolean available)
@@ -198,6 +210,7 @@ public class Game implements Serializable
 
   /**
    * Returning whether the Game is available.
+   *
    * @return A boolean whether the Game is available.
    */
   public boolean getAvailable()

@@ -120,11 +120,4 @@ class UserTest
     gameList.removeGame(null);
     assertEquals(0, gameList.size());
   }
-
-  @Test void testOwns()
-  {
-    Game game = new Game("Doom", "PC", 2016, false, 10, 123456);
-    user.addGame(game);
-    assertTrue(user.ownsGame(game));
-  }
 }

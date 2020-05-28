@@ -1,12 +1,9 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import viewModel.EditProfileViewModel;
-import viewModel.GameListViewModel;
-
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

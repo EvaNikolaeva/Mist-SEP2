@@ -174,22 +174,4 @@ public class UserDAOImpl extends Database implements UserDAO
       statement.executeUpdate();
     }
   }
-
-  //    @Override public String getBio(User user) throws SQLException
-  //    {
-  //        try(Connection connection = getConnection())
-  //        {
-  //            PreparedStatement statement = connection.prepareStatement("Select bio FROM User_dbms WHERE userid = ?");
-  //            statement.setInt(1, user.getUserID());
-  //            ResultSet resultSet = statement.executeQuery();
-  //            if (resultSet.next())
-  //            {
-  //                return resultSet.getString("bio");
-  //            }
-  //            else
-  //            {
-  //                return null;
-  //            }
-  //        }
-
 }

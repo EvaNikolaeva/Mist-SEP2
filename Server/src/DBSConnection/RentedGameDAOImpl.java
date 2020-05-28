@@ -91,10 +91,10 @@ public class RentedGameDAOImpl extends Database implements RentedGameDAO
       if (resultSet.next())
       {
         return new Game(resultSet.getString("title"),
-            resultSet.getString("type"), resultSet.getInt("release_year"),
-            resultSet.getBoolean("needs_deposit"),
-            resultSet.getInt("availability_period"),
-            resultSet.getInt("user_id"));
+            resultSet.getString("type"), resultSet.getInt("releaseyear"),
+            resultSet.getBoolean("needsdeposit"),
+            resultSet.getInt("availabilityperiod"),
+            resultSet.getInt("userod"));
       }
       else
       {

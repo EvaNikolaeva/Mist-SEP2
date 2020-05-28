@@ -22,9 +22,7 @@ public interface Model
 
     User getUser(Game game) throws RemoteException, SQLException;
 
-//    void setGameBuffer(Game game);
-//
-//    Game getGameBuffer();
+    User getUser() throws RemoteException, SQLException;
 
     String getUsername();
 
