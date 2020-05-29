@@ -99,12 +99,6 @@ class RentalListTest
     assertEquals(0, rentalList.size());
   }
 
-  //  @Test void testGetRentalByID()
-  //  {
-  //    rentalList.addRental(rental1);
-  //    assertEquals(rental1, rentalList.getRentalById(12));
-  //  }
-
   @Test void size()
   {
     assertEquals(0, rentalList.size());

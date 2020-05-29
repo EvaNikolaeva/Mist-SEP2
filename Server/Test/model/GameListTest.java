@@ -208,4 +208,5 @@ class GameListTest
     games.addGame(game3);
     assertEquals(0, games.getUnavailableGames().size());
   }
+
 }

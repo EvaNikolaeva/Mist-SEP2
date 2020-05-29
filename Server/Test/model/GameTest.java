@@ -98,4 +98,5 @@ class GameTest
     assertEquals(10, game.getAvailabilityPeriod());
 
   }
+
 }
